@@ -43,7 +43,7 @@
     "@thi.ng/transducers-hdom": "^2.0.34"
   },
   "dependencies": {
-    "@-0/dom": "0.2.53",
+    "@-0/dom": "^0.2.55",
     "@-0/keys": "0.2.56",
     "@-0/spool": "^0.2.55",
     "@-0/utils": "0.2.57"
@@ -57,8 +57,8 @@
     "@thi.ng/transducers": "latest",
     "@thi.ng/rstream": "^3.0.2",
     "@thi.ng/transducers-hdom": "^2.0.34",
-    "@typescript-eslint/eslint-plugin": "^2.19.0",
-    "@typescript-eslint/parser": "^2.19.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
     "better-docs": "^1.4.7",
     "cross-env": "^7.0.0",
     "eslint": "^6.8.0",

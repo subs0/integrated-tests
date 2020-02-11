@@ -328,7 +328,7 @@ const w_config = {
   // theme: THEME
 }
 
-// boot(w_config)
+boot(w_config)
 
 console.log("registered Commands:", registerCMD.all.entries())
 
