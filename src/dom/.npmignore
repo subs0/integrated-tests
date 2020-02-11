@@ -1,8 +1,6 @@
 node_modules/
-spule/
+@-0/
 jsdoc/
-guides/
-examples/
 src/
 dist/
 tests/
