@@ -10,7 +10,7 @@
     "excludePattern": "(node_modules/|spule/)"
   },
   "templates": {
-    "referenceTitle": "`-0/dom` docs",
+    "referenceTitle": "`@-0/dom` docs",
     "disableSort": true,
     "collapse": false,
     "resources": {
