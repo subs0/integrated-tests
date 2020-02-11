@@ -8,7 +8,7 @@ import { isFunction } from "@thi.ng/checks"
 
 import { CMD_SUB$, CMD_ARGS, CMD_RESO, CMD_ERRO, CMD_SRC$, CMD_WORK } from "@-0/keys"
 
-import { command$, out$ } from "../core/stream$"
+import { command$, out$ } from "@-0/spool"
 
 import { xKeyError, stringify_w_functions, diff_keys } from "@-0/utils"
 
