@@ -11,7 +11,7 @@ import {
   // msTaskPromiseDelay,
 } from "../commands"
 
-import { createSetStateCMD, $store$ } from "@-0/spool"
+import { createSetStateCMD, $store$, SET_STATE } from "@-0/spool"
 import {
   $$_VIEW,
   $$_LOAD,
@@ -34,8 +34,6 @@ import {
 } from "@-0/keys"
 
 import { parse } from "@-0/utils"
-
-const SET_STATE = createSetStateCMD($store$)
 
 /**
  *
