@@ -2,7 +2,7 @@
   "name": "@-0/spool",
   "author": "Logan Powell",
   "license": "MIT",
-  "version": "0.2.54",
+  "version": "0.2.55",
   "description": "SPA framework built on top of http://thi.ng/umbrella ecosystem",
   "main": "./lib/index.js",
   "type": "module",
@@ -19,8 +19,7 @@
     "patch": "npm version patch && npm run docs && npm run pages && npm publish",
     "tests": "npm run types && npm run madge && jest",
     "postgit": "git push origin master && npm run patch",
-    "git": "git add . && git commit -m",
-    "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch"
+    "git": "git add . && git commit -m"
   },
   "keywords": [
     "thi.ng",
