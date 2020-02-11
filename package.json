@@ -35,6 +35,7 @@
     "@thi.ng/transducers-hdom": "latest",
     "@thi.ng/checks": "latest",
     "@thi.ng/paths": "latest",
+    "@thi.ng/atom": "latest",
     "@thi.ng/rstream": "latest"
   },
   "dependencies": {
@@ -48,6 +49,7 @@
     "@thi.ng/transducers-hdom": "latest",
     "@thi.ng/checks": "latest",
     "@thi.ng/paths": "latest",
+    "@thi.ng/atom": "latest",
     "@thi.ng/rstream": "latest",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
