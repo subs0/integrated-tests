@@ -19,7 +19,7 @@ import {
   boot,
   FLIPkid,
   keys as K
-} from "../../src"
+} from "../src"
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 // import { button_x } from "./components"
 // import { THEME } from "./theme"
@@ -50,14 +50,11 @@ const log = console.log
  */
 const getSomeJSON = async (path, uid) => {
   const text_base = "https://jsonplaceholder.typicode.com/"
-  const img_base = (id, sz) =>
-    `https://i.picsum.photos/id/${id}/${sz}/${sz}.jpg`
+  const img_base = (id, sz) => `https://i.picsum.photos/id/${id}/${sz}/${sz}.jpg`
 
   const data = uid
     ? (async () => {
-        let detail = await fetch(`${text_base}${path}/${uid}`).then(r =>
-          r.json()
-        )
+        let detail = await fetch(`${text_base}${path}/${uid}`).then(r => r.json())
         let {
           name = `User ${getIn(detail, "id")}`,
           company: { catchPhrase } = { catchPhrase: detail.title }
@@ -234,15 +231,7 @@ const single = (ctx, body) =>
 
 const set = (ctx, bodies) =>
   // log("set"),
-  [
-    "div",
-    ...bodies.map(({ img, text, uid }) => [
-      component("sm"),
-      uid,
-      img,
-      fields(text)
-    ])
-  ]
+  ["div", ...bodies.map(({ img, text, uid }) => [component("sm"), uid, img, fields(text)])]
 
 // const S = JSON.stringify // <- handy for adornment phase
 

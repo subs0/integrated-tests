@@ -10,7 +10,7 @@
     "excludePattern": "(node_modules/|spule/)"
   },
   "templates": {
-    "referenceTitle": "`@-0/integrated` docs",
+    "referenceTitle": "`@-0/stack` docs",
     "disableSort": true,
     "collapse": false,
     "resources": {
