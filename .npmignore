@@ -1,0 +1,12 @@
+node_modules/
+spule/
+jsdoc/
+guides/
+examples/
+src/
+dist/
+tests/
+**/**.config.js
+**/**.json
+.*
+.md
