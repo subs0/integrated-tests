@@ -6,20 +6,11 @@ import "regenerator-runtime"
 // scrolly.start()
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
-import {
-  command$,
-  out$,
-  $store$,
-  run$,
-  trace$,
-  registerCMD,
-  INJECT_HEAD,
-  HURL,
-  parse,
-  boot,
-  FLIPkid,
-  keys as K
-} from "../src"
+import { INJECT_HEAD, HURL, boot, FLIPkid } from "@-0/dom"
+import * as K from "@-0/keys/"
+import { command$, out$, $store$, run$, trace$, registerCMD } from "@-0/spool"
+import { parse } from "@-0/utils"
+
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 // import { button_x } from "./components"
 // import { THEME } from "./theme"
@@ -329,15 +320,15 @@ const w_config = {
   [K.CFG.VIEW]: app,
   [K.CFG.RUTR]: router,
   [K.CFG.ROOT]: document.getElementById("app"), // <- 🔍
-  [K.CFG.DRFT]: { users: [] },
+  [K.CFG.DRFT]: { users: [] }
   // [K.CFG.LOG$]: "state ->",
-  [K.CFG.KICK]: true
+  // [K.CFG.KICK]: true
 
   // arbitrary context k/v pairs...
   // theme: THEME
 }
 
-boot(w_config)
+// boot(w_config)
 
 console.log("registered Commands:", registerCMD.all.entries())
 
