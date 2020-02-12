@@ -72,7 +72,7 @@ const pre = (ctx, body) => (
  *
  * Options Object keys
  * - root   : DOM mount node
- * - app    : root application node
+ * - view   : root data view (app) node
  * - draft  : state scaffolding Object
  * - router : url matching function or config Object
  * - trace  : string triggers logs prepended with it

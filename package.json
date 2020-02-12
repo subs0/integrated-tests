@@ -22,18 +22,7 @@
     "tests": "npm run types && npm run madge && jest",
     "postgit": "git push origin master && npm run patch",
     "git": "git add . && git commit -m",
-    "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch",
-    "sdpush": "git subtree push --prefix=src/dom dom master",
-    "sdpull": "git subtree pull --prefix=src/dom dom master",
-    "sspush": "git subtree push --prefix=src/spool spool master",
-    "sspull": "git subtree pull --prefix=src/spool spool master",
-    "skpush": "git subtree push --prefix=src/keys keys master",
-    "skpull": "git subtree pull --prefix=src/keys keys master",
-    "srpush": "git subtree push --prefix=src/register register master",
-    "srpull": "git subtree pull --prefix=src/register register master",
-    "supush": "git subtree push --prefix=src/utils utils master",
-    "supull": "git subtree pull --prefix=src/utils utils master",
-    "stpush": "git subtree push --prefix=src/$ST $ST master"
+    "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch"
   },
   "keywords": [
     "thi.ng",
@@ -55,9 +44,9 @@
   },
   "dependencies": {
     "@-0/dom": "^0.2.59",
-    "@-0/keys": "0.2.58",
+    "@-0/keys": "^0.2.59",
     "@-0/spool": "^0.2.59",
-    "@-0/utils": "0.2.57"
+    "@-0/utils": "^0.2.57"
   },
   "devDependencies": {
     "@thi.ng/arrays": "latest",

@@ -1,22 +1,18 @@
-const exec = require("child_process").execSync
+const { exec, args } = require("./utils")
 
-const args = process.argv.slice(2).reduce(
-  (a, c) => {
-    const kv = c.split("=")
-    return { ...a, [kv[0]]: kv[1] }
-  },
-  { st: null, via: null, br: "master", msg: "pushing to subtree" }
-)
+const msg = "syncing super/subtree..."
 
 const subtree = ({ st, via, br, msg }) => {
+  console.log(msg, st, via, br)
   exec(
     `git add . && ` +
-      `git commit -m "${msg}" &&` +
+      `git commit -m ${msg} && ` +
       `git subtree ${via} --prefix=src/${st} ${st} ${br}`,
     { stdio: [0, 1, 2] }
   )
 }
 
-console.log(`${args.via}ing subtree branch: ${args.br}`, args.st, args)
+subtree(args(msg))
 
-subtree(args)
+// CLI use
+// node scripts\subtree.js st=spool via=push msg="pushing to subtree" br="master"
