@@ -1,6 +1,6 @@
 const { exec, args } = require("./utils")
 
-const msg = "typecasting..."
+const msg = `"typecasting..."`
 
 const types = ({ st }) => {
   console.log(msg, st)
@@ -8,3 +8,6 @@ const types = ({ st }) => {
 }
 
 types(args(msg))
+
+// CLI use
+// node scripts\types st=spool
