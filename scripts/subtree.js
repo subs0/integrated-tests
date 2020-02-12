@@ -1,6 +1,6 @@
 const { exec, args } = require("./utils")
 
-const msg = `"syncing supertree with subtree..."`
+const msg = "syncing supertree with subtree"
 
 const subtree = ({ st, via, br, msg }) => {
   exec(

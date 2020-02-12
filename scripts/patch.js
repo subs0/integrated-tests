@@ -1,0 +1,11 @@
+const { exec, args } = require("./utils")
+
+const msg = "switching to subtree directory and running updates"
+
+const patch = ({ st }) => {
+  exec(`cd src/${st} && npm run patch`, { stdio: [0, 1, 2] })
+}
+patch(args(msg))
+
+// CLI use
+// node scripts\types st=spool
