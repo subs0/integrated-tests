@@ -32,7 +32,8 @@
     "srpush": "git subtree push --prefix=src/register register master",
     "srpull": "git subtree pull --prefix=src/register register master",
     "supush": "git subtree push --prefix=src/utils utils master",
-    "supull": "git subtree pull --prefix=src/utils utils master"
+    "supull": "git subtree pull --prefix=src/utils utils master",
+    "stpush": "git subtree push --prefix=src/$ST $ST master"
   },
   "keywords": [
     "thi.ng",
