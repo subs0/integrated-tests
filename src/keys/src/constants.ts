@@ -110,7 +110,7 @@ export const $$_ROOT = "_ROOT"
 export const $$_CMDS = "_COMMANDS"
 
 // public
-export const $$ = {
+export const $$: Object = {
   PATH: $$_PATH,
   LOAD: $$_LOAD,
   VIEW: $$_VIEW,
@@ -118,10 +118,11 @@ export const $$ = {
   CMDS: $$_CMDS
 }
 
+// home page / defaults to empty path
 export const $$_DEFAULT = {
-  [$$_PATH]: null, // home page / defaults to empty path
+  [$$_PATH]: [],
   [$$_LOAD]: true,
   [$$_VIEW]: null,
-  [$$_ROOT]: null,
-  [$$_CMDS]: null
+  [$$_ROOT]: document.body,
+  [$$_CMDS]: {}
 }

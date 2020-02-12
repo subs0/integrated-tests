@@ -80,17 +80,11 @@ export declare const $$_LOAD = "_ROUTE_LOADING";
 export declare const $$_VIEW = "_PAGE_TEMPLATE";
 export declare const $$_ROOT = "_ROOT";
 export declare const $$_CMDS = "_COMMANDS";
-export declare const $$: {
-    PATH: string;
-    LOAD: string;
-    VIEW: string;
-    ROOT: string;
-    CMDS: string;
-};
+export declare const $$: Object;
 export declare const $$_DEFAULT: {
-    _ROUTE_PATH: any;
+    _ROUTE_PATH: any[];
     [$$_LOAD]: boolean;
     _PAGE_TEMPLATE: any;
-    _ROOT: any;
-    _COMMANDS: any;
+    [$$_ROOT]: HTMLElement;
+    _COMMANDS: {};
 };
