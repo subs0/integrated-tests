@@ -56,4 +56,4 @@ export function registerCMD(command) {
     }
     return CMD;
 }
-registerCMD.all = registered;
+registerCMD.all = () => registered.entries();
