@@ -1,0 +1,9 @@
+node_modules/
+@-0/
+jsdoc/
+src/
+dist/
+tests/
+.*
+**/**.config.js
+**/**.json
