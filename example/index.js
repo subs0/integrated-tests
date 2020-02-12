@@ -6,10 +6,20 @@ import "regenerator-runtime"
 // scrolly.start()
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
-import { INJECT_HEAD, HURL, boot, FLIPkid } from "@-0/dom"
-import * as K from "@-0/keys/"
-import { command$, out$, $store$, run$, trace$, registerCMD } from "@-0/spool"
-import { parse } from "@-0/utils"
+import {
+  INJECT_HEAD,
+  HURL,
+  boot,
+  FLIPkid,
+  keys as K,
+  command$,
+  out$,
+  $store$,
+  run$,
+  trace$,
+  registerCMD,
+  parse
+} from "../lib"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 // import { button_x } from "./components"
@@ -85,13 +95,14 @@ const getSomeJSON = async (path, uid) => {
 
 //
 //                             d8
-//  888-~\  e88~-_  888  888 _d88__  e88~~8e  888-~\
-//  888    d888   i 888  888  888   d888  88b 888
-//  888    8888   | 888  888  888   8888__888 888
-//  888    Y888   ' 888  888  888   Y888    , 888
-//  888     "88_-~  "88_-888  "88_/  "88___/  888
+//  888-~\  e88~-_  888  888 _d88__  e88~~8e   d88~\
+//  888    d888   i 888  888  888   d888  88b C888
+//  888    8888   | 888  888  888   8888__888  Y88b
+//  888    Y888   ' 888  888  888   Y888    ,   888D
+//  888     "88_-~  "88_-888  "88_/  "88___/  \_88P
 //
 //
+
 /**
  *
  * Even if you don't end up using `spule` - you may find the
@@ -175,7 +186,8 @@ const child = (ctx, id, img, sz, ...args) =>
           ? {
               height: "100px",
               width: "100px",
-              cursor: "pointer"
+              cursor: "pointer",
+              "margin-right": "15px"
             }
           : {
               height: "600px",
@@ -204,7 +216,7 @@ const component = sz =>
   // log("component"),
   (ctx, uid, img, fields) => [
     "div",
-    { style: { "margin-bottom": "30px" } },
+    { style: { "margin-bottom": "30px", display: sz === "sm" ? "flex" : "block" } },
     [zoomOnNav, uid, img, sz],
     ["p", { class: "title" }, fields]
   ]
@@ -330,6 +342,6 @@ const w_config = {
 
 boot(w_config)
 
-console.log("registered Commands:", registerCMD.all.entries())
+console.log("registered Commands:", registerCMD.all())
 
 console.log("starting...")

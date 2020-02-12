@@ -107,18 +107,21 @@ export const $$_PATH: string = "_ROUTE_PATH"
 export const $$_LOAD: string = "_ROUTE_LOADING"
 export const $$_VIEW: string = "_PAGE_TEMPLATE"
 export const $$_ROOT: string = "_ROOT"
+export const $$_CMDS: string = "_COMMANDS"
 
 // public
 export const $$ = {
   PATH: $$_PATH,
   LOAD: $$_LOAD,
   VIEW: $$_VIEW,
-  ROOT: $$_ROOT
+  ROOT: $$_ROOT,
+  CMDS: $$_CMDS
 }
 
 export const $$_DEFAULT: Object = {
   [$$_PATH]: null, // home page / defaults to empty path
   [$$_LOAD]: true,
   [$$_VIEW]: null,
-  [$$_ROOT]: null
+  [$$_ROOT]: null,
+  [$$_CMDS]: null
 }
