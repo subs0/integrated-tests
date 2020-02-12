@@ -1,6 +1,7 @@
 const exec = require("child_process").execSync
 
-const args = (msg = "scripted") =>
+const args = (msg = "scripted") => (
+  console.log(msg),
   process.argv.slice(2).reduce(
     (a, c) => {
       const kv = c.split("=")
@@ -8,6 +9,7 @@ const args = (msg = "scripted") =>
     },
     { st: null, via: null, br: "master", msg }
   )
+)
 
 module.exports = {
   exec,

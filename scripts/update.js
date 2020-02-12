@@ -1,11 +1,10 @@
 const { exec, args } = require("./utils")
 
-const msg = `"typecasting..."`
+const msg = "switching to subtree directory and running updates"
 
-const update = ({ st }) => {
-  exec(`cd src/${st} && npm run git -- test`, { stdio: [0, 1, 2] })
+const update = ({ st, msg }) => {
+  exec(`cd src/${st} && npm run git -- "${msg}"`, { stdio: [0, 1, 2] })
 }
-console.log(msg)
 update(args(msg))
 
 // CLI use

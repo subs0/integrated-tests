@@ -1,6 +1,6 @@
 const { exec, args } = require("./utils")
 
-const name = `"syncing supertree with subtree..."`
+const msg = `"syncing supertree with subtree..."`
 
 const subtree = ({ st, via, br, msg }) => {
   exec(
@@ -11,8 +11,7 @@ const subtree = ({ st, via, br, msg }) => {
   )
 }
 
-console.log(name)
-subtree(args(name))
+subtree(args(msg))
 
 // CLI use
 // node scripts\subtree.js st=spool via=push msg="pushing to subtree" br="master"
