@@ -16,7 +16,7 @@ fs.readdirSync(lib).forEach(function(mod) {
   var npmCmd = os.platform().startsWith("win") ? "npm.cmd" : "npm"
 
   // install folder
-  cp.spawn(npmCmd, ['run git --"nested publish"'], {
+  cp.spawn(npmCmd, [`run git --"nested publish"`], {
     env: process.env,
     cwd: modPath,
     stdio: "inherit"

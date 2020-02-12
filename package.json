@@ -22,7 +22,8 @@
     "tests": "npm run types && npm run madge && jest",
     "postgit": "git push origin master && npm run patch",
     "git": "git add . && git commit -m",
-    "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch"
+    "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch",
+    "update": "cd src/spool && npm run git -- test"
   },
   "keywords": [
     "thi.ng",
