@@ -22,7 +22,15 @@
     "tests": "npm run types && npm run madge && jest",
     "postgit": "git push origin master && npm run patch",
     "git": "git add . && git commit -m",
-    "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch"
+    "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch",
+    "sdpush": "git subtree push --prefix=src/dom dom master",
+    "sspush": "git subtree push --prefix=src/spool spool master",
+    "skpush": "git subtree push --prefix=src/keys keys master",
+    "supush": "git subtree push --prefix=src/utils utils master",
+    "sdpull": "git subtree pull --prefix=src/dom dom master",
+    "sspull": "git subtree pull --prefix=src/spool spool master",
+    "skpull": "git subtree pull --prefix=src/keys keys master",
+    "supull": "git subtree pull --prefix=src/utils utils master"
   },
   "keywords": [
     "thi.ng",
