@@ -1,3 +1,1 @@
-export declare const INJECT_HEAD: {
-    [x: string]: any;
-};
+export declare const INJECT_HEAD: any;
