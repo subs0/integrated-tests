@@ -3,6 +3,7 @@
  */
 
 import { FLIP_FIRST, FLIP_LAST_INVERSE_PLAY, HURL } from "../commands"
+import { isPlainObject } from "@thi.ng/checks"
 
 import { CFG_RUN$, CMD_ARGS } from "@-0/keys"
 
@@ -23,6 +24,20 @@ const sim_event = href => ({
   }
 })
 
+const _attrs = ctx => ({
+  onclick: ev => {
+    ev.preventDefault()
+    // console.log({ ev })
+    const target = ev.target
+    const href = target.getAttribute("href")
+    // console.log({ target, href })
+    if (!href) return new Error(err_str("href"))
+    ctx[CFG_RUN$]([
+      { ...HURL, [CMD_ARGS]: sim_event(href) },
+      { ...FLIP_FIRST, [CMD_ARGS]: { id: href, target } }
+    ])
+  }
+})
 /**
  * FLIP (First Last Invert Play) Animating component. Wraps
  * a component that has an `href` attribute and uses it to
@@ -32,26 +47,18 @@ const sim_event = href => ({
  *
  */
 export const FLIPkid = Object.freeze({
-  render: (ctx, ...rest) =>
-    // console.log("FLIPkid"),
-    [
-      "div",
-      {
-        onclick: ev => {
-          ev.preventDefault()
-          // console.log({ ev })
-          const target = ev.target
-          const href = target.getAttribute("href")
-          // console.log({ target, href })
-          if (!href) return new Error(err_str("href"))
-          ctx[CFG_RUN$]([
-            { ...HURL, [CMD_ARGS]: sim_event(href) },
-            { ...FLIP_FIRST, [CMD_ARGS]: { id: href, target } }
-          ])
-        }
-      },
-      ...rest
-    ],
+  render: (ctx, attrs, ...rest) =>
+    isPlainObject(attrs)
+      ? // console.log("FLIPkid"),
+        [
+          "div",
+          {
+            ...attrs,
+            ..._attrs(ctx)
+          },
+          ...rest
+        ]
+      : ["div", _attrs(ctx), attrs, ...rest],
   init: (el, ctx) => {
     // console.log({
     //   el,
