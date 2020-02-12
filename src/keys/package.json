@@ -1,0 +1,44 @@
+{
+  "name": "@-0/keys",
+  "author": "Logan Powell",
+  "license": "MIT",
+  "version": "0.2.58",
+  "description": "keys/constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
+  "main": "./lib/index.js",
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "repository": "https://github.com/subs0/keys",
+  "homepage": "https://github.com/subs0/keys",
+  "scripts": {
+    "typewatch": "tsc --project tsconfig.json",
+    "types": "tsc --project tsconfig.build.json",
+    "patch": "npm version patch && npm publish",
+    "postgit": "git push origin master && npm run patch",
+    "git": "git add . && git commit -m"
+  },
+  "keywords": [
+    "thi.ng",
+    "-0",
+    "FRP",
+    "keys",
+    "constants"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@thi.ng/atom": "latest",
+    "@thi.ng/rstream": "latest"
+  },
+  "devDependencies": {
+    "@thi.ng/atom": "latest",
+    "@thi.ng/rstream": "latest"
+  },
+  "prettier": {
+    "singleQuote": false,
+    "printWidth": 100,
+    "endOfLine": "lf",
+    "tabWidth": 2,
+    "semi": false
+  }
+}

@@ -1,0 +1,96 @@
+export declare const URL_FULL = "URL";
+export declare const URL_PATH = "URL_path";
+export declare const URL_DATA = "URL_data";
+export declare const URL_DOMN = "URL_domain";
+export declare const URL_SUBD = "URL_subdomain";
+export declare const URL_QERY = "URL_query";
+export declare const URL_HASH = "URL_hash";
+export declare const URL_PAGE = "URL_page";
+export declare const URL_PRSE = "parse";
+export declare const URL_NPRS = "unparse";
+export declare const URL: {
+    FULL: string;
+    PATH: string;
+    DATA: string;
+    DOMN: string;
+    SUBD: string;
+    QERY: string;
+    HASH: string;
+    PAGE: string;
+    PRSE: string;
+    NPRS: string;
+};
+export declare const DOM_NODE = "NODE";
+export declare const DOM_BODY = "BODY";
+export declare const DOM_HEAD = "HEAD";
+export declare const DOM: {
+    NODE: string;
+    BODY: string;
+    HEAD: string;
+};
+export declare const STATE_PATH = "PATH";
+export declare const STATE_DATA = "DATA";
+export declare const STATE: {
+    PATH: string;
+    DATA: string;
+};
+export declare const CMD_SUB$ = "sub$";
+export declare const CMD_ARGS = "args";
+export declare const CMD_RESO = "reso";
+export declare const CMD_ERRO = "erro";
+export declare const CMD_WORK = "work";
+export declare const CMD_SRC$ = "src$";
+export declare const CMD: {
+    SUB$: string;
+    ARGS: string;
+    RESO: string;
+    ERRO: string;
+    WORK: string;
+    SRC$: string;
+};
+export declare const CFG_RUN$ = "run";
+export declare const CFG_ROOT = "root";
+export declare const CFG_VIEW = "view";
+export declare const CFG_KICK = "kick";
+export declare const CFG_STOR = "store";
+export declare const CFG_DRFT = "draft";
+export declare const CFG_LOG$ = "trace";
+export declare const CFG_RUTR = "router";
+export declare const CFG: {
+    RUN$: string;
+    STOR: string;
+    ROOT: string;
+    VIEW: string;
+    DRFT: string;
+    LOG$: string;
+    RUTR: string;
+    KICK: string;
+};
+export declare const ROUTER_PREP = "prep";
+export declare const ROUTER_POST = "post";
+export declare const ROUTER_PRFX = "prefix";
+export declare const ROUTER: {
+    PREP: string;
+    POST: string;
+    PRFX: string;
+    RUTR: string;
+};
+export declare const $$_PATH = "_ROUTE_PATH";
+export declare const $$_LOAD = "_ROUTE_LOADING";
+export declare const $$_VIEW = "_PAGE_TEMPLATE";
+export declare const $$_ROOT = "_ROOT";
+export declare const $$_CMDS = "_COMMANDS";
+export declare const $$: {
+    PATH: string;
+    LOAD: string;
+    VIEW: string;
+    ROOT: string;
+    CMDS: string;
+};
+export declare const $$_DEFAULT: {
+    _ROUTE_PATH: any;
+    [$$_LOAD]: boolean;
+    _PAGE_TEMPLATE: any;
+    _ROOT: any;
+    _COMMANDS: any;
+};
