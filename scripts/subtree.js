@@ -3,7 +3,6 @@ const { exec, args } = require("./utils")
 const name = `"syncing supertree with subtree..."`
 
 const subtree = ({ st, via, br, msg }) => {
-  console.log(msg, st, via, br)
   exec(
     `git add . && ` +
       `git commit -m ${msg} && ` +
@@ -12,6 +11,7 @@ const subtree = ({ st, via, br, msg }) => {
   )
 }
 
+console.log(name)
 subtree(args(name))
 
 // CLI use
