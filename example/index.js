@@ -342,6 +342,6 @@ const w_config = {
 
 boot(w_config)
 
-console.log("registered Commands:", registerCMD.all())
+console.log("registered Commands:", registerCMD())
 
 console.log("starting...")

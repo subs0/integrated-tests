@@ -79,10 +79,12 @@ export declare const $$_PATH: string;
 export declare const $$_LOAD: string;
 export declare const $$_VIEW: string;
 export declare const $$_ROOT: string;
+export declare const $$_CMDS: string;
 export declare const $$: {
     PATH: string;
     LOAD: string;
     VIEW: string;
     ROOT: string;
+    CMDS: string;
 };
 export declare const $$_DEFAULT: Object;
