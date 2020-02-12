@@ -49,9 +49,9 @@ export interface BootCFG {
 }
 
 export interface DefaultDraft {
-  [C.$$_PATH]?: Array<any>
-  [C.$$_LOAD]?: boolean
-  [C.$$_VIEW]?: Function
-  [C.$$_ROOT]?: HTMLElement
-  [C.$$_CMDS]?: Object
+  [C.$$_PATH]: Array<any>
+  [C.$$_LOAD]: boolean
+  [C.$$_VIEW]: Function
+  [C.$$_ROOT]: HTMLElement
+  [C.$$_CMDS]: Object
 }
