@@ -38,7 +38,7 @@ export const setLinkAttrsCMD = {
     [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
     [CMD_WORK]: args => setLinkAttrs(args[DOM_NODE])
 };
-export const SET_LINK_ATTRS_DOM = registerCMD(setLinkAttrs);
+export const SET_LINK_ATTRS_DOM = registerCMD(setLinkAttrsCMD);
 export const hrefPushStateCMD = {
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
     [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
