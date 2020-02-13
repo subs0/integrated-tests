@@ -2,11 +2,11 @@ const { exec, args } = require("./utils")
 
 const msg = "syncing supertree with subtree"
 
-const subtree = ({ st, via, br, msg, f }) => {
+const subtree = ({ st, via, br, msg }) => {
   exec(
     `git add . && ` +
       `git commit -m "${msg}" && ` +
-      `git subtree ${via} ${f ? "-f" : ""} --prefix=src/${st} ${st} ${br}`,
+      `git subtree ${via} --prefix=src/${st} ${st} ${br}`,
     { stdio: [0, 1, 2] }
   )
 }
