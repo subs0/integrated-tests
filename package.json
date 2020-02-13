@@ -39,6 +39,7 @@
     "go:spool": "npm run tp:spool && npm run up:spool && npm run st:spool && npm run ncu",
     "go:utils": "npm run tp:utils && npm run up:utils && npm run st:utils && npm run ncu",
     "go:dom": "npm run tp:dom && npm run up:dom && npm run st:dom && npm run ncu",
+    "go:all": "npm run go:keys && npm run go:spool && npm run go:utils && npm run go:dom",
     "ncu": "ncu -u && npm i"
   },
   "keywords": [
