@@ -14,7 +14,8 @@
     "types": "tsc --project tsconfig.build.json",
     "patch": "npm version patch && npm publish",
     "postgit": "git push origin master && npm run patch",
-    "git": "git add . && git commit -m"
+    "ncu": "ncu -u && npm i",
+    "git": "npm run ncu && git add . && git commit -m"
   },
   "keywords": [
     "thi.ng",

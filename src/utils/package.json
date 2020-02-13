@@ -16,7 +16,8 @@
     "tests": "npm run types && npm run madge && jest",
     "patch": "npm version patch && npm publish",
     "postgit": "git push origin master && npm run patch",
-    "git": "git add . && git commit -m"
+    "ncu": "ncu -u && npm i",
+    "git": "npm run ncu && git add . && git commit -m"
   },
   "keywords": [
     "thi.ng",
@@ -29,12 +30,12 @@
     "querystring": "^0.2.0"
   },
   "peerDependencies": {
-    "@-0/keys": "latest",
+    "@-0/keys": "^0.2.61",
     "@thi.ng/rstream": "^3.0.2",
     "@thi.ng/checks": "latest"
   },
   "devDependencies": {
-    "@-0/keys": "latest",
+    "@-0/keys": "^0.2.61",
     "@thi.ng/rstream": "^3.0.2",
     "@thi.ng/checks": "latest",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
