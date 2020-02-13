@@ -39,11 +39,11 @@
     "st:utils": "node scripts/subtree st=utils via=push",
     "st:spool": "node scripts/subtree st=spool via=push",
     "st:dom": "node scripts/subtree st=dom via=push",
-    "go:keys": "npm run ncu && npm run tp:keys && npm run st:keys ",
-    "go:utils": "npm run ncu && npm run tp:utils && npm run st:utils ",
-    "go:spool": "npm run ncu && npm run tp:spool && npm run st:spool ",
-    "go:dom": "npm run ncu && npm run tp:dom && npm run st:dom ",
-    "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:dom && npm run ncu",
+    "go:keys": "npm run tp:keys && npm run up:keys && npm run st:keys && npm run ncu ",
+    "go:utils": "npm run tp:utils && npm run up:utils && npm run st:utils && npm run ncu ",
+    "go:spool": "npm run tp:spool && npm run up:spool && npm run st:spool && npm run ncu ",
+    "go:dom": "npm run tp:dom && npm run up:dom && npm run st:dom && npm run ncu ",
+    "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:dom",
     "ncu": "ncu -u && npm i"
   },
   "keywords": [
