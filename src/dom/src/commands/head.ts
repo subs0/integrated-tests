@@ -90,7 +90,8 @@ interface apiURL {
     }
   }
 }
-export const INJECT_HEAD = registerCMD({
+
+export const injectHeadCMD = {
   [CMD_SUB$]: "_INJECT_HEAD",
   [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
   [CMD_WORK]: ({
@@ -98,4 +99,5 @@ export const INJECT_HEAD = registerCMD({
       [DOM_HEAD]: { title, description, image, favicon, type }
     }
   }: apiURL) => replaceMeta(conformToHead({ title, description, image, favicon, type }))
-})
+}
+export const INJECT_HEAD = registerCMD(injectHeadCMD)
