@@ -57,8 +57,8 @@ export interface DefaultDraft {
 }
 
 export interface RouterCFG {
-  [C.ROUTER_PREP]
-  [C.ROUTER_PRFX]
-  [C.ROUTER_POST]
-  [C.CFG_RUTR]
+  [C.ROUTER_PREP]: Command | Array<Command>
+  [C.ROUTER_PRFX]: string
+  [C.ROUTER_POST]: Command | Array<Command>
+  [C.CFG_RUTR]: Function
 }

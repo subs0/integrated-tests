@@ -40,8 +40,8 @@ export interface DefaultDraft {
     [C.$$_CMDS]: Object;
 }
 export interface RouterCFG {
-    [C.ROUTER_PREP]: any;
-    [C.ROUTER_PRFX]: any;
-    [C.ROUTER_POST]: any;
-    [C.CFG_RUTR]: any;
+    [C.ROUTER_PREP]: Command | Array<Command>;
+    [C.ROUTER_PRFX]: string;
+    [C.ROUTER_POST]: Command | Array<Command>;
+    [C.CFG_RUTR]: Function;
 }
