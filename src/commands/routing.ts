@@ -74,7 +74,7 @@ export const setLinkAttrsCMD = {
   [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
   [CMD_WORK]: args => setLinkAttrs(args[DOM_NODE])
 }
-export const SET_LINK_ATTRS_DOM = registerCMD(setLinkAttrs)
+export const SET_LINK_ATTRS_DOM = registerCMD(setLinkAttrsCMD)
 
 /**
  *
