@@ -27,10 +27,12 @@ import {
   CFG_VIEW,
   CFG_DRFT,
   CFG_LOG$,
-  CFG_KICK
+  CFG_KICK,
+  CFG,
+  BootCFG
 } from "@-0/keys"
 
-import { registerCMD, $store$, run$ } from "@-0/spool"
+import { registerCMD, $store$, run$, registerCMDtoStore } from "@-0/spool"
 import { parse, diff_keys } from "@-0/utils"
 
 import { URL_DOM__ROUTE } from "../tasks"
@@ -67,6 +69,33 @@ const pre = (ctx, body) => (
   ["pre", JSON.stringify(body[1], null, 2)]
 )
 
+/**
+ *
+ * TODO:
+ * import { registerCMDtoStore, ...spoolCMDs } from "@-0/spool"
+ * import { ...myCMDs } from "./commands"
+ *
+ */
+
+export const pair = (store, CMDS: Array<any /**Command*/> = []) => {
+  // FIXME: Move stuff from inside boot to here and
+  // pass the default commands to it and export a boot
+  // (default only) function
+  // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
+  /**
+   *
+   * let allCommands = [...spoolCMDs, ...myCMDs, ...CMDS ]
+   * let cmds = allCommands.reduce((a, c) => ({ cmd.sub$: registerCMDtoStore(store)(cmd) }), {})
+   * return [ boot, cmds ]
+   *
+   */
+}
+/**
+ *
+ * export const [ boot, CMD ] = pair($store$)
+ *
+ */
+
 // prettier-ignore
 /**
  *
@@ -80,15 +109,20 @@ const pre = (ctx, body) => (
  * - prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)
  *
  */
-export const boot = (CFG: Object) => {
+export const boot = (CFG: BootCFG) => {
 
+  // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
   const root       = CFG[CFG_ROOT] || document.body
   const view       = CFG[CFG_VIEW] || pre
+  const store      = CFG[CFG_STOR] || $store$
   const draft      = CFG[CFG_DRFT]
   const router     = CFG[CFG_RUTR]
   const log$       = CFG[CFG_LOG$]
   const kick       = CFG[CFG_KICK]
-  const knowns     = [CFG_ROOT, CFG_VIEW, CFG_DRFT, CFG_RUTR, CFG_LOG$]
+  
+  // TODO const registered: [{C},,,] = registerCommands([...DEFAULT_CMDS(store), ...commands])
+  
+  const knowns     = Object.values(CFG)
   const prfx       = router[ROUTER_PRFX] || null
 
   const [, others] = diff_keys(knowns, CFG)
@@ -110,7 +144,8 @@ export const boot = (CFG: Object) => {
   if (draft) $store$.swap(x => ({ ...draft, ...x }))
 
   $store$.resetIn($$_ROOT, root)
-
+  
+  // TODO: opportunity for other implementations (e.g., React)
   state$.subscribe(sidechainPartition(fromRAF())).transform(
     map(peek),
     map(shell),
@@ -135,4 +170,5 @@ export const boot = (CFG: Object) => {
       currentTarget: document
     })
   }
+  // TODO return registered
 }
