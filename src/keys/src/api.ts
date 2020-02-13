@@ -55,3 +55,10 @@ export interface DefaultDraft {
   [C.$$_ROOT]: HTMLElement
   [C.$$_CMDS]: Object
 }
+
+export interface RouterCFG {
+  [C.ROUTER_PREP]
+  [C.ROUTER_PRFX]
+  [C.ROUTER_POST]
+  [C.CFG_RUTR]
+}

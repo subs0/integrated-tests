@@ -6,6 +6,7 @@ import { peek } from "@thi.ng/arrays"
 import { map } from "@thi.ng/transducers"
 import { updateDOM } from "@thi.ng/transducers-hdom"
 import { getIn } from "@thi.ng/paths"
+import { IAtom } from "@thi.ng/atom"
 
 import {
   DOM_NODE,
@@ -29,10 +30,20 @@ import {
   CFG_LOG$,
   CFG_KICK,
   CFG,
-  BootCFG
+  BootCFG,
+  Command
 } from "@-0/keys"
 
-import { registerCMD, $store$, run$, registerCMDtoStore } from "@-0/spool"
+import { registerCMD, $store$, run$, registerCMDtoStore, createSetStateCMD } from "@-0/spool"
+import {
+  flipFirstCMD,
+  flipLastCMD,
+  hrefPushStateCMD,
+  hurlCMD,
+  injectHeadCMD,
+  notifyPrerenderCMD,
+  setLinkAttrsCMD
+} from "../commands"
 import { parse, diff_keys } from "@-0/utils"
 
 import { URL_DOM__ROUTE } from "../tasks"
@@ -46,17 +57,33 @@ import { DOMnavigated$ } from "../core/stream$"
  * { target: { location: { href } }, currentTarget }
  * ```
  */
+export const registerRouterCMD: Command = {
+  [CMD_SRC$]: DOMnavigated$,
+  [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
+  [CMD_ARGS]: x => x
+}
+
+const _CMD_WORK = router => {
+  const task = URL_DOM__ROUTE(router)
+  return {
+    [CMD_WORK]: args => run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
+  }
+}
 export const registerRouterDOM = router => {
   console.log("DOM Router Registered")
 
-  const taskFrom = URL_DOM__ROUTE(router)
   return registerCMD({
-    [CMD_SRC$]: DOMnavigated$,
-    [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
-    [CMD_ARGS]: x => x,
-    [CMD_WORK]: args =>
-      run$.next(taskFrom({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
+    ...registerRouterCMD,
+    ..._CMD_WORK(router)
   })
+}
+
+export const registerDOMrouterCMD = (router): Command => {
+  console.log("DOM Router Registered")
+  return {
+    ...registerRouterCMD,
+    ..._CMD_WORK(router)
+  }
 }
 
 const pre = (ctx, body) => (
@@ -77,8 +104,8 @@ const pre = (ctx, body) => (
  *
  */
 
-export const pair = (store, CMDS: Array<any /**Command*/> = []) => {
-  // FIXME: Move stuff from inside boot to here and
+export const pair = (globalStore: IAtom<Object> = $store$, Commands: Array<Command> = []) => {
+  // TODO return registered
   // pass the default commands to it and export a boot
   // (default only) function
   // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
@@ -89,6 +116,78 @@ export const pair = (store, CMDS: Array<any /**Command*/> = []) => {
    * return [ boot, cmds ]
    *
    */
+  const allCommands = [...baseCommands, ...Commands]
+
+  //@ts-ignore
+  const CMDS = allCommands.reduce((a, c) => {
+    // if plain old Command Object
+    c[CMD_SUB$]
+      ? // register with it's key
+        { [c[CMD_SUB$]]: registerCMDtoStore(globalStore)(c) }
+      : // else if it's a function (HOC)
+        ((c = registerCMDtoStore(globalStore)(c)), { [c[CMD_SUB$]]: c })
+  }, {})
+
+  const boot = (CFG: BootCFG) => {
+    // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
+    const root = CFG[CFG_ROOT] || document.body
+    const view = CFG[CFG_VIEW] || pre
+    const store = CFG[CFG_STOR] || globalStore
+    const draft = CFG[CFG_DRFT]
+    const router = CFG[CFG_RUTR]
+    const log$ = CFG[CFG_LOG$]
+    const kick = CFG[CFG_KICK]
+
+    // TODO const registered: [{C},,,] = registerCommands([...DEFAULT_CMDS(store), ...commands])
+
+    const knowns = Object.values(CFG)
+    const prfx = router[ROUTER_PRFX] || null
+
+    const [, others] = diff_keys(knowns, CFG)
+    const escRGX = /[-/\\^$*+?.()|[\]{}]/g
+    const escaped = str => str.replace(escRGX, "\\$&")
+    const RGX = prfx ? new RegExp(escaped(prfx || ""), "g") : null
+
+    if (router) registerRouterDOM(router)
+
+    const state$ = fromAtom(globalStore)
+
+    const shell = state$ => (
+      log$ ? console.log(log$, state$) : null,
+      state$[$$_LOAD] ? null : [view, [state$[$$_VIEW], getIn(state$, state$[$$_PATH])]]
+    )
+
+    if (draft) globalStore.swap(x => ({ ...draft, ...x }))
+
+    globalStore.resetIn($$_ROOT, root)
+
+    // TODO: opportunity for other implementations (e.g., React)
+    state$.subscribe(sidechainPartition(fromRAF())).transform(
+      map(peek),
+      map(shell),
+      updateDOM({
+        root,
+        span: false,
+        ctx: {
+          [CFG_RUN$]: x => run$.next(x),
+          [CFG_STOR]: globalStore,
+          // remove any staging path components (e.g., gh-pages)
+          [URL_PRSE]: () =>
+            // console.log({ FURL }),
+            parse(window.location.href, RGX), // <- 🔍
+          ...others
+        }
+      })
+    )
+    // Just a little kick in the pants for those stubborn sandboxes
+    if (kick) {
+      DOMnavigated$.next({
+        target: document,
+        currentTarget: document
+      })
+    }
+  }
+  return [boot]
 }
 /**
  *
@@ -96,6 +195,16 @@ export const pair = (store, CMDS: Array<any /**Command*/> = []) => {
  *
  */
 
+const baseCommands = [
+  createSetStateCMD,
+  flipFirstCMD,
+  flipLastCMD,
+  hrefPushStateCMD,
+  hurlCMD,
+  injectHeadCMD,
+  notifyPrerenderCMD,
+  setLinkAttrsCMD
+]
 // prettier-ignore
 /**
  *
