@@ -15,11 +15,12 @@ export const HURLer = ev => {
     });
     return ev;
 };
-export const HURL = registerCMD({
+export const hurlCMD = {
     [CMD_SUB$]: "_HURL",
     [CMD_ARGS]: ev => ev,
     [CMD_WORK]: HURLer
-});
+};
+export const HURL = registerCMD(hurlCMD);
 const setLinkAttrs = target => {
     document.body.querySelectorAll("a[visited]").forEach((el) => {
         if (el.href === window.location.href)
@@ -32,18 +33,21 @@ const setLinkAttrs = target => {
         target.setAttribute("active", "");
     }
 };
-export const SET_LINK_ATTRS_DOM = registerCMD({
+export const setLinkAttrsCMD = {
     [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
     [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
     [CMD_WORK]: args => setLinkAttrs(args[DOM_NODE])
-});
-export const HREF_PUSHSTATE_DOM = registerCMD({
+};
+export const SET_LINK_ATTRS_DOM = registerCMD(setLinkAttrs);
+export const hrefPushStateCMD = {
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
     [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
     [CMD_WORK]: args => !args[DOM_NODE].document ? history.pushState(parse(args[URL_FULL]), null, args[URL_FULL]) : null
-});
-export const NOTIFY_PRERENDER_DOM = registerCMD({
+};
+export const HREF_PUSHSTATE_DOM = registerCMD(hrefPushStateCMD);
+export const notifyPrerenderCMD = {
     [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
     [CMD_ARGS]: true,
     [CMD_WORK]: () => document.dispatchEvent(new Event("rendered"))
-});
+};
+export const NOTIFY_PRERENDER_DOM = registerCMD(notifyPrerenderCMD);
