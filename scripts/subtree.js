@@ -6,7 +6,7 @@ const subtree = ({ st, via, br, msg, f }) => {
   exec(
     `git add . && ` +
       `git commit -m "${msg}" && ` +
-      `git subtree ${via} ${f ? f : ""} --prefix=src/${st} ${st} ${br}`,
+      `git subtree ${via} ${f ? "-f" : ""} --prefix=src/${st} ${st} ${br}`,
     { stdio: [0, 1, 2] }
   )
 }
