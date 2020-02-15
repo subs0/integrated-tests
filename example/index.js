@@ -339,7 +339,7 @@ const w_config = {
   // arbitrary context k/v pairs...
   // theme: THEME
 }
-
+// @ts-ignore
 boot(w_config)
 
 console.log("registered Commands:", registerCMD())
