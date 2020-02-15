@@ -6,20 +6,10 @@ import "regenerator-runtime"
 // scrolly.start()
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
-import {
-  INJECT_HEAD,
-  HURL,
-  boot,
-  FLIPkid,
-  keys as K,
-  command$,
-  out$,
-  $store$,
-  run$,
-  trace$,
-  registerCMD,
-  parse
-} from "../lib"
+import { $store$, registerCMD, command$, out$, run$ } from "@-0/spool"
+import { INJECT_HEAD, HURL, FLIPkid, boot } from "@-0/dom"
+import { parse, trace$ } from "@-0/utils"
+import * as K from "@-0/keys"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 // import { button_x } from "./components"
@@ -27,8 +17,8 @@ import {
 
 const log = console.log
 
-trace$("run$ ->", run$)
-trace$("command$ ->", command$)
+// trace$("run$ ->", run$)
+// trace$("command$ ->", command$)
 // trace$("out$ ->", out$)
 
 /**
