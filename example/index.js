@@ -27,8 +27,8 @@ import {
 
 const log = console.log
 
-// trace$("run$ ->", run$)
-// trace$("command$ ->", command$)
+trace$("run$ ->", run$)
+trace$("command$ ->", command$)
 // trace$("out$ ->", out$)
 
 /**
@@ -342,6 +342,6 @@ const w_config = {
 // @ts-ignore
 boot(w_config)
 
-console.log("registered Commands:", registerCMD())
+console.log("registered Commands:", out$.topics.entries())
 
 console.log("starting...")

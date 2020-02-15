@@ -6,6 +6,7 @@ import { Atom } from "@thi.ng/atom"
 import { getIn } from "@thi.ng/paths"
 
 import { CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys"
+
 import { registerCMD } from "@-0/spool"
 
 function getStyles(element: HTMLElement) {
