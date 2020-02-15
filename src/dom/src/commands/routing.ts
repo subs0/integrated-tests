@@ -32,7 +32,7 @@ export const HURLer = ev => {
   return ev
 }
 
-export const HURL = registerCMD({
+export const HURL: any = registerCMD({
   [CMD_SUB$]: "_HURL",
   [CMD_ARGS]: ev => ev,
   [CMD_WORK]: HURLer
@@ -95,7 +95,7 @@ export const SET_LINK_ATTRS_DOM = registerCMD({
  *
  *
  */
-export const HREF_PUSHSTATE_DOM = registerCMD({
+export const HREF_PUSHSTATE_DOM: any = registerCMD({
   [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
   [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
   [CMD_WORK]: args =>
@@ -125,7 +125,7 @@ export const HREF_PUSHSTATE_DOM = registerCMD({
  *
  *
  */
-export const NOTIFY_PRERENDER_DOM = registerCMD({
+export const NOTIFY_PRERENDER_DOM: any = registerCMD({
   [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
   [CMD_ARGS]: true,
   //👀 for prerenderer,
