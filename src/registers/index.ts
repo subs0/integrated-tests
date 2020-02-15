@@ -35,14 +35,7 @@ import {
   Command
 } from "@-0/keys"
 
-import {
-  registerCMD,
-  $store$,
-  run$,
-  registerCMDtoStore,
-  createSetStateCMD,
-  command$
-} from "@-0/spool"
+import { $store$, run$, registerCMD, command$ } from "@-0/spool"
 
 import { parse, diff_keys } from "@-0/utils"
 
@@ -57,34 +50,15 @@ import { DOMnavigated$ } from "../core/stream$"
  * { target: { location: { href } }, currentTarget }
  * ```
  */
-export const registerRouterCMD: Command = {
-  [CMD_SRC$]: DOMnavigated$,
-  [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
-  [CMD_ARGS]: x => x
-}
-
-const _CMD_WORK = router => {
+export const registerRouterDOM = (router): Command => {
+  console.log("DOM Router Registered")
   const task = URL_DOM__ROUTE(router)
-  return {
-    [CMD_WORK]: args => run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
-  }
-}
-
-export const registerRouterDOM = router => {
-  console.log("DOM Router Registered")
-
   return registerCMD({
-    ...registerRouterCMD,
-    ..._CMD_WORK(router)
+    [CMD_SRC$]: DOMnavigated$,
+    [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
+    [CMD_ARGS]: x => x,
+    [CMD_WORK]: args => run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
   })
-}
-
-export const registerDOMrouterCMD = (router): Command => {
-  console.log("DOM Router Registered")
-  return {
-    ...registerRouterCMD,
-    ..._CMD_WORK(router)
-  }
 }
 
 const pre = (ctx, body) => (
@@ -145,7 +119,6 @@ export const boot = (CFG: BootCFG) => {
   // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
   const root       = CFG[CFG_ROOT] || document.body
   const view       = CFG[CFG_VIEW] || pre
-  const store      = CFG[CFG_STOR] || $store$
   const draft      = CFG[CFG_DRFT]
   const router     = CFG[CFG_RUTR]
   const log$       = CFG[CFG_LOG$]
@@ -162,6 +135,7 @@ export const boot = (CFG: BootCFG) => {
   const RGX        = prfx ? new RegExp(escaped(prfx || ""), "g") : null
 
   if (router) registerRouterDOM(router)
+  else throw new Error(`no \`${CFG_RUTR}\` found on config. See documentation for \`boot\``)
 
   const state$ = fromAtom($store$)
 

@@ -11,7 +11,7 @@ import {
   // msTaskPromiseDelay,
 } from "../commands"
 
-import { createSetStateCMD, $store$, SET_STATE, URL__ROUTE } from "@-0/spool"
+import { $store$, SET_STATE, URL__ROUTE } from "@-0/spool"
 import {
   $$_VIEW,
   $$_LOAD,

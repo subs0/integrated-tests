@@ -82,16 +82,16 @@ const conformToHead = ({
 interface apiURL {
   [URL_data_: string]: {
     [HEAD_: string]: {
-      title: any
-      description: any
-      image: any
-      favicon: any
-      type: any
+      title?: any
+      description?: any
+      image?: any
+      favicon?: any
+      type?: any
     }
   }
 }
 
-export const injectHeadCMD = {
+export const INJECT_HEAD = registerCMD({
   [CMD_SUB$]: "_INJECT_HEAD",
   [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
   [CMD_WORK]: ({
@@ -99,5 +99,4 @@ export const injectHeadCMD = {
       [DOM_HEAD]: { title, description, image, favicon, type }
     }
   }: apiURL) => replaceMeta(conformToHead({ title, description, image, favicon, type }))
-}
-export const INJECT_HEAD = registerCMD(injectHeadCMD)
+})
