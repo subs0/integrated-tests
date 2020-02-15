@@ -6,7 +6,7 @@ import { peek } from "@thi.ng/arrays"
 import { map } from "@thi.ng/transducers"
 import { updateDOM } from "@thi.ng/transducers-hdom"
 import { getIn } from "@thi.ng/paths"
-import { IAtom } from "@thi.ng/atom"
+import { IAtom, Atom } from "@thi.ng/atom"
 
 import {
   DOM_NODE,
@@ -14,6 +14,7 @@ import {
   $$_PATH,
   $$_ROOT,
   $$_VIEW,
+  $$_CMDS,
   URL_FULL,
   URL_PRSE,
   ROUTER_PRFX,
@@ -34,16 +35,15 @@ import {
   Command
 } from "@-0/keys"
 
-import { registerCMD, $store$, run$, registerCMDtoStore, createSetStateCMD } from "@-0/spool"
 import {
-  flipFirstCMD,
-  flipLastCMD,
-  hrefPushStateCMD,
-  hurlCMD,
-  injectHeadCMD,
-  notifyPrerenderCMD,
-  setLinkAttrsCMD
-} from "../commands"
+  registerCMD,
+  $store$,
+  run$,
+  registerCMDtoStore,
+  createSetStateCMD,
+  command$
+} from "@-0/spool"
+
 import { parse, diff_keys } from "@-0/utils"
 
 import { URL_DOM__ROUTE } from "../tasks"
@@ -69,6 +69,7 @@ const _CMD_WORK = router => {
     [CMD_WORK]: args => run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
   }
 }
+
 export const registerRouterDOM = router => {
   console.log("DOM Router Registered")
 
@@ -97,114 +98,35 @@ const pre = (ctx, body) => (
 )
 
 /**
+ * FIXME pseudo:
  *
- * TODO:
- * import { registerCMDtoStore, ...spoolCMDs } from "@-0/spool"
- * import { ...myCMDs } from "./commands"
+ * tasks and commands need to be able to be used separately
+ * from boot features/spec:
+ * - Each command can be registered as a HOF that can
+ *   recieve the CFG object and destructure parts off of it
+ * - need a way to define/use tasks before they are
+ *   registered
+ * - ? Prep registration of Commands and Tasks, which return
+ *   an Object of Tasks, Commands that you can then "plugin"
+ *   to registration
+ * Signatures/API:
+ * ```js
+ * const prepack = (Commands: Command[]) => {
+ *  const package = Commands.reduce((a, c) => {
+ *    create a function that takes the config object
  *
- */
-
-export const pair = (globalStore: IAtom<Object> = $store$, Commands: Array<Command> = []) => {
-  // TODO return registered
-  // pass the default commands to it and export a boot
-  // (default only) function
-  // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
-  /**
-   *
-   * let allCommands = [...spoolCMDs, ...myCMDs, ...CMDS ]
-   * let cmds = allCommands.reduce((a, c) => ({ cmd.sub$: registerCMDtoStore(store)(cmd) }), {})
-   * return [ boot, cmds ]
-   *
-   */
-  const allCommands = [...baseCommands, ...Commands]
-
-  //@ts-ignore
-  const CMDS = allCommands.reduce((a, c) => {
-    // if plain old Command Object
-    c[CMD_SUB$]
-      ? // register with it's key
-        { [c[CMD_SUB$]]: registerCMDtoStore(globalStore)(c) }
-      : // else if it's a function (HOC)
-        ((c = registerCMDtoStore(globalStore)(c)), { [c[CMD_SUB$]]: c })
-  }, {})
-
-  const boot = (CFG: BootCFG) => {
-    // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
-    const root = CFG[CFG_ROOT] || document.body
-    const view = CFG[CFG_VIEW] || pre
-    const store = CFG[CFG_STOR] || globalStore
-    const draft = CFG[CFG_DRFT]
-    const router = CFG[CFG_RUTR]
-    const log$ = CFG[CFG_LOG$]
-    const kick = CFG[CFG_KICK]
-
-    // TODO const registered: [{C},,,] = registerCommands([...DEFAULT_CMDS(store), ...commands])
-
-    const knowns = Object.values(CFG)
-    const prfx = router[ROUTER_PRFX] || null
-
-    const [, others] = diff_keys(knowns, CFG)
-    const escRGX = /[-/\\^$*+?.()|[\]{}]/g
-    const escaped = str => str.replace(escRGX, "\\$&")
-    const RGX = prfx ? new RegExp(escaped(prfx || ""), "g") : null
-
-    if (router) registerRouterDOM(router)
-
-    const state$ = fromAtom(globalStore)
-
-    const shell = state$ => (
-      log$ ? console.log(log$, state$) : null,
-      state$[$$_LOAD] ? null : [view, [state$[$$_VIEW], getIn(state$, state$[$$_PATH])]]
-    )
-
-    if (draft) globalStore.swap(x => ({ ...draft, ...x }))
-
-    globalStore.resetIn($$_ROOT, root)
-
-    // TODO: opportunity for other implementations (e.g., React)
-    state$.subscribe(sidechainPartition(fromRAF())).transform(
-      map(peek),
-      map(shell),
-      updateDOM({
-        root,
-        span: false,
-        ctx: {
-          [CFG_RUN$]: x => run$.next(x),
-          [CFG_STOR]: globalStore,
-          // remove any staging path components (e.g., gh-pages)
-          [URL_PRSE]: () =>
-            // console.log({ FURL }),
-            parse(window.location.href, RGX), // <- 🔍
-          ...others
-        }
-      })
-    )
-    // Just a little kick in the pants for those stubborn sandboxes
-    if (kick) {
-      DOMnavigated$.next({
-        target: document,
-        currentTarget: document
-      })
-    }
-  }
-  return [boot]
-}
-/**
+ *  }, {})
+ * // the return payload is split:
+ * // commandobject: { a: { sub$: a, args, erro, reso } }
+ * // commandfunction: { a: (CFG) => { sub$: a, work, src$ } }
+ *  return [ commandobject, commandfunction(CFG) ]
+ * }
  *
- * export const [ boot, CMD ] = pair($store$)
+ *
+ * ```
  *
  */
 
-const baseCommands = [
-  createSetStateCMD,
-  flipFirstCMD,
-  flipLastCMD,
-  hrefPushStateCMD,
-  hurlCMD,
-  injectHeadCMD,
-  notifyPrerenderCMD,
-  setLinkAttrsCMD
-]
 // prettier-ignore
 /**
  *
