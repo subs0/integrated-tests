@@ -98,15 +98,13 @@ const FLIPLastInvertPlay = ({ element, state, id, transition = "all .5s cubic-be
     state.resetIn(clicks, null);
 };
 const state = new Atom({});
-export const flipFirstCMD = {
+export const FLIP_FIRST = registerCMD({
     [CMD_SUB$]: "_FLIP_FIRST",
     [CMD_ARGS]: ({ id, target }) => ({ id, target }),
     [CMD_WORK]: ({ id, target }) => FLIPFirst({ id, target, state })
-};
-export const FLIP_FIRST = registerCMD(flipFirstCMD);
-export const flipLastCMD = {
+});
+export const FLIP_LAST_INVERSE_PLAY = registerCMD({
     [CMD_SUB$]: "_FLIP_LAST_INVERSE_PLAY",
     [CMD_ARGS]: ({ id, element }) => ({ id, element }),
     [CMD_WORK]: ({ id, element }) => FLIPLastInvertPlay({ id, element, state })
-};
-export const FLIP_LAST_INVERSE_PLAY = registerCMD(flipLastCMD);
+});

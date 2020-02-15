@@ -67,7 +67,7 @@ const setLinkAttrs = target => {
  * function
  *
  */
-export const SET_LINK_ATTRS_DOM = registerCMD({
+export const SET_LINK_ATTRS_DOM: any = registerCMD({
   [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
   [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
   [CMD_WORK]: args => setLinkAttrs(args[DOM_NODE])
