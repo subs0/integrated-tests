@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: commands/setstate.ts</title>
+    <title>JSDoc: core/stream$</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -46,48 +44,161 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core.html">core</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-core_stream$.html">core/stream$</a></li></ul><h3>Global</h3><ul><li><a href="global.html#URL_DOM__ROUTE">URL_DOM__ROUTE</a></li></ul></div>
                     </nav>
                 </div>
             </div>
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Source</p>
-                        <h1>commands/setstate.ts</h1>
+                        <p>Module</p>
+                        <h1>core/stream$</h1>
                     </header>
                     
                     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module commands/state
- */
-import { CMD_SUB$, CMD_ARGS, CMD_WORK, STATE_DATA, STATE_PATH } from "@-0/keys"
-import { set$$tate, $store$ } from "../store"
+        
+    
+</header>
 
-import { registerCMD } from "../registers/registerCMD"
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * Higher-order function that takes a `@thi.ng/Atom` state
- * container and returns a Command object for setting that
- * Atom's state by the provided path (lens)
- */
-export const createSetStateCMD: any = store =>
-  registerCMD({
-    [CMD_SUB$]: "_SET_STATE",
-    [CMD_ARGS]: x => x,
-    [CMD_WORK]: args => set$$tate(args[STATE_PATH], args[STATE_DATA], store)
-  })
+        
+    
+    </div>
+    
+    
 
-export const SET_STATE = createSetStateCMD($store$)
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h3 class="title"><span>Members</span></h3>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id=".DOMnavigated$">
+    <a class="href-link" href="#.DOMnavigated$">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        DOMnavigated$
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>There are three types of navigation we need to handle:</p>
+<ol>
+<li>DOMContentLoaded (entering the site) events</li>
+<li>popstate (browser back/forward button clicks) events</li>
+<li><code>&lt;a hurl=&quot;x&quot;&gt;</code> (link clicking)</li>
+</ol>
+<p>These events have different payloads and need to be
+harmonized in order to use them consistently</p>
+<h2>getting the <code>hurl</code> property from the various events:</h2>
+<ol>
+<li>ev.target.location.hurl</li>
+<li>ev.target.location.hurl</li>
+<li>ev.target.hurl</li>
+</ol>
+<p>for raw events, we can just transform them, but for link
+clicking we need to convert/wrap it to align with the
+destructuring of the others</p>
+<p>see _HURL in <code>/commands/routing.js</code> for ad-hoc stream
+injection example</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="core_stream$.ts.html" class="button">View Source</a>
+            <span>
+                <a href="core_stream$.ts.html">core/stream$.ts</a>, <a href="core_stream$.ts.html#line35">line 35</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
@@ -100,7 +211,7 @@ export const SET_STATE = createSetStateCMD($store$)
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:40:23 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:16:59 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>

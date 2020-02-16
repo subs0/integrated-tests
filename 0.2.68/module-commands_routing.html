@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: core/registers</title>
+    <title>JSDoc: commands/routing</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Module</p>
-                        <h1>core/registers</h1>
+                        <h1>commands/routing</h1>
                     </header>
                     
                     
@@ -96,8 +96,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".boot">
-    <a class="href-link" href="#.boot">#</a>
+<h4 class="name" id=".HREF_PUSHSTATE_DOM">
+    <a class="href-link" href="#.HREF_PUSHSTATE_DOM">#</a>
     
         
             <span class='tag'>static</span>
@@ -106,7 +106,7 @@
         
     
     <span class="code-name">
-        boot
+        HREF_PUSHSTATE_DOM
     </span>
     
 </h4>
@@ -115,16 +115,19 @@
 
 
 <div class="description">
-    <p>Options Object keys</p>
-<ul>
-<li>root   : DOM mount node</li>
-<li>view   : root data view (app) node</li>
-<li>draft  : state scaffolding Object</li>
-<li>router : url matching function or config Object</li>
-<li>trace  : string triggers logs prepended with it</li>
-<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
-<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
-</ul>
+    <p>Routing Command: DOM-specific</p>
+<h3>Payload: function</h3>
+<p>default payload <code>args</code> signature:</p>
+<pre class="prettyprint source"><code>args: ({ URL, DOM }) => ({ URL, DOM }),
+</code></pre>
+<p>Takes a URL and a DOM reference</p>
+<h3>Handler: side-effecting</h3>
+<p>If the DOM reference is an <code>&lt;a&gt;</code> element, uses
+<code>history.pushState</code> to add the clicked URL (plus the
+parsed URL from <code>parse_URL(URL)</code>) to the <code>history</code> object</p>
+<p>export const DOMnavigated$ = merge({
+src: [popstate$, DOMContentLoaded$]
+}).transform(map(x =&gt; ({ URL: x.target.location.href, DOM: x.currentTarget })))</p>
 </div>
 
 
@@ -164,9 +167,9 @@
 
     
         <p class="tag-source">
-            <a href="registers_index.ts.html" class="button">View Source</a>
+            <a href="commands_routing.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_index.ts.html">registers/index.ts</a>, <a href="registers_index.ts.html#line79">line 79</a>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line94">line 94</a>
             </span>
         </p>
     
@@ -180,8 +183,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".registerRouterDOM">
-    <a class="href-link" href="#.registerRouterDOM">#</a>
+<h4 class="name" id=".HURLer">
+    <a class="href-link" href="#.HURLer">#</a>
     
         
             <span class='tag'>static</span>
@@ -190,7 +193,7 @@
         
     
     <span class="code-name">
-        registerRouterDOM
+        HURLer
     </span>
     
 </h4>
@@ -199,9 +202,11 @@
 
 
 <div class="description">
-    <p>expects payload of</p>
-<pre class="prettyprint source"><code>{ target: { location: { href } }, currentTarget }
-</code></pre>
+    <p>Click handler that mimics DOM navigation by transforming
+a click event payload to align with the object structure
+of the native DOM navigation events ('popstate' and
+'DOMContentLoaded') payloads, so they can be consumed by
+the <code>navigated$</code> stream</p>
 </div>
 
 
@@ -241,9 +246,180 @@
 
     
         <p class="tag-source">
-            <a href="registers_index.ts.html" class="button">View Source</a>
+            <a href="commands_routing.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_index.ts.html">registers/index.ts</a>, <a href="registers_index.ts.html#line22">line 22</a>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".NOTIFY_PRERENDER_DOM">
+    <a class="href-link" href="#.NOTIFY_PRERENDER_DOM">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        NOTIFY_PRERENDER_DOM
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <h3>args: static</h3>
+<h3>work: side-effecting</h3>
+<p>Routing Command: DOM-specific (used for manually
+triggering a prerendering server for bots/web-crawlers</p>
+<p>TODO: <code>jsdom</code> prerender testing</p>
+<p>basic <code>http</code> server that returns static content for
+certain user-agents</p>
+<p>import { JSDOM } from &quot;jsdom&quot;</p>
+<p>const document = (new JSDOM(...)).window.document
+document.addEventListener(&quot;rendered&quot;,
+() =&gt; {...scrape stuff here... }
+)</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="commands_routing.ts.html" class="button">View Source</a>
+            <span>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line122">line 122</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".SET_LINK_ATTRS_DOM">
+    <a class="href-link" href="#.SET_LINK_ATTRS_DOM">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        SET_LINK_ATTRS_DOM
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Routing Command: DOM-specific</p>
+<h3>Payload: function</h3>
+<p>default payload <code>args</code> signature:</p>
+<pre class="prettyprint source"><code>args: ({ DOM }) => ({ DOM }),
+</code></pre>
+<p>Input = DOM node reference</p>
+<h3>Handler: side-effecting</h3>
+<p>Takes a DOM reference and queries all visited links. Sets
+current/clicked link as active and sets visted links that
+don't match current URL to inactive see <code>setLinkAttrs</code>
+function</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="commands_routing.ts.html" class="button">View Source</a>
+            <span>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line67">line 67</a>
             </span>
         </p>
     
@@ -279,7 +455,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:16:59 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:44:31 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>

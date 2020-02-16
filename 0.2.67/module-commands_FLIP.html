@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: core/registers</title>
+    <title>JSDoc: commands/FLIP</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Module</p>
-                        <h1>core/registers</h1>
+                        <h1>commands/FLIP</h1>
                     </header>
                     
                     
@@ -90,42 +90,66 @@
     
 
     
+
+    
         <div class='vertical-section'>
-            <h3 class="title"><span>Members</span></h3>
+            <h3 class="title"><span>Methods</span></h3>
             <div class="members">
             
                 <div class="member">
 
-<h4 class="name" id=".boot">
-    <a class="href-link" href="#.boot">#</a>
+
     
+    <h4 class="name" id="~FLIPFirst">
+        <a class="href-link" href="#~FLIPFirst">#</a>
         
-            <span class='tag'>static</span>
+            
+                <span class='tag'>inner</span>
+            
         
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                FLIPFirst<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        boot
-    </span>
+
     
-</h4>
-
-
-
-
-<div class="description">
-    <p>Options Object keys</p>
+    
+    <div class="description">
+        <p><code>FLIPFirst</code></p>
+<pre class="prettyprint source"><code>order: normalizeTree -> render -> diff -> init -> release
+                       | hdom |         | dom | unmounted
+</code></pre>
+<ol>
+<li>el mounted (init): look for existing flip map for id</li>
+</ol>
 <ul>
-<li>root   : DOM mount node</li>
-<li>view   : root data view (app) node</li>
-<li>draft  : state scaffolding Object</li>
-<li>router : url matching function or config Object</li>
-<li>trace  : string triggers logs prepended with it</li>
-<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
-<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
+<li>if exists, Play anim and store new flip map rect (for
+navs)</li>
+<li>if doesn't, nada</li>
 </ul>
-</div>
+<ol start="2">
+<li>el clicked (render.attrs.onclick): measure and store
+flip map for id</li>
+<li>el released: if clicked, calc flip rect and lookup for
+id:</li>
+</ol>
+<ul>
+<li>if first === last, no change (on nav e.g.)</li>
+<li>if first !== last, nav change (store rect for id)</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
 
 
 
@@ -164,13 +188,29 @@
 
     
         <p class="tag-source">
-            <a href="registers_index.ts.html" class="button">View Source</a>
+            <a href="commands_FLIP.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_index.ts.html">registers/index.ts</a>, <a href="registers_index.ts.html#line79">line 79</a>
+                <a href="commands_FLIP.ts.html">commands/FLIP.ts</a>, <a href="commands_FLIP.ts.html#line91">line 91</a>
             </span>
         </p>
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -180,29 +220,58 @@
             
                 <div class="member">
 
-<h4 class="name" id=".registerRouterDOM">
-    <a class="href-link" href="#.registerRouterDOM">#</a>
+
     
+    <h4 class="name" id="~FLIPLastInvertPlay">
+        <a class="href-link" href="#~FLIPLastInvertPlay">#</a>
         
-            <span class='tag'>static</span>
+            
+                <span class='tag'>inner</span>
+            
         
-            <span class='tag'>constant</span>
-        
+        <span class="code-name">
+            
+                FLIPLastInvertPlay<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
     
-    <span class="code-name">
-        registerRouterDOM
-    </span>
+
     
-</h4>
+    
+    <div class="description">
+        <ol>
+<li>
+<p>if it has been clicked that means the last thing
+that happened was a click that triggered this init
+so we do the calcs</p>
+</li>
+<li>
+<p>if a back/nav (no frame) event was what triggered
+the init do the calcs with no frame</p>
+</li>
+</ol>
+<p>What's happening:</p>
+<ul>
+<li>on first click (render)</li>
+<li>rect registered</li>
+<li>frame registered</li>
+<li>navs</li>
+<li>on init of new DOM</li>
+<li>checks for rect &amp; frame</li>
+<li>uses rect &amp; frame to calc diff</li>
+<li>PLAY</li>
+</ul>
+    </div>
+    
 
 
 
 
-<div class="description">
-    <p>expects payload of</p>
-<pre class="prettyprint source"><code>{ target: { location: { href } }, currentTarget }
-</code></pre>
-</div>
+
+
+
+
 
 
 
@@ -241,13 +310,130 @@
 
     
         <p class="tag-source">
-            <a href="registers_index.ts.html" class="button">View Source</a>
+            <a href="commands_FLIP.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_index.ts.html">registers/index.ts</a>, <a href="registers_index.ts.html#line22">line 22</a>
+                <a href="commands_FLIP.ts.html">commands/FLIP.ts</a>, <a href="commands_FLIP.ts.html#line124">line 124</a>
             </span>
         </p>
     
 </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="~zIndex">
+        <a class="href-link" href="#~zIndex">#</a>
+        
+            
+                <span class='tag'>inner</span>
+            
+        
+        <span class="code-name">
+            
+                zIndex<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>https://coder-coder.com/z-index-isnt-working/</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="commands_FLIP.ts.html" class="button">View Source</a>
+            <span>
+                <a href="commands_FLIP.ts.html">commands/FLIP.ts</a>, <a href="commands_FLIP.ts.html#line104">line 104</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -257,8 +443,6 @@
             
             </div>
         </div>
-    
-
     
 
     
