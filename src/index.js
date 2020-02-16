@@ -1,4 +1,4 @@
-export * from "./dom"
+export * from "./hdom"
 export * from "./utils"
 export * from "./spool"
 
