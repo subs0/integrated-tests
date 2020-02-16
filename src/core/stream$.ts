@@ -2,15 +2,15 @@
  * @module core/stream$
  */
 
-import { fromDOMEvent, merge } from "@thi.ng/rstream"
+import { fromDOMEvent, merge, ISubscribable } from "@thi.ng/rstream"
 import { map } from "@thi.ng/transducers"
 
 import { URL_FULL, DOM_NODE } from "@-0/keys"
 
 // @ts-ignore
-export const popstate$ = fromDOMEvent(window, "popstate")
+export const popstate$: any = fromDOMEvent(window, "popstate")
 // @ts-ignore
-export const DOMContentLoaded$ = fromDOMEvent(window, "DOMContentLoaded")
+export const DOMContentLoaded$: any = fromDOMEvent(window, "DOMContentLoaded")
 
 // example of custom stream dispatch (logging)
 /**
