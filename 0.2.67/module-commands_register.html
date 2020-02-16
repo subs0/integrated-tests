@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: core/registers</title>
+    <title>JSDoc: commands/register</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Module</p>
-                        <h1>core/registers</h1>
+                        <h1>commands/register</h1>
                     </header>
                     
                     
@@ -96,8 +96,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".router">
-    <a class="href-link" href="#.router">#</a>
+<h4 class="name" id=".registerCMD">
+    <a class="href-link" href="#.registerCMD">#</a>
     
         
             <span class='tag'>static</span>
@@ -106,7 +106,7 @@
         
     
     <span class="code-name">
-        router
+        registerCMD
     </span>
     
 </h4>
@@ -115,16 +115,27 @@
 
 
 <div class="description">
-    <p>Options Object keys</p>
-<ul>
-<li>root   : DOM mount node</li>
-<li>view   : root data view (app)</li>
-<li>draft  : state scaffolding Object</li>
-<li>router : url matching function or config Object</li>
-<li>trace  : string triggers logs prepended with it</li>
-<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
-<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
-</ul>
+    <p>Takes a Command object with some additional information
+and returns a Command <code>run</code>able in a Task or as-is.</p>
+<h3>Example</h3>
+<pre class="prettyprint source lang-js"><code>const genie = {
+  sub$: &quot;GENIE&quot;,
+  args: &quot;your wish&quot;
+  work: x => console.log(&quot;🧞 says:&quot;, x, &quot;is my command&quot;)
+}
+
+const GENIE = registerCMD(genie)
+
+run(GENIE)
+// 🧞 says: your wish is my command
+</code></pre>
+<p>A Command object can have four keys:</p>
+<ol>
+<li><code>sub$</code> (required)</li>
+<li><code>args</code> (optional, sets default) during registration</li>
+<li><code>work</code> (required)</li>
+<li><code>src$</code> (optional, enables stream to feed Command)</li>
+</ol>
 </div>
 
 
@@ -164,9 +175,9 @@
 
     
         <p class="tag-source">
-            <a href="registers_router.ts.html" class="button">View Source</a>
+            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_router.ts.html">registers/router.ts</a>, <a href="registers_router.ts.html#line38">line 38</a>
+                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line48">line 48</a>
             </span>
         </p>
     

@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: core/stream$.ts</title>
+    <title>JSDoc: registers/router.ts</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -46,7 +46,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-core_stream$.html">core/stream$</a></li></ul><h3>Global</h3><ul><li><a href="global.html#URL_DOM__ROUTE">URL_DOM__ROUTE</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core.html">core</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>core/stream$.ts</h1>
+                        <h1>registers/router.ts</h1>
                     </header>
                     
                     
@@ -65,50 +65,85 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module core/stream$
+ * @module core/registers
  */
-
-import { fromDOMEvent, merge } from "@thi.ng/rstream"
+import { fromAtom } from "@thi.ng/rstream"
+import { peek } from "@thi.ng/arrays"
 import { map } from "@thi.ng/transducers"
 
-import { URL_FULL, DOM_NODE } from "@-0/keys"
+import {
+  URL_FULL,
+  ROUTER_PRFX,
+  CFG_RUTR,
+  CMD_SUB$,
+  CMD_ARGS,
+  CMD_WORK,
+  CFG_ROOT,
+  CFG_VIEW,
+  CFG_DRFT,
+  CFG_LOG$,
+  CFG_KICK
+} from "@-0/keys"
 
-// @ts-ignore
-export const popstate$ = fromDOMEvent(window, "popstate")
-// @ts-ignore
-export const DOMContentLoaded$ = fromDOMEvent(window, "DOMContentLoaded")
+import { $store$ } from "../store"
 
-// example of custom stream dispatch (logging)
+import { registerCMD } from "./registerCMD"
+
+import { URL__ROUTE } from "../tasks"
+
+import { diff_keys } from "@-0/utils"
+
+import { run$ } from "../core"
+
+// TODO: server router must be fed from `http` or something (req/res), not `DOMnavigated$`
+
+export const registerRouter: any = router => {
+  console.log("Router Registered")
+
+  const taskFrom = URL__ROUTE(router)
+  return registerCMD({
+    [CMD_SUB$]: "_URL_NAVIGATED$",
+    // [CMD_SRC$]: DOMnavigated$,
+    [CMD_ARGS]: x => x,
+    [CMD_WORK]: args => run$.next(taskFrom({ [URL_FULL]: args[URL_FULL] }))
+  })
+}
+
+// prettier-ignore
 /**
  *
- * There are three types of navigation we need to handle:
- * 1. DOMContentLoaded (entering the site) events
- * 2. popstate (browser back/forward button clicks) events
- * 3. `&lt;a hurl="x">` (link clicking)
+ * Options Object keys
+ * - root   : DOM mount node
+ * - view   : root data view (app)
+ * - draft  : state scaffolding Object
+ * - router : url matching function or config Object
+ * - trace  : string triggers logs prepended with it
+ * - kick   : boolean triggers kickstart (for some sandboxes)
+ * - prefix : ignore a part of the URL (e.g., gitub.io/&lt;prefix>)
  *
- * These events have different payloads and need to be
- * harmonized in order to use them consistently
- *
- * ## getting the `hurl` property from the various events:
- * 1. ev.target.location.hurl
- * 2. ev.target.location.hurl
- * 3. ev.target.hurl
- *
- * for raw events, we can just transform them, but for link
- * clicking we need to convert/wrap it to align with the
- * destructuring of the others
- *
- * see _HURL in `/commands/routing.js` for ad-hoc stream
- * injection example
  */
-export const DOMnavigated$ = merge({
-  src: [popstate$, DOMContentLoaded$]
-}).transform(
-  map((x: Event | any) => ({
-    [URL_FULL]: x.target.location.href,
-    [DOM_NODE]: x.currentTarget
-  }))
-)
+export const router = (CFG: Object) => {
+
+  const draft      = CFG[CFG_DRFT]
+  const router     = CFG[CFG_RUTR]
+  const log$       = CFG[CFG_LOG$]
+  const kick       = CFG[CFG_KICK]
+  const knowns     = [CFG_ROOT, CFG_VIEW, CFG_DRFT, CFG_RUTR, CFG_LOG$]
+  const prfx       = router[ROUTER_PRFX] || null
+
+  const [, others] = diff_keys(knowns, CFG)
+  const escRGX     = /[-/\\^$*+?.()|[\]{}]/g
+  const escaped    = str => str.replace(escRGX, "\\$&amp;")
+  const RGX        = prfx ? new RegExp(escaped(prfx || ""), "g") : null
+
+  if (router) registerRouter(router)
+
+  const state$ = fromAtom($store$)
+
+  if (draft) $store$.swap(x => ({ ...draft, ...x }))
+
+  state$.subscribe(map(peek))
+}
 </code></pre>
         </article>
     </section>
@@ -124,7 +159,7 @@ export const DOMnavigated$ = merge({
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:16:59 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:40:23 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
