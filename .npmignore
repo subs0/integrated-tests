@@ -2,7 +2,7 @@ node_modules/
 @-0/
 jsdoc/
 guides/
-examples/
+example/
 src/
 dist/
 tests/
