@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: commands/setstate.ts</title>
+    <title>JSDoc: dom/src/core/stream$.ts</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -46,7 +46,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core.html">core</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-keys.html">keys</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li><li><a href="module-utils_diff_keys.html">utils/diff_keys</a></li><li><a href="module-utils_stringify_type.html">utils/stringify_type</a></li><li><a href="module-utils_taskDelay.html">utils/taskDelay</a></li><li><a href="module-utils_trace$.html">utils/trace$</a></li><li><a href="module-utils_URL.html">utils/URL</a></li><li><a href="module-utils_xKey.html">utils/xKey</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerCMD">registerCMD</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>commands/setstate.ts</h1>
+                        <h1>dom/src/core/stream$.ts</h1>
                     </header>
                     
                     
@@ -65,30 +65,50 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module commands/state
+ * @module core/stream$
  */
-import { CMD_SUB$, CMD_ARGS, CMD_WORK, STATE_DATA, STATE_PATH, Command } from "@-0/keys"
-import { set$$tate, $store$ } from "../store"
-import { registerCMD } from "@-0/spool"
 
-/**
- * Higher-order function that takes a `@thi.ng/Atom` state
- * container and returns a Command object for setting that
- * Atom's state by the provided path (lens)
- */
-export const createSetStateCMD: Command = store =>
-  registerCMD({
-    [CMD_SUB$]: "_SET_STATE",
-    [CMD_ARGS]: x => x,
-    [CMD_WORK]: args => set$$tate(args[STATE_PATH], args[STATE_DATA], store)
-  })
+import { fromDOMEvent, merge } from "@thi.ng/rstream"
+import { map } from "@thi.ng/transducers"
 
+import { URL_FULL, DOM_NODE } from "@-0/keys"
+
+// @ts-ignore
+export const popstate$ = fromDOMEvent(window, "popstate")
+// @ts-ignore
+export const DOMContentLoaded$ = fromDOMEvent(window, "DOMContentLoaded")
+
+// example of custom stream dispatch (logging)
 /**
  *
- * Command that sets global store state using a path and
- * data key from args
+ * There are three types of navigation we need to handle:
+ * 1. DOMContentLoaded (entering the site) events
+ * 2. popstate (browser back/forward button clicks) events
+ * 3. `&lt;a hurl="x">` (link clicking)
+ *
+ * These events have different payloads and need to be
+ * harmonized in order to use them consistently
+ *
+ * ## getting the `hurl` property from the various events:
+ * 1. ev.target.location.hurl
+ * 2. ev.target.location.hurl
+ * 3. ev.target.hurl
+ *
+ * for raw events, we can just transform them, but for link
+ * clicking we need to convert/wrap it to align with the
+ * destructuring of the others
+ *
+ * see _HURL in `/commands/routing.js` for ad-hoc stream
+ * injection example
  */
-export const SET_STATE: Command = createSetStateCMD($store$)
+export const DOMnavigated$ = merge({
+  src: [popstate$, DOMContentLoaded$]
+}).transform(
+  map((x: Event | any) => ({
+    [URL_FULL]: x.target.location.href,
+    [DOM_NODE]: x.currentTarget
+  }))
+)
 </code></pre>
         </article>
     </section>
@@ -104,7 +124,7 @@ export const SET_STATE: Command = createSetStateCMD($store$)
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Feb 27 2020 14:32:21 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Feb 11 2020 00:53:58 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
