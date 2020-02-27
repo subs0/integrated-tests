@@ -31,13 +31,13 @@
   },
   "peerDependencies": {
     "@-0/keys": "^0.2.64",
-    "@thi.ng/rstream": "^3.0.2",
-    "@thi.ng/checks": "latest"
+    "@thi.ng/checks": "^2.5.0",
+    "@thi.ng/rstream": "^3.0.2"
   },
   "devDependencies": {
     "@-0/keys": "^0.2.64",
+    "@thi.ng/checks": "^2.5.0",
     "@thi.ng/rstream": "^3.0.2",
-    "@thi.ng/checks": "latest",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "eslint": "^6.8.0",
