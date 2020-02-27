@@ -6,7 +6,6 @@ import { peek } from "@thi.ng/arrays"
 import { map } from "@thi.ng/transducers"
 import { updateDOM } from "@thi.ng/transducers-hdom"
 import { getIn } from "@thi.ng/paths"
-import { IAtom, Atom } from "@thi.ng/atom"
 
 import {
   DOM_NODE,
@@ -35,13 +34,15 @@ import {
   Command
 } from "@-0/keys"
 
-import { $store$, run$, registerCMD, command$ } from "@-0/spool"
+import { run$, registerCMD, command$ } from "@-0/spool"
 
 import { parse, diff_keys } from "@-0/utils"
 
 import { URL_DOM__ROUTE } from "../tasks"
 
 import { DOMnavigated$ } from "../core/stream$"
+
+import { $store$ } from "../store"
 
 /**
  *
