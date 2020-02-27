@@ -83,8 +83,8 @@ export declare const $$_CMDS = "_COMMANDS";
 export declare const $$: Object;
 export declare const $$_DEFAULT: {
     _ROUTE_PATH: any[];
-    [$$_LOAD]: boolean;
+    _ROUTE_LOADING: boolean;
     _PAGE_TEMPLATE: any;
-    [$$_ROOT]: HTMLElement;
+    _ROOT: HTMLElement;
     _COMMANDS: {};
 };
