@@ -13,7 +13,9 @@ export const URL_PAGE = "URL_page"
 export const URL_PRSE = "parse"
 export const URL_NPRS = "unparse"
 
-// public
+/**
+ * Object Keys for a Parsed URL using `parse` from @-0/utils
+ */
 export const URL = {
   FULL: URL_FULL,
   PATH: URL_PATH,

@@ -3,8 +3,7 @@
  */
 import { CMD_SUB$, CMD_ARGS, CMD_WORK, STATE_DATA, STATE_PATH } from "@-0/keys"
 import { set$$tate, $store$ } from "../store"
-
-import { registerCMD } from "../registers/registerCMD"
+import { registerCMD } from "@-0/spool"
 
 /**
  * Higher-order function that takes a `@thi.ng/Atom` state

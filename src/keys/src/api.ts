@@ -1,5 +1,5 @@
 import { ISubscribable } from "@thi.ng/rstream"
-import { IAtom } from "@thi.ng/atom"
+import { IAtom } from "@thi.ng/atom/api"
 import * as C from "./constants"
 
 export interface ParsedURL {
