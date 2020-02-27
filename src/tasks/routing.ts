@@ -7,11 +7,11 @@ import { isObject } from "@thi.ng/checks"
 import {
   HREF_PUSHSTATE_DOM,
   NOTIFY_PRERENDER_DOM,
-  SET_LINK_ATTRS_DOM
+  SET_LINK_ATTRS_DOM,
+  SET_STATE
   // msTaskPromiseDelay,
 } from "../commands"
 
-import { SET_STATE } from "@-0/spool"
 import {
   $$_VIEW,
   $$_LOAD,
@@ -32,8 +32,6 @@ import {
   STATE_DATA,
   STATE_PATH
 } from "@-0/keys"
-
-import { $store$ } from "../store"
 
 import { parse } from "@-0/utils"
 
