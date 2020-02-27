@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: tasks/routing.ts</title>
+    <title>JSDoc: components/FLIPkid.ts</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -54,7 +54,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>tasks/routing.ts</h1>
+                        <h1>components/FLIPkid.ts</h1>
                     </header>
                     
                     
@@ -65,124 +65,81 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module tasks/routing
+ * @module components/FLIPkid
  */
 
-import { isObject } from "@thi.ng/checks"
+import { FLIP_FIRST, FLIP_LAST_INVERSE_PLAY, HURL } from "../commands"
+import { isPlainObject } from "@thi.ng/checks"
 
-import {
-  HREF_PUSHSTATE_DOM,
-  NOTIFY_PRERENDER_DOM,
-  SET_LINK_ATTRS_DOM
-  // msTaskPromiseDelay,
-} from "../commands"
+import { CFG_RUN$, CMD_ARGS } from "@-0/keys"
 
-import { $store$, SET_STATE, URL__ROUTE } from "@-0/spool"
-import {
-  $$_VIEW,
-  $$_LOAD,
-  $$_PATH,
-  DOM_NODE,
-  URL_FULL,
-  URL_DATA,
-  URL_PATH,
-  URL_PAGE,
-  ROUTER_PREP,
-  ROUTER_POST,
-  ROUTER_PRFX,
-  CFG_RUTR,
-  CMD_ARGS,
-  CMD_RESO,
-  CMD_ERRO,
-  DOM_BODY,
-  STATE_DATA,
-  STATE_PATH
-} from "@-0/keys"
+const err_str = prop => `
+  No '${prop}' property found on FLIPkid firstChild. 
+  Ensure you are providing FLIPkid a component with an 
+  attributes object as its second argument with a ${prop}
+  property for proper FLIP routing.
+`
 
-import { parse } from "@-0/utils"
+// const [tag, attrs, ..._args] = kid(ctx, ...args)
+// const { href } = attrs
 
+const sim_event = href => ({
+  currentTarget: { document: null },
+  target: {
+    href
+  }
+})
+
+const _attrs = ctx => ({
+  onclick: ev => {
+    ev.preventDefault()
+    // console.log({ ev })
+    const target = ev.target
+    const href = target.getAttribute("href")
+    // console.log({ target, href })
+    if (!href) return new Error(err_str("href"))
+    ctx[CFG_RUN$]([
+      { ...HURL, [CMD_ARGS]: sim_event(href) },
+      { ...FLIP_FIRST, [CMD_ARGS]: { id: href, target } }
+    ])
+  }
+})
 /**
+ * FLIP (First Last Invert Play) Animating component. Wraps
+ * a component that has an `href` attribute and uses it to
+ * trigger a routing event and FLIP animation between
+ * instances on separate routes (provides a "magic
+ * move"-like UX)
  *
- * DOM Router that contains a cross-platform routing Subtask
- *
- * Subtask HOF for router registration. Takes a
- * `@thi.ng/associative` `EquivMap` route matching function,
- * registers that router as a member of a Task for following
- * Commands to leverage the returned data (`{ data, page }`)
- *
- * Pseudo
- * ```
- * ( router ) => ({ URL, DOM event }) => [
- *  - if href, push to `history.pushState`
- *  - SUBTASK: _URL__ROUTE (universal router)
- *  - remove `active` attribute from visited links except current
- *  - notify rendertron (TBD) of new page
- * ]
- * ```
- *
- * reserved Command keys:
- *  - `URL`
- *  - `DOM`
- *  - `URL_page`
- *  - `URL_path`
- *  - `URL_data`
  */
-export const URL_DOM__ROUTE = CFG => {
-  // instantiate router
-  const match = URL__ROUTE(CFG)
-
-  return acc => [
-    {
-      ...SET_STATE,
+export const FLIPkid = Object.freeze({
+  render: (ctx, attrs, ...rest) =>
+    isPlainObject(attrs)
+      ? // console.log("FLIPkid"),
+        [
+          "div",
+          {
+            ...attrs,
+            ..._attrs(ctx)
+          },
+          ...rest
+        ]
+      : ["div", _attrs(ctx), attrs, ...rest],
+  init: (el, ctx) => {
+    // console.log({
+    //   el,
+    //   firstChild: el.firstChild,
+    //   id: el.firstChild.getAttribute("href")
+    // }),
+    ctx[CFG_RUN$]({
+      ...FLIP_LAST_INVERSE_PLAY,
       [CMD_ARGS]: {
-        [STATE_PATH]: [$$_LOAD],
-        [STATE_DATA]: true
+        element: el.firstChild,
+        id: el.firstChild.getAttribute("href")
       }
-    },
-    {
-      ...HREF_PUSHSTATE_DOM,
-      [CMD_ARGS]: { [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }
-    },
-    // example Subtask injection
-    ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
-    // { args: msTaskDelay(2000) },
-    /**
-     * takes the result from two sources: the user-provided
-     * [`router`](http://thi.ng/associative) and a `unFURL`d URL
-     *
-     * ### work: side-effecting
-     *
-     * Hydrates the page state as well as the name of the active
-     * page in the global store
-     */
-    {
-      ...SET_STATE,
-      [CMD_ARGS]: _acc => ({
-        [STATE_PATH]: [$$_VIEW],
-        [STATE_DATA]: _acc[URL_PAGE]
-      })
-    },
-    {
-      ...SET_STATE,
-      [CMD_ARGS]: _acc => ({
-        [STATE_PATH]: _acc[URL_PATH],
-        [STATE_DATA]: _acc[URL_DATA][DOM_BODY] || _acc[URL_DATA]
-      })
-    },
-    // example ad-hoc stream injection
-    // { sub$: log$, args: () => ({ DOM }) },
-    SET_LINK_ATTRS_DOM,
-    {
-      ...SET_STATE,
-      // wait on pending promise(s) w/a non-nullary fn (+)=>
-      [CMD_ARGS]: _ => ({
-        [STATE_PATH]: [$$_LOAD],
-        [STATE_DATA]: false
-      })
-    },
-    NOTIFY_PRERENDER_DOM
-  ]
-}
+    })
+  }
+})
 </code></pre>
         </article>
     </section>
@@ -198,7 +155,7 @@ export const URL_DOM__ROUTE = CFG => {
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:16:59 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:44:30 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>

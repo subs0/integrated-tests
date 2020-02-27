@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: tasks/routing.ts</title>
+    <title>JSDoc: commands/head.ts</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -54,7 +54,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>tasks/routing.ts</h1>
+                        <h1>commands/head.ts</h1>
                     </header>
                     
                     
@@ -65,124 +65,107 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module tasks/routing
+ * @module commands/head
  */
+import { URL_DATA, CMD_SUB$, CMD_ARGS, CMD_WORK, DOM_HEAD } from "@-0/keys"
 
-import { isObject } from "@thi.ng/checks"
+import { registerCMD } from "@-0/spool"
 
-import {
-  HREF_PUSHSTATE_DOM,
-  NOTIFY_PRERENDER_DOM,
-  SET_LINK_ATTRS_DOM
-  // msTaskPromiseDelay,
-} from "../commands"
-
-import { $store$, SET_STATE, URL__ROUTE } from "@-0/spool"
-import {
-  $$_VIEW,
-  $$_LOAD,
-  $$_PATH,
-  DOM_NODE,
-  URL_FULL,
-  URL_DATA,
-  URL_PATH,
-  URL_PAGE,
-  ROUTER_PREP,
-  ROUTER_POST,
-  ROUTER_PRFX,
-  CFG_RUTR,
-  CMD_ARGS,
-  CMD_RESO,
-  CMD_ERRO,
-  DOM_BODY,
-  STATE_DATA,
-  STATE_PATH
-} from "@-0/keys"
-
-import { parse } from "@-0/utils"
-
-/**
- *
- * DOM Router that contains a cross-platform routing Subtask
- *
- * Subtask HOF for router registration. Takes a
- * `@thi.ng/associative` `EquivMap` route matching function,
- * registers that router as a member of a Task for following
- * Commands to leverage the returned data (`{ data, page }`)
- *
- * Pseudo
- * ```
- * ( router ) => ({ URL, DOM event }) => [
- *  - if href, push to `history.pushState`
- *  - SUBTASK: _URL__ROUTE (universal router)
- *  - remove `active` attribute from visited links except current
- *  - notify rendertron (TBD) of new page
- * ]
- * ```
- *
- * reserved Command keys:
- *  - `URL`
- *  - `DOM`
- *  - `URL_page`
- *  - `URL_path`
- *  - `URL_data`
- */
-export const URL_DOM__ROUTE = CFG => {
-  // instantiate router
-  const match = URL__ROUTE(CFG)
-
-  return acc => [
-    {
-      ...SET_STATE,
-      [CMD_ARGS]: {
-        [STATE_PATH]: [$$_LOAD],
-        [STATE_DATA]: true
-      }
-    },
-    {
-      ...HREF_PUSHSTATE_DOM,
-      [CMD_ARGS]: { [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }
-    },
-    // example Subtask injection
-    ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
-    // { args: msTaskDelay(2000) },
-    /**
-     * takes the result from two sources: the user-provided
-     * [`router`](http://thi.ng/associative) and a `unFURL`d URL
-     *
-     * ### work: side-effecting
-     *
-     * Hydrates the page state as well as the name of the active
-     * page in the global store
-     */
-    {
-      ...SET_STATE,
-      [CMD_ARGS]: _acc => ({
-        [STATE_PATH]: [$$_VIEW],
-        [STATE_DATA]: _acc[URL_PAGE]
-      })
-    },
-    {
-      ...SET_STATE,
-      [CMD_ARGS]: _acc => ({
-        [STATE_PATH]: _acc[URL_PATH],
-        [STATE_DATA]: _acc[URL_DATA][DOM_BODY] || _acc[URL_DATA]
-      })
-    },
-    // example ad-hoc stream injection
-    // { sub$: log$, args: () => ({ DOM }) },
-    SET_LINK_ATTRS_DOM,
-    {
-      ...SET_STATE,
-      // wait on pending promise(s) w/a non-nullary fn (+)=>
-      [CMD_ARGS]: _ => ({
-        [STATE_PATH]: [$$_LOAD],
-        [STATE_DATA]: false
-      })
-    },
-    NOTIFY_PRERENDER_DOM
-  ]
+const setFavicon = href => {
+  let link: HTMLLinkElement =
+    document.querySelector("link[rel*='icon']") || document.createElement("link")
+  link.type = "image/x-icon"
+  link.rel = "shortcut icon"
+  link.href = href
+  document.getElementsByTagName("head")[0].appendChild(link)
 }
+
+// TODO currently throws CORS warning
+const defalt_cfg = {
+  meta: {
+    "og:title": "My thi.ng",
+    "og:image": "https://github.com/loganpowell/ac/raw/master/assets/thing400x400.png",
+    "og:image:width": 400,
+    "og:image:height": 400,
+    "og:description": "web app",
+    "og:type": "website"
+  },
+  title: "My thi.ng",
+  favicon: "https://github.com/loganpowell/ac/raw/master/assets/favicon.ico"
+}
+
+declare var document: any
+
+const replaceMeta = (obj: any = defalt_cfg) => {
+  Object.entries(obj).forEach(([key, val]) => {
+    try {
+      return {
+        HEAD_title: () => {
+          document.title = val
+        },
+        HEAD_meta: () => {
+          Object.entries(val).forEach(([prop, content]) => {
+            document.head.querySelector(`meta[property="${prop}"]`).content = content
+          })
+        },
+        HEAD_favicon: () => setFavicon(val)
+      }[key]()
+    } catch (e) {
+      console.warn(e)
+    }
+  })
+}
+
+const conformToHead = ({
+  title = defalt_cfg.title,
+  description = defalt_cfg.meta["og:description"],
+  image: {
+    url = defalt_cfg.meta["og:image"],
+    height = defalt_cfg.meta["og:image:height"],
+    width = defalt_cfg.meta["og:image:width"]
+  },
+  favicon = defalt_cfg.favicon,
+  type = defalt_cfg.meta["og:type"]
+}) => ({
+  HEAD_meta: {
+    /**
+     * og:url can tell scrapers to ignore the page and
+     * scrape this instead. Would save scraping the whole
+     * page and might be friendlier for `jsdom`
+     */
+    // "og:url": history.state.URL,
+    "og:title": title,
+    "og:type": type,
+    "og:description": description,
+    "og:image:width": width,
+    "og:image:height": height,
+    "og:image": url
+  },
+  HEAD_title: title,
+  HEAD_favicon: favicon
+})
+
+interface apiURL {
+  [URL_data_: string]: {
+    [HEAD_: string]: {
+      title?: any
+      description?: any
+      image?: any
+      favicon?: any
+      type?: any
+    }
+  }
+}
+
+export const INJECT_HEAD: any = registerCMD({
+  [CMD_SUB$]: "_INJECT_HEAD",
+  [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
+  [CMD_WORK]: ({
+    [URL_DATA]: {
+      [DOM_HEAD]: { title, description, image, favicon, type }
+    }
+  }: apiURL) => replaceMeta(conformToHead({ title, description, image, favicon, type }))
+})
 </code></pre>
         </article>
     </section>
@@ -198,7 +181,7 @@ export const URL_DOM__ROUTE = CFG => {
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:16:59 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sun Feb 16 2020 02:44:30 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
