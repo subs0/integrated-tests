@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: registers/registerCMD.ts</title>
+    <title>JSDoc: components/FLIPkid.ts</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -46,7 +46,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>registers/registerCMD.ts</h1>
+                        <h1>components/FLIPkid.ts</h1>
                     </header>
                     
                     
@@ -65,94 +65,81 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module commands/register
+ * @module components/FLIPkid
  */
 
-import { map } from "@thi.ng/transducers"
-import { isFunction } from "@thi.ng/checks"
-import { ISubscribable } from "@thi.ng/rstream"
+import { FLIP_FIRST, FLIP_LAST_INVERSE_PLAY, HURL } from "../commands"
+import { isPlainObject } from "@thi.ng/checks"
 
-import { CMD_SUB$, CMD_ARGS, CMD_RESO, CMD_ERRO, CMD_SRC$, CMD_WORK, Command } from "@-0/keys"
-import { xKeyError, diff_keys } from "@-0/utils"
+import { CFG_RUN$, CMD_ARGS } from "@-0/keys"
 
-import { command$, out$ } from "../core"
+const err_str = prop => `
+  No '${prop}' property found on FLIPkid firstChild. 
+  Ensure you are providing FLIPkid a component with an 
+  attributes object as its second argument with a ${prop}
+  property for proper FLIP routing.
+`
 
-export const supplement$CMD: any = (cmd: Command, to$: ISubscribable&lt;any>) => {
-  const sup$: ISubscribable&lt;any> = cmd[CMD_SRC$]
-  const sub$ = cmd[CMD_SUB$]
-  const args = cmd[CMD_ARGS]
-  const isFn = isFunction(args)
-  const load = (x = null) => ({ [CMD_SUB$]: sub$, [CMD_ARGS]: x ? args(x) : args })
-  const xport = $ => map(x => $.next(isFn ? load(x) : load()))
-  return sup$.subscribe(xport(to$))
-}
+// const [tag, attrs, ..._args] = kid(ctx, ...args)
+// const { href } = attrs
 
-const err_str = "command Registration `registerCMD`"
-
-/**
- *
- *
- * Takes a Command object with some additional information
- * and returns a Command `run`able in a Task or as-is.
- *
- * ### Example
- *
- * ```js
- * const genie = {
- *   sub$: "GENIE",
- *   args: "your wish"
- *   work: x => console.log("🧞 says:", x, "is my command")
- * }
- *
- * const GENIE = registerCMD(genie)
- *
- * run(GENIE)
- * // 🧞 says: your wish is my command
- * ```
- *
- * A Command object can have four keys:
- *  1. `sub$` (required)
- *  2. `args` (optional, sets default) during registration
- *  3. `work` (required)
- *  4. `src$` (optional, enables stream to feed Command)
- *
- */
-export const registerCMD = (command: Command = null) => {
-  const sub$ = command[CMD_SUB$]
-  const args = command[CMD_ARGS]
-  const erro = command[CMD_ERRO]
-  const reso = command[CMD_RESO]
-  const src$ = command[CMD_SRC$]
-  const work = command[CMD_WORK]
-
-  const knowns = [CMD_SUB$, CMD_ARGS, CMD_RESO, CMD_ERRO, CMD_SRC$, CMD_WORK]
-  const [unknowns] = diff_keys(knowns, command)
-  // console.log({ knowns, unknowns })
-
-  if (unknowns.length > 0) {
-    throw new Error(xKeyError(err_str, command, unknowns, sub$, undefined))
+const sim_event = href => ({
+  currentTarget: { document: null },
+  target: {
+    href
   }
+})
 
-  if (src$) supplement$CMD(command, command$)
-
-  // @ts-ignore
-  out$.subscribeTopic(
-    sub$,
-    { next: work, error: console.warn },
-    map(puck => puck[CMD_ARGS])
-  )
-
-  const CMD = reso
-    ? {
-        [CMD_SUB$]: sub$,
-        [CMD_ARGS]: args,
-        [CMD_RESO]: reso,
-        [CMD_ERRO]: erro
+const _attrs = ctx => ({
+  onclick: ev => {
+    ev.preventDefault()
+    // console.log({ ev })
+    const target = ev.target
+    const href = target.getAttribute("href")
+    // console.log({ target, href })
+    if (!href) return new Error(err_str("href"))
+    ctx[CFG_RUN$]([
+      { ...HURL, [CMD_ARGS]: sim_event(href) },
+      { ...FLIP_FIRST, [CMD_ARGS]: { id: href, target } }
+    ])
+  }
+})
+/**
+ * FLIP (First Last Invert Play) Animating component. Wraps
+ * a component that has an `href` attribute and uses it to
+ * trigger a routing event and FLIP animation between
+ * instances on separate routes (provides a "magic
+ * move"-like UX)
+ *
+ */
+export const FLIPkid = Object.freeze({
+  render: (ctx, attrs, ...rest) =>
+    isPlainObject(attrs)
+      ? // console.log("FLIPkid"),
+        [
+          "div",
+          {
+            ...attrs,
+            ..._attrs(ctx)
+          },
+          ...rest
+        ]
+      : ["div", _attrs(ctx), attrs, ...rest],
+  init: (el, ctx) => {
+    // console.log({
+    //   el,
+    //   firstChild: el.firstChild,
+    //   id: el.firstChild.getAttribute("href")
+    // }),
+    ctx[CFG_RUN$]({
+      ...FLIP_LAST_INVERSE_PLAY,
+      [CMD_ARGS]: {
+        element: el.firstChild,
+        id: el.firstChild.getAttribute("href")
       }
-    : { [CMD_SUB$]: sub$, [CMD_ARGS]: args }
-
-  return CMD
-}
+    })
+  }
+})
 </code></pre>
         </article>
     </section>
@@ -168,7 +155,7 @@ export const registerCMD = (command: Command = null) => {
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Feb 27 2020 14:29:30 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Thu Feb 27 2020 14:32:21 GMT-0500 (Eastern Standard Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
