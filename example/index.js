@@ -6,7 +6,7 @@ import "regenerator-runtime"
 // scrolly.start()
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
-import { $store$, registerCMD, command$, out$, run$ } from "@-0/spool"
+import { registerCMD, command$, out$, run$ } from "@-0/spool"
 import { INJECT_HEAD, HURL, FLIPkid, boot } from "@-0/hdom"
 import { parse, trace$ } from "@-0/utils"
 import * as K from "@-0/keys"
