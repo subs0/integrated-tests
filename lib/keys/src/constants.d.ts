@@ -6,8 +6,8 @@ export declare const URL_SUBD = "URL_subdomain";
 export declare const URL_QERY = "URL_query";
 export declare const URL_HASH = "URL_hash";
 export declare const URL_PAGE = "URL_page";
-export declare const URL_PRSE = "parse";
-export declare const URL_NPRS = "unparse";
+export declare const URL_PRSE = "unfurl";
+export declare const URL_NPRS = "furl";
 export declare const URL: {
     FULL: string;
     PATH: string;

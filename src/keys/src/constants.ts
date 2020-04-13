@@ -10,8 +10,8 @@ export const URL_SUBD = "URL_subdomain"
 export const URL_QERY = "URL_query"
 export const URL_HASH = "URL_hash"
 export const URL_PAGE = "URL_page"
-export const URL_PRSE = "parse"
-export const URL_NPRS = "unparse"
+export const URL_PRSE = "unfurl"
+export const URL_NPRS = "furl"
 
 /**
  * Object Keys for a Parsed URL using `parse` from @-0/utils
@@ -26,7 +26,7 @@ export const URL = {
   HASH: URL_HASH,
   PAGE: URL_PAGE,
   PRSE: URL_PRSE,
-  NPRS: URL_NPRS
+  NPRS: URL_NPRS,
 }
 
 // userland router metadata constants
@@ -38,7 +38,7 @@ export const DOM_HEAD = "HEAD"
 export const DOM = {
   NODE: DOM_NODE,
   BODY: DOM_BODY,
-  HEAD: DOM_HEAD
+  HEAD: DOM_HEAD,
 }
 
 // set$$tate constants
@@ -48,7 +48,7 @@ export const STATE_DATA = "DATA"
 // public
 export const STATE = {
   PATH: STATE_PATH,
-  DATA: STATE_DATA
+  DATA: STATE_DATA,
 }
 
 // state setting Command constants
@@ -66,7 +66,7 @@ export const CMD = {
   RESO: CMD_RESO,
   ERRO: CMD_ERRO,
   WORK: CMD_WORK,
-  SRC$: CMD_SRC$
+  SRC$: CMD_SRC$,
 }
 
 // boot config constants
@@ -88,7 +88,7 @@ export const CFG = {
   DRFT: CFG_DRFT,
   LOG$: CFG_LOG$,
   RUTR: CFG_RUTR,
-  KICK: CFG_KICK
+  KICK: CFG_KICK,
 }
 
 // ROUTER
@@ -101,7 +101,7 @@ export const ROUTER = {
   PREP: ROUTER_PREP,
   POST: ROUTER_POST,
   PRFX: ROUTER_PRFX,
-  RUTR: CFG_RUTR
+  RUTR: CFG_RUTR,
 }
 
 // Global state keys/constants
@@ -117,7 +117,7 @@ export const $$: Object = {
   LOAD: $$_LOAD,
   VIEW: $$_VIEW,
   ROOT: $$_ROOT,
-  CMDS: $$_CMDS
+  CMDS: $$_CMDS,
 }
 
 // home page / defaults to empty path
@@ -126,5 +126,5 @@ export const $$_DEFAULT = {
   [$$_LOAD]: true,
   [$$_VIEW]: null,
   [$$_ROOT]: document.body,
-  [$$_CMDS]: {}
+  [$$_CMDS]: {},
 }
