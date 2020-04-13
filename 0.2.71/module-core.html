@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: core/registers</title>
+    <title>JSDoc: core</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core.html">core</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-keys.html">keys</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li><li><a href="module-utils_diff_keys.html">utils/diff_keys</a></li><li><a href="module-utils_stringify_type.html">utils/stringify_type</a></li><li><a href="module-utils_taskDelay.html">utils/taskDelay</a></li><li><a href="module-utils_trace$.html">utils/trace$</a></li><li><a href="module-utils_URL.html">utils/URL</a></li><li><a href="module-utils_xKey.html">utils/xKey</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerCMD">registerCMD</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Module</p>
-                        <h1>core/registers</h1>
+                        <h1>core</h1>
                     </header>
                     
                     
@@ -96,8 +96,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".boot">
-    <a class="href-link" href="#.boot">#</a>
+<h4 class="name" id=".command$">
+    <a class="href-link" href="#.command$">#</a>
     
         
             <span class='tag'>static</span>
@@ -106,7 +106,7 @@
         
     
     <span class="code-name">
-        boot
+        command$
     </span>
     
 </h4>
@@ -115,16 +115,10 @@
 
 
 <div class="description">
-    <p>Options Object keys</p>
-<ul>
-<li>root   : DOM mount node</li>
-<li>app    : root application node</li>
-<li>draft  : state scaffolding Object</li>
-<li>router : url matching function or config Object</li>
-<li>trace  : string triggers logs prepended with it</li>
-<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
-<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
-</ul>
+    <p>Primary fork/bisect stream for indivual commands.
+attached to a <code>pubsub</code> stemming from this stream. The
+<code>topic</code> function used to alert downstream handlers is a
+simple lookup of the <code>sub$</code> key of the command</p>
 </div>
 
 
@@ -164,9 +158,9 @@
 
     
         <p class="tag-source">
-            <a href="dom_src_registers_index.ts.html" class="button">View Source</a>
+            <a href="core_multiplex.ts.html" class="button">View Source</a>
             <span>
-                <a href="dom_src_registers_index.ts.html">dom/src/registers/index.ts</a>, <a href="dom_src_registers_index.ts.html#line50">line 50</a>
+                <a href="core_multiplex.ts.html">core/multiplex.ts</a>, <a href="core_multiplex.ts.html#line45">line 45</a>
             </span>
         </p>
     
@@ -180,8 +174,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".registerRouterDOM">
-    <a class="href-link" href="#.registerRouterDOM">#</a>
+<h4 class="name" id=".multiplex">
+    <a class="href-link" href="#.multiplex">#</a>
     
         
             <span class='tag'>static</span>
@@ -190,7 +184,7 @@
         
     
     <span class="code-name">
-        registerRouterDOM
+        multiplex
     </span>
     
 </h4>
@@ -199,8 +193,68 @@
 
 
 <div class="description">
-    <p>expects payload of</p>
-<pre class="prettyprint source"><code>{ target: { location: { href } }, currentTarget }
+    <p>Handles Collections (array) of Commands (&quot;Tasks&quot;) which
+require <em>ordered</em> choreography and/or have a dependency
+on some (a)sync data produced by a user interaction.</p>
+<h3>Subtasks:</h3>
+<p>Subtasks are the way you compose tasks. Insert a Task and
+the spool will unpack it in place (super -&gt; sub
+order preserved) A Subtask must be defined as a unary
+function that accepts an accumulator object and returns a
+Task, e.g.:</p>
+<h4>PSEUDO</h4>
+<pre class="prettyprint source lang-js"><code>// { C: Command }
+// ( { A: Accumulator }: Object ) => [{C},{C}]: Subtask
+let someSubtask = ({A}) => [{C}, {C}, ({A})=>[{C},{C}], ...]
+</code></pre>
+<h4>Example</h4>
+<pre class="prettyprint source lang-js"><code>// subtask example:
+let subtask1 = acc => [
+ { sub$: &quot;acc&quot;
+ , args: { data: acc.data } },
+ { sub$: &quot;route&quot;
+ , args: { route: { href: acc.href } } }
+]
+
+// task
+let task = [
+ { args: { href: &quot;https://my.io/todos&quot; } }, // acc init
+ { sub$: &quot;fetch&quot;
+ , args: ({ href }) => fetch(href).then(r => r.json())
+ , erro: (acc, err) => ({ sub$: &quot;cancel&quot;, args: err })
+ , reso: (acc, res) => ({ data: res }) },
+ acc => subtask1(acc), // subtask reference
+ { sub$: &quot;FLIP&quot; , args: &quot;done&quot; }
+]
+</code></pre>
+<h3>Ad-hoc stream injection Example</h3>
+<pre class="prettyprint source lang-js"><code>import { stream } from &quot;@thi.ng/rstream&quot;
+import { map, comp } from &quot;@thi.ng/transducers&quot;
+
+// ad-hoc stream
+let login = stream().subscribe(comp(
+ map(x => console.log(&quot;login ->&quot;, x)),
+ map(({ token }) => loginToMyAuth(token))
+))
+
+// subtask
+let subtask_login = ({ token }) => [
+ { sub$: login // &lt;- stream
+ , args: () => ({ token }) } // &lt;- use acc
+]
+
+// task
+let task = [
+ // no sub$, just pass data
+ { args: { href: &quot;https://my.io/auth&quot; } },
+ { sub$: login , args: () => &quot;logging in...&quot; },
+ { sub$: &quot;AUTH&quot;
+ , args: ({ href }) => fetch(href).then(r => r.json())
+ , erro: (acc, err) => ({ sub$: &quot;cancel&quot;, args: err })
+ , reso: (acc, res) => ({ token: res }) },
+ acc => subtask_login(acc),
+ { sub$: login , args: () => &quot;log in success&quot; }
+]
 </code></pre>
 </div>
 
@@ -241,9 +295,9 @@
 
     
         <p class="tag-source">
-            <a href="dom_src_registers_index.ts.html" class="button">View Source</a>
+            <a href="core_multiplex.ts.html" class="button">View Source</a>
             <span>
-                <a href="dom_src_registers_index.ts.html">dom/src/registers/index.ts</a>, <a href="dom_src_registers_index.ts.html#line22">line 22</a>
+                <a href="core_multiplex.ts.html">core/multiplex.ts</a>, <a href="core_multiplex.ts.html#line135">line 135</a>
             </span>
         </p>
     
@@ -257,8 +311,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".router">
-    <a class="href-link" href="#.router">#</a>
+<h4 class="name" id=".out$">
+    <a class="href-link" href="#.out$">#</a>
     
         
             <span class='tag'>static</span>
@@ -267,7 +321,7 @@
         
     
     <span class="code-name">
-        router
+        out$
     </span>
     
 </h4>
@@ -276,16 +330,8 @@
 
 
 <div class="description">
-    <p>Options Object keys</p>
-<ul>
-<li>root   : DOM mount node</li>
-<li>app    : root application node</li>
-<li>draft  : state scaffolding Object</li>
-<li>router : url matching function or config Object</li>
-<li>trace  : string triggers logs prepended with it</li>
-<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
-<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
-</ul>
+    <p>Primary user-land <em>READ</em> stream. For attaching handlers
+for responding to emmitted Commands</p>
 </div>
 
 
@@ -325,9 +371,9 @@
 
     
         <p class="tag-source">
-            <a href="spool_src_registers_router.ts.html" class="button">View Source</a>
+            <a href="core_multiplex.ts.html" class="button">View Source</a>
             <span>
-                <a href="spool_src_registers_router.ts.html">spool/src/registers/router.ts</a>, <a href="spool_src_registers_router.ts.html#line38">line 38</a>
+                <a href="core_multiplex.ts.html">core/multiplex.ts</a>, <a href="core_multiplex.ts.html#line33">line 33</a>
             </span>
         </p>
     
@@ -339,63 +385,10 @@
 
 </div>
             
-            </div>
-        </div>
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h3 class="title"><span>Members</span></h3>
-            <div class="members">
-            
                 <div class="member">
 
-<h4 class="name" id=".boot">
-    <a class="href-link" href="#.boot">#</a>
+<h4 class="name" id=".run$">
+    <a class="href-link" href="#.run$">#</a>
     
         
             <span class='tag'>static</span>
@@ -404,7 +397,7 @@
         
     
     <span class="code-name">
-        boot
+        run$
     </span>
     
 </h4>
@@ -413,16 +406,15 @@
 
 
 <div class="description">
-    <p>Options Object keys</p>
-<ul>
-<li>root   : DOM mount node</li>
-<li>app    : root application node</li>
-<li>draft  : state scaffolding Object</li>
-<li>router : url matching function or config Object</li>
-<li>trace  : string triggers logs prepended with it</li>
-<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
-<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
-</ul>
+    <p>User-land event dispatch stream</p>
+<p>This stream is directly exposed to users. Any one-off
+Commands <code>next</code>ed into this stream are sent to the
+<code>command$</code> stream. Arrays of Commands (Tasks) are sent to
+the <code>task$</code> stream.</p>
+<p>TODO: add examples,<code>beforeunload</code> event handler within #4
+(orphan): SEE https://youtu.be/QQukWZcIptM and enable
+ctx.run.cancel() via external or internal events
+(e.g., popstate / { sub$:  &quot;cancel&quot; })</p>
 </div>
 
 
@@ -462,9 +454,9 @@
 
     
         <p class="tag-source">
-            <a href="dom_src_registers_index.ts.html" class="button">View Source</a>
+            <a href="core_multiplex.ts.html" class="button">View Source</a>
             <span>
-                <a href="dom_src_registers_index.ts.html">dom/src/registers/index.ts</a>, <a href="dom_src_registers_index.ts.html#line50">line 50</a>
+                <a href="core_multiplex.ts.html">core/multiplex.ts</a>, <a href="core_multiplex.ts.html#line23">line 23</a>
             </span>
         </p>
     
@@ -478,8 +470,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".registerRouterDOM">
-    <a class="href-link" href="#.registerRouterDOM">#</a>
+<h4 class="name" id=".task$">
+    <a class="href-link" href="#.task$">#</a>
     
         
             <span class='tag'>static</span>
@@ -488,7 +480,7 @@
         
     
     <span class="code-name">
-        registerRouterDOM
+        task$
     </span>
     
 </h4>
@@ -497,9 +489,8 @@
 
 
 <div class="description">
-    <p>expects payload of</p>
-<pre class="prettyprint source"><code>{ target: { location: { href } }, currentTarget }
-</code></pre>
+    <p>Task stream that handles Arrays of Commands. Dispatches
+to <code>multiplex</code>er (the heart of <code>spule</code>)</p>
 </div>
 
 
@@ -539,9 +530,9 @@
 
     
         <p class="tag-source">
-            <a href="dom_src_registers_index.ts.html" class="button">View Source</a>
+            <a href="core_multiplex.ts.html" class="button">View Source</a>
             <span>
-                <a href="dom_src_registers_index.ts.html">dom/src/registers/index.ts</a>, <a href="dom_src_registers_index.ts.html#line22">line 22</a>
+                <a href="core_multiplex.ts.html">core/multiplex.ts</a>, <a href="core_multiplex.ts.html#line254">line 254</a>
             </span>
         </p>
     
@@ -555,17 +546,15 @@
             
                 <div class="member">
 
-<h4 class="name" id=".router">
-    <a class="href-link" href="#.router">#</a>
+<h4 class="name" id="~result">
+    <a class="href-link" href="#~result">#</a>
     
         
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
+            <span class='tag'>inner</span>
         
     
     <span class="code-name">
-        router
+        result
     </span>
     
 </h4>
@@ -574,16 +563,10 @@
 
 
 <div class="description">
-    <p>Options Object keys</p>
-<ul>
-<li>root   : DOM mount node</li>
-<li>app    : root application node</li>
-<li>draft  : state scaffolding Object</li>
-<li>router : url matching function or config Object</li>
-<li>trace  : string triggers logs prepended with it</li>
-<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
-<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
-</ul>
+    <p>If some signature needs to deal with both Promises
+and non-Promises, non-Promises are wrapped in a
+Promise to &quot;lift&quot; them into the proper context for
+handling</p>
 </div>
 
 
@@ -623,9 +606,9 @@
 
     
         <p class="tag-source">
-            <a href="spool_src_registers_router.ts.html" class="button">View Source</a>
+            <a href="core_multiplex.ts.html" class="button">View Source</a>
             <span>
-                <a href="spool_src_registers_router.ts.html">spool/src/registers/router.ts</a>, <a href="spool_src_registers_router.ts.html#line38">line 38</a>
+                <a href="core_multiplex.ts.html">core/multiplex.ts</a>, <a href="core_multiplex.ts.html#line170">line 170</a>
             </span>
         </p>
     
@@ -661,7 +644,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Feb 11 2020 00:53:58 GMT-0500 (Eastern Standard Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 10:27:17 GMT-0400 (Eastern Daylight Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
