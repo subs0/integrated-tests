@@ -6,10 +6,10 @@ import "regenerator-runtime"
 // scrolly.start()
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
-import { registerCMD, command$, out$, run$ } from "@-0/spool"
-import { INJECT_HEAD, HURL, FLIPkid, boot } from "@-0/hdom"
-import { parse, trace$ } from "@-0/utils"
-import * as K from "@-0/keys"
+import { registerCMD, command$, out$, run$ } from "../lib/spool/src"
+import { INJECT_HEAD, HURL, FLIPkid, boot } from "../lib/hdom/src"
+import { parse, trace$ } from "../lib/utils/src"
+import * as K from "../lib/keys/src"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 // import { button_x } from "./components"
@@ -138,10 +138,10 @@ const routerCfg = async url => {
     // home page (empty path)
     [
       { ...match, [K.URL.PATH]: [] },
-      { [K.URL.DATA]: () => getSomeJSON("users", 1), [K.URL.PAGE]: single },
+      { [K.URL.DATA]: () => (console.log("HOME"), getSomeJSON("users", 4)), [K.URL.PAGE]: single },
     ], // get match || 404 data
   ]).get(match) || {
-    [K.URL.DATA]: () => getSomeJSON("users", 9),
+    [K.URL.DATA]: () => getSomeJSON("users", 4),
     [K.URL.PAGE]: single,
   }
 
@@ -213,14 +213,15 @@ const component = sz =>
 
 // babel/core-js will complain if pages aren't defined
 // before they're used even though eslint will allow it
-const single = (ctx, body) =>
-  // log("single"),
-  [
+const single = (ctx, body) => {
+  console.log("single component loaded. body:", body)
+  return [
     component("lg"),
-    getInUnsafe(body, "uid"),
-    getInUnsafe(body, "img") || "https://i.picsum.photos/id/1/600/600.jpg",
+    getInUnsafe(body, "uid") || 1,
+    getInUnsafe(body, "img") || "https://i.picsum.photos/id/4/600/600.jpg",
     getInUnsafe(body, "text") ? fields(body.text.company || body.text) : null,
   ]
+}
 
 const set = (ctx, bodies) =>
   // log("set"),
@@ -294,7 +295,7 @@ const link = (ctx, path, ...args) =>
 //
 // TODO: example of using cursors for local state
 const app = (ctx, page) =>
-  // log("app"),
+  //log("app"),
   [
     "div",
     { style: { "max-width": "30rem", margin: "auto", padding: "2rem" } },
@@ -323,8 +324,8 @@ const w_config = {
   [K.CFG.RUTR]: router,
   [K.CFG.ROOT]: document.getElementById("app"), // <- 🔍
   [K.CFG.DRFT]: { users: [] },
-  // [K.CFG.LOG$]: "state ->",
-  // [K.CFG.KICK]: true
+  [K.CFG.LOG$]: "state ->",
+  //[K.CFG.KICK]: true,
 
   // arbitrary context k/v pairs...
   // theme: THEME

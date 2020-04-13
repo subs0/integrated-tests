@@ -149,7 +149,7 @@ export const boot = (CFG: BootCFG) => {
   )
 
   if (draft) $store$.swap(x => ({ ...draft, ...x }))
-
+  
   $store$.resetInUnsafe($$_ROOT, root)
   
   // TODO: opportunity for other implementations (e.g., React)
@@ -164,7 +164,6 @@ export const boot = (CFG: BootCFG) => {
         [CFG_STOR]: $store$,
         // remove any staging path components (e.g., gh-pages)
         [URL_PRSE]: () =>
-          // console.log({ FURL }),
           parse(window.location.href, RGX), // <- 🔍
         ...others
       }
