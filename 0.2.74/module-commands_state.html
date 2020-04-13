@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: commands/register</title>
+    <title>JSDoc: commands/state</title>
 
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Module</p>
-                        <h1>commands/register</h1>
+                        <h1>commands/state</h1>
                     </header>
                     
                     
@@ -96,8 +96,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".registerCMD">
-    <a class="href-link" href="#.registerCMD">#</a>
+<h4 class="name" id=".createSetStateCMD">
+    <a class="href-link" href="#.createSetStateCMD">#</a>
     
         
             <span class='tag'>static</span>
@@ -106,7 +106,7 @@
         
     
     <span class="code-name">
-        registerCMD
+        createSetStateCMD
     </span>
     
 </h4>
@@ -115,27 +115,9 @@
 
 
 <div class="description">
-    <p>Takes a Command object with some additional information
-and returns a Command <code>run</code>able in a Task or as-is.</p>
-<h3>Example</h3>
-<pre class="prettyprint source lang-js"><code>const genie = {
-  sub$: &quot;GENIE&quot;,
-  args: &quot;your wish&quot;
-  work: x => console.log(&quot;🧞 says:&quot;, x, &quot;is my command&quot;)
-}
-
-const GENIE = registerCMD(genie)
-
-run(GENIE)
-// 🧞 says: your wish is my command
-</code></pre>
-<p>A Command object can have four keys:</p>
-<ol>
-<li><code>sub$</code> (required)</li>
-<li><code>args</code> (optional, sets default) during registration</li>
-<li><code>work</code> (required)</li>
-<li><code>src$</code> (optional, enables stream to feed Command)</li>
-</ol>
+    <p>Higher-order function that takes a <code>@thi.ng/Atom</code> state
+container and returns a Command object for setting that
+Atom's state by the provided path (lens)</p>
 </div>
 
 
@@ -175,9 +157,9 @@ run(GENIE)
 
     
         <p class="tag-source">
-            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <a href="commands_setstate.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line64">line 64</a>
+                <a href="commands_setstate.ts.html">commands/setstate.ts</a>, <a href="commands_setstate.ts.html#line13">line 13</a>
             </span>
         </p>
     
@@ -191,8 +173,8 @@ run(GENIE)
             
                 <div class="member">
 
-<h4 class="name" id=".supplement$CMD">
-    <a class="href-link" href="#.supplement$CMD">#</a>
+<h4 class="name" id=".SET_STATE">
+    <a class="href-link" href="#.SET_STATE">#</a>
     
         
             <span class='tag'>static</span>
@@ -201,7 +183,7 @@ run(GENIE)
         
     
     <span class="code-name">
-        supplement$CMD
+        SET_STATE
     </span>
     
 </h4>
@@ -210,10 +192,8 @@ run(GENIE)
 
 
 <div class="description">
-    <p>if a command has a <code>src$</code> key it is connected to an
-upstream producer stream, which enables that source to
-push values into the command stream and trigger the work
-registered.</p>
+    <p>Command that sets global store state using a path and
+data key from args</p>
 </div>
 
 
@@ -253,9 +233,9 @@ registered.</p>
 
     
         <p class="tag-source">
-            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <a href="commands_setstate.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line17">line 17</a>
+                <a href="commands_setstate.ts.html">commands/setstate.ts</a>, <a href="commands_setstate.ts.html#line23">line 23</a>
             </span>
         </p>
     
@@ -291,7 +271,7 @@ registered.</p>
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 13:04:59 GMT-0400 (Eastern Daylight Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Apr 13 2020 13:07:55 GMT-0400 (Eastern Daylight Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
