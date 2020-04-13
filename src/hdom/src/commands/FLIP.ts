@@ -3,7 +3,7 @@
  */
 
 import { Atom } from "@thi.ng/atom"
-import { getIn } from "@thi.ng/paths"
+import { getInUnsafe } from "@thi.ng/paths"
 
 import { CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys"
 
@@ -13,7 +13,7 @@ function getStyles(element: HTMLElement) {
   const computedStyle = getComputedStyle(element)
 
   return {
-    radius: computedStyle.borderRadius || 0
+    radius: computedStyle.borderRadius || 0,
   }
 }
 
@@ -31,7 +31,7 @@ function getRect(element: HTMLElement, frame?) {
     height,
     get transform() {
       return getComputedStyle(element).transform || undefined
-    }
+    },
   }
 }
 
@@ -46,17 +46,17 @@ function getRect(element: HTMLElement, frame?) {
 
 const S_path = "FLIP_shuffle"
 
-const shuffle_paths = uid => ({
+const shuffle_paths = (uid) => ({
   rects: [S_path, "rects", uid],
-  elems: [S_path, "elems", uid]
+  elems: [S_path, "elems", uid],
 })
 
 const FLIP_all = (el, state, uid, frameDOMel = null) => {
   const { rects } = shuffle_paths(uid)
 
-  if (!getIn(state.deref(), rects)) return state.resetIn(rects, getRect(el, frameDOMel))
+  if (!getInUnsafe(state.deref(), rects)) return state.resetIn(rects, getRect(el, frameDOMel))
 
-  const F_flip_map = getIn(state.deref(), rects)
+  const F_flip_map = getInUnsafe(state.deref(), rects)
   const L_flip_map = getRect(el, frameDOMel)
   // console.log({ F_flip_map, L_flip_map })
 
@@ -81,11 +81,11 @@ const FLIP_all = (el, state, uid, frameDOMel = null) => {
 }
 
 const Z_path = "FLIP_zoom"
-const zoom_paths = uid => ({
+const zoom_paths = (uid) => ({
   rects: [Z_path, "rects", uid],
   elems: [Z_path, "elems", uid],
   clicks: [Z_path, "clicks", uid],
-  scrolls: [Z_path, "scroll", uid]
+  scrolls: [Z_path, "scroll", uid],
 })
 
 /**
@@ -152,13 +152,13 @@ const FLIPLastInvertPlay = ({
   state,
   id,
   // just baffle them with https://cubic-bezier.com/
-  transition = "all .5s cubic-bezier(.54,-0.29,.17,1.11)"
+  transition = "all .5s cubic-bezier(.54,-0.29,.17,1.11)",
   // transition = "all .3s ease-in-out"
 }) => {
   element.setAttribute("flip", id)
   const { rects, clicks, scrolls } = zoom_paths(id)
 
-  const F_flip_map = getIn(state.deref(), rects) || null
+  const F_flip_map = getInUnsafe(state.deref(), rects) || null
   // NO RECT => NOT CLICKED
   if (!F_flip_map) return
 
@@ -170,7 +170,7 @@ const FLIPLastInvertPlay = ({
    *
    */
   // 🕞 calculate location and size
-  const { x, y } = getIn(state.deref(), scrolls) // top - window.innerHeight / 2
+  const { x, y } = getInUnsafe(state.deref(), scrolls) // top - window.innerHeight / 2
   window.scrollTo(x, y)
   element.scrollIntoView()
 
@@ -206,7 +206,7 @@ const FLIPLastInvertPlay = ({
   // move element to front
   zIndex(element, 1)
   // 🔍 consider exposing in the API
-  const clicked = getIn(state.deref(), clicks) || null
+  const clicked = getInUnsafe(state.deref(), clicks) || null
   if (!clicked) {
     // console.log(uid, "FLIP'ed on navigated")
     state.resetIn(rects, null)
@@ -224,12 +224,12 @@ const state = new Atom({})
 export const FLIP_FIRST: any = registerCMD({
   [CMD_SUB$]: "_FLIP_FIRST",
   [CMD_ARGS]: ({ id, target }) => ({ id, target }),
-  [CMD_WORK]: ({ id, target }) => FLIPFirst({ id, target, state })
+  [CMD_WORK]: ({ id, target }) => FLIPFirst({ id, target, state }),
 })
 
 // init
 export const FLIP_LAST_INVERSE_PLAY: any = registerCMD({
   [CMD_SUB$]: "_FLIP_LAST_INVERSE_PLAY",
   [CMD_ARGS]: ({ id, element }) => ({ id, element }),
-  [CMD_WORK]: ({ id, element }) => FLIPLastInvertPlay({ id, element, state })
+  [CMD_WORK]: ({ id, element }) => FLIPLastInvertPlay({ id, element, state }),
 })

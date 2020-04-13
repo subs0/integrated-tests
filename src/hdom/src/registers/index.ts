@@ -5,7 +5,7 @@ import { fromAtom, sidechainPartition, fromRAF } from "@thi.ng/rstream"
 import { peek } from "@thi.ng/arrays"
 import { map } from "@thi.ng/transducers"
 import { updateDOM } from "@thi.ng/transducers-hdom"
-import { getIn } from "@thi.ng/paths"
+import { getInUnsafe } from "@thi.ng/paths"
 
 import {
   DOM_NODE,
@@ -31,7 +31,7 @@ import {
   CFG_KICK,
   CFG,
   BootCFG,
-  Command
+  Command,
 } from "@-0/keys"
 
 import { run$, registerCMD, command$ } from "@-0/spool"
@@ -57,8 +57,9 @@ export const registerRouterDOM = (router): Command => {
   return registerCMD({
     [CMD_SRC$]: DOMnavigated$,
     [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
-    [CMD_ARGS]: x => x,
-    [CMD_WORK]: args => run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
+    [CMD_ARGS]: (x) => x,
+    [CMD_WORK]: (args) =>
+      run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] })),
   })
 }
 
@@ -144,12 +145,12 @@ export const boot = (CFG: BootCFG) => {
     log$ ? console.log(log$, state$) : null,
     state$[$$_LOAD]
       ? null
-      : [view, [state$[$$_VIEW], getIn(state$, state$[$$_PATH])]]
+      : [view, [state$[$$_VIEW], getInUnsafe(state$, state$[$$_PATH])]]
   )
 
   if (draft) $store$.swap(x => ({ ...draft, ...x }))
 
-  $store$.resetIn($$_ROOT, root)
+  $store$.resetInUnsafe($$_ROOT, root)
   
   // TODO: opportunity for other implementations (e.g., React)
   state$.subscribe(sidechainPartition(fromRAF())).transform(
