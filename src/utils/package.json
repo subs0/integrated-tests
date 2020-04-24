@@ -16,7 +16,7 @@
     "tests": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
     "patch": "npm version patch && npm publish",
     "postgit": "git push origin master && npm run patch",
-    "ncu": "ncu -u && npm i",
+    "ncu": "ncu -u && npm i && npm audit fix",
     "git": "npm run ncu && git add . && git commit -m"
   },
   "keywords": [
