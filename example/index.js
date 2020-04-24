@@ -138,10 +138,10 @@ const routerCfg = async url => {
     // home page (empty path)
     [
       { ...match, [K.URL.PATH]: [] },
-      { [K.URL.DATA]: () => (console.log("HOME"), getSomeJSON("users", 4)), [K.URL.PAGE]: single },
+      { [K.URL.DATA]: () => (console.log("HOME"), getSomeJSON("users", 10)), [K.URL.PAGE]: single },
     ], // get match || 404 data
   ]).get(match) || {
-    [K.URL.DATA]: () => getSomeJSON("users", 4),
+    [K.URL.DATA]: () => getSomeJSON("users", 10),
     [K.URL.PAGE]: single,
   }
 
