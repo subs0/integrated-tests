@@ -6,10 +6,10 @@ import "regenerator-runtime"
 // scrolly.start()
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
-import { registerCMD, command$, out$, run$ } from "../lib/spool/src"
-import { INJECT_HEAD, HURL, FLIPkid, boot } from "../lib/hdom/src"
-import { parse, trace$ } from "../lib/utils/src"
-import * as K from "../lib/keys/src"
+import { registerCMD, command$, out$, run$ } from "../lib/spool/lib"
+import { INJECT_HEAD, HURL, FLIPkid, boot } from "../lib/hdom/lib"
+import { parse, trace$ } from "../lib/utils/lib"
+import * as K from "../lib/keys/lib"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 // import { button_x } from "./components"
