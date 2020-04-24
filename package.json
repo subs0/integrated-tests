@@ -19,7 +19,7 @@
     "jsdoc": "jsdoc -c jsdoc/jsdoc.json --verbose --debug",
     "pages": "npm run build && gh-pages -d @-0/stack",
     "docs": "npm run types && npm run jsdoc",
-    "tests": "npm run types && npm run madge && jest",
+    "tests": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
     "postgit": "git push origin master",
     "git": "git add . && git commit -m",
     "cl:keys": "node scripts/clean st=keys via=push",

@@ -13,7 +13,7 @@
     "madge": "madge --circular lib/",
     "typewatch": "tsc --project tsconfig.json",
     "types": "tsc --project tsconfig.build.json",
-    "tests": "npm run types && npm run madge && jest",
+    "tests": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
     "patch": "npm version patch && npm publish",
     "postgit": "git push origin master && npm run patch",
     "ncu": "ncu -u && npm i",
