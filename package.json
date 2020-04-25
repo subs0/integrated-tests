@@ -41,9 +41,9 @@
     "@thi.ng/transducers-hdom": "^2.0.46"
   },
   "dependencies": {
-    "@-0/keys": "^0.2.70",
-    "@-0/utils": "^0.2.64",
-    "@-0/spool": "^0.2.73"
+    "@-0/keys": "^0.2.71",
+    "@-0/utils": "^0.2.65",
+    "@-0/spool": "^0.2.76"
   },
   "devDependencies": {
     "@thi.ng/arrays": "^0.6.3",
