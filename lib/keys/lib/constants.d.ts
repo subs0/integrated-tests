@@ -78,7 +78,7 @@ export namespace ROUTER {
 export const $$_PATH: "_ROUTE_PATH";
 export const $$_LOAD: "_ROUTE_LOADING";
 export const $$_VIEW: "_PAGE_TEMPLATE";
-export const $$_ROOT: "_ROOT";
+export const $$_ROOT: "_DOM_ROOT";
 export const $$_CMDS: "_COMMANDS";
 export namespace $$ {
     export { $$_PATH as PATH };
@@ -91,6 +91,6 @@ export namespace $$_DEFAULT {
     export const _ROUTE_PATH: any[];
     export const _ROUTE_LOADING: boolean;
     export const _PAGE_TEMPLATE: any;
-    export const _ROOT: HTMLElement;
+    export const _DOM_ROOT: any;
     export const _COMMANDS: {};
 }

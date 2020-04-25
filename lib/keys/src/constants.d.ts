@@ -78,13 +78,13 @@ export declare const ROUTER: {
 export declare const $$_PATH = "_ROUTE_PATH";
 export declare const $$_LOAD = "_ROUTE_LOADING";
 export declare const $$_VIEW = "_PAGE_TEMPLATE";
-export declare const $$_ROOT = "_ROOT";
+export declare const $$_ROOT = "_DOM_ROOT";
 export declare const $$_CMDS = "_COMMANDS";
 export declare const $$: Object;
 export declare const $$_DEFAULT: {
     _ROUTE_PATH: any[];
     _ROUTE_LOADING: boolean;
     _PAGE_TEMPLATE: any;
-    _ROOT: HTMLElement;
+    _DOM_ROOT: any;
     _COMMANDS: {};
 };
