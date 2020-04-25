@@ -30,12 +30,12 @@
     "querystring": "^0.2.0"
   },
   "peerDependencies": {
-    "@-0/keys": "^0.2.70",
+    "@-0/keys": "^0.2.71",
     "@thi.ng/checks": "^2.6.2",
     "@thi.ng/rstream": "^4.0.5"
   },
   "devDependencies": {
-    "@-0/keys": "^0.2.70",
+    "@-0/keys": "^0.2.71",
     "@thi.ng/checks": "^2.6.2",
     "@thi.ng/rstream": "^4.0.5",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
