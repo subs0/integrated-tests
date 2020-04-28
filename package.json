@@ -68,7 +68,7 @@
     "@-0/hdom": "^0.2.77",
     "@-0/keys": "^0.2.72",
     "@-0/spool": "^0.2.76",
-    "@-0/utils": "^0.2.65"
+    "@-0/utils": "^0.2.66"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.9.0",
