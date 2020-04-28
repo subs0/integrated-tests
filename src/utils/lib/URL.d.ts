@@ -7,4 +7,11 @@ export declare const parse: (URL_full: string, prefixRGX?: any) => {
     URL_query: any;
     URL_hash: string;
 };
-export declare const unparse: (parsed: any, isAbsolute?: boolean) => string;
+export declare const unparse: (parsed?: {
+    URL: string;
+    URL_subdomain: any[];
+    URL_domain: any[];
+    URL_path: any[];
+    URL_query: any;
+    URL_hash: string;
+}, isAbsolute?: boolean) => string;
