@@ -1,3 +1,2 @@
-import { BootCFG, Command } from "@-0/keys";
-export declare const registerRouterDOM: (router: any) => Command;
+import { BootCFG } from "@-0/keys";
 export declare const boot: (CFG: BootCFG) => void;
