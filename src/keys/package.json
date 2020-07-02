@@ -28,12 +28,12 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@thi.ng/atom": "^4.1.4",
-    "@thi.ng/rstream": "^4.0.6"
+    "@thi.ng/atom": "^4.1.11",
+    "@thi.ng/rstream": "^4.4.1"
   },
   "devDependencies": {
-    "@thi.ng/atom": "^4.1.4",
-    "@thi.ng/rstream": "^4.0.6"
+    "@thi.ng/atom": "^4.1.11",
+    "@thi.ng/rstream": "^4.4.1"
   },
   "prettier": {
     "singleQuote": false,
