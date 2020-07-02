@@ -3,7 +3,7 @@
   "author": "Logan Powell",
   "license": "MIT",
   "version": "0.2.78",
-  "description": "Browser helpers for state management, routing and the interaction between",
+  "description": "Browser helpers for -0 state management, routing and the interaction between",
   "main": "./lib/index.js",
   "type": "module",
   "types": "./lib/index.d.ts",
