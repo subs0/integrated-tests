@@ -7,7 +7,8 @@ import "regenerator-runtime"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 import { registerCMD, command$, out$, run$ } from "../lib/spool"
-import { INJECT_HEAD, HURL, FLIPkid, boot } from "../lib/hdom"
+import { INJECT_HEAD, HURL } from "../lib/browser"
+import { FLIPkid, boot } from "../lib/hdom"
 import { parse, trace$ } from "../lib/utils"
 import * as K from "../lib/keys"
 
@@ -41,7 +42,7 @@ trace$("out$ ->", out$)
  */
 const getSomeJSON = async (path, uid) => {
   const text_base = "https://jsonplaceholder.typicode.com/"
-  const img_base = (id, sz) => `https://i.picsum.photos/id/${id}/${sz}/${sz}.jpg`
+  const img_base = (id, sz) => `http://lorempixel.com/${sz}/${sz}/sports/${id}/` // `https://i.picsum.photos/id/${id}/${sz}/${sz}.jpg`
 
   const data = uid
     ? (async () => {
@@ -214,11 +215,11 @@ const component = sz =>
 // babel/core-js will complain if pages aren't defined
 // before they're used even though eslint will allow it
 const single = (ctx, body) => {
-  console.log("single component loaded. body:", body)
+  //  console.log("single component loaded. body:", body)
   return [
     component("lg"),
     getInUnsafe(body, "uid") || 1,
-    getInUnsafe(body, "img") || "https://i.picsum.photos/id/4/600/600.jpg",
+    getInUnsafe(body, "img") || `http://lorempixel.com/600/600/sports/4/`,
     getInUnsafe(body, "text") ? fields(body.text.company || body.text) : null,
   ]
 }
@@ -324,7 +325,7 @@ const w_config = {
   [K.CFG.RUTR]: router,
   [K.CFG.ROOT]: document.getElementById("app"), // <- 🔍
   [K.CFG.DRFT]: { users: [] },
-  [K.CFG.LOG$]: "state ->",
+  //  [K.CFG.LOG$]: "state ->",
   //[K.CFG.KICK]: true,
 
   // arbitrary context k/v pairs...

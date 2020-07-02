@@ -1,5 +1,5 @@
-export const popstate$: any;
-export const DOMContentLoaded$: any;
+export const popstate$: import("@thi.ng/rstream").Stream<Event | ErrorEvent | UIEvent | ProgressEvent<EventTarget> | AnimationEvent | MouseEvent | FocusEvent | DragEvent | PointerEvent | KeyboardEvent | SecurityPolicyViolationEvent | TouchEvent | TransitionEvent | WheelEvent>;
+export const DOMContentLoaded$: import("@thi.ng/rstream").Stream<Event | ErrorEvent | UIEvent | ProgressEvent<EventTarget> | AnimationEvent | MouseEvent | FocusEvent | DragEvent | PointerEvent | KeyboardEvent | SecurityPolicyViolationEvent | TouchEvent | TransitionEvent | WheelEvent>;
 export const DOMnavigated$: import("@thi.ng/rstream").Subscription<any, {
     URL: any;
     NODE: any;
