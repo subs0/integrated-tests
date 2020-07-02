@@ -2,12 +2,12 @@
  * @module components/FLIPkid
  */
 
-import { FLIP_FIRST, FLIP_LAST_INVERSE_PLAY, HURL } from "../commands"
+import { FLIP_FIRST, FLIP_LAST_INVERSE_PLAY, HURL } from "@-0/browser"
 import { isPlainObject } from "@thi.ng/checks"
 
 import { CFG_RUN$, CMD_ARGS } from "@-0/keys"
 
-const err_str = prop => `
+const err_str = (prop) => `
   No '${prop}' property found on FLIPkid firstChild. 
   Ensure you are providing FLIPkid a component with an 
   attributes object as its second argument with a ${prop}
@@ -17,15 +17,15 @@ const err_str = prop => `
 // const [tag, attrs, ..._args] = kid(ctx, ...args)
 // const { href } = attrs
 
-const sim_event = href => ({
+const sim_event = (href) => ({
   currentTarget: { document: null },
   target: {
-    href
-  }
+    href,
+  },
 })
 
-const _attrs = ctx => ({
-  onclick: ev => {
+const _attrs = (ctx) => ({
+  onclick: (ev) => {
     ev.preventDefault()
     // console.log({ ev })
     const target = ev.target
@@ -34,9 +34,9 @@ const _attrs = ctx => ({
     if (!href) return new Error(err_str("href"))
     ctx[CFG_RUN$]([
       { ...HURL, [CMD_ARGS]: sim_event(href) },
-      { ...FLIP_FIRST, [CMD_ARGS]: { id: href, target } }
+      { ...FLIP_FIRST, [CMD_ARGS]: { id: href, target } },
     ])
-  }
+  },
 })
 /**
  * FLIP (First Last Invert Play) Animating component. Wraps
@@ -54,9 +54,9 @@ export const FLIPkid = Object.freeze({
           "div",
           {
             ...attrs,
-            ..._attrs(ctx)
+            ..._attrs(ctx),
           },
-          ...rest
+          ...rest,
         ]
       : ["div", _attrs(ctx), attrs, ...rest],
   init: (el, ctx) => {
@@ -69,8 +69,8 @@ export const FLIPkid = Object.freeze({
       ...FLIP_LAST_INVERSE_PLAY,
       [CMD_ARGS]: {
         element: el.firstChild,
-        id: el.firstChild.getAttribute("href")
-      }
+        id: el.firstChild.getAttribute("href"),
+      },
     })
-  }
+  },
 })

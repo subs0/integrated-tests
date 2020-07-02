@@ -38,30 +38,7 @@ import { run$, registerCMD, command$ } from "@-0/spool"
 
 import { parse, diff_keys } from "@-0/utils"
 
-import { URL_DOM__ROUTE } from "../tasks"
-
-import { DOMnavigated$ } from "../core/stream$"
-
-import { $store$ } from "../store"
-
-/**
- *
- * expects payload of
- * ```
- * { target: { location: { href } }, currentTarget }
- * ```
- */
-export const registerRouterDOM = (router): Command => {
-  console.log("DOM Router Registered")
-  const task = URL_DOM__ROUTE(router)
-  return registerCMD({
-    [CMD_SRC$]: DOMnavigated$,
-    [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
-    [CMD_ARGS]: (x) => x,
-    [CMD_WORK]: (args) =>
-      run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] })),
-  })
-}
+import { registerRouterDOM, URL_DOM__ROUTE, DOMnavigated$, $store$ } from "@-0/browser"
 
 const pre = (ctx, body) => (
   console.log(
