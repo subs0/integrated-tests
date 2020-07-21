@@ -53,9 +53,16 @@ const getSomeJSON = async (path, uid) => {
         } = detail
         return {
           [K.DOM.HEAD]: {
+            //title?: any
+            //description?: any
+            //img_url?: any
+            //img_width?: any
+            //img_height?: any
+            //favicon?: any
+            //type?: any
             title: `${name}'s Details`,
             description: `${name} handles ${catchPhrase}`,
-            image: { url: img_base(uid, 600) },
+            img_url: img_base(uid, 600),
           },
           [K.DOM.BODY]: {
             // lesson -> don't use the actual url as the uid (not flexible)
@@ -72,7 +79,7 @@ const getSomeJSON = async (path, uid) => {
           [K.DOM.HEAD]: {
             title: `${path.replace(/^\w/, c => c.toUpperCase())} list`,
             description: `List page for ${path}`,
-            image: { url: img_base(222, 200) },
+            img_url: img_base(222, 200),
           },
           [K.DOM.BODY]: list.map((c, i) => ({
             img: img_base(i + 1, 200),
