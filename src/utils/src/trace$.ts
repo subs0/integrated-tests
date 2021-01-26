@@ -12,9 +12,9 @@ import { trace } from "@thi.ng/rstream"
  * provide a `log_prefix` to prepend to every console.log
  * */
 export const trace$ = (log_prefix: string, stream) =>
-  stream.subscribeTopic
-    ? stream.subscribeTopic("_TRACE_STREAM", {
-        next: x => console.log(log_prefix, x),
-        error: console.warn
-      })
-    : stream.subscribe(trace(log_prefix))
+    stream.subscribeTopic
+        ? stream.subscribeTopic("_TACE_STREAM", {
+            next: x => console.log(log_prefix, x),
+            error: console.warn
+        })
+        : stream.subscribe(trace(log_prefix))
