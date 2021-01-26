@@ -1,4 +1,5 @@
-const exec = require("child_process").execSync
+import cp from "child_process"
+const exec = cp.execSync
 
 const args = (msg = "scripted") => (
   console.log(msg),
@@ -11,7 +12,4 @@ const args = (msg = "scripted") => (
   )
 )
 
-module.exports = {
-  exec,
-  args
-}
+export { exec, args }

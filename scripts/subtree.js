@@ -1,4 +1,4 @@
-const { exec, args } = require("./utils")
+import { exec, args } from "./utils.js"
 
 const msg = "syncing supertree with subtree"
 
@@ -11,7 +11,6 @@ const subtree = ({ st, via, br, msg }) => {
   )
 }
 
-// @ts-ignore
 subtree(args(msg))
 
 // CLI use

@@ -1,4 +1,4 @@
-const { exec, args } = require("./utils")
+import { exec, args } from "./utils.js"
 
 const msg = "cleaning lib"
 

@@ -19,7 +19,7 @@
     "jsdoc": "jsdoc -c jsdoc/jsdoc.json --verbose --debug",
     "pages": "npm run build && gh-pages -d @-0/stack",
     "docs": "npm run types && npm run jsdoc",
-    "tests": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
+    "test": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
     "postgit": "git push origin master",
     "git": "git add . && git commit -m",
     "cl:keys": "node scripts/clean st=keys via=push",
@@ -79,6 +79,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/preset-env": "^7.12.11",
     "@thi.ng/arrays": "^0.6.12",
     "@thi.ng/associative": "4.5.1",
     "@thi.ng/atom": "^4.1.15",
@@ -91,7 +92,7 @@
     "@types/node": "^14.0.24",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
-    "babel-jest": "^26.1.0",
+    "babel-jest": "^26.6.3",
     "better-docs": "^2.3.0",
     "cross-env": "^7.0.2",
     "cssnano": "^4.1.10",
@@ -99,7 +100,7 @@
     "gh-pages": "^3.1.0",
     "jest": "^26.1.0",
     "prettier": "^2.0.5",
-    "ts-jest": "^26.1.3"
+    "ts-jest": "^26.4.4"
   },
   "prettier": {
     "singleQuote": false,
