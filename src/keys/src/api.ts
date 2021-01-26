@@ -46,7 +46,7 @@ export type HOTask = (acc: Accumulator) => Task
 /**
  *
  * Configuration for boot config
- * TODO: something...
+ * TODO: something... else
  *
  */
 export interface BootCFG {
