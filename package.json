@@ -75,7 +75,7 @@
     "@-0/browser": "^0.2.85",
     "@-0/keys": "^0.2.80",
     "@-0/spool": "^0.2.85",
-    "@-0/utils": "^0.2.73"
+    "@-0/utils": "^0.2.74"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
