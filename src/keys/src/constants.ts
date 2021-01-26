@@ -106,6 +106,7 @@ export const ROUTER = {
 
 // Global state keys/constants
 // underscores to prevent conflict with userland Commands
+// TODO: 🤔 
 export const $$_PATH = "_ROUTE_PATH"
 export const $$_LOAD = "_ROUTE_LOADING"
 export const $$_VIEW = "_PAGE_TEMPLATE"
