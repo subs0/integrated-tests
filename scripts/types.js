@@ -1,6 +1,6 @@
 import { exec, args } from "./utils.js"
 
-const msg = `"typecasting..."`
+const msg = "typecasting..."
 
 const types = ({ st }) => {
   exec(`tsc --project src/${st}/tsconfig.build.json`, { stdio: [0, 1, 2] })

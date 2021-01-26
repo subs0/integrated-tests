@@ -7,6 +7,8 @@ These are required to be installed globally for `scripts`:
 - `concurrently`
 - `madge`
 - `typescript`
+- `jest`
+- `parcel`
 
 ## Last Compilation Environment
 

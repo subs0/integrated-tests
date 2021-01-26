@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "CommonJS",
+    "target": "ES6",
+    "module": "ES6",
     "lib": ["ES2017", "ES7", "ES6", "DOM"],
     "declaration": true,
     "rootDir": "src",
@@ -22,9 +22,9 @@
     "**/*.test.js",
     "**/*.repl.ts",
     "**/*.repl.js",
-    "./**/node_modules",
-    "./**/lib",
-    "./**/@-0",
+    "**/node_modules",
+    "**/lib",
+    "**/@-0",
     "lib",
     "src/misc"
   ]
