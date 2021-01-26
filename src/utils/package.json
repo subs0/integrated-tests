@@ -30,13 +30,13 @@
     "querystring": "^0.2.0"
   },
   "peerDependencies": {
-    "@-0/keys": "^0.2.78",
+    "@-0/keys": "^0.2.79",
     "@thi.ng/checks": "^2.8.0",
     "@thi.ng/rstream": "^5.1.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-    "@-0/keys": "^0.2.78",
+    "@-0/keys": "^0.2.79",
     "@thi.ng/checks": "^2.8.0",
     "@thi.ng/rstream": "^5.1.0",
     "@types/jest": "^26.0.20",
