@@ -1,15 +1,4 @@
-export const stringify_w_functions = (x, indent) => JSON.stringify(x, (key, value) => {
-    if (typeof value === "function") {
-        return (value
-            .toString()
-            .replace(/\r?\n|\r/g, "")
-            .replace(/\s\s+/g, " ")
-            .slice(0, 12) + "...");
-    }
-    else {
-        return value;
-    }
-}, indent);
+import { stringify_fn } from "./stringify_fn";
 export const key_index_err = (c, i) => {
     const idx_dict0 = Array.from(Array(19).keys()).reduce((a, idx) => (Object.assign(Object.assign({}, a), { [idx]: `${idx + 1}th` })), {});
     const idx_dict = Object.assign(Object.assign({}, idx_dict0), { 0: "1st", 1: "2nd", 2: "3rd" });
@@ -32,7 +21,7 @@ export const xKeyError = (str, c, unknown, sub$, index) => {
 
   The problematic entry/entries: 
 
-  🤔 ${!index && count > 3 && !source$ ? `${Object.entries(unknown)[0][0]}: <Stream>` : stringify_w_functions(unknown, 2)}`
+  🤔 ${!index && count > 3 && !source$ ? `${Object.entries(unknown)[0][0]}: <Stream>` : stringify_fn(unknown, 2)}`
         : ""} 🤔
 
   ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}: 

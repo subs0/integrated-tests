@@ -1,44 +1,19 @@
 /**
  * @module utils/xKey
  */
+import { stringify_fn } from "./stringify_fn"
 
-/**
- * Uses a JSON.stringify "replacer" function to preserve a
- * small (truncated) version of the function signature for
- * Object values that contain them
- *
- * @format
- */
-export const stringify_w_functions = (x, indent?) =>
-  JSON.stringify(
-    x,
-    (key, value) => {
-      if (typeof value === "function") {
-        return (
-          value
-            .toString()
-            .replace(/\r?\n|\r/g, "")
-            .replace(/\s\s+/g, " ")
-            .slice(0, 12) + "..."
-        )
-      } else {
-        return value
-      }
-    },
-    indent
-  )
 
 export const key_index_err = (c, i) => {
-  const idx_dict0 = Array.from(Array(19).keys()).reduce(
-    (a, idx) => ({ ...a, [idx]: `${idx + 1}th` }),
-    {}
-  )
+    const idx_dict0 = Array.from(Array(19).keys()).reduce(
+        (a, idx) => ({ ...a, [idx]: `${idx + 1}th` }),
+        {}
+    )
 
-  const idx_dict = { ...idx_dict0, 0: "1st", 1: "2nd", 2: "3rd" }
-  const idx_str = idx_dict[i]
-  return `🔍 it was the ${idx_str} Command in a Task or ${
-    idx_dict[i - 1]
-  } in a Subtask.`
+    const idx_dict = { ...idx_dict0, 0: "1st", 1: "2nd", 2: "3rd" }
+    const idx_str = idx_dict[i]
+    return `🔍 it was the ${idx_str} Command in a Task or ${idx_dict[i - 1]
+        } in a Subtask.`
 }
 
 // prettier-ignore
@@ -51,26 +26,26 @@ export const key_index_err = (c, i) => {
  */
 export const xKeyError = (str, c, unknown, sub$, index) => {
 
-  const { source$ } = c
-  const count = Object.entries(c).length
+    const { source$ } = c
+    const count = Object.entries(c).length
 
-  return `
+    return `
 
-  🔥 ${ str } ERROR:
+  🔥 ${str} ERROR:
   
   🔥 Unrecognized Command Key(s)
   
-  FAULTY sub$: "${ sub$ }" 
-  ${ Object.keys(unknown)[0][0] 
-  ? `
-  ${ index ? key_index_err(c, index) : "" }
+  FAULTY sub$: "${sub$}" 
+  ${Object.keys(unknown)[0][0]
+            ? `
+  ${index ? key_index_err(c, index) : ""}
 
   The problematic entry/entries: 
 
-  🤔 ${!index && count > 3 && !source$ ? `${Object.entries(unknown)[0][0]}: <Stream>`:   stringify_w_functions(unknown, 2)}` 
-  : "" } 🤔
+  🤔 ${!index && count > 3 && !source$ ? `${Object.entries(unknown)[0][0]}: <Stream>` : stringify_fn(unknown, 2)}`
+            : ""} 🤔
 
-  ACCEPTABLE ENTRY KEYS ${ index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}: 
+  ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}: 
 
   'sub$' 
     - optional 
@@ -101,8 +76,8 @@ export const xKeyError = (str, c, unknown, sub$, index) => {
     - handles rejected Promise payloads
     - signature:
       - ({A: accumulator}, {E: error object}) =>  
-  ${ index ? ``
-  : `
+  ${index ? ``
+            : `
   'handler' 
     - required 
     - function that is called on payload's arrival
@@ -112,7 +87,7 @@ export const xKeyError = (str, c, unknown, sub$, index) => {
   'source$' 
     - advanced/optional 
     - source stream (see http://thi.ng/rstream)`
-  }
+        }
 
   Hope that helps!
   `
