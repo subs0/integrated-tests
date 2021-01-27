@@ -26,6 +26,6 @@
     "**/lib",
     "**/@-0",
     "lib",
-    "src/misc"
+    "src/spool/src/misc"
   ]
 }
