@@ -7,7 +7,7 @@ import "regenerator-runtime"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 
-import { registerCMD, command$, out$, run$ } from "@-0/spool"
+import { registerCMD, command$, out$, run$, task$ } from "@-0/spool"
 import { INJECT_HEAD, HURL } from "@-0/browser"
 import { FLIPkid, boot } from "@-0/hdom"
 import { parse, trace$ } from "@-0/utils"
@@ -20,9 +20,10 @@ import * as K from "@-0/keys"
 
 const log = console.log
 
-trace$("run$ ->", run$)
-trace$("command$ ->", command$)
-trace$("out$ ->", out$)
+trace$("run$     ->", run$)
+//trace$("command$ ->", command$)
+trace$("out$     ->", out$)
+trace$("task$    ->", task$)
 
 /**
  *
@@ -48,48 +49,48 @@ const getSomeJSON = async (path, uid) => {
 
     const data = uid
         ? (async () => {
-            let detail = await fetch(`${text_base}${path}/${uid}`).then(r => r.json())
-            let {
-                name = `User ${getInUnsafe(detail, "id")}`,
-                company: { catchPhrase } = { catchPhrase: detail.title },
-            } = detail
-            return {
-                [K.DOM.HEAD]: {
-                    //title?: any
-                    //description?: any
-                    //img_url?: any
-                    //img_width?: any
-                    //img_height?: any
-                    //favicon?: any
-                    //type?: any
-                    title: `${name}'s Details`,
-                    description: `${name} handles ${catchPhrase}`,
-                    img_url: img_base(uid, 600),
-                },
-                [K.DOM.BODY]: {
-                    // lesson -> don't use the actual url as the uid (not flexible)
-                    img: img_base(uid, 600),
-                    // this needs fixin' 📌
-                    text: detail,
-                    uid,
-                },
-            }
-        })()
+              let detail = await fetch(`${text_base}${path}/${uid}`).then(r => r.json())
+              let {
+                  name = `User ${getInUnsafe(detail, "id")}`,
+                  company: { catchPhrase } = { catchPhrase: detail.title },
+              } = detail
+              return {
+                  [K.DOM.HEAD]: {
+                      //title?: any
+                      //description?: any
+                      //img_url?: any
+                      //img_width?: any
+                      //img_height?: any
+                      //favicon?: any
+                      //type?: any
+                      title: `${name}'s Details`,
+                      description: `${name} handles ${catchPhrase}`,
+                      img_url: img_base(uid, 600),
+                  },
+                  [K.DOM.BODY]: {
+                      // lesson -> don't use the actual url as the uid (not flexible)
+                      img: img_base(uid, 600),
+                      // this needs fixin' 📌
+                      text: detail,
+                      uid,
+                  },
+              }
+          })()
         : (async () => {
-            let list = await fetch(`${text_base}${path}/`).then(r => r.json())
-            return {
-                [K.DOM.HEAD]: {
-                    title: `${path.replace(/^\w/, c => c.toUpperCase())} list`,
-                    description: `List page for ${path}`,
-                    img_url: img_base(222, 200),
-                },
-                [K.DOM.BODY]: list.map((c, i) => ({
-                    img: img_base(i + 1, 200),
-                    text: c,
-                    uid: i + 1,
-                })),
-            }
-        })()
+              let list = await fetch(`${text_base}${path}/`).then(r => r.json())
+              return {
+                  [K.DOM.HEAD]: {
+                      title: `${path.replace(/^\w/, c => c.toUpperCase())} list`,
+                      description: `List page for ${path}`,
+                      img_url: img_base(222, 200),
+                  },
+                  [K.DOM.BODY]: list.map((c, i) => ({
+                      img: img_base(i + 1, 200),
+                      text: c,
+                      uid: i + 1,
+                  })),
+              }
+          })()
     return data
 }
 
@@ -148,7 +149,10 @@ const routerCfg = async url => {
         // home page (empty path)
         [
             { ...match, [K.URL.PATH]: [] },
-            { [K.URL.DATA]: () => (console.log("HOME"), getSomeJSON("users", 10)), [K.URL.PAGE]: single },
+            {
+                [K.URL.DATA]: () => (console.log("HOME"), getSomeJSON("users", 10)),
+                [K.URL.PAGE]: single,
+            },
         ], // get match || 404 data
     ]).get(match) || {
         [K.URL.DATA]: () => getSomeJSON("users", 10),
@@ -184,15 +188,15 @@ const child = (ctx, id, img, sz, ...args) =>
             style:
                 sz === "sm"
                     ? {
-                        height: "100px",
-                        width: "100px",
-                        cursor: "pointer",
-                        "margin-right": "15px",
-                    }
+                          height: "100px",
+                          width: "100px",
+                          cursor: "pointer",
+                          "margin-right": "15px",
+                      }
                     : {
-                        height: "600px",
-                        width: "600px",
-                    },
+                          height: "600px",
+                          width: "600px",
+                      },
             href:
                 sz === "sm"
                     ? `/${ctx[K.URL.PRSE]()[K.URL.PATH]}/${id}`
@@ -251,12 +255,12 @@ const pathLink = (ctx, uid, ...args) =>
         uid === 3
             ? { disabled: true }
             : {
-                href: `/${ctx[K.URL.PRSE]()[K.URL.PATH]}/${uid}`,
-                onclick: e => {
-                    e.preventDefault()
-                    ctx.run({ ...HURL, args: e })
-                },
-            },
+                  href: `/${ctx[K.URL.PRSE]()[K.URL.PATH]}/${uid}`,
+                  onclick: e => {
+                      e.preventDefault()
+                      ctx.run({ ...HURL, args: e })
+                  },
+              },
         ...args,
     ]
 
@@ -268,8 +272,8 @@ const field = (ctx, key, val) =>
         key === "id"
             ? [pathLink, val, val]
             : isObject(val)
-                ? ["ul", ...Object.entries(val).map(([k, v]) => [field, k, v])]
-                : ["p", { style: { padding: "0 0.5rem" } }, val],
+            ? ["ul", ...Object.entries(val).map(([k, v]) => [field, k, v])]
+            : ["p", { style: { padding: "0 0.5rem" } }, val],
     ]
 
 const fields = payload =>
