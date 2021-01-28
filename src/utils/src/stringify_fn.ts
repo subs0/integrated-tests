@@ -15,7 +15,7 @@ export const stringify_fn = (x, indent?) =>
                         .toString()
                         .replace(/\r?\n|\r/g, "")
                         .replace(/\s\s+/g, " ")
-                        .slice(0, 20) + "..."
+                        .slice(0, 12) + "..."
                 )
             } else {
                 return value
