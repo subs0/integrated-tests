@@ -1,6 +1,5 @@
 import { trace } from "@thi.ng/rstream"
-import { trace$ } from "../lib/utils"
-import { run$, out$, command$, task$, tracer$, registerCMD } from "../lib/spool"
+import { run$, out$, command$, task$, log$, registerCMD } from "../lib/spool"
 
 /**
  * ## `trace_stream`
@@ -40,20 +39,22 @@ import { run$, out$, command$, task$, tracer$, registerCMD } from "../lib/spool"
 
 const ONE_1 = registerCMD({
     sub$: "ONE_1",
-    args: 100,
+    args: { ass: 100 },
     work: x => setTimeout(() => console.log("from ONE_1:", x), 1000),
 })
 
 const TWO_2 = registerCMD({
     sub$: "TWO_2",
-    args: 200,
-    reso: x => x,
-    work: x => setTimeout(() => console.log("from TWO_2:", x), 2000),
+    args: ({ ass }) =>
+        setTimeout(() => (console.log("TWO_2 before processing:", ass), { ass: ass + 100 }), 2000),
+    reso: ({ ass }) => ({ ass: ass + 100 }),
+    erro: x => console.warn("x", x),
+    work: ({ ass }) => console.log("from TWO_2:", { ass }),
 })
 
 const THREE_3 = registerCMD({
     sub$: "THREE_3",
-    args: 300,
+    args: ({ ass }) => ({ ass: ass + 100 }),
     work: x => setTimeout(() => console.log("from THREE_3:", x), 3000),
 })
 
@@ -65,16 +66,16 @@ const TASK_2 = [ONE_1, TWO_2, THREE_3]
 //out$.next(THREE_2) // logs for every value (last downstream), i.e. run -> command -> out = 3
 
 // pubsub streams
-trace$("run$     ->", run$)
-trace$("out$     ->", out$)
+//trace$("run$     ->", run$)
+//trace$("out$     ->", out$)
 
-// plain streams
-trace$("command$ ->", command$)
-trace$("task$    ->", task$)
+//// plain streams
+//trace$("command$ ->", command$)
+//trace$("task$    ->", task$)
 
 //task$.next(TASK_2)
 run$.next(TASK_2) // logs only once (first upstream), but forwards to command$
 //command$.next(TWO_2) // logs only once, but forwards to out$
 //out$.next(THREE_3) // logs for every value (last downstream), i.e. run -> command -> out = 3
 
-tracer$.subscribe(trace("bloop"))
+log$.subscribe(trace("bloop"))
