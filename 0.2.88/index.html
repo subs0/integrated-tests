@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerRouterDOM">registerRouterDOM</a></li></ul></div>
                 
             </nav>
         </div>
@@ -83,7 +83,7 @@
     
 
 
-    <h3>@-0/spool 0.2.88</h3>
+    <h3>@-0/browser 0.2.88</h3>
 
 
 
@@ -595,7 +595,7 @@ command stream is the only way the user changes anything in
 <pre class="prettyprint source lang-diff"><code>0>- |------c-----------c--[~a~b~a~]-a----c-> : calls
 1>- |ps|---1-----------1----------0-1----1-> : run$
 2>- |t0|---------a~~b~~~~~~~~~~~a~|--------> : task$
-3>- |t1|---c-----------c------------a----c-> : command$
+3>- |t1|---c-----------c------------a----c-> : cmd$
 4>- ---|ps|c-----a--b--c--------a---a----c-> : out$
 
 Userland Handlers:
@@ -609,7 +609,7 @@ c>- ---|tc|*-----------*-----------------*-> : registerCMD
 <li><code>0&gt;-</code>: userland stream emmissions (<code>run</code>)</li>
 <li><code>1&gt;-</code>: pubsub forking stream (if emmission has a <code>sub$</code>)</li>
 <li><code>2&gt;-</code>: pubsub = <code>false</code>? -&gt; <code>task$</code> stream</li>
-<li><code>3&gt;-</code>: pubsub = <code>true</code>? -&gt; <code>command$</code> stream</li>
+<li><code>3&gt;-</code>: pubsub = <code>true</code>? -&gt; <code>cmd$</code> stream</li>
 <li><code>4&gt;-</code>: pubsub emits to <code>registerCMD</code> based on <code>sub$</code> value</li>
 </ul>
 <h3><code>work</code> Handlers</h3>
@@ -631,7 +631,7 @@ animations Commands for route/page transitiions</li>
 <p>User-land event dispatch stream</p>
 <p>This stream is directly exposed to users. Any one-off
 Commands <code>next</code>ed into this stream are sent to the
-<code>command$</code> stream. Arrays of Commands (Tasks) are sent to
+<code>cmd$</code> stream. Arrays of Commands (Tasks) are sent to
 the <code>task$</code> stream.</p>
 <iframe
   src="https://stackblitz.com/edit/spule-spa?embed=1&file=index.js&hideExplorer=1"

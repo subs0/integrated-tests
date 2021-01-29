@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> commands/register</title>
+  <title> commands/routing</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerRouterDOM">registerRouterDOM</a></li></ul></div>
                 
             </nav>
         </div>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>commands/register</h1>
+                    <h1>commands/routing</h1>
                 </header>
                 
 
@@ -117,8 +117,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".log$">
-    <a class="href-link" href="#.log$">#</a>
+<h4 class="name" id=".HREF_PUSHSTATE_DOM">
+    <a class="href-link" href="#.HREF_PUSHSTATE_DOM">#</a>
     
         
             <span class='tag'>static</span>
@@ -127,7 +127,7 @@
         
     
     <span class="code-name">
-        log$
+        HREF_PUSHSTATE_DOM
     </span>
     
 </h4>
@@ -136,104 +136,19 @@
 
 
 <div class="description">
-    <p>A stream that will be forwarded all events emitted from
-the out$ stream - hooked together during registration
-(i.e., <code>registerCMD</code>)</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
-            <span>
-                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line16">line 16</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-<h4 class="name" id=".registerCMD">
-    <a class="href-link" href="#.registerCMD">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        registerCMD
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>Takes a Command object with some additional information
-and returns a Command <code>run</code>able in a Task or as-is.</p>
-<h3>Example</h3>
-<pre class="prettyprint source lang-js"><code>const genie = {
-  sub$: &quot;GENIE&quot;,
-  args: &quot;your wish&quot;
-  work: x => console.log(&quot;🧞 says:&quot;, x, &quot;is my command&quot;)
-}
-
-const GENIE = registerCMD(genie)
-
-run(GENIE)
-// 🧞 says: your wish is my command
+    <p>Routing Command: DOM-specific</p>
+<h3>Payload: function</h3>
+<p>default payload <code>args</code> signature:</p>
+<pre class="prettyprint source"><code>args: ({ URL, DOM }) => ({ URL, DOM }),
 </code></pre>
-<p>A Command object can have four keys:</p>
-<ol>
-<li><code>sub$</code> (required)</li>
-<li><code>args</code> (optional, sets default) during registration</li>
-<li><code>work</code> (required)</li>
-<li><code>src$</code> (optional, enables stream to feed Command)</li>
-</ol>
+<p>Takes a URL and a DOM reference</p>
+<h3>Handler: side-effecting</h3>
+<p>If the DOM reference is an <code>&lt;a&gt;</code> element, uses
+<code>history.pushState</code> to add the clicked URL (plus the
+parsed URL from <code>parse_URL(URL)</code>) to the <code>history</code> object</p>
+<p>export const DOMnavigated$ = merge({
+src: [popstate$, DOMContentLoaded$]
+}).transform(map(x =&gt; ({ URL: x.target.location.href, DOM: x.currentTarget })))</p>
 </div>
 
 
@@ -273,9 +188,9 @@ run(GENIE)
 
     
         <p class="tag-source">
-            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <a href="commands_routing.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line71">line 71</a>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line94">line 94</a>
             </span>
         </p>
     
@@ -289,8 +204,8 @@ run(GENIE)
             
                 <div class="member">
 
-<h4 class="name" id=".supplement$CMD">
-    <a class="href-link" href="#.supplement$CMD">#</a>
+<h4 class="name" id=".HURLer">
+    <a class="href-link" href="#.HURLer">#</a>
     
         
             <span class='tag'>static</span>
@@ -299,7 +214,7 @@ run(GENIE)
         
     
     <span class="code-name">
-        supplement$CMD
+        HURLer
     </span>
     
 </h4>
@@ -308,10 +223,11 @@ run(GENIE)
 
 
 <div class="description">
-    <p>if a command has a <code>src$</code> key it is connected to an
-upstream producer stream, which enables that source to
-push values into the command stream and trigger the work
-registered.</p>
+    <p>Click handler that mimics DOM navigation by transforming
+a click event payload to align with the object structure
+of the native DOM navigation events ('popstate' and
+'DOMContentLoaded') payloads, so they can be consumed by
+the <code>navigated$</code> stream</p>
 </div>
 
 
@@ -351,9 +267,180 @@ registered.</p>
 
     
         <p class="tag-source">
-            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <a href="commands_routing.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line24">line 24</a>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".NOTIFY_PRERENDER_DOM">
+    <a class="href-link" href="#.NOTIFY_PRERENDER_DOM">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        NOTIFY_PRERENDER_DOM
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <h3>args: static</h3>
+<h3>work: side-effecting</h3>
+<p>Routing Command: DOM-specific (used for manually
+triggering a prerendering server for bots/web-crawlers</p>
+<p>TODO: <code>jsdom</code> prerender testing</p>
+<p>basic <code>http</code> server that returns static content for
+certain user-agents</p>
+<p>import { JSDOM } from &quot;jsdom&quot;</p>
+<p>const document = (new JSDOM(...)).window.document
+document.addEventListener(&quot;rendered&quot;,
+() =&gt; {...scrape stuff here... }
+)</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="commands_routing.ts.html" class="button">View Source</a>
+            <span>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line124">line 124</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".SET_LINK_ATTRS_DOM">
+    <a class="href-link" href="#.SET_LINK_ATTRS_DOM">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        SET_LINK_ATTRS_DOM
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Routing Command: DOM-specific</p>
+<h3>Payload: function</h3>
+<p>default payload <code>args</code> signature:</p>
+<pre class="prettyprint source"><code>args: ({ DOM }) => ({ DOM }),
+</code></pre>
+<p>Input = DOM node reference</p>
+<h3>Handler: side-effecting</h3>
+<p>Takes a DOM reference and queries all visited links. Sets
+current/clicked link as active and sets visted links that
+don't match current URL to inactive see <code>setLinkAttrs</code>
+function</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="commands_routing.ts.html" class="button">View Source</a>
+            <span>
+                <a href="commands_routing.ts.html">commands/routing.ts</a>, <a href="commands_routing.ts.html#line67">line 67</a>
             </span>
         </p>
     

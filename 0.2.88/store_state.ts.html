@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> registers/registerCMD.ts</title>
+  <title> store/state.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerRouterDOM">registerRouterDOM</a></li></ul></div>
                 
             </nav>
         </div>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>registers/registerCMD.ts</h1>
+                    <h1>store/state.ts</h1>
                 </header>
                 
 
@@ -86,118 +86,34 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module commands/register
+ * @module store/state
  */
 
-import { map } from "@thi.ng/transducers"
-import { isFunction } from "@thi.ng/checks"
-import { ISubscribable } from "@thi.ng/rstream"
+import { Atom } from "@thi.ng/atom"
+import { isPlainObject, isArray } from "@thi.ng/checks"
+import { $$_DEFAULT, DefaultDraft } from "@-0/keys"
 
-import { CMD_SUB$, CMD_ARGS, CMD_RESO, CMD_ERRO, CMD_SRC$, CMD_WORK, Command } from "@-0/keys"
-import { xKeyError, diff_keys } from "@-0/utils"
-
-import { command$, out$, tracer$ } from "../core"
+// Global $store$ Container from [@thi.ng/atom](http://thi.ng/atom)
+export const $store$ = new Atom($$_DEFAULT)
 
 /**
  *
- * if a command has a `src$` key it is connected to an
- * upstream producer stream, which enables that source to
- * push values into the command stream and trigger the work
- * registered.
+ * Swaps the current value at the given path/lens into the
+ * global store with that of the given value. Checks to see
+ * if that value should be either spread into an existing
+ * object or a complete replacement.
+ *
+ * If the path is empty (e.g., [] = home page),
  */
-export const supplement$CMD: any = (cmd: Command, downstream: ISubscribable&lt;any>) => {
-    const upstream: ISubscribable&lt;any> = cmd[CMD_SRC$]
-    const sub$ = cmd[CMD_SUB$]
-    const args = cmd[CMD_ARGS]
-    const isFn = isFunction(args)
-    /**
-     * if the args are a function, construct payload from
-     * args, else use static args
-     */
-    const load = (x = null) => ({ [CMD_SUB$]: sub$, [CMD_ARGS]: x ? args(x) : args })
-    /**
-     * for each emission from upstream source, export it
-     * downstream via
-     * upstream.subscribe(xf.map(x => downstream.next(x)))
-     */
-    const xport = (downstream) => map((x) => downstream.next(isFn ? load(x) : load()))
-    return upstream.subscribe(xport(downstream))
-}
 
-const err_str = "command Registration `registerCMD`"
-
-/**
- *
- *
- * Takes a Command object with some additional information
- * and returns a Command `run`able in a Task or as-is.
- *
- * ### Example
- *
- * ```js
- * const genie = {
- *   sub$: "GENIE",
- *   args: "your wish"
- *   work: x => console.log("🧞 says:", x, "is my command")
- * }
- *
- * const GENIE = registerCMD(genie)
- *
- * run(GENIE)
- * // 🧞 says: your wish is my command
- * ```
- *
- * A Command object can have four keys:
- *  1. `sub$` (required)
- *  2. `args` (optional, sets default) during registration
- *  3. `work` (required)
- *  4. `src$` (optional, enables stream to feed Command)
- *
- */
-export const registerCMD = (command: Command = null) => {
-    const sub$ = command[CMD_SUB$]
-    const args = command[CMD_ARGS]
-    const erro = command[CMD_ERRO]
-    const reso = command[CMD_RESO]
-    const src$ = command[CMD_SRC$]
-    const work = command[CMD_WORK]
-
-    const knowns = [CMD_SUB$, CMD_ARGS, CMD_RESO, CMD_ERRO, CMD_SRC$, CMD_WORK]
-    const [unknowns] = diff_keys(knowns, command)
-    // console.log({ knowns, unknowns })
-
-    if (unknowns.length > 0) {
-        throw new Error(xKeyError(err_str, command, unknowns, sub$, undefined))
-    }
-
-    if (src$) supplement$CMD(command, out$)
-
-
-
-    const CMD = reso
-        ? {
-            [CMD_SUB$]: sub$,
-            [CMD_ARGS]: args,
-            [CMD_RESO]: reso,
-            [CMD_ERRO]: erro,
-        }
-        : { [CMD_SUB$]: sub$, [CMD_ARGS]: args }
-
-    // @ts-ignore
-    out$.subscribeTopic(
-        sub$,
-        {
-            next: x => {
-                tracer$.next({ ...CMD, [CMD_ARGS]: x })
-                return work(x)
-            },
-            error: console.warn
-        },
-        map((puck) => puck[CMD_ARGS])
-    )
-
-    return CMD
-}
+export const set$$tate = (path, val, store = $store$) =>
+  store.swapIn(path, (x: Object) => {
+    return isPlainObject(x) &amp;&amp; isPlainObject(val)
+      ? // if both swap and target are objects, merge
+        { ...x, ...val }
+      : // else just reset to val at path (i.e., careful!)
+        val
+  })
 </code></pre>
         </article>
     </section>

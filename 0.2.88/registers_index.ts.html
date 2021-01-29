@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> commands/register</title>
+  <title> registers/index.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,240 +68,89 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerRouterDOM">registerRouterDOM</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>commands/register</h1>
+                    <p>Source</p>
+                    <h1>registers/index.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module core/registers
+ */
+import { fromAtom, sidechainPartition, fromRAF } from "@thi.ng/rstream"
+import { peek } from "@thi.ng/arrays"
+import { map } from "@thi.ng/transducers"
+import { getInUnsafe } from "@thi.ng/paths"
 
-<article>
-    <div class="container-overview">
-    
-        
+import {
+    DOM_NODE,
+    $$_LOAD,
+    $$_PATH,
+    $$_ROOT,
+    $$_VIEW,
+    $$_CMDS,
+    URL_FULL,
+    URL_PRSE,
+    ROUTER_PRFX,
+    CFG_RUTR,
+    CMD_SUB$,
+    CMD_ARGS,
+    CMD_SRC$,
+    CMD_WORK,
+    CFG_RUN$,
+    CFG_STOR,
+    CFG_ROOT,
+    CFG_VIEW,
+    CFG_DRFT,
+    CFG_LOG$,
+    CFG_KICK,
+    CFG,
+    BootCFG,
+    Command
+} from "@-0/keys"
 
-        
-    
-    </div>
-    
-    
+import { run$, registerCMD } from "@-0/spool"
 
-    
+//import { diff_keys } from "@-0/utils"
 
-    
+import { URL_DOM__ROUTE } from "../tasks"
 
-    
+import { DOMnavigated$ } from "../core/stream$"
 
-    
+import { $store$ } from "../store"
 
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Members</h1>
-            <div class="members">
-            
-                <div class="member">
-
-<h4 class="name" id=".registerCMD">
-    <a class="href-link" href="#.registerCMD">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        registerCMD
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>Takes a Command object with some additional information
-and returns a Command <code>run</code>able in a Task or as-is.</p>
-<h3>Example</h3>
-<pre class="prettyprint source lang-js"><code>const genie = {
-  sub$: &quot;GENIE&quot;,
-  args: &quot;your wish&quot;
-  work: x => console.log(&quot;🧞 says:&quot;, x, &quot;is my command&quot;)
+/**
+ *
+ * expects payload of
+ * ```
+ * { target: { location: { href } }, currentTarget }
+ * ```
+ */
+export const registerRouterDOM = (router): Command => {
+    console.log("DOM Router Registered")
+    const task = URL_DOM__ROUTE(router)
+    return registerCMD({
+        [CMD_SRC$]: DOMnavigated$,
+        [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
+        [CMD_ARGS]: x => x,
+        [CMD_WORK]: args =>
+            run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
+    })
 }
-
-const GENIE = registerCMD(genie)
-
-run(GENIE)
-// 🧞 says: your wish is my command
 </code></pre>
-<p>A Command object can have four keys:</p>
-<ol>
-<li><code>sub$</code> (required)</li>
-<li><code>args</code> (optional, sets default) during registration</li>
-<li><code>work</code> (required)</li>
-<li><code>src$</code> (optional, enables stream to feed Command)</li>
-</ol>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
-            <span>
-                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line64">line 64</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-<h4 class="name" id=".supplement$CMD">
-    <a class="href-link" href="#.supplement$CMD">#</a>
-    
-        
-            <span class='tag'>static</span>
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        supplement$CMD
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>if a command has a <code>src$</code> key it is connected to an
-upstream producer stream, which enables that source to
-push values into the command stream and trigger the work
-registered.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
-            <span>
-                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line17">line 17</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+        </article>
+    </section>
 
 
 
