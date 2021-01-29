@@ -1,1 +1,1 @@
-export declare const stringify_type: (x: any) => "THUNK" | "FUNCTION" | "PROMISE" | "OBJECT" | "type_str NOT FOUND";
+export declare const stringify_type: (x: any) => "PROMISE" | "OBJECT" | "type_str NOT FOUND" | "NULLARY" | "UNARY" | "BINARY" | "N-ARY";
