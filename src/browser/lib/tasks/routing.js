@@ -1,7 +1,7 @@
 import { isObject } from "@thi.ng/checks";
 import { HREF_PUSHSTATE_DOM, NOTIFY_PRERENDER_DOM, SET_LINK_ATTRS_DOM, SET_STATE } from "../commands";
 import { $$_VIEW, $$_LOAD, $$_PATH, DOM_NODE, URL_FULL, URL_DATA, URL_PATH, URL_PAGE, ROUTER_PREP, ROUTER_POST, ROUTER_PRFX, CFG_RUTR, CMD_ARGS, CMD_RESO, CMD_ERRO, DOM_BODY, STATE_DATA, STATE_PATH } from "@-0/keys";
-import { parse } from "@-0/utils";
+import { URL2obj } from "@-0/utils";
 export const URL__ROUTE = (CFG) => {
     let router, preroute, postroute, prefix;
     if (isObject(CFG)) {
@@ -33,7 +33,7 @@ export const URL__ROUTE = (CFG) => {
             [CMD_ERRO]: (_acc, _err) => console.warn("Error in URL__ROUTE:", _err, "constructed:", _acc)
         },
         {
-            [CMD_ARGS]: prefix ? parse(acc[URL_FULL], prefix) : parse(acc[URL_FULL])
+            [CMD_ARGS]: prefix ? URL2obj(acc[URL_FULL], prefix) : URL2obj(acc[URL_FULL])
         },
         Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: _acc => ({
                 [STATE_DATA]: _acc[URL_PATH],
