@@ -1,7 +1,7 @@
 /**
  * @module commands/routing
  */
-import { parse } from "@-0/utils"
+import { URL2obj } from "@-0/utils"
 import { DOM_NODE, URL_FULL, URL_PATH, CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys"
 import { registerCMD } from "@-0/spool"
 
@@ -15,38 +15,38 @@ import { DOMnavigated$ } from "../core/stream$"
  * the `navigated$` stream
  */
 export const HURLer = ev => {
-  // ev.preventDefault()
-  // console.log({ e })
-  const href = ev.target.href
+    // ev.preventDefault()
+    // console.log({ e })
+    const href = ev.target.href
 
-  const w_href = window.location.href
-  const parsed = parse(w_href)
-  const w_path = `/${parsed[URL_PATH].join("/")}`
-  // handle both absolute and root relative paths
-  if (href === w_href || href === w_path) return
+    const w_href = window.location.href
+    const parsed = URL2obj(w_href)
+    const w_path = `/${parsed[URL_PATH].join("/")}`
+    // handle both absolute and root relative paths
+    if (href === w_href || href === w_path) return
 
-  DOMnavigated$.next({
-    target: { location: { href } },
-    currentTarget: ev.currentTarget
-  })
-  return ev
+    DOMnavigated$.next({
+        target: { location: { href } },
+        currentTarget: ev.currentTarget
+    })
+    return ev
 }
 
 export const HURL: any = registerCMD({
-  [CMD_SUB$]: "_HURL",
-  [CMD_ARGS]: ev => ev,
-  [CMD_WORK]: HURLer
+    [CMD_SUB$]: "_HURL",
+    [CMD_ARGS]: ev => ev,
+    [CMD_WORK]: HURLer
 })
 
 const setLinkAttrs = target => {
-  document.body.querySelectorAll("a[visited]").forEach((el: HTMLLinkElement) => {
-    if (el.href === window.location.href) el.setAttribute("active", "")
-    else el.removeAttribute("active")
-  })
-  if (target.setAttribute) {
-    target.setAttribute("visited", "")
-    target.setAttribute("active", "")
-  }
+    document.body.querySelectorAll("a[visited]").forEach((el: HTMLLinkElement) => {
+        if (el.href === window.location.href) el.setAttribute("active", "")
+        else el.removeAttribute("active")
+    })
+    if (target.setAttribute) {
+        target.setAttribute("visited", "")
+        target.setAttribute("active", "")
+    }
 }
 
 /**
@@ -68,9 +68,9 @@ const setLinkAttrs = target => {
  *
  */
 export const SET_LINK_ATTRS_DOM: any = registerCMD({
-  [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
-  [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
-  [CMD_WORK]: args => setLinkAttrs(args[DOM_NODE])
+    [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
+    [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
+    [CMD_WORK]: args => setLinkAttrs(args[DOM_NODE])
 })
 
 /**
@@ -96,10 +96,12 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
  *
  */
 export const HREF_PUSHSTATE_DOM: any = registerCMD({
-  [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
-  [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
-  [CMD_WORK]: args =>
-    !args[DOM_NODE].document ? history.pushState(parse(args[URL_FULL]), null, args[URL_FULL]) : null
+    [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
+    [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
+    [CMD_WORK]: args =>
+        !args[DOM_NODE].document
+            ? history.pushState(URL2obj(args[URL_FULL]), null, args[URL_FULL])
+            : null
 })
 
 /**
@@ -126,8 +128,8 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
  *
  */
 export const NOTIFY_PRERENDER_DOM: any = registerCMD({
-  [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
-  [CMD_ARGS]: true,
-  //👀 for prerenderer,
-  [CMD_WORK]: () => document.dispatchEvent(new Event("rendered"))
+    [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
+    [CMD_ARGS]: true,
+    //👀 for prerenderer,
+    [CMD_WORK]: () => document.dispatchEvent(new Event("rendered"))
 })
