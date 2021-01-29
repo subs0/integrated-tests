@@ -1,6 +1,6 @@
-import { parse, unparse } from "./URL" //?
+import { URL2obj, obj2URL } from "../src/URL" //?
 
-parse("http://localhost:1234/about?get=some#today")
+URL2obj("http://localhost:1234/about?get=some#today")
 //?
 //{
 //  URL: "http://localhost:1234/about?get=some#today",
@@ -11,7 +11,7 @@ parse("http://localhost:1234/about?get=some#today")
 //  URL_hash: "today"
 //}
 
-parse("https://github.com/thi-ng/umbrella/#blog-posts")
+URL2obj("https://github.com/thi-ng/umbrella/#blog-posts")
 //?
 //{
 //  URL: 'https://github.com/thi-ng/umbrella/#blog-posts',
@@ -22,7 +22,7 @@ parse("https://github.com/thi-ng/umbrella/#blog-posts")
 //  URL_hash: "blog-posts"
 //}
 
-parse("https://very-long-sub.dom.cloud.eu/site/my/happy/")
+URL2obj("https://very-long-sub.dom.cloud.eu/site/my/happy/")
 //?
 //{
 //  URL: 'https://very-long-sub.dom.cloud.eu/site/my/happy/',
@@ -33,7 +33,7 @@ parse("https://very-long-sub.dom.cloud.eu/site/my/happy/")
 //  URL_hash: ""
 //}
 
-parse("https://api.census.gov/data?get=NAME&in=state:01&in=county:*")
+URL2obj("https://api.census.gov/data?get=NAME&in=state:01&in=county:*")
 //?
 //{
 //  URL: "https://api.census.gov/data?get=NAME&in=state:01&in=county:*",
@@ -44,7 +44,7 @@ parse("https://api.census.gov/data?get=NAME&in=state:01&in=county:*")
 //  URL_hash: ""
 //}
 
-parse("/data?get=NAME&in=state#indeed")
+URL2obj("/data?get=NAME&in=state#indeed")
 //?
 //{
 //  URL: "/data?get=NAME&in=state#indeed",
@@ -55,27 +55,27 @@ parse("/data?get=NAME&in=state#indeed")
 //  URL_hash: "indeed"
 //}
 
-unparse(
-  {
-    URL: "https://very-long-sub.dom.cloud.eu/site/my/happy/",
-    URL_subdomain: ["very-long-sub", "dom"],
-    URL_domain: ["cloud", "eu"],
-    URL_path: ["site", "my", "happy"],
-    URL_query: { get: "some" },
-    URL_hash: "",
-  },
-  true
+obj2URL(
+    {
+        URL: "https://very-long-sub.dom.cloud.eu/site/my/happy/",
+        URL_subdomain: [ "very-long-sub", "dom" ],
+        URL_domain: [ "cloud", "eu" ],
+        URL_path: [ "site", "my", "happy" ],
+        URL_query: { get: "some" },
+        URL_hash: ""
+    },
+    true
 )
 //?
 // https://very-long-sub.dom.cloud.eu/site/my/happy?get=some
 
-unparse({
-  URL: "https://very-long-sub.dom.cloud.eu/site/my/happy/",
-  URL_subdomain: ["very-long-sub", "dom"],
-  URL_domain: ["cloud", "eu"],
-  URL_path: ["site", "my", "happy"],
-  URL_query: { get: "some" },
-  URL_hash: "eat-at-joes",
+obj2URL({
+    URL: "https://very-long-sub.dom.cloud.eu/site/my/happy/",
+    URL_subdomain: [ "very-long-sub", "dom" ],
+    URL_domain: [ "cloud", "eu" ],
+    URL_path: [ "site", "my", "happy" ],
+    URL_query: { get: "some" },
+    URL_hash: "eat-at-joes"
 })
 //?
 // /site/my/happy?get=some#eat-at-joes

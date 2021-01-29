@@ -8,46 +8,46 @@ import { updateDOM } from "@thi.ng/transducers-hdom"
 import { getInUnsafe } from "@thi.ng/paths"
 
 import {
-  DOM_NODE,
-  $$_LOAD,
-  $$_PATH,
-  $$_ROOT,
-  $$_VIEW,
-  $$_CMDS,
-  URL_FULL,
-  URL_PRSE,
-  ROUTER_PRFX,
-  CFG_RUTR,
-  CMD_SUB$,
-  CMD_ARGS,
-  CMD_SRC$,
-  CMD_WORK,
-  CFG_RUN$,
-  CFG_STOR,
-  CFG_ROOT,
-  CFG_VIEW,
-  CFG_DRFT,
-  CFG_LOG$,
-  CFG_KICK,
-  CFG,
-  BootCFG,
-  Command,
+    DOM_NODE,
+    $$_LOAD,
+    $$_PATH,
+    $$_ROOT,
+    $$_VIEW,
+    $$_CMDS,
+    URL_FULL,
+    URL_PRSE,
+    ROUTER_PRFX,
+    CFG_RUTR,
+    CMD_SUB$,
+    CMD_ARGS,
+    CMD_SRC$,
+    CMD_WORK,
+    CFG_RUN$,
+    CFG_STOR,
+    CFG_ROOT,
+    CFG_VIEW,
+    CFG_DRFT,
+    CFG_LOG$,
+    CFG_KICK,
+    CFG,
+    BootCFG,
+    Command
 } from "@-0/keys"
 
-import { run$, registerCMD, command$ } from "@-0/spool"
+import { run$ } from "@-0/spool"
 
-import { parse, diff_keys } from "@-0/utils"
+import { URL2obj, diff_keys } from "@-0/utils"
 
 import { registerRouterDOM, URL_DOM__ROUTE, DOMnavigated$, $store$ } from "@-0/browser"
 
 const pre = (ctx, body) => (
-  console.log(
-    `
+    console.log(
+        `
     no ${CFG_VIEW} component provided to boot({ CFG }). 
     Rendering state by route path
     `
-  ),
-  ["pre", JSON.stringify(body[1], null, 2)]
+    ),
+    [ "pre", JSON.stringify(body[1], null, 2) ]
 )
 
 /**
@@ -141,7 +141,7 @@ export const boot = (CFG: BootCFG) => {
         [CFG_STOR]: $store$,
         // remove any staging path components (e.g., gh-pages)
         [URL_PRSE]: () =>
-          parse(window.location.href, RGX), // <- 🔍
+        URL2obj(window.location.href, RGX), // <- 🔍
         ...others
       }
     })

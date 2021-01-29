@@ -16,7 +16,7 @@
     "allowJs": true,
     "watch": true
   },
-  "include": ["src"],
+  "include": ["src", "tests/URL.repl.ts"],
   "exclude": [
     "**/*.test.ts",
     "**/*.test.js",

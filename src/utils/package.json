@@ -1,62 +1,56 @@
 {
-  "name": "@-0/utils",
-  "author": "Logan Powell",
-  "license": "MIT",
-  "version": "0.2.79",
-  "description": "utilities for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
-  "main": "./lib/index.js",
-  "type": "module",
-  "types": "./lib/index.d.ts",
-  "repository": "https://github.com/subs0/utils",
-  "homepage": "https://github.com/subs0/utils",
-  "scripts": {
-    "madge": "madge --circular lib/",
-    "typewatch": "tsc --project tsconfig.json",
-    "types": "tsc --project tsconfig.build.json",
-    "tests": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
-    "patch": "npm version patch && npm publish",
-    "postgit": "git push origin master && npm run patch",
-    "ncu": "ncu -u && npm i && npm audit fix",
-    "git": "npm run ncu && git add . && git commit -m"
-  },
-  "keywords": [
-    "thi.ng",
-    "-0",
-    "FRP",
-    "keys",
-    "constants"
-  ],
-  "dependencies": {
-    "querystring": "^0.2.0"
-  },
-  "peerDependencies": {
-    "@-0/keys": "^0.2.82",
-    "@thi.ng/checks": "^2.8.0",
-    "@thi.ng/rstream": "^5.1.0"
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-    "@-0/keys": "^0.2.82",
-    "@thi.ng/checks": "^2.8.0",
-    "@thi.ng/rstream": "^5.1.0",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.22",
-    "@typescript-eslint/eslint-plugin": "^4.14.1",
-    "@typescript-eslint/parser": "^4.14.1",
-    "babel-jest": "^26.6.3",
-    "eslint": "^7.18.0",
-    "jest": "^26.6.3",
-    "prettier": "^2.2.1",
-    "ts-jest": "^26.5.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "prettier": {
-    "singleQuote": false,
-    "printWidth": 100,
-    "endOfLine": "lf",
-    "tabWidth": 2,
-    "semi": false
-  }
+    "name": "@-0/utils",
+    "author": "Logan Powell",
+    "license": "MIT",
+    "version": "0.2.79",
+    "description": "utilities for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
+    "main": "./lib/index.js",
+    "type": "module",
+    "types": "./lib/index.d.ts",
+    "repository": "https://github.com/subs0/utils",
+    "homepage": "https://github.com/subs0/utils",
+    "scripts": {
+        "madge": "madge --circular lib/",
+        "typewatch": "tsc --project tsconfig.json",
+        "types": "tsc --project tsconfig.build.json",
+        "test": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
+        "patch": "npm version patch && npm publish",
+        "postgit": "git push origin master && npm run patch",
+        "ncu": "ncu -u && npm i && npm audit fix",
+        "git": "npm run ncu && git add . && git commit -m"
+    },
+    "keywords": [ "thi.ng", "-0", "FRP", "keys", "constants" ],
+    "dependencies": {
+        "querystring": "^0.2.0"
+    },
+    "peerDependencies": {
+        "@-0/keys": "^0.2.82",
+        "@thi.ng/checks": "^2.8.0",
+        "@thi.ng/rstream": "^5.1.0"
+    },
+    "devDependencies": {
+        "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+        "@-0/keys": "^0.2.82",
+        "@thi.ng/checks": "^2.8.0",
+        "@thi.ng/rstream": "^5.1.0",
+        "@types/jest": "^26.0.20",
+        "@types/node": "^14.14.22",
+        "@typescript-eslint/eslint-plugin": "^4.14.1",
+        "@typescript-eslint/parser": "^4.14.1",
+        "babel-jest": "^26.6.3",
+        "eslint": "^7.18.0",
+        "jest": "^26.6.3",
+        "prettier": "^2.2.1",
+        "ts-jest": "^26.5.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "prettier": {
+        "singleQuote": false,
+        "printWidth": 100,
+        "endOfLine": "lf",
+        "tabWidth": 2,
+        "semi": false
+    }
 }
