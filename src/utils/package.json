@@ -17,7 +17,7 @@
         "patch": "npm version patch && npm publish",
         "postgit": "git push origin master && npm run patch",
         "ncu": "ncu -u && npm i && npm audit fix",
-        "git": "npm run ncu && git add . && git commit -m"
+        "git": "git add . && git commit -m"
     },
     "keywords": [
         "thi.ng",
@@ -30,13 +30,13 @@
         "querystring": "^0.2.0"
     },
     "peerDependencies": {
-        "@-0/keys": "^0.2.83",
+        "@-0/keys": "^0.2.84",
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0"
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-        "@-0/keys": "^0.2.83",
+        "@-0/keys": "^0.2.84",
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0",
         "@types/jest": "^26.0.20",
