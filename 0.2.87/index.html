@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerRouterDOM">registerRouterDOM</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li></ul></div>
                 
             </nav>
         </div>
@@ -83,7 +83,7 @@
     
 
 
-    <h3>@-0/browser 0.2.89</h3>
+    <h3>@-0/hdom 0.2.87</h3>
 
 
 
@@ -488,13 +488,13 @@ stays the same, but we'll need to make a few changes to
 mount our router to the DOM.</p>
 <pre class="prettyprint source lang-diff"><code>// src/routes.js
 
-import { parse } from &quot;spule&quot;
+import { URL2obj } from &quot;@-0/utils&quot;
 
 ...
 
 export const match = async path => {
 - const args = path ? path.split(&quot;/&quot;) : [];
-+ const args = parse(path).URL_path
++ const args = URL2obj(path).URL_path
 
   let [api, id] = args
 
@@ -669,7 +669,7 @@ the <code>task$</code> stream.</p>
 </tr>
 <tr>
 <td>URL_query</td>
-<td>node querystring parsed URL parameters</td>
+<td>node querystring URL2objd URL parameters</td>
 </tr>
 <tr>
 <td>URL_hash</td>
