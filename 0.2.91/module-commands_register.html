@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Global</title>
+  <title> commands/register</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,15 +66,15 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerRouterDOM">registerRouterDOM</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Title</p>
-                    <h1>Global</h1>
+                    <p>Module</p>
+                    <h1>commands/register</h1>
                 </header>
                 
 
@@ -85,7 +85,6 @@
 
 <header>
     
-        <h2></h2>
         
     
 </header>
@@ -94,44 +93,6 @@
     <div class="container-overview">
     
         
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
 
         
     
@@ -156,15 +117,17 @@
             
                 <div class="member">
 
-<h4 class="name" id="registerRouterDOM">
-    <a class="href-link" href="#registerRouterDOM">#</a>
+<h4 class="name" id=".log$">
+    <a class="href-link" href="#.log$">#</a>
     
+        
+            <span class='tag'>static</span>
         
             <span class='tag'>constant</span>
         
     
     <span class="code-name">
-        registerRouterDOM
+        log$
     </span>
     
 </h4>
@@ -173,9 +136,9 @@
 
 
 <div class="description">
-    <p>expects payload of</p>
-<pre class="prettyprint source"><code>{ target: { location: { href } }, currentTarget }
-</code></pre>
+    <p>A stream that will be forwarded all events emitted from
+the out$ stream - hooked together during registration
+(i.e., <code>registerCMD</code>)</p>
 </div>
 
 
@@ -215,9 +178,182 @@
 
     
         <p class="tag-source">
-            <a href="registers_index.ts.html" class="button">View Source</a>
+            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
             <span>
-                <a href="registers_index.ts.html">registers/index.ts</a>, <a href="registers_index.ts.html#line14">line 14</a>
+                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".registerCMD">
+    <a class="href-link" href="#.registerCMD">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        registerCMD
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Takes a Command object with some additional information
+and returns a Command <code>run</code>able in a Task or as-is.</p>
+<h3>Example</h3>
+<pre class="prettyprint source lang-js"><code>const genie = {
+  sub$: &quot;GENIE&quot;,
+  args: &quot;your wish&quot;
+  work: x => console.log(&quot;🧞 says:&quot;, x, &quot;is my command&quot;)
+}
+
+const GENIE = registerCMD(genie)
+
+run(GENIE)
+// 🧞 says: your wish is my command
+</code></pre>
+<p>A Command object can have four keys:</p>
+<ol>
+<li><code>sub$</code> (required)</li>
+<li><code>args</code> (optional, sets default) during registration</li>
+<li><code>work</code> (required)</li>
+<li><code>src$</code> (optional, enables stream to feed Command)</li>
+</ol>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <span>
+                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line71">line 71</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".supplement$CMD">
+    <a class="href-link" href="#.supplement$CMD">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        supplement$CMD
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>if a command has a <code>src$</code> key it is connected to an
+upstream producer stream, which enables that source to
+push values into the command stream and trigger the work
+registered.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <span>
+                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line24">line 24</a>
             </span>
         </p>
     
