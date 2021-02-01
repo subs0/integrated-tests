@@ -1,4 +1,4 @@
-import { stringify_fn } from "../lib/stringify_fn"
+import { stringify_fn } from "../src/stringify_fn"
 
 // prettier-ignore
 describe("stringify_fn", () => {

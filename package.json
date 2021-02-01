@@ -50,7 +50,11 @@
         "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:browser && npm run go:hdom && npm run ncu",
         "ncu": "ncu -u && npm i && npm audit fix"
     },
-    "keywords": [ "thi.ng", "multiplex", "FRP" ],
+    "keywords": [
+        "thi.ng",
+        "multiplex",
+        "FRP"
+    ],
     "peerDependencies": {
         "@thi.ng/arrays": "^0.10.1",
         "@thi.ng/associative": "5.0.17",
@@ -63,10 +67,10 @@
     },
     "dependencies": {
         "@-0/hdom": "^0.2.86",
-        "@-0/browser": "^0.2.87",
-        "@-0/keys": "^0.2.83",
-        "@-0/spool": "^0.2.90",
-        "@-0/utils": "^0.2.80"
+        "@-0/browser": "^0.2.89",
+        "@-0/keys": "^0.2.84",
+        "@-0/spool": "^0.2.91",
+        "@-0/utils": "^0.2.81"
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.12.1",

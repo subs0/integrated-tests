@@ -23,65 +23,63 @@ export const key_index_err = (c, i) => {
  * Just a  little error for people defining commands
  * that makes sure their keys don't contain typos
  */
-export const xKeyError = (str, c, unknown, sub$, index) => {
+export const xKeyError = (str = "NOT OK", c = {}, unknown_keys = [], sub$ = "_NA_", index = 1) => {
 
-    const { source$ } = c
+    const SOURCE = c[CMD_SRC$] || null
     const count = Object.entries(c).length
 
     return `
+🔥 ${str} ERROR:
 
-  🔥 ${str} ERROR:
-  
-  🔥 Unrecognized Command Key(s)
-  
-  FAULTY sub$: "${sub$}" 
-  ${Object.keys(unknown)[0][0]
-            ? `
-  ${index ? key_index_err(c, index) : ""}
+🔥 Unrecognized Command Key(s)
 
-  The problematic entry/entries: 
+FAULTY sub$: "${sub$}"
+${Object.keys(unknown_keys)[0][0]
+        ? `
+${index ? key_index_err(c, index) : ""}
 
-  🤔 ${!index && count > 3 && !source$ ? `${Object.entries(unknown)[0][0]}: <Stream>` : stringify_fn(unknown, 2)}`
-            : ""} 🤔
+The problematic entry/entries:
 
-  ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}: 
+🤔 ${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}: <Stream>` : stringify_fn(unknown_keys, 2)}` : ""} 🤔
 
-  '${CMD_SUB$}' 
-    - optional 
-    - topic key for for registering & targeting Commands 
+ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}:
 
-  '${CMD_ARGS}' 
-    - required 
-    - payload or accumulator reshaping payload function (Promises OK)
-    - allowed values:
-      - true/1/"a" : Primitive: static payload is _not_ accumulated
-      - {...}      : Object: static payload _is_ accumulated 
-      - (1) =>     : Unary function (non-nullary): accepts accumulator
-      - (0) =>     : Nullary function: dispatch to custom stream (advanced)
-      - { P }      : Promise or (#) => { P } Promise returning function
-      
-  '${CMD_RESO}' 
-    - required for Promise handling 
-    - converts resolved Promise payloads to Command args
-    - signature: ({ accumulator }, { resolved value }) =>  
+'${CMD_SUB$}'
+- optional
+- topic key for for registering & targeting Commands
 
-  '${CMD_ERRO}' 
-    - recommended for Promise rejections 
-    - handles rejected Promise payloads
-    - signature: ({ accumulator }, { error object }) =>  
-  ${index ? ``
-            : `
-  '${CMD_WORK}' 
-    - required 
-    - function that is called on payload's arrival
-    - signature: 
-      - (#) => : function instruments actual side-effects/work 
-  
-  '${CMD_SRC$}' 
-    - advanced/optional 
-    - source stream (see http://thi.ng/rstream)`
-        }
+'${CMD_ARGS}'
+- required
+- payload or accumulator reshaping payload function (Promises OK)
+- allowed values:
+  - true/1/"a" : Primitive: static payload is _not_ accumulated
+  - {...}      : Object: static payload _is_ accumulated
+  - (1) =>     : Unary function (non-nullary): accepts accumulator
+  - (0) =>     : Nullary function: dispatch to custom stream (advanced)
+  - { P }      : Promise or (#) => { P } Promise returning function
 
-  Hope that helps!
-  `
+'${CMD_RESO}'
+- required for Promise handling
+- converts resolved Promise payloads to Command args
+- signature: ({ accumulator }, { resolved value }) =>
+
+'${CMD_ERRO}'
+- recommended for Promise rejections
+- handles rejected Promise payloads
+- signature: ({ accumulator }, { error object }) =>
+${index ? ``
+: `
+'${CMD_WORK}'
+- required
+- function that is called on payload's arrival
+- signature:
+  - (#) => : function instruments actual side-effects/work
+
+'${CMD_SRC$}'
+- advanced/optional
+- source stream (see http://thi.ng/rstream)`
+    }
+
+Hope that helps!
+`
 }

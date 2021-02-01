@@ -1,4 +1,4 @@
-import { diff_keys } from "../lib/diff_keys"
+import { diff_keys } from "../src/diff_keys"
 
 // prettier-ignore
 describe("diff_keys", () => {

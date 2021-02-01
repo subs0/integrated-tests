@@ -1,5 +1,5 @@
 import { trace } from "@thi.ng/rstream"
-import { run$, out$, cmd$, task$, log$, registerCMD } from "../lib/spool"
+import { run$, out$, cmd$, task$, log$, registerCMD } from "../src/spool"
 
 const log = console.log
 

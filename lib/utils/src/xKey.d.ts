@@ -1,2 +1,2 @@
 export declare const key_index_err: (c: any, i: any) => string;
-export declare const xKeyError: (str: any, c: any, unknown: any, sub$: any, index: any) => string;
+export declare const xKeyError: (str?: string, c?: {}, unknown_keys?: any[], sub$?: string, index?: number) => string;
