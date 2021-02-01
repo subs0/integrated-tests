@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> store/state.ts</title>
+  <title> core/registers</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -68,55 +66,151 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_FLIP.html">commands/FLIP</a></li><li><a href="module-commands_head.html">commands/head</a></li><li><a href="module-commands_routing.html">commands/routing</a></li><li><a href="module-commands_state.html">commands/state</a></li><li><a href="module-core_stream$.html">core/stream$</a></li><li><a href="module-store_state.html">store/state</a></li><li><a href="module-tasks_routing.html">tasks/routing</a></li></ul><h3>Global</h3><ul><li><a href="global.html#registerRouterDOM">registerRouterDOM</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>store/state.ts</h1>
+                    <p>Module</p>
+                    <h1>core/registers</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @module store/state
- */
+        
+    
+</header>
 
-import { Atom } from "@thi.ng/atom"
-import { isPlainObject, isArray } from "@thi.ng/checks"
-import { $$_DEFAULT, DefaultDraft } from "@-0/keys"
+<article>
+    <div class="container-overview">
+    
+        
 
-// Global $store$ Container from [@thi.ng/atom](http://thi.ng/atom)
-export const $store$ = new Atom($$_DEFAULT)
+        
+    
+    </div>
+    
+    
 
-/**
- *
- * Swaps the current value at the given path/lens into the
- * global store with that of the given value. Checks to see
- * if that value should be either spread into an existing
- * object or a complete replacement.
- *
- * If the path is empty (e.g., [] = home page),
- */
+    
 
-export const set$$tate = (path, val, store = $store$) =>
-  store.swapIn(path, (x: Object) => {
-    return isPlainObject(x) &amp;&amp; isPlainObject(val)
-      ? // if both swap and target are objects, merge
-        { ...x, ...val }
-      : // else just reset to val at path (i.e., careful!)
-        val
-  })
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+<h4 class="name" id=".boot">
+    <a class="href-link" href="#.boot">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        boot
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Options Object keys</p>
+<ul>
+<li>root   : DOM mount node</li>
+<li>view   : root data view (app) node</li>
+<li>draft  : state scaffolding Object</li>
+<li>router : url matching function or config Object</li>
+<li>trace  : string triggers logs prepended with it</li>
+<li>kick   : boolean triggers kickstart (for some sandboxes)</li>
+<li>prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)</li>
+</ul>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="registers_index.ts.html" class="button">View Source</a>
+            <span>
+                <a href="registers_index.ts.html">registers/index.ts</a>, <a href="registers_index.ts.html#line61">line 61</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
