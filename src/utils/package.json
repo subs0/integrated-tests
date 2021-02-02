@@ -30,19 +30,19 @@
         "querystring": "^0.2.0"
     },
     "peerDependencies": {
-        "@-0/keys": "^0.2.85",
+        "@-0/keys": "^0.2.86",
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0"
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-        "@-0/keys": "^0.2.85",
+        "@-0/keys": "^0.2.86",
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0",
         "@types/jest": "^26.0.20",
         "@types/node": "^14.14.22",
-        "@typescript-eslint/eslint-plugin": "^4.14.1",
-        "@typescript-eslint/parser": "^4.14.1",
+        "@typescript-eslint/eslint-plugin": "^4.14.2",
+        "@typescript-eslint/parser": "^4.14.2",
         "babel-jest": "^26.6.3",
         "eslint": "^7.19.0",
         "jest": "^26.6.3",
