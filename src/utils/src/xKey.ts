@@ -5,14 +5,11 @@ import { CMD_SUB$, CMD_ARGS, CMD_ERRO, CMD_RESO, CMD_SRC$, CMD_WORK } from "@-0/
 import { stringify_fn } from "./stringify_fn"
 
 export const key_index_err = (c, i) => {
-    const idx_dict0 = Array.from(Array(19).keys()).reduce(
-        (a, idx) => ({ ...a, [idx]: `${idx + 1}th` }),
-        {}
-    )
+    const idx_dict0 = Array.from(Array(30).keys()).reduce((a, idx) => ({ ...a, [idx]: `${idx + 1}th` }), {})
 
     const idx_dict = { ...idx_dict0, 0: "1st", 1: "2nd", 2: "3rd" }
     const idx_str = idx_dict[i]
-    return `🔍 it was the ${idx_str} Command in a Task or ${idx_dict[i - 1]} in a Subtask.`
+    return `🔍 it was the ${idx_str} Command ${i > 0 ? `in a Task or ${idx_dict[i - 1]} in a Subtask.` : ""}`
 }
 
 // prettier-ignore
