@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> components/FLIPkid</title>
+  <title> commands/register</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-components_FLIPkid.html">components/FLIPkid</a></li><li><a href="module-core_registers.html">core/registers</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-commands_register.html">commands/register</a></li><li><a href="module-core.html">core</a></li></ul></div>
                 
             </nav>
         </div>
@@ -74,7 +74,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Module</p>
-                    <h1>components/FLIPkid</h1>
+                    <h1>commands/register</h1>
                 </header>
                 
 
@@ -117,8 +117,8 @@
             
                 <div class="member">
 
-<h4 class="name" id=".FLIPkid">
-    <a class="href-link" href="#.FLIPkid">#</a>
+<h4 class="name" id=".log$">
+    <a class="href-link" href="#.log$">#</a>
     
         
             <span class='tag'>static</span>
@@ -127,7 +127,7 @@
         
     
     <span class="code-name">
-        FLIPkid
+        log$
     </span>
     
 </h4>
@@ -136,11 +136,9 @@
 
 
 <div class="description">
-    <p>FLIP (First Last Invert Play) Animating component. Wraps
-a component that has an <code>href</code> attribute and uses it to
-trigger a routing event and FLIP animation between
-instances on separate routes (provides a &quot;magic
-move&quot;-like UX)</p>
+    <p>A stream that will be forwarded all events emitted from
+the out$ stream - hooked together during registration
+(i.e., <code>registerCMD</code>)</p>
 </div>
 
 
@@ -180,9 +178,182 @@ move&quot;-like UX)</p>
 
     
         <p class="tag-source">
-            <a href="components_FLIPkid.ts.html" class="button">View Source</a>
+            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
             <span>
-                <a href="components_FLIPkid.ts.html">components/FLIPkid.ts</a>, <a href="components_FLIPkid.ts.html#line45">line 45</a>
+                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line16">line 16</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".registerCMD">
+    <a class="href-link" href="#.registerCMD">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        registerCMD
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Takes a Command object with some additional information
+and returns a Command <code>run</code>able in a Task or as-is.</p>
+<h3>Example</h3>
+<pre class="prettyprint source lang-js"><code>const genie = {
+  sub$: &quot;GENIE&quot;,
+  args: &quot;your wish&quot;
+  work: x => console.log(&quot;🧞 says:&quot;, x, &quot;is my command&quot;)
+}
+
+const GENIE = registerCMD(genie)
+
+run(GENIE)
+// 🧞 says: your wish is my command
+</code></pre>
+<p>A Command object can have four keys:</p>
+<ol>
+<li><code>sub$</code> (required)</li>
+<li><code>args</code> (optional, sets default) during registration</li>
+<li><code>work</code> (required)</li>
+<li><code>src$</code> (optional, enables stream to feed Command)</li>
+</ol>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <span>
+                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line71">line 71</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id=".supplement$CMD">
+    <a class="href-link" href="#.supplement$CMD">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        supplement$CMD
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>if a command has a <code>src$</code> key it is connected to an
+upstream producer stream, which enables that source to
+push values into the command stream and trigger the work
+registered.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="registers_registerCMD.ts.html" class="button">View Source</a>
+            <span>
+                <a href="registers_registerCMD.ts.html">registers/registerCMD.ts</a>, <a href="registers_registerCMD.ts.html#line24">line 24</a>
             </span>
         </p>
     
