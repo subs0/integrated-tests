@@ -1,4 +1,4 @@
-import { isObject, isFunction, isPromise } from "@thi.ng/checks";
+import { isObject, isFunction, isPromise, isArray } from "@thi.ng/checks";
 export const stringify_type = x => {
     if (isFunction(x) && x.length === 0)
         return "NULLARY";
@@ -12,6 +12,8 @@ export const stringify_type = x => {
         return "PROMISE";
     if (isObject(x))
         return "OBJECT";
+    if (isArray(x))
+        return "ARRAY";
     if (x !== Object(x) && x !== undefined)
         return "PRIMITIVE";
     return "UNDEFINED";

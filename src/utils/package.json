@@ -35,7 +35,7 @@
         "@thi.ng/rstream": "^5.1.0"
     },
     "devDependencies": {
-        "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+        "@babel/plugin-transform-modules-commonjs": "^7.12.13",
         "@-0/keys": "^0.2.86",
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0",
