@@ -70,11 +70,11 @@
         "@-0/browser": "^0.2.91",
         "@-0/keys": "^0.2.86",
         "@-0/spool": "^0.2.93",
-        "@-0/utils": "^0.2.83"
+        "@-0/utils": "^0.2.84"
     },
     "devDependencies": {
-        "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-        "@babel/preset-env": "^7.12.11",
+        "@babel/plugin-transform-modules-commonjs": "^7.12.13",
+        "@babel/preset-env": "^7.12.13",
         "@thi.ng/arrays": "^0.10.1",
         "@thi.ng/associative": "5.0.17",
         "@thi.ng/atom": "^4.1.27",
