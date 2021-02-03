@@ -2,7 +2,7 @@
  * @module utils/stringify_type
  */
 
-import { isObject, isFunction, isPromise, isArray } from "@thi.ng/checks"
+import { isObject, isFunction, isPromise, isArray, isPlainObject } from "@thi.ng/checks"
 
 // prettier-ignore
 /**
@@ -21,8 +21,8 @@ export const stringify_type = x => {
     if (isFunction(x) && x.length === 2)     return "BINARY"
     if (isFunction(x) && x.length > 2 )      return "N-ARY"
     if (isPromise(x))                        return "PROMISE"
-    if (isObject(x))                         return "OBJECT"
     if (isArray(x))                          return "ARRAY"
+    if (isPlainObject(x))                    return "OBJECT"
     if (x !== Object(x) && x !== undefined ) return "PRIMITIVE"
                                              return "UNDEFINED"
 }
