@@ -9,7 +9,7 @@ export const key_index_err = (c, i) => {
 
     const idx_dict = { ...idx_dict0, 0: "1st", 1: "2nd", 2: "3rd" }
     const idx_str = idx_dict[i]
-    return `🔍 it was the ${idx_str} Command ${i > 0 ? `in a Task or ${idx_dict[i - 1]} in a Subtask.` : ""}`
+    return `>> it was the ${idx_str} Command in a Task ${i > 0 ? `or ${idx_dict[i - 1]} in a Subtask.` : ""}`
 }
 
 // prettier-ignore
@@ -26,9 +26,7 @@ export const xKeyError = (str = "NOT OK", c = {}, unknown_keys = [], sub$ = "_NA
     const count = Object.entries(c).length
 
     return `
-🔥 ${str} ERROR:
-
-🔥 Unrecognized Command Key(s)
+🔥 Unrecognized Command Key(s) 🔥
 
 FAULTY sub$: "${sub$}"
 ${Object.keys(unknown_keys)[0][0]
@@ -37,7 +35,7 @@ ${index ? key_index_err(c, index) : ""}
 
 The problematic entry/entries:
 
-🤔 ${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}: <Stream>` : stringify_fn(unknown_keys, 2)}` : ""} 🤔
+${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}: <Stream>` : stringify_fn(unknown_keys, 2)}` : ""}
 
 ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}:
 

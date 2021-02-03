@@ -1,36 +1,34 @@
 import { key_index_err, xKeyError } from "../src/xKey"
 
+import { CMD_SUB$, CMD_ARGS, CMD_ERRO, CMD_RESO, CMD_SRC$, CMD_WORK } from "@-0/keys"
+
 const CMD = {
-    sub$ : "_ERROR",
-    args : new Error("from _ERROR"),
-    erro : (acc, res) => null,
-    work : x => console.error("Huge mistake:", x)
+    [CMD_SUB$] : "_ERROR",
+    [CMD_ARGS] : new Error("from _ERROR"),
+    [CMD_ERRO] : (acc, res) => null,
+    [CMD_WORK] : x => console.error("Huge mistake:", x)
 }
 
 describe("key_index_err", () => {
     test("helper text: locate the erroneous Command", () =>
-        expect(key_index_err(CMD, 1)).toBe(
-            "🔍 it was the 2nd Command in a Task or 1st in a Subtask."
-        ))
+        expect(key_index_err(CMD, 1)).toBe(">> it was the 2nd Command in a Task or 1st in a Subtask."))
 })
 
 describe("xKeyError", () => {
     test("helper text: unrecognized key within a Command", () =>
         expect(xKeyError("funky", CMD, { a: 1, b: 2 }, "MY_CMD", 2)).toBe(`
-🔥 funky ERROR:
-
-🔥 Unrecognized Command Key(s)
+🔥 Unrecognized Command Key(s) 🔥
 
 FAULTY sub$: "MY_CMD"
 
-🔍 it was the 3rd Command in a Task or 2nd in a Subtask.
+>> it was the 3rd Command in a Task or 2nd in a Subtask.
 
 The problematic entry/entries:
 
-🤔 {
+{
   "a": 1,
   "b": 2
-} 🤔
+}
 
 ACCEPTABLE ENTRY KEYS WITHIN A COMMAND:
 
