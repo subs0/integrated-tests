@@ -23,6 +23,7 @@ export const stringify_type = x => {
     if (isPromise(x))                        return "PROMISE"
     if (isArray(x))                          return "ARRAY"
     if (isPlainObject(x))                    return "OBJECT"
+    if (x instanceof Error)                  return "ERROR"
     if (x !== Object(x) && x !== undefined ) return "PRIMITIVE"
                                              return "UNDEFINED"
 }
