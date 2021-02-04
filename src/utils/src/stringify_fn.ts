@@ -17,9 +17,18 @@ export const stringify_fn = (x, indent?) =>
                         .replace(/\s\s+/g, " ")
                         .slice(0, 20) + "..."
                 return r.replace(/\\"/g, '"')
-            } else {
-                return value
             }
+            if (value instanceof Error) {
+                var error = {}
+
+                Object.getOwnPropertyNames(value).forEach(function(key) {
+                    error[key] = value[key]
+                })
+
+                return error
+            }
+
+            return value
         },
         indent
     )
