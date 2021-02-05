@@ -14,8 +14,9 @@ ${err_str}
 
 🔥 Unrecognized Command Key(s) 🔥
 
-FAULTY COMMAND: ${stringify_fn(c)}
+FAULTY COMMAND:
 
+${stringify_fn(c)}
 ${Object.keys(unknown_keys)[0][0]
         ? `
 ${index ? key_index_err(c, index) : ""}
