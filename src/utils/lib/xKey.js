@@ -6,13 +6,14 @@ export const key_index_err = (c, i) => {
     const idx_str = idx_dict[i];
     return `>> it was the ${idx_str} Command in a Task ${i > 0 ? `or ${idx_dict[i - 1]} in a Subtask.` : ""}`;
 };
-export const xKeyError = (str = "NOT OK", c = {}, unknown_keys = [], sub$ = "_NA_", index = 1) => {
+export const xKeyError = (str = "NOT OK", c = {}, unknown_keys = [], index = 1) => {
     const SOURCE = c[CMD_SRC$] || null;
     const count = Object.entries(c).length;
     return `
 🔥 Unrecognized Command Key(s) 🔥
 
-FAULTY sub$: "${sub$}"
+FAULTY COMMAND: ${stringify_fn(c)}
+
 ${Object.keys(unknown_keys)[0][0]
         ? `
 ${index ? key_index_err(c, index) : ""}
