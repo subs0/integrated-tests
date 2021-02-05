@@ -16,10 +16,12 @@ describe("key_index_err", () => {
 
 describe("xKeyError", () => {
     test("helper text: unrecognized key within a Command", () =>
-        expect(xKeyError("funky", CMD, { a: 1, b: 2 }, "MY_CMD", 2)).toBe(`
+        expect(xKeyError("funky", CMD, { a: 1, b: 2 }, 2)).toBe(`
 🔥 Unrecognized Command Key(s) 🔥
 
-FAULTY sub$: "MY_CMD"
+FAULTY COMMAND: 
+
+🤔
 
 >> it was the 3rd Command in a Task or 2nd in a Subtask.
 
