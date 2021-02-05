@@ -1,1 +1,1 @@
-export declare const stringify_type: (x: any) => "NULLARY" | "UNARY" | "BINARY" | "N-ARY" | "PROMISE" | "ARRAY" | "OBJECT" | "ERROR" | "PRIMITIVE" | "UNDEFINED";
+export declare const stringify_type: (x: any) => "NULLARY" | "UNARY" | "BINARY" | "N-ARY" | "PROMISE" | "ARRAY" | "OBJECT" | "ERROR" | "PRIMITIVE" | "UNKNOWN";
