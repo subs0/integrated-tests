@@ -25,5 +25,5 @@ export const stringify_type = x => {
     if (isPlainObject(x))                    return "OBJECT"
     if (x instanceof Error)                  return "ERROR"
     if (x !== Object(x) && x !== undefined ) return "PRIMITIVE"
-                                             return "UNDEFINED"
+                                             return "UNKNOWN"
 }

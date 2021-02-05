@@ -20,12 +20,14 @@ export const key_index_err = (c, i) => {
  * Just a  little error for people defining commands
  * that makes sure their keys don't contain typos
  */
-export const xKeyError = (str = "NOT OK", c = {}, unknown_keys = [], index = 1) => {
+export const xKeyError = (err_str = "NOT OK", c = {}, unknown_keys = [], index = 1) => {
 
     const SOURCE = c[CMD_SRC$] || null
     const count = Object.entries(c).length
 
     return `
+${err_str}
+
 🔥 Unrecognized Command Key(s) 🔥
 
 FAULTY COMMAND: ${
