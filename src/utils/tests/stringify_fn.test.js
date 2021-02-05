@@ -13,4 +13,7 @@ describe("stringify_fn", () => {
 
     test("4: handles Objects with function values", () =>
         expect(stringify_fn({ key: ({ x }) => ({ x: x + 1 }) })).toMatch(`{"key":"({ x }) => ({ x: x +..."}`))
+
+    test("5: handles Error Objects", () =>
+        expect(stringify_fn({ key: new Error("bloop") })).toMatch(`{\"key\":{\"stack\":\"Error: bloop    at \",\"message\":\"bloop\"}}`))
 })

@@ -10,12 +10,12 @@ const CMD = {
 }
 
 describe("key_index_err", () => {
-    test("helper text: locate the erroneous Command", () =>
+    test("1: helper text: locate the erroneous Command", () =>
         expect(key_index_err(CMD, 1)).toBe(">> it was the 2nd Command in a Task or 1st in a Subtask."))
 })
 
 describe("xKeyError", () => {
-    test("helper text: unrecognized key within a Command", () =>
+    test("1: helper text: unrecognized key within a Command", () =>
         expect(xKeyError("funky", CMD, { a: 1, b: 2 }, 2)).toBe(`
 funky
 
@@ -23,7 +23,15 @@ funky
 
 FAULTY COMMAND:
 
-{"sub$":"_ERROR","args":{"stack":"Error: fro","message":"from _ERRO"},"erro":"(acc, res) => null...","work":"x => console.error(\\"..."}
+{
+    "sub$": "_ERROR",
+    "args": {
+        "stack": "Error: from _ERROR ",
+        "message": "from _ERROR"
+    },
+    "erro": "(acc, res) => null...",
+    "work": "x => console.error(\\"..."
+}
 
 >> it was the 3rd Command in a Task or 2nd in a Subtask.
 

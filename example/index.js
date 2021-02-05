@@ -1,6 +1,8 @@
 import { getInUnsafe } from "@thi.ng/paths"
 import { isObject } from "@thi.ng/checks"
 import { EquivMap } from "@thi.ng/associative"
+import { map } from "@thi.ng/transducers"
+
 import "regenerator-runtime"
 // import scrolly from "@mapbox/scroll-restorer"
 // scrolly.start()
@@ -20,10 +22,11 @@ import * as K from "@-0/keys"
 
 const log = console.log
 
-trace$("run$     ->", run$)
-//trace$("command$ ->", command$)
-trace$("out$     ->", out$)
-trace$("task$    ->", task$)
+log$.subscribe(map(x => log("log$:", x)))
+//trace$("run$     ->", run$)
+////trace$("command$ ->", command$)
+//trace$("out$     ->", out$)
+//trace$("task$    ->", task$)
 
 /**
  *
@@ -130,18 +133,12 @@ const routerCfg = async url => {
     let [ , p_b ] = path
 
     let RES = new EquivMap([
-        [
-            { ...match, [K.URL.PATH]: [ "todos" ] },
-            { [K.URL.DATA]: () => getSomeJSON("todos"), [K.URL.PAGE]: set }
-        ],
+        [ { ...match, [K.URL.PATH]: [ "todos" ] }, { [K.URL.DATA]: () => getSomeJSON("todos"), [K.URL.PAGE]: set } ],
         [
             { ...match, [K.URL.PATH]: [ "todos", p_b ] },
             { [K.URL.DATA]: () => getSomeJSON("todos", p_b), [K.URL.PAGE]: single }
         ],
-        [
-            { ...match, [K.URL.PATH]: [ "users" ] },
-            { [K.URL.DATA]: () => getSomeJSON("users"), [K.URL.PAGE]: set }
-        ],
+        [ { ...match, [K.URL.PATH]: [ "users" ] }, { [K.URL.DATA]: () => getSomeJSON("users"), [K.URL.PAGE]: set } ],
         [
             { ...match, [K.URL.PATH]: [ "users", p_b ] },
             { [K.URL.DATA]: () => getSomeJSON("users", p_b), [K.URL.PAGE]: single }
@@ -198,9 +195,7 @@ const child = (ctx, id, img, sz, ...args) =>
                           width  : "600px"
                       },
             href  :
-                sz === "sm"
-                    ? `/${ctx[K.URL.PRSE]()[K.URL.PATH]}/${id}`
-                    : `/${ctx[K.URL.PRSE]()[K.URL.PATH].join("/")}`
+                sz === "sm" ? `/${ctx[K.URL.PRSE]()[K.URL.PATH]}/${id}` : `/${ctx[K.URL.PRSE]()[K.URL.PATH].join("/")}`
         },
         ...args
     ]

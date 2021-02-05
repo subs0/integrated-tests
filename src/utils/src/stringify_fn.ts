@@ -13,9 +13,8 @@ export const stringify_fn = (x, indent?) =>
                 let r =
                     value
                         .toString()
-                        .replace(/\r?\n|\r/g, "") // get rid of stuff
+                        .replace(/\r?\n|\r|\\"/g, "") // get rid of stuff
                         .replace(/\s\s+/g, " ")
-                        .replace(/\\"/g, '"')
                         .slice(0, 20) + "..."
                 return r
             }
@@ -27,7 +26,7 @@ export const stringify_fn = (x, indent?) =>
                 })
                 let out = {}
                 Object.entries(error).forEach(
-                    ([ k, v ]) => (out[k] = typeof v === "string" ? v.slice(0, 10).replace(/\\"/g, '"') : v)
+                    ([ k, v ]) => (out[k] = typeof v === "string" ? v.slice(0, 20).replace(/\r?\n|\r|\\"/g, "") : v)
                 )
                 return out
             }
