@@ -2,15 +2,15 @@ import { stringify_fn } from "../src/stringify_fn"
 
 // prettier-ignore
 describe("stringify_fn", () => {
-    test("handles simple arrow functions", () => 
+    test("1: handles simple arrow functions", () => 
         expect(stringify_fn(x => x + 1)).toMatch("x => x + 1..."))
 
-    test("handles destructured arrow functions", () =>
+    test("2: handles destructured arrow functions", () =>
         expect(stringify_fn(({ x }) => x + 1)).toMatch("({ x }) => x + 1..."))
 
-    test("handles destructured arrow functions", () =>
+    test("3: handles destructured arrow functions", () =>
         expect(stringify_fn(({ x }) => ({ x: x + 1 }))).toMatch("({ x }) => ({ x: x +..."))
 
-    test("handles Objects with function values", () =>
+    test("4: handles Objects with function values", () =>
         expect(stringify_fn({ key: ({ x }) => ({ x: x + 1 }) })).toMatch(`{"key":"({ x }) => ({ x: x +..."}`))
 })
