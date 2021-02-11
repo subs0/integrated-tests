@@ -2,21 +2,8 @@ import { createEvent, fireEvent, getByText } from "@testing-library/dom"
 import { EquivMap } from "@thi.ng/associative"
 import { map } from "@thi.ng/transducers"
 
-import {
-    URL_FULL,
-    DOM_NODE,
-    CFG_RUTR,
-    ROUTER_PREP,
-    ROUTER_POST,
-    ROUTER_PRFX,
-    URL_PAGE,
-    URL_DATA,
-    CMD_ARGS,
-    CMD_SUB$,
-    CMD_WORK
-} from "@-0/keys"
-import { log$, out$, run$, cmd$ } from "@-0/spool"
-import { URL2obj } from "@-0/utils"
+import { URL_FULL, DOM_NODE, CMD_ARGS } from "@-0/keys"
+import { run$ } from "@-0/spool"
 import { DOMnavigated$ } from "../../src/core"
 import {
     FLIP_FIRST,
@@ -87,7 +74,7 @@ describe("Commands: routing", () => {
             run$.next({
                 ...SET_LINK_ATTRS_DOM,
                 [CMD_ARGS] : {
-                    //[DOM_NODE] : e.currentTarget
+                    [DOM_NODE] : e.currentTarget
                 }
             })
         })
@@ -105,6 +92,7 @@ describe("Commands: routing", () => {
         `
         let a = div.querySelector("a")
         a.addEventListener("click", e => {
+            console.log("e.target:")
             run$.next({
                 ...HREF_PUSHSTATE_DOM,
                 [CMD_ARGS] : {
