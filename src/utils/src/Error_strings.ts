@@ -1,9 +1,22 @@
 import { CMD_SUB$, CMD_ARGS, CMD_WORK, CMD_ERRO, CMD_RESO } from "@-0/keys"
 
-export const Err_missing_props = (CMD, ...props) => {
-    const missing = props.map(x => `- No ${x} prop found`).join("\n") + `\n`
+const missing_props_str = (CMD = "", ...props) => {
+    const missing = props.map(x => `    ${x}: 🔥`).join(",\n")
     return `
-Error: Missing critical ${CMD} Command \`${CMD_ARGS}\`:
+Error: ${CMD} Command missing critical \`${CMD_ARGS}\`:
+{ ...,
+  ${CMD_ARGS}: {
 ${missing}
+  }
+}
+This Command's registered \`${CMD_WORK}\` handler failed 
     `
+}
+
+export const missing_prop_list = (obj = {}) => {
+    return Object.entries(obj).map(([ k, v ]) => (v ? k : null)).filter(x => x !== null)
+}
+
+export const Err_missing_props = (CMD = "", obj = { [CMD_SUB$]: null, [CMD_ARGS]: null }) => {
+    return missing_props_str(CMD, ...missing_prop_list(obj))
 }
