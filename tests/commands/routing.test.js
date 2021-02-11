@@ -76,22 +76,52 @@ describe("Commands: routing", () => {
         const result = spy.mock.results[1].value
         expect(result).toMatchObject({ [URL_FULL]: "/this-was-run" })
     })
-    test("4: SET_LINK_ATTRS_DOM Command: dispatch marks visited links as active", () => {
+    test("4: SET_LINK_ATTRS_DOM Command: dispatch marks clicked links visited/active", () => {
         let div = document.createElement("div")
         div.innerHTML = `
-            <a id="me" href="/hello" >check it</a>
+            <a href="/hello" >check it</a>
         `
         let a = div.querySelector("a")
         //a.href = "https://hello.world/earth"
         a.addEventListener("click", e => {
-            run$.next({ ...SET_LINK_ATTRS_DOM, [CMD_ARGS]: { [DOM_NODE]: e.currentTarget } })
+            run$.next({
+                ...SET_LINK_ATTRS_DOM,
+                [CMD_ARGS] : {
+                    //[DOM_NODE] : e.currentTarget
+                }
+            })
         })
 
         fireEvent(a, createEvent("click", a))
 
-        const test = getByText(div, "check it")
-        console.log("test", test.outerHTML)
-        expect(test.outerHTML).toBe(`<a id="me" href="/hello" visited="" active="">check it</a>`)
+        //console.log("a", a.outerHTML)
+        expect(a.outerHTML).toBe(`<a href="/hello" visited="" active="">check it</a>`)
         //expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "https://hello.world/earth" })
+    })
+    test("5: HREF_PUSHSTATE_DOM Command: if DOM ref is <a> -> history.pushState", () => {
+        let div = document.createElement("div")
+        div.innerHTML = `
+            <a href="/world" >hello</a>
+        `
+        let a = div.querySelector("a")
+        a.addEventListener("click", e => {
+            run$.next({
+                ...HREF_PUSHSTATE_DOM,
+                [CMD_ARGS] : {
+                    [DOM_NODE] : e.target,
+                    [URL_FULL] : e.target.href
+                }
+            })
+        })
+        let before = history.length
+        fireEvent(a, createEvent("click", a))
+        let after = history.length
+        expect(after - before).toBe(1)
+    })
+    test("6: NOTIFY_PRERENDER_DOM Command: dispatches trigger for prerender (e.g., rendertron)", () => {
+        let triggered = false
+        document.addEventListener("rendered", e => (triggered = true))
+        run$.next(NOTIFY_PRERENDER_DOM)
+        expect(triggered).toBe(true)
     })
 })
