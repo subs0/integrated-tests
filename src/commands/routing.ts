@@ -1,7 +1,7 @@
 /**
  * @module commands/routing
  */
-import { URL2obj } from "@-0/utils"
+import { URL2obj, Err_missing_props } from "@-0/utils"
 import { DOM_NODE, URL_FULL, URL_PATH, CMD_SUB$, CMD_ARGS, CMD_WORK, CMD_ERRO } from "@-0/keys"
 import { registerCMD } from "@-0/spool"
 
@@ -74,7 +74,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
     [CMD_ARGS]: ({ [DOM_NODE]: NODE }) => ({ [DOM_NODE]: NODE }),
     [CMD_WORK]: ({ [DOM_NODE]: NODE }) => {
         if (NODE) return setLinkAttrs(NODE)
-        console.warn(Err_missing_props(this[CMD_SUB$]))
+        console.warn(Err_missing_props("SET_LINK_ATTRS_DOM", NODE))
     }
 })
 
