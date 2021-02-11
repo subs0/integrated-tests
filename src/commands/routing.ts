@@ -39,10 +39,12 @@ export const HURL: any = registerCMD({
 })
 
 const setLinkAttrs = target => {
-    document.body.querySelectorAll("a[visited]").forEach((el: HTMLLinkElement) => {
-        if (el.href === window.location.href) el.setAttribute("active", "")
-        else el.removeAttribute("active")
-    })
+    document &&
+        document.body &&
+        document.body.querySelectorAll("a[visited]").forEach((el: HTMLLinkElement) => {
+            if (el.href === window.location.href) el.setAttribute("active", "")
+            else el.removeAttribute("active")
+        })
     if (target.setAttribute) {
         target.setAttribute("visited", "")
         target.setAttribute("active", "")
@@ -99,9 +101,7 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
     [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
     [CMD_WORK]: args =>
-        !args[DOM_NODE].document
-            ? history.pushState(URL2obj(args[URL_FULL]), null, args[URL_FULL])
-            : null
+        !args[DOM_NODE].document ? history.pushState(URL2obj(args[URL_FULL]), null, args[URL_FULL]) : null
 })
 
 /**
@@ -131,5 +131,5 @@ export const NOTIFY_PRERENDER_DOM: any = registerCMD({
     [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
     [CMD_ARGS]: true,
     //👀 for prerenderer,
-    [CMD_WORK]: () => document.dispatchEvent(new Event("rendered"))
+    [CMD_WORK]: () => document && document.dispatchEvent(new Event("rendered"))
 })

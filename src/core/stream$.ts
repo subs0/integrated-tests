@@ -12,7 +12,6 @@ export const popstate$: any = fromDOMEvent(window, "popstate")
 // @ts-ignore
 export const DOMContentLoaded$: any = fromDOMEvent(window, "DOMContentLoaded")
 
-// example of custom stream dispatch (logging)
 /**
  *
  * There are three types of navigation we need to handle:
@@ -36,10 +35,10 @@ export const DOMContentLoaded$: any = fromDOMEvent(window, "DOMContentLoaded")
  * injection example
  */
 export const DOMnavigated$ = merge({
-  src: [popstate$, DOMContentLoaded$]
+    src: [ popstate$, DOMContentLoaded$ ]
 }).transform(
-  map((x: Event | any) => ({
-    [URL_FULL]: x.target.location.href,
-    [DOM_NODE]: x.currentTarget
-  }))
+    map((x: Event | any) => ({
+        [URL_FULL]: x.target.location.href,
+        [DOM_NODE]: x.currentTarget
+    }))
 )
