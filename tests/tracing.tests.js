@@ -1,5 +1,5 @@
 import { trace } from "@thi.ng/rstream"
-import { run$, out$, cmd$, task$, log$, registerCMD } from "../src/spool"
+import { run$, out$, cmd$, task$, log$, registerCMD } from "../src/spool/lib"
 
 const log = console.log
 
@@ -56,9 +56,9 @@ const FOUR_4 = registerCMD({
     work : x => setTimeout(() => console.log("from FOUR_4:", x), 3000)
 })
 
-const NOOP = registerCMD({
-    args : 1
-})
+//const NOOP = registerCMD({
+//    args : 1
+//})
 
 //const TASK = [ONE, TWO, THREE]
 const TASK_2 = [ ONE_1, TWO_2, THREE_3, FOUR_4 ]
@@ -77,33 +77,3 @@ run$.next(TASK_2) // logs only once (first upstream), but forwards to cmd$
 // out$.next(THREE_3) // logs for every value (last downstream), i.e. run -> command -> out = 3
 
 log$.subscribe(trace("bloop"))
-/**
- *
- * TODO:
- * 1. Create Commands with varying combinations of properties, e.g.:
- *
- *  No. | COMBINATION                                        | Err? | Description
- *      | ---                                                |---   | ---
- *  1   | { sub$ }                                           |  🔴  |  Noop
- *  2   | { args: 1 }                                        |  🔴  |  No sub$ for primitive
- *  3   | { args: {} }                                       |  💚  |  Static Val
- *  4   | { work }                                           |  🔴  |  Noop
- *  5   | { reso }                                           |  🔴  |  Noop
- *  6   | { erro }                                           |  🔴  |  Noop
- *  7   | { sub$, args: 1 }                                  |  💚  |  primitive dispatch to sub$
- *  8   | { sub$, args: {} }                                 |  💚  |  object dispatch to sub$
- *  9   | { sub$, args: (0) => }                             |  💚  |  function dispatch to sub$
- *  10  | { sub$, args: (1) => }                             |  💚  |  object dispatch to sub$
- *  11  | { sub$, args: Promise }                            |  💚  |
- *  12  | { sub$, args: Promise, work }                      |  💚  |
- *  13  | { sub$, args: Promise, reso }                      |  💛  |  no error handler
- *  14  | { sub$, args: Promise, erro }                      |  💚  |
- *  15  | { sub$, args: Promise, reso, erro: {} }            |  💚  |
- *  16  | { sub$, args: Promise, reso, erro: (0) => }        |  💚  |
- *  17  | { sub$, args: Promise, reso, erro: (1) => }        |  💚  |
- *  18  | { sub$, args: Promise, reso, erro: (>1) => }       |  💚  |
- *  19  | { sub$, args: Promise, reso, erro, work }          |  💚  |
- *
- * 2. Create a test for each.
- *
- */

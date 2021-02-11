@@ -80,6 +80,14 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
         router = ruts
         preroute = isObject(prep) ? [ prep ] : prep || []
         postroute = isObject(post) ? [ post ] : post || []
+
+        /**
+         *
+         * FIXME: if prefix provided, remove it from result
+         * of URL2Obj instead of stripping it from URL
+         * strings passed to router
+         */
+
         prefix = prfx ? new RegExp(escaped(prfx), "g") : null
     } else {
         router = CFG
@@ -106,14 +114,19 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
      *
      */
         {
+            /**
+             *
+             * FIXME: if prefix provided, remove it from result
+             * of URL2Obj instead of stripping it from URL
+             * strings passed to router   
+             */
             [CMD_ARGS]: prefix ? router(acc[URL_FULL].replace(prefix, "")) : router(acc[URL_FULL]),
             [CMD_RESO]: (_acc, _res) => ({
                 // 🤔: no page in core... can it be migrated/refactored into DOM Router?
-                [URL_PAGE]: _res[URL_PAGE],
-                [URL_DATA]: _res[URL_DATA]
+                [URL_PAGE]: (_res && _res[URL_PAGE]) || null,
+                [URL_DATA]: (_res && _res[URL_DATA]) || null
             }),
-            [CMD_ERRO]: (_acc, _err) =>
-                console.warn("Error in URL__ROUTE:", _err, "constructed:", _acc)
+            [CMD_ERRO]: (_acc, _err) => console.warn("Error in URL__ROUTE:", _err, "constructed:", _acc)
         },
         {
             [CMD_ARGS]: prefix ? URL2obj(acc[URL_FULL], prefix) : URL2obj(acc[URL_FULL])
@@ -194,26 +207,28 @@ export const URL_DOM__ROUTE = CFG => {
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
         // { args: msTaskDelay(2000) },
         /**
-     * takes the result from two sources: the user-provided
-     * [`router`](http://thi.ng/associative) and a `unFURL`d URL
-     *
-     * ### work: side-effecting
-     *
-     * Hydrates the page state as well as the name of the active
-     * page in the global store
-     */
+         * takes the result from two sources: the
+         * user-provided
+         * [`router`](http://thi.ng/associative) and a
+         * `unFURL`d URL
+         *
+         * ### work: side-effecting
+         *
+         * Hydrates the page state as well as the name of
+         * the active page in the global store
+         */
         {
             ...SET_STATE,
             [CMD_ARGS]: _acc => ({
                 [STATE_PATH]: [ $$_VIEW ],
-                [STATE_DATA]: _acc[URL_PAGE]
+                [STATE_DATA]: _acc[URL_PAGE] || null
             })
         },
         {
             ...SET_STATE,
             [CMD_ARGS]: _acc => ({
                 [STATE_PATH]: _acc[URL_PATH],
-                [STATE_DATA]: _acc[URL_DATA][DOM_BODY] || _acc[URL_DATA]
+                [STATE_DATA]: (_acc[URL_DATA] && _acc[URL_DATA][DOM_BODY]) || _acc[URL_DATA]
             })
         },
         // example ad-hoc stream injection
@@ -221,7 +236,7 @@ export const URL_DOM__ROUTE = CFG => {
         SET_LINK_ATTRS_DOM,
         {
             ...SET_STATE,
-            // wait on pending promise(s) w/a non-nullary fn (+)=>
+            // wait on pending promise(s) w/a fn
             [CMD_ARGS]: _ => ({
                 [STATE_PATH]: [ $$_LOAD ],
                 [STATE_DATA]: false

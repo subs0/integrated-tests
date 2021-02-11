@@ -19,13 +19,7 @@
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
-    "keywords": [
-        "thi.ng",
-        "-0",
-        "FRP",
-        "keys",
-        "constants"
-    ],
+    "keywords": [ "thi.ng", "-0", "FRP", "keys", "constants" ],
     "dependencies": {
         "querystring": "^0.2.0"
     },
@@ -54,9 +48,10 @@
     },
     "prettier": {
         "singleQuote": false,
-        "printWidth": 100,
+        "printWidth": 120,
         "endOfLine": "lf",
-        "tabWidth": 2,
-        "semi": false
+        "tabWidth": 4,
+        "semi": false,
+        "arrowParens": "avoid"
     }
 }

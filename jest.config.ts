@@ -1,6 +1,6 @@
 module.exports = {
-    preset: "ts-jest",
-    testEnvironment: "node", // "jsdom",
+    preset: "ts-jest", // "jest-playwright-preset",
+    testEnvironment: "jest-environment-jsdom", //"jsdom", // "node",
     testMatch: [ "**/**/*.test.(js|ts|tsx)" ],
     //  moduleFileExtensions: ["js", "ts", "jsx", "tsx", "json", "node"],
     verbose: true,
