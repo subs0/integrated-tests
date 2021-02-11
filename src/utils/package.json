@@ -11,8 +11,8 @@
     "homepage": "https://github.com/subs0/utils",
     "scripts": {
         "madge": "madge --circular lib/",
-        "typewatch": "tsc --project tsconfig.json",
         "types": "tsc --project tsconfig.build.json",
+        "typewatch": "tsc --project tsconfig.json",
         "test": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
         "patch": "npm version patch && npm publish",
         "postgit": "git push origin master && npm run patch",
@@ -40,7 +40,7 @@
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0",
         "@types/jest": "^26.0.20",
-        "@types/node": "^14.14.25",
+        "@types/node": "^14.14.26",
         "@typescript-eslint/eslint-plugin": "^4.15.0",
         "@typescript-eslint/parser": "^4.15.0",
         "babel-jest": "^26.6.3",
