@@ -92,7 +92,7 @@ describe("Commands: routing", () => {
         `
         let a = div.querySelector("a")
         a.addEventListener("click", e => {
-            console.log("e.target:")
+            //console.log("e.target:", e.target)
             run$.next({
                 ...HREF_PUSHSTATE_DOM,
                 [CMD_ARGS] : {

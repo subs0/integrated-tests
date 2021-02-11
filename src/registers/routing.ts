@@ -15,7 +15,7 @@ import { DOMnavigated$ } from "../core"
  * ```
  */
 export const registerRouterDOM = (router): Command => {
-    console.log("DOM Router Registered")
+    //console.log("DOM Router Registered")
     const task = URL_DOM__ROUTE(router)
     return registerCMD({
         [CMD_SRC$]: DOMnavigated$,

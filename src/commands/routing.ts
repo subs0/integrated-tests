@@ -71,10 +71,14 @@ const setLinkAttrs = target => {
  */
 export const SET_LINK_ATTRS_DOM: any = registerCMD({
     [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
-    [CMD_ARGS]: ({ [DOM_NODE]: NODE }) => ({ [DOM_NODE]: NODE }),
-    [CMD_WORK]: ({ [DOM_NODE]: NODE }) => {
-        if (NODE) return setLinkAttrs(NODE)
-        console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", DOM_NODE))
+    [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
+    [CMD_WORK]: acc => {
+        const node = acc[DOM_NODE]
+        const props = {
+            [DOM_NODE]: node
+        }
+        if (node) return setLinkAttrs(node)
+        console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props))
     }
 })
 
