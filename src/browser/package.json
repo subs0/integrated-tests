@@ -11,9 +11,9 @@
     "homepage": "https://github.com/subs0/browser",
     "scripts": {
         "madge": "madge --circular lib/",
-        "typewatch": "tsc --project tsconfig.json",
         "types": "tsc --project tsconfig.build.json",
-        "tests": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
+        "typewatch": "tsc --project tsconfig.json",
+        "test": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
         "jsdoc": "jsdoc -c jsdoc/jsdoc.json --verbose --debug",
         "pages": "gh-pages -d @-0/browser",
         "docs": "npm run types && npm run jsdoc",
@@ -22,11 +22,7 @@
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
-    "keywords": [
-        "thi.ng",
-        "multiplex",
-        "FRP"
-    ],
+    "keywords": [ "thi.ng", "multiplex", "FRP" ],
     "publishConfig": {
         "access": "public"
     },
@@ -41,7 +37,7 @@
     },
     "dependencies": {
         "@-0/keys": "^0.2.95",
-        "@-0/utils": "^0.2.93",
+        "@-0/utils": "^0.2.94",
         "@-0/spool": "^0.2.101"
     },
     "devDependencies": {

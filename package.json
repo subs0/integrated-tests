@@ -10,16 +10,16 @@
     "repository": "https://github.com/subs0/stack",
     "homepage": "https://github.com/subs0/stack",
     "scripts": {
+        "madge": "madge --circular lib/",
+        "types": "tsc --project tsconfig.build.json",
+        "typewatch": "tsc --project tsconfig.json",
+        "test": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
         "pages": "npm run build && gh-pages -d @-0/stack",
         "jsdoc": "jsdoc -c jsdoc/jsdoc.json --verbose --debug",
         "docs": "npm run types && npm run jsdoc",
         "clean": "rm -rf .cache build dist",
-        "madge": "madge --circular lib/",
-        "types": "tsc --project tsconfig.build.json",
-        "typewatch": "tsc --project tsconfig.json",
         "build": "npm run clean && cross-env NODE_ENV=production parcel build example/index.html -d @-0/stack --no-source-maps --no-cache --public-url ./",
         "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch",
-        "test": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
         "postgit": "git push origin master",
         "git": "git add . && git commit -m",
         "cl:keys": "node scripts/clean st=keys via=push",
@@ -50,11 +50,7 @@
         "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:browser && npm run go:hdom && npm run ncu",
         "ncu": "ncu -u && npm i && npm audit fix"
     },
-    "keywords": [
-        "thi.ng",
-        "multiplex",
-        "FRP"
-    ],
+    "keywords": [ "thi.ng", "multiplex", "FRP" ],
     "peerDependencies": {
         "@thi.ng/arrays": "^0.10.1",
         "@thi.ng/associative": "5.0.17",
