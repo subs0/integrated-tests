@@ -2,7 +2,7 @@
  * @module commands/routing
  */
 import { URL2obj } from "@-0/utils"
-import { DOM_NODE, URL_FULL, URL_PATH, CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys"
+import { DOM_NODE, URL_FULL, URL_PATH, CMD_SUB$, CMD_ARGS, CMD_WORK, CMD_ERRO } from "@-0/keys"
 import { registerCMD } from "@-0/spool"
 
 import { DOMnavigated$ } from "../core/stream$"
@@ -67,12 +67,15 @@ const setLinkAttrs = target => {
  * current/clicked link as active and sets visted links that
  * don't match current URL to inactive see `setLinkAttrs`
  * function
- *
+ * 
  */
 export const SET_LINK_ATTRS_DOM: any = registerCMD({
     [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
-    [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
-    [CMD_WORK]: args => setLinkAttrs(args[DOM_NODE])
+    [CMD_ARGS]: ({ [DOM_NODE]: NODE }) => ({ [DOM_NODE]: NODE }),
+    [CMD_WORK]: ({ [DOM_NODE]: NODE }) => {
+        if (NODE) return setLinkAttrs(NODE)
+        console.warn(Err_missing_props(this[CMD_SUB$]))
+    }
 })
 
 /**
@@ -82,7 +85,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
  * ### Payload: function
  * default payload `args` signature:
  * ```
- * args: ({ URL, DOM }) => ({ URL, DOM }),
+ * args: ({ URL, NODE }) => ({ URL, NODE }),
  * ```
  * Takes a URL and a DOM reference
  *
@@ -99,9 +102,9 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
  */
 export const HREF_PUSHSTATE_DOM: any = registerCMD({
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
-    [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
-    [CMD_WORK]: args =>
-        !args[DOM_NODE].document ? history.pushState(URL2obj(args[URL_FULL]), null, args[URL_FULL]) : null
+    [CMD_ARGS]: ({ [URL_FULL]: URL, [DOM_NODE]: NODE }) => ({ [URL_FULL]: URL, [DOM_NODE]: NODE }),
+    [CMD_WORK]: ({ [URL_FULL]: URL, [DOM_NODE]: NODE }) =>
+        NODE && !NODE.document ? history.pushState(URL2obj(URL), null, URL) : null
 })
 
 /**
