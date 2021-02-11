@@ -46,8 +46,7 @@ export type HOTask = (acc: Accumulator) => Task
 /**
  *
  * Configuration for boot config
- * TODO: something... else
- *
+ * FIXME
  */
 export interface BootCFG {
     [C.CFG_RUTR]: {} | Function
