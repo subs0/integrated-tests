@@ -5,6 +5,7 @@ const missing_props_str = (CMD = "", ...props) => {
     return `
 Error: ${CMD} Command missing critical \`${CMD_ARGS}\`:
 { ...,
+  ${CMD_SUB$}: ${CMD},
   ${CMD_ARGS}: {
 ${missing}
   }
