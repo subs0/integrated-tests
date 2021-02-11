@@ -18,7 +18,7 @@ export interface ICommand {
     [C.CMD_ARGS]: any;
     [C.CMD_SUB$]?: string;
     [C.CMD_RESO]?: (acc: {}, res: {}) => any;
-    [C.CMD_ERRO]?: (acc: {}, err: Error) => any;
+    [C.CMD_ERRO]?: (acc: {}, err: Error, out$: ISubscribable<any>) => any;
     [C.CMD_WORK]?: (args: any) => any;
     [C.CMD_SRC$]?: ISubscribable<any>;
 }
