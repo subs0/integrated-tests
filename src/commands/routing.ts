@@ -74,7 +74,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
     [CMD_ARGS]: ({ [DOM_NODE]: NODE }) => ({ [DOM_NODE]: NODE }),
     [CMD_WORK]: ({ [DOM_NODE]: NODE }) => {
         if (NODE) return setLinkAttrs(NODE)
-        console.warn(Err_missing_props("SET_LINK_ATTRS_DOM", NODE))
+        console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", DOM_NODE))
     }
 })
 
@@ -102,9 +102,14 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
  */
 export const HREF_PUSHSTATE_DOM: any = registerCMD({
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
-    [CMD_ARGS]: ({ [URL_FULL]: URL, [DOM_NODE]: NODE }) => ({ [URL_FULL]: URL, [DOM_NODE]: NODE }),
-    [CMD_WORK]: ({ [URL_FULL]: URL, [DOM_NODE]: NODE }) =>
-        NODE && !NODE.document ? history.pushState(URL2obj(URL), null, URL) : null
+    [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
+    [CMD_WORK]: acc => {
+        const url = acc[URL_FULL]
+        const node = acc[DOM_NODE]
+        if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
+        const missed = [ ...(url ? [ URL_FULL ] : []), ...(node ? [ DOM_NODE ] : []) ]
+        console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", ...missed))
+    }
 })
 
 /**
