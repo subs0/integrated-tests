@@ -35,6 +35,13 @@ import {
 
 import { URL2obj } from "@-0/utils"
 
+const SET_ROUTE_PATH = {
+    ...SET_STATE,
+    [CMD_ARGS]: _acc => ({
+        [STATE_DATA]: _acc[URL_PATH],
+        [STATE_PATH]: [ $$_PATH ]
+    })
+}
 /**
  *
  * Universal router (cross-platform) Subtask.
@@ -149,13 +156,7 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
      * global Atom
      *
      */
-        {
-            ...SET_STATE,
-            [CMD_ARGS]: _acc => ({
-                [STATE_DATA]: _acc[URL_PATH],
-                [STATE_PATH]: [ $$_PATH ]
-            })
-        },
+        SET_ROUTE_PATH,
         ...postroute
     ]
     return task
@@ -187,37 +188,23 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
  *  - `URL_path`
  *  - `URL_data`
  */
+
+const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true } }
+const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: false } }
+
 export const URL_DOM__ROUTE = CFG => {
     // instantiate router
     const match = URL__ROUTE(CFG)
 
     return acc => [
-        {
-            ...SET_STATE,
-            [CMD_ARGS]: {
-                [STATE_PATH]: [ $$_LOAD ],
-                [STATE_DATA]: true
-            }
-        },
+        SET_ROUTE_LOADING_TRUE,
         {
             ...HREF_PUSHSTATE_DOM,
             [CMD_ARGS]: { [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }
         },
-        // example Subtask injection
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
-        // { args: msTaskDelay(2000) },
-        /**
-         * takes the result from two sources: the
-         * user-provided
-         * [`router`](http://thi.ng/associative) and a
-         * `unFURL`d URL
-         *
-         * ### work: side-effecting
-         *
-         * Hydrates the page state as well as the name of
-         * the active page in the global store
-         */
         {
+            // hydrate page state and page component/function
             ...SET_STATE,
             [CMD_ARGS]: _acc => ({
                 [STATE_PATH]: [ $$_VIEW ],
@@ -231,17 +218,8 @@ export const URL_DOM__ROUTE = CFG => {
                 [STATE_DATA]: (_acc[URL_DATA] && _acc[URL_DATA][DOM_BODY]) || _acc[URL_DATA]
             })
         },
-        // example ad-hoc stream injection
-        // { sub$: log$, args: () => ({ DOM }) },
         SET_LINK_ATTRS_DOM,
-        {
-            ...SET_STATE,
-            // wait on pending promise(s) w/a fn
-            [CMD_ARGS]: _ => ({
-                [STATE_PATH]: [ $$_LOAD ],
-                [STATE_DATA]: false
-            })
-        },
+        SET_ROUTE_LOADING_FALSE,
         NOTIFY_PRERENDER_DOM
     ]
 }

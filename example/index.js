@@ -9,10 +9,10 @@ import "regenerator-runtime"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 
-import { registerCMD, command$, out$, run$, task$, log$ } from "../lib/spool"
-import { INJECT_HEAD, HURL } from "../lib/browser"
-import { FLIPkid, boot } from "../lib/hdom"
-import { URL2obj } from "../lib/utils"
+import { registerCMD, command$, out$, run$, task$, log$ } from "@-0/spool"
+import { INJECT_HEAD, HURL } from "@-0/browser"
+import { FLIPkid, boot } from "@-0/hdom"
+import { URL2obj } from "@-0/utils"
 import {
     DOM_BODY,
     DOM_HEAD,
@@ -173,7 +173,9 @@ const routerCfg = async url => {
     let data = RES[URL_DATA]
     let page = RES[URL_PAGE]
 
-    return { [URL_DATA]: await data(), [URL_PAGE]: page }
+    let result = { [URL_DATA]: await data(), [URL_PAGE]: page }
+    console.log({ result })
+    return result
 }
 
 //

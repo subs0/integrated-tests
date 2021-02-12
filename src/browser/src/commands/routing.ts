@@ -115,8 +115,10 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
             [DOM_NODE]: node
         }
         if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
-        console.log({ acc })
-        return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
+        if (!url || !node) {
+            console.log({ acc })
+            return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
+        }
     }
 })
 
