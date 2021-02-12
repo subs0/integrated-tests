@@ -76,7 +76,7 @@ export declare const CFG: {
 export declare const RTR_PREP = "prep";
 export declare const RTR_POST = "post";
 export declare const RTR_PRFX = "prefix";
-export declare const ROUTER: {
+export declare const RTR: {
     PREP: string;
     POST: string;
     PRFX: string;

@@ -106,7 +106,7 @@ export const RTR_POST = "post"
 export const RTR_PRFX = "prefix"
 
 // public
-export const ROUTER = {
+export const RTR = {
     PREP: RTR_PREP,
     POST: RTR_POST,
     PRFX: RTR_PRFX,
@@ -114,6 +114,7 @@ export const ROUTER = {
 }
 
 // Global state keys/constants
+
 // underscores used to prevent conflict with userland Commands
 export const $$_PATH = "_ROUTE_PATH"
 export const $$_LOAD = "_ROUTE_LOADING"
