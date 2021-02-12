@@ -23,6 +23,13 @@ export declare const URL: {
 export declare const DOM_NODE = "NODE";
 export declare const DOM_BODY = "BODY";
 export declare const DOM_HEAD = "HEAD";
+export declare const HEAD_TTL = "title";
+export declare const HEAD_ICN = "favicon";
+export declare const HEAD_TYP = "type";
+export declare const OG_DISCR = "description";
+export declare const OG_IMG_U = "img_url";
+export declare const OG_IMG_W = "img_width";
+export declare const OG_IMG_H = "img_height";
 export declare const DOM: {
     NODE: string;
     BODY: string;

@@ -23,6 +23,13 @@ export const URL = {
 export const DOM_NODE = "NODE";
 export const DOM_BODY = "BODY";
 export const DOM_HEAD = "HEAD";
+export const HEAD_TTL = "title";
+export const HEAD_ICN = "favicon";
+export const HEAD_TYP = "type";
+export const OG_DISCR = "description";
+export const OG_IMG_U = "img_url";
+export const OG_IMG_W = "img_width";
+export const OG_IMG_H = "img_height";
 export const DOM = {
     NODE: DOM_NODE,
     BODY: DOM_BODY,
