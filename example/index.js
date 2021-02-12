@@ -13,7 +13,20 @@ import { registerCMD, command$, out$, run$, task$, log$ } from "@-0/spool"
 import { INJECT_HEAD, HURL } from "@-0/browser"
 import { FLIPkid, boot } from "@-0/hdom"
 import { URL2obj } from "@-0/utils"
-import * as K from "@-0/keys"
+import {
+    DOM_BODY,
+    DOM_HEAD,
+    DOM_NODE,
+    URL_PATH,
+    URL_FULL,
+    URL_DATA,
+    URL_PAGE,
+    CFG_RUTR,
+    CFG_VIEW,
+    CFG_RUTR,
+    ROUTER_PRFX,
+    ROUTER_POST
+} from "@-0/keys"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 
@@ -58,7 +71,7 @@ const getSomeJSON = async (path, uid) => {
                   company : { catchPhrase } = { catchPhrase: detail.title }
               } = detail
               return {
-                  [K.DOM.HEAD]: {
+                  [DOM_HEAD] : {
                       //title?: any
                       //description?: any
                       //img_url?: any
@@ -70,7 +83,7 @@ const getSomeJSON = async (path, uid) => {
                       description : `${name} handles ${catchPhrase}`,
                       img_url     : img_base(uid, 600)
                   },
-                  [K.DOM.BODY]: {
+                  [DOM_BODY] : {
                       // lesson -> don't use the actual url as the uid (not flexible)
                       img  : img_base(uid, 600),
                       // this needs fixin' 📌
@@ -82,12 +95,12 @@ const getSomeJSON = async (path, uid) => {
         : (async () => {
               let list = await fetch(`${text_base}${path}/`).then(r => r.json())
               return {
-                  [K.DOM.HEAD]: {
+                  [DOM_HEAD] : {
                       title       : `${path.replace(/^\w/, c => c.toUpperCase())} list`,
                       description : `List page for ${path}`,
                       img_url     : img_base(222, 200)
                   },
-                  [K.DOM.BODY]: list.map((c, i) => ({
+                  [DOM_BODY] : list.map((c, i) => ({
                       img  : img_base(i + 1, 200),
                       text : c,
                       uid  : i + 1
@@ -129,37 +142,37 @@ const routerCfg = async url => {
     // URL_path // array
     // } = match
 
-    let path = match[K.URL.PATH]
+    let path = match[URL_PATH]
     let [ , p_b ] = path
 
     let RES = new EquivMap([
-        [ { ...match, [K.URL.PATH]: [ "todos" ] }, { [K.URL.DATA]: () => getSomeJSON("todos"), [K.URL.PAGE]: set } ],
+        [ { ...match, [URL_PATH]: [ "todos" ] }, { [URL_DATA]: () => getSomeJSON("todos"), [URL_PAGE]: set } ],
         [
-            { ...match, [K.URL.PATH]: [ "todos", p_b ] },
-            { [K.URL.DATA]: () => getSomeJSON("todos", p_b), [K.URL.PAGE]: single }
+            { ...match, [URL_PATH]: [ "todos", p_b ] },
+            { [URL_DATA]: () => getSomeJSON("todos", p_b), [URL_PAGE]: single }
         ],
-        [ { ...match, [K.URL.PATH]: [ "users" ] }, { [K.URL.DATA]: () => getSomeJSON("users"), [K.URL.PAGE]: set } ],
+        [ { ...match, [URL_PATH]: [ "users" ] }, { [URL_DATA]: () => getSomeJSON("users"), [URL_PAGE]: set } ],
         [
-            { ...match, [K.URL.PATH]: [ "users", p_b ] },
-            { [K.URL.DATA]: () => getSomeJSON("users", p_b), [K.URL.PAGE]: single }
+            { ...match, [URL_PATH]: [ "users", p_b ] },
+            { [URL_DATA]: () => getSomeJSON("users", p_b), [URL_PAGE]: single }
         ],
         // home page (empty path)
         [
-            { ...match, [K.URL.PATH]: [] },
+            { ...match, [URL_PATH]: [] },
             {
-                [K.URL.DATA]: () => (console.log("HOME"), getSomeJSON("users", 10)),
-                [K.URL.PAGE]: single
+                [URL_DATA] : () => (console.log("HOME"), getSomeJSON("users", 10)),
+                [URL_PAGE] : single
             }
         ] // get match || 404 data
     ]).get(match) || {
-        [K.URL.DATA]: () => getSomeJSON("users", 10),
-        [K.URL.PAGE]: single
+        [URL_DATA] : () => getSomeJSON("users", 10),
+        [URL_PAGE] : single
     }
 
-    let data = RES[K.URL.DATA]
-    let page = RES[K.URL.PAGE]
+    let data = RES[URL_DATA]
+    let page = RES[URL_PAGE]
 
-    return { [K.URL.DATA]: await data(), [K.URL.PAGE]: page }
+    return { [URL_DATA]: await data(), [URL_PAGE]: page }
 }
 
 //
@@ -194,8 +207,7 @@ const child = (ctx, id, img, sz, ...args) =>
                           height : "600px",
                           width  : "600px"
                       },
-            href  :
-                sz === "sm" ? `/${ctx[K.URL.PRSE]()[K.URL.PATH]}/${id}` : `/${ctx[K.URL.PRSE]()[K.URL.PATH].join("/")}`
+            href  : sz === "sm" ? `/${ctx[K.URL.PRSE]()[URL_PATH]}/${id}` : `/${ctx[K.URL.PRSE]()[URL_PATH].join("/")}`
         },
         ...args
     ]
@@ -250,7 +262,7 @@ const pathLink = (ctx, uid, ...args) =>
         uid === 3
             ? { disabled: true }
             : {
-                  href    : `/${ctx[K.URL.PRSE]()[K.URL.PATH]}/${uid}`,
+                  href    : `/${ctx[K.URL.PRSE]()[URL_PATH]}/${uid}`,
                   onclick : e => {
                       e.preventDefault()
                       ctx.run({ ...HURL, args: e })
@@ -316,20 +328,20 @@ const app = (ctx, page) =>
 
 // TODO: add default / 404 page here (could help the ugly $page.deref() ||...)
 const router = {
-    [K.ROUTER.RUTR]: routerCfg,
-    [K.ROUTER.PRFX]: "ac/",
-    [K.ROUTER.POST]: INJECT_HEAD
+    [CFG_RUTR]    : routerCfg,
+    [ROUTER_PRFX] : "ac/",
+    [ROUTER_POST] : INJECT_HEAD
 }
 
 // const router = routerCfg
 
 const w_config = {
-    [K.CFG.VIEW]: app,
-    [K.CFG.RUTR]: router,
-    [K.CFG.ROOT]: document.getElementById("app"), // <- 🔍
-    [K.CFG.DRFT]: { users: [] }
-    //  [K.CFG.LOG$]: "state ->",
-    //[K.CFG.KICK]: true,
+    [CFG_VIEW] : app,
+    [CFG_RUTR] : router,
+    [CFG_ROOT] : document.getElementById("app"), // <- 🔍
+    [CFG_DRFT] : { users: [] }
+    //  [CFG_LOG$]: "state ->",
+    //[CFG_KICK]: true,
 
     // arbitrary context k/v pairs...
     // theme: THEME

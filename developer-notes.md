@@ -9,6 +9,7 @@ These are required to be installed globally for `scripts`:
 - `typescript`
 - `jest`
 - `parcel`
+- `gh-pages`
 
 ## Last Compilation Environment
 
