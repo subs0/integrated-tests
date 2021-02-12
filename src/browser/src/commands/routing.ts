@@ -114,7 +114,7 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
             [URL_FULL]: url,
             [DOM_NODE]: node
         }
-        if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
+        if (url && node) return history.pushState(URL2obj(url), null, url)
         console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
     }
 })
