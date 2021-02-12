@@ -22,10 +22,11 @@ import {
     URL_DATA,
     URL_PAGE,
     CFG_RUTR,
+    CFG_ROOT,
+    CFG_DRFT,
     CFG_VIEW,
-    CFG_RUTR,
-    ROUTER_PRFX,
-    ROUTER_POST
+    RTR_PRFX,
+    RTR_POST
 } from "@-0/keys"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
@@ -328,9 +329,9 @@ const app = (ctx, page) =>
 
 // TODO: add default / 404 page here (could help the ugly $page.deref() ||...)
 const router = {
-    [CFG_RUTR]    : routerCfg,
-    [ROUTER_PRFX] : "ac/",
-    [ROUTER_POST] : INJECT_HEAD
+    [CFG_RUTR] : routerCfg,
+    [RTR_PRFX] : "ac/",
+    [RTR_POST] : INJECT_HEAD
 }
 
 // const router = routerCfg

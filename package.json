@@ -66,11 +66,11 @@
         "@thi.ng/transducers-hdom": "^2.0.80"
     },
     "dependencies": {
-        "@-0/browser": "^0.2.100",
-        "@-0/hdom": "^0.2.96",
-        "@-0/keys": "^0.2.96",
-        "@-0/spool": "^0.2.102",
-        "@-0/utils": "^0.2.96"
+        "@-0/browser": "^0.2.102",
+        "@-0/hdom": "^0.2.97",
+        "@-0/keys": "^0.2.100",
+        "@-0/spool": "^0.2.103",
+        "@-0/utils": "^0.2.97"
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.12.13",
@@ -85,7 +85,7 @@
         "@thi.ng/transducers": "^7.5.8",
         "@thi.ng/transducers-hdom": "^2.0.80",
         "@types/jest": "^26.0.20",
-        "@types/node": "^14.14.26",
+        "@types/node": "^14.14.27",
         "@typescript-eslint/eslint-plugin": "^4.15.0",
         "@typescript-eslint/parser": "^4.15.0",
         "babel-jest": "^26.6.3",
