@@ -43,7 +43,7 @@ export const DOM = {
 
 // document head selector shortcuts
 export const HD_TITL = "title"
-export const OG_DISC = "description"
+export const OG_DESC = "description"
 export const OG_IMGU = "img_url"
 export const OG_IMGW = "img_width"
 export const OG_IMGH = "img_height"

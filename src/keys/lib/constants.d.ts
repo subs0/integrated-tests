@@ -29,7 +29,7 @@ export declare const DOM: {
     HEAD: string;
 };
 export declare const HD_TITL = "title";
-export declare const OG_DISC = "description";
+export declare const OG_DESC = "description";
 export declare const OG_IMGU = "img_url";
 export declare const OG_IMGW = "img_width";
 export declare const OG_IMGH = "img_height";
