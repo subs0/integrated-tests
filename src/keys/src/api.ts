@@ -74,3 +74,15 @@ export interface RouterCFG {
     [C.RTR_POST]: Command | Task
     [C.CFG_RUTR]: Router
 }
+
+export interface HeadData {
+    [DOM_HEAD: string]: {
+        [C.HD_TITL]?: any
+        [C.OG_DISC]?: any
+        [C.OG_IMGU]?: any
+        [C.OG_IMGW]?: any
+        [C.OG_IMGH]?: any
+        [C.HD_ICON]?: any
+        [C.OG_TYPE]?: any
+    }
+}
