@@ -2,4 +2,4 @@ export * from "./hdom/lib";
 export * from "./browser/node_modules/@-0/utils/lib";
 export * from "./browser/node_modules/@-0/spool/lib";
 export { keys };
-import * as keys from "./hdom/node_modules/@-0/keys/lib";
+import * as keys from "./browser/node_modules/@-0/keys/lib";

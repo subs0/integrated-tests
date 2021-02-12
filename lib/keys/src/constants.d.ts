@@ -23,18 +23,18 @@ export declare const URL: {
 export declare const DOM_NODE = "NODE";
 export declare const DOM_BODY = "BODY";
 export declare const DOM_HEAD = "HEAD";
-export declare const HEAD_TTL = "title";
-export declare const HEAD_ICN = "favicon";
-export declare const HEAD_TYP = "type";
-export declare const OG_DISCR = "description";
-export declare const OG_IMG_U = "img_url";
-export declare const OG_IMG_W = "img_width";
-export declare const OG_IMG_H = "img_height";
 export declare const DOM: {
     NODE: string;
     BODY: string;
     HEAD: string;
 };
+export declare const HD_TITL = "title";
+export declare const OG_DISC = "description";
+export declare const OG_IMGU = "img_url";
+export declare const OG_IMGW = "img_width";
+export declare const OG_IMGH = "img_height";
+export declare const HD_ICON = "favicon";
+export declare const OG_TYPE = "type";
 export declare const STATE_PATH = "PATH";
 export declare const STATE_DATA = "DATA";
 export declare const STATE: {
@@ -73,10 +73,10 @@ export declare const CFG: {
     RUTR: string;
     KICK: string;
 };
-export declare const ROUTER_PREP = "prep";
-export declare const ROUTER_POST = "post";
-export declare const ROUTER_PRFX = "prefix";
-export declare const ROUTER: {
+export declare const RTR_PREP = "prep";
+export declare const RTR_POST = "post";
+export declare const RTR_PRFX = "prefix";
+export declare const RTR: {
     PREP: string;
     POST: string;
     PRFX: string;
