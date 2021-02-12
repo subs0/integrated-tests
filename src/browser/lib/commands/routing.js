@@ -44,7 +44,7 @@ export const SET_LINK_ATTRS_DOM = registerCMD({
         };
         if (node)
             return setLinkAttrs(node);
-        console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props));
+        return console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props));
     }
 });
 export const HREF_PUSHSTATE_DOM = registerCMD({
@@ -57,9 +57,10 @@ export const HREF_PUSHSTATE_DOM = registerCMD({
             [URL_FULL]: url,
             [DOM_NODE]: node
         };
-        if (url && node)
+        if (url && node && !node.document)
             return history.pushState(URL2obj(url), null, url);
-        console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props));
+        console.log({ acc });
+        return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props));
     }
 });
 export const NOTIFY_PRERENDER_DOM = registerCMD({
