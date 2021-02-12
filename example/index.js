@@ -9,10 +9,10 @@ import "regenerator-runtime"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 
-import { registerCMD, command$, out$, run$, task$, log$ } from "@-0/spool"
-import { INJECT_HEAD, HURL } from "@-0/browser"
-import { FLIPkid, boot } from "@-0/hdom"
-import { URL2obj } from "@-0/utils"
+import { registerCMD, command$, out$, run$, task$, log$ } from "../lib/spool"
+import { INJECT_HEAD, HURL } from "../lib/browser"
+import { FLIPkid, boot } from "../lib/hdom"
+import { URL2obj } from "../lib/utils"
 import {
     DOM_BODY,
     DOM_HEAD,
@@ -236,7 +236,7 @@ const component = sz =>
 // babel/core-js will complain if pages aren't defined
 // before they're used even though eslint will allow it
 const single = (ctx, body) => {
-    //  console.log("single component loaded. body:", body)
+    //console.log("single component loaded. body:", body)
     return [
         component("lg"),
         getInUnsafe(body, "uid") || 1,

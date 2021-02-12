@@ -19,7 +19,7 @@
         "docs": "npm run types && npm run jsdoc",
         "clean": "rm -rf .cache build dist",
         "build": "npm run clean && cross-env NODE_ENV=production parcel build example/index.html -d @-0/stack --no-source-maps --no-cache --public-url ./",
-        "start": "npm run types && parcel example/index.html --global md -p 8080 --open -d dist watch",
+        "start": "npm run madge && concurrently \"npm run typewatch\" \"parcel example/index.html --global md -p 8080 --open -d dist watch\"",
         "postgit": "git push origin master",
         "git": "git add . && git commit -m",
         "cl:keys": "node scripts/clean st=keys via=push",
@@ -50,11 +50,7 @@
         "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:browser && npm run go:hdom && npm run ncu",
         "ncu": "ncu -u && npm i && npm audit fix"
     },
-    "keywords": [
-        "thi.ng",
-        "multiplex",
-        "FRP"
-    ],
+    "keywords": [ "thi.ng", "multiplex", "FRP" ],
     "peerDependencies": {
         "@thi.ng/arrays": "^0.10.1",
         "@thi.ng/associative": "5.0.17",
@@ -66,7 +62,7 @@
         "@thi.ng/transducers-hdom": "^2.0.80"
     },
     "dependencies": {
-        "@-0/browser": "^0.2.102",
+        "@-0/browser": "^0.2.103",
         "@-0/hdom": "^0.2.97",
         "@-0/keys": "^0.2.100",
         "@-0/spool": "^0.2.103",
