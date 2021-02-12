@@ -23,18 +23,18 @@ export const URL = {
 export const DOM_NODE = "NODE";
 export const DOM_BODY = "BODY";
 export const DOM_HEAD = "HEAD";
-export const HEAD_TTL = "title";
-export const HEAD_ICN = "favicon";
-export const HEAD_TYP = "type";
-export const OG_DISCR = "description";
-export const OG_IMG_U = "img_url";
-export const OG_IMG_W = "img_width";
-export const OG_IMG_H = "img_height";
 export const DOM = {
     NODE: DOM_NODE,
     BODY: DOM_BODY,
     HEAD: DOM_HEAD
 };
+export const HD_TITL = "title";
+export const OG_DISC = "description";
+export const OG_IMGU = "img_url";
+export const OG_IMGW = "img_width";
+export const OG_IMGH = "img_height";
+export const HD_ICON = "favicon";
+export const OG_TYPE = "type";
 export const STATE_PATH = "PATH";
 export const STATE_DATA = "DATA";
 export const STATE = {
