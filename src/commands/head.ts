@@ -1,8 +1,21 @@
 /**
  * @module commands/head
  */
-import { URL_DATA, CMD_SUB$, CMD_ARGS, CMD_WORK, DOM_HEAD } from "@-0/keys"
-
+import {
+    URL_DATA,
+    CMD_SUB$,
+    CMD_ARGS,
+    CMD_WORK,
+    DOM_HEAD,
+    HEAD_TTL,
+    HEAD_ICN,
+    HEAD_TYP,
+    OG_DISCR,
+    OG_IMG_U,
+    OG_IMG_W,
+    OG_IMG_H
+} from "@-0/keys"
+import { Err_missing_props } from "@-0/utils"
 import { registerCMD } from "@-0/spool"
 
 const setFavicon = href => {
@@ -83,13 +96,13 @@ const conformToHead = ({
 interface apiURL {
     [URL_DATA: string]: {
         [DOM_HEAD: string]: {
-            title?: any
-            description?: any
-            img_url?: any
-            img_width?: any
-            img_height?: any
-            favicon?: any
-            type?: any
+            [HEAD_TTL]?: any
+            [OG_DISCR]?: any
+            [OG_IMG_U]?: any
+            [OG_IMG_W]?: any
+            [OG_IMG_H]?: any
+            [HEAD_ICN]?: any
+            [HEAD_TYP]?: any
         }
     }
 }
