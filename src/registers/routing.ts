@@ -21,6 +21,9 @@ export const registerRouterDOM = (router): Command => {
         [CMD_SRC$]: DOMnavigated$,
         [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
         [CMD_ARGS]: x => x,
-        [CMD_WORK]: args => run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
+        [CMD_WORK]: args => {
+            console.log({ args })
+            run$.next(task({ [URL_FULL]: args[URL_FULL], [DOM_NODE]: args[DOM_NODE] }))
+        }
     })
 }
