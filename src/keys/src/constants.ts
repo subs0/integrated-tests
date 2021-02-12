@@ -101,15 +101,15 @@ export const CFG = {
 }
 
 // ROUTER
-export const ROUTER_PREP = "prep"
-export const ROUTER_POST = "post"
-export const ROUTER_PRFX = "prefix"
+export const RTR_PREP = "prep"
+export const RTR_POST = "post"
+export const RTR_PRFX = "prefix"
 
 // public
 export const ROUTER = {
-    PREP: ROUTER_PREP,
-    POST: ROUTER_POST,
-    PRFX: ROUTER_PRFX,
+    PREP: RTR_PREP,
+    POST: RTR_POST,
+    PRFX: RTR_PRFX,
     RUTR: CFG_RUTR
 }
 

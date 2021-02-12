@@ -73,13 +73,13 @@ export const CFG = {
     RUTR: CFG_RUTR,
     KICK: CFG_KICK
 };
-export const ROUTER_PREP = "prep";
-export const ROUTER_POST = "post";
-export const ROUTER_PRFX = "prefix";
+export const RTR_PREP = "prep";
+export const RTR_POST = "post";
+export const RTR_PRFX = "prefix";
 export const ROUTER = {
-    PREP: ROUTER_PREP,
-    POST: ROUTER_POST,
-    PRFX: ROUTER_PRFX,
+    PREP: RTR_PREP,
+    POST: RTR_POST,
+    PRFX: RTR_PRFX,
     RUTR: CFG_RUTR
 };
 export const $$_PATH = "_ROUTE_PATH";

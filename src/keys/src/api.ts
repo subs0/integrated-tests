@@ -69,8 +69,8 @@ export interface DefaultDraft {
 
 export type Router = (path: string) => object
 export interface RouterCFG {
-    [C.ROUTER_PREP]: Command | Task
-    [C.ROUTER_PRFX]: string
-    [C.ROUTER_POST]: Command | Task
+    [C.RTR_PREP]: Command | Task
+    [C.RTR_PRFX]: string
+    [C.RTR_POST]: Command | Task
     [C.CFG_RUTR]: Router
 }
