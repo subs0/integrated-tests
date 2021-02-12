@@ -16,7 +16,7 @@ import {
     $$_CMDS,
     URL_FULL,
     URL_PRSE,
-    ROUTER_PRFX,
+    RTR_PRFX,
     CFG_RUTR,
     CMD_SUB$,
     CMD_ARGS,
@@ -106,7 +106,7 @@ export const boot = (CFG: BootCFG) => {
   // TODO const registered: [{C},,,] = registerCommands([...DEFAULT_CMDS(store), ...commands])
   
   const knowns     = Object.values(CFG)
-  const prfx       = router[ROUTER_PRFX] || null
+  const prfx       = router[RTR_PRFX] || null
 
   const [, others] = diff_keys(knowns, CFG)
   const escRGX     = /[-/\\^$*+?.()|[\]{}]/g
