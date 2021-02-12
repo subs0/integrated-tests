@@ -1,14 +1,14 @@
 import { isObject } from "@thi.ng/checks";
 import { HREF_PUSHSTATE_DOM, NOTIFY_PRERENDER_DOM, SET_LINK_ATTRS_DOM, SET_STATE } from "../commands";
-import { $$_VIEW, $$_LOAD, $$_PATH, DOM_NODE, URL_FULL, URL_DATA, URL_PATH, URL_PAGE, ROUTER_PREP, ROUTER_POST, ROUTER_PRFX, CFG_RUTR, CMD_ARGS, CMD_RESO, CMD_ERRO, DOM_BODY, STATE_DATA, STATE_PATH } from "@-0/keys";
+import { $$_VIEW, $$_LOAD, $$_PATH, DOM_NODE, URL_FULL, URL_DATA, URL_PATH, URL_PAGE, RTR_PREP, RTR_POST, RTR_PRFX, CFG_RUTR, CMD_ARGS, CMD_RESO, CMD_ERRO, DOM_BODY, STATE_DATA, STATE_PATH } from "@-0/keys";
 import { URL2obj } from "@-0/utils";
 export const URL__ROUTE = (CFG) => {
     let router, preroute, postroute, prefix;
     if (isObject(CFG)) {
         const ruts = CFG[CFG_RUTR];
-        const prep = CFG[ROUTER_PREP];
-        const post = CFG[ROUTER_POST];
-        const prfx = CFG[ROUTER_PRFX] || null;
+        const prep = CFG[RTR_PREP];
+        const post = CFG[RTR_POST];
+        const prfx = CFG[RTR_PRFX] || null;
         const escRGX = /[-/\\^$*+?.()|[\]{}]/g;
         const escaped = string => string.replace(escRGX, "\\$&");
         router = ruts;
