@@ -13,11 +13,9 @@ const setFavicon = href => {
     document.getElementsByTagName("head")[0].appendChild(link)
 }
 
+const getHeadProp = prop => () => document.head.querySelector(`meta[property="${prop}"]`)
 // TODO currently throws CORS warning
-const meta = prop =>
-    (document.head.querySelector(`meta[property="${prop}"]`) &&
-        document.head.querySelector(`meta[property="${prop}"]`).content) ||
-    null
+const meta = prop => (getHeadProp(prop)() && getHeadProp(prop)().content) || null
 
 const defalt_cfg = {
     meta: {
@@ -44,7 +42,7 @@ const replaceMeta = (obj: any = defalt_cfg) => {
                 },
                 HEAD_meta: () => {
                     Object.entries(val).forEach(([ prop, content ]) => {
-                        document.head.querySelector(`meta[property="${prop}"]`).content = content
+                        if (getHeadProp(prop)()) getHeadProp(prop)().content = content
                     })
                 },
                 HEAD_favicon: () => setFavicon(val)
@@ -83,8 +81,8 @@ const conformToHead = ({
 })
 
 interface apiURL {
-    [URL_data_: string]: {
-        [HEAD_: string]: {
+    [URL_DATA: string]: {
+        [DOM_HEAD: string]: {
             title?: any
             description?: any
             img_url?: any
@@ -96,6 +94,8 @@ interface apiURL {
     }
 }
 
+// FIXME: add title, description, etc. to @-0/keys constants
+// TODO: add title, description, etc. to @-0/keys constants
 export const INJECT_HEAD: any = registerCMD({
     [CMD_SUB$]: "_INJECT_HEAD",
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
