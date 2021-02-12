@@ -10,7 +10,7 @@ import {
     HD_TITL,
     HD_ICON,
     OG_TYPE,
-    OG_DISC,
+    OG_DESC,
     OG_IMGU,
     OG_IMGW,
     OG_IMGH
@@ -97,7 +97,7 @@ interface apiURL {
     [URL_DATA: string]: {
         [DOM_HEAD: string]: {
             [HD_TITL]?: any
-            [OG_DISC]?: any
+            [OG_DESC]?: any
             [OG_IMGU]?: any
             [OG_IMGW]?: any
             [OG_IMGH]?: any
@@ -111,8 +111,18 @@ interface apiURL {
 // TODO: add title, description, etc. to @-0/keys constants
 export const INJECT_HEAD: any = registerCMD({
     [CMD_SUB$]: "_INJECT_HEAD",
-    [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
-    [CMD_WORK]: ({
-        [URL_DATA]: { [DOM_HEAD]: { title, description, img_url, img_height, img_width, favicon, type } }
-    }: apiURL) => replaceMeta(conformToHead({ title, description, img_url, img_height, img_width, favicon, type }))
+    [CMD_ARGS]: (acc: apiURL) => ({ [URL_DATA]: acc[URL_DATA] }),
+    [CMD_WORK]: (acc: apiURL) => {
+        const head = acc[URL_DATA] && acc[URL_DATA][DOM_HEAD]
+
+        const title = head[HD_TITL]
+        const description = head[OG_DESC]
+        const img_url = head[OG_IMGU]
+        const img_height = head[OG_IMGH]
+        const img_width = head[OG_IMGW]
+        const favicon = head[HD_ICON]
+        const type = head[OG_TYPE]
+
+        return replaceMeta(conformToHead({ title, description, img_url, img_height, img_width, favicon, type }))
+    }
 })
