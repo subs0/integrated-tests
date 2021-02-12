@@ -7,13 +7,13 @@ import {
     CMD_ARGS,
     CMD_WORK,
     DOM_HEAD,
-    HEAD_TTL,
-    HEAD_ICN,
-    HEAD_TYP,
-    OG_DISCR,
-    OG_IMG_U,
-    OG_IMG_W,
-    OG_IMG_H
+    HD_TITL,
+    HD_ICON,
+    OG_TYPE,
+    OG_DISC,
+    OG_IMGU,
+    OG_IMGW,
+    OG_IMGH
 } from "@-0/keys"
 import { Err_missing_props } from "@-0/utils"
 import { registerCMD } from "@-0/spool"
@@ -96,13 +96,13 @@ const conformToHead = ({
 interface apiURL {
     [URL_DATA: string]: {
         [DOM_HEAD: string]: {
-            [HEAD_TTL]?: any
-            [OG_DISCR]?: any
-            [OG_IMG_U]?: any
-            [OG_IMG_W]?: any
-            [OG_IMG_H]?: any
-            [HEAD_ICN]?: any
-            [HEAD_TYP]?: any
+            [HD_TITL]?: any
+            [OG_DISC]?: any
+            [OG_IMGU]?: any
+            [OG_IMGW]?: any
+            [OG_IMGH]?: any
+            [HD_ICON]?: any
+            [OG_TYPE]?: any
         }
     }
 }

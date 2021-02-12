@@ -21,9 +21,9 @@ import {
     URL_DATA,
     URL_PATH,
     URL_PAGE,
-    ROUTER_PREP,
-    ROUTER_POST,
-    ROUTER_PRFX,
+    RTR_PREP,
+    RTR_POST,
+    RTR_PRFX,
     CFG_RUTR,
     CMD_ARGS,
     CMD_RESO,
@@ -68,9 +68,9 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
 
     if (isObject(CFG)) {
         const ruts = CFG[CFG_RUTR]
-        const prep = CFG[ROUTER_PREP]
-        const post = CFG[ROUTER_POST]
-        const prfx = CFG[ROUTER_PRFX] || null
+        const prep = CFG[RTR_PREP]
+        const post = CFG[RTR_POST]
+        const prfx = CFG[RTR_PRFX] || null
 
         const escRGX = /[-/\\^$*+?.()|[\]{}]/g
         const escaped = string => string.replace(escRGX, "\\$&")
