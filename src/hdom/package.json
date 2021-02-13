@@ -41,10 +41,10 @@
         "@thi.ng/transducers-hdom": "^2.0.80"
     },
     "dependencies": {
-        "@-0/keys": "^0.2.105",
-        "@-0/utils": "^0.2.102",
-        "@-0/spool": "^0.2.108",
-        "@-0/browser": "^0.2.108"
+        "@-0/keys": "^0.2.106",
+        "@-0/utils": "^0.2.103",
+        "@-0/spool": "^0.2.109",
+        "@-0/browser": "^0.2.109"
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.12.13",
