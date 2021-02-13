@@ -196,26 +196,26 @@ export const URL_DOM__ROUTE = CFG => {
     // instantiate router
     const match = URL__ROUTE(CFG)
 
-    return acc => [
+    return ACC => [
         SET_ROUTE_LOADING_TRUE,
         {
             ...HREF_PUSHSTATE_DOM,
-            [CMD_ARGS]: { [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }
+            [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] }
         },
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
         {
             // hydrate page state and page component/function
             ...SET_STATE,
-            [CMD_ARGS]: _acc => ({
+            [CMD_ARGS]: acc => ({
                 [STATE_PATH]: [ $$_VIEW ],
-                [STATE_DATA]: _acc[URL_PAGE] || null
+                [STATE_DATA]: acc[URL_PAGE] || null
             })
         },
         {
             ...SET_STATE,
-            [CMD_ARGS]: _acc => ({
-                [STATE_PATH]: _acc[URL_PATH],
-                [STATE_DATA]: (_acc[URL_DATA] && _acc[URL_DATA][DOM_BODY]) || _acc[URL_DATA]
+            [CMD_ARGS]: acc => ({
+                [STATE_PATH]: acc[URL_PATH],
+                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null
             })
         },
         SET_LINK_ATTRS_DOM,
