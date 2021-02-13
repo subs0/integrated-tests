@@ -21,8 +21,10 @@ import {
     URL_FULL,
     URL_DATA,
     URL_PAGE,
+    URL_PRSE,
     CFG_RUTR,
     CFG_ROOT,
+    CFG_LOG$,
     CFG_DRFT,
     CFG_VIEW,
     RTR_PRFX,
@@ -210,7 +212,7 @@ const child = (ctx, id, img, sz, ...args) =>
                           height : "600px",
                           width  : "600px"
                       },
-            href  : sz === "sm" ? `/${ctx[K.URL.PRSE]()[URL_PATH]}/${id}` : `/${ctx[K.URL.PRSE]()[URL_PATH].join("/")}`
+            href  : sz === "sm" ? `/${ctx[URL_PRSE]()[URL_PATH]}/${id}` : `/${ctx[URL_PRSE]()[URL_PATH].join("/")}`
         },
         ...args
     ]
@@ -265,7 +267,7 @@ const pathLink = (ctx, uid, ...args) =>
         uid === 3
             ? { disabled: true }
             : {
-                  href    : `/${ctx[K.URL.PRSE]()[URL_PATH]}/${uid}`,
+                  href    : `/${ctx[URL_PRSE]()[URL_PATH]}/${uid}`,
                   onclick : e => {
                       e.preventDefault()
                       ctx.run({ ...HURL, args: e })
@@ -313,8 +315,8 @@ const link = (ctx, path, ...args) =>
 //            888       888
 //
 // TODO: example of using cursors for local state
-const app = (ctx, page) =>
-    //log("app"),
+const app = (ctx, page) => (
+    log("app"),
     [
         "div",
         { style: { "max-width": "30rem", margin: "auto", padding: "2rem" } },
@@ -328,6 +330,7 @@ const app = (ctx, page) =>
         // hydration/start (before any async is done)
         page
     ]
+)
 
 // TODO: add default / 404 page here (could help the ugly $page.deref() ||...)
 const router = {
@@ -342,8 +345,8 @@ const w_config = {
     [CFG_VIEW] : app,
     [CFG_RUTR] : router,
     [CFG_ROOT] : document.getElementById("app"), // <- 🔍
-    [CFG_DRFT] : { users: [] }
-    //  [CFG_LOG$]: "state ->",
+    [CFG_DRFT] : { users: [] },
+    [CFG_LOG$] : "state ->"
     //[CFG_KICK]: true,
 
     // arbitrary context k/v pairs...

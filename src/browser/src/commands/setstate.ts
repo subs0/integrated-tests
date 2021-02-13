@@ -4,6 +4,7 @@
 import { CMD_SUB$, CMD_ARGS, CMD_WORK, STATE_DATA, STATE_PATH, Command } from "@-0/keys"
 import { set$$tate, $store$ } from "../store"
 import { registerCMD } from "@-0/spool"
+import { Err_missing_props } from "@-0/utils"
 
 /**
  * Higher-order function that takes a `@thi.ng/Atom` state
@@ -11,11 +12,20 @@ import { registerCMD } from "@-0/spool"
  * Atom's state by the provided path (lens)
  */
 export const createSetStateCMD: Command = store =>
-  registerCMD({
-    [CMD_SUB$]: "_SET_STATE",
-    [CMD_ARGS]: x => x,
-    [CMD_WORK]: args => set$$tate(args[STATE_PATH], args[STATE_DATA], store)
-  })
+    registerCMD({
+        [CMD_SUB$]: "_SET_STATE",
+        [CMD_ARGS]: x => x,
+        [CMD_WORK]: args => {
+            const path = args[STATE_PATH]
+            const data = args[STATE_DATA]
+            const props = {
+                [STATE_PATH]: path,
+                [STATE_DATA]: data
+            }
+            if (path && data) return set$$tate(args[STATE_PATH], args[STATE_DATA], store)
+            console.warn(Err_missing_props("_SET_STATE", props))
+        }
+    })
 
 /**
  *

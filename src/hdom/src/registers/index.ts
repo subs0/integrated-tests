@@ -8,20 +8,13 @@ import { updateDOM } from "@thi.ng/transducers-hdom"
 import { getInUnsafe } from "@thi.ng/paths"
 
 import {
-    DOM_NODE,
     $$_LOAD,
     $$_PATH,
     $$_ROOT,
     $$_VIEW,
-    $$_CMDS,
-    URL_FULL,
     URL_PRSE,
     RTR_PRFX,
     CFG_RUTR,
-    CMD_SUB$,
-    CMD_ARGS,
-    CMD_SRC$,
-    CMD_WORK,
     CFG_RUN$,
     CFG_STOR,
     CFG_ROOT,
@@ -29,16 +22,14 @@ import {
     CFG_DRFT,
     CFG_LOG$,
     CFG_KICK,
-    CFG,
-    BootCFG,
-    Command
+    BootCFG
 } from "@-0/keys"
 
 import { run$ } from "@-0/spool"
 
 import { URL2obj, diff_keys } from "@-0/utils"
 
-import { registerRouterDOM, URL_DOM__ROUTE, DOMnavigated$, $store$ } from "@-0/browser"
+import { registerRouterDOM, DOMnavigated$, $store$ } from "@-0/browser"
 
 const pre = (ctx, body) => (
     console.log(
@@ -129,7 +120,7 @@ export const boot = (CFG: BootCFG) => {
   
   $store$.resetInUnsafe($$_ROOT, root)
   
-  // TODO: opportunity for other implementations (e.g., React)
+
   state$.subscribe(sidechainPartition(fromRAF())).transform(
     map(peek),
     map(shell),
