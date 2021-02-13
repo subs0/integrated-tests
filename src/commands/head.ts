@@ -13,8 +13,12 @@ import {
     OG_DESC,
     OG_IMGU,
     OG_IMGW,
-    OG_IMGH
+    OG_IMGH,
+    HeadData
 } from "@-0/keys"
+// FIXME: move to import above
+const HD_META = "HD_META"
+
 import { Err_missing_props } from "@-0/utils"
 import { registerCMD } from "@-0/spool"
 
@@ -31,7 +35,7 @@ const getHeadProp = prop => () => document.head.querySelector(`meta[property="${
 const meta = prop => (getHeadProp(prop)() && getHeadProp(prop)().content) || null
 
 const defalt_cfg = {
-    meta: {
+    [HD_META]: {
         "og:title": document.title,
         "og:image": meta("og:image"),
         "og:image:width": meta("og:image:width"),
@@ -39,9 +43,9 @@ const defalt_cfg = {
         "og:description": meta("og:description"),
         "og:type": meta("og:type")
     },
-    title: document.title,
+    [HD_TITL]: document.title,
     //"https://github.com/loganpowell/ac/raw/master/assets/favicon.ico",
-    favicon: document.querySelector("link[rel*='icon']")
+    [HD_ICON]: document.querySelector("link[rel*='icon']")
 }
 
 declare var document: any
@@ -50,15 +54,15 @@ const replaceMeta = (obj: any = defalt_cfg) => {
     Object.entries(obj).forEach(([ key, val ]) => {
         try {
             return {
-                HEAD_title: () => {
+                [HD_TITL]: () => {
                     document.title = val
                 },
-                HEAD_meta: () => {
+                [HD_META]: () => {
                     Object.entries(val).forEach(([ prop, content ]) => {
                         if (getHeadProp(prop)()) getHeadProp(prop)().content = content
                     })
                 },
-                HEAD_favicon: () => setFavicon(val)
+                [HD_ICON]: () => setFavicon(val)
             }[key]()
         } catch (e) {
             console.warn(e)
@@ -67,20 +71,20 @@ const replaceMeta = (obj: any = defalt_cfg) => {
 }
 
 const conformToHead = ({
-    title = defalt_cfg.title,
-    description = defalt_cfg.meta["og:description"],
-    img_url = defalt_cfg.meta["og:image"],
-    img_height = defalt_cfg.meta["og:image:height"],
-    img_width = defalt_cfg.meta["og:image:width"],
-    favicon = defalt_cfg.favicon,
-    type = defalt_cfg.meta["og:type"]
+    [HD_TITL]: title = defalt_cfg[HD_TITL],
+    [OG_DESC]: description = defalt_cfg[HD_META]["og:description"],
+    [OG_IMGU]: img_url = defalt_cfg[HD_META]["og:image"],
+    [OG_IMGH]: img_height = defalt_cfg[HD_META]["og:image:height"],
+    [OG_IMGW]: img_width = defalt_cfg[HD_META]["og:image:width"],
+    [OG_TYPE]: type = defalt_cfg[HD_META]["og:type"],
+    [HD_ICON]: favicon = defalt_cfg[HD_ICON]
 }) => ({
-    HEAD_meta: {
+    [HD_META]: {
         /**
-     * og:url can tell scrapers to ignore the page and
-     * scrape this instead. Would save scraping the whole
-     * page and might be friendlier for `jsdom`
-     */
+         * og:url can tell scrapers to ignore the page and
+         * scrape this instead. Would save scraping the whole
+         * page and might be friendlier for `jsdom`
+         */
         // "og:url": history.state.URL,
         "og:title": title,
         "og:type": type,
@@ -89,21 +93,13 @@ const conformToHead = ({
         "og:image:height": img_height,
         "og:image": img_url
     },
-    HEAD_title: title,
-    HEAD_favicon: favicon
+    [HD_TITL]: title,
+    [HD_ICON]: favicon
 })
 
 interface apiURL {
     [URL_DATA: string]: {
-        [DOM_HEAD: string]: {
-            [HD_TITL]?: any
-            [OG_DESC]?: any
-            [OG_IMGU]?: any
-            [OG_IMGW]?: any
-            [OG_IMGH]?: any
-            [HD_ICON]?: any
-            [OG_TYPE]?: any
-        }
+        [DOM_HEAD: string]: HeadData
     }
 }
 
@@ -119,15 +115,16 @@ export const INJECT_HEAD: any = registerCMD({
             [DOM_HEAD]: head
         }
         if (head) {
-            const title = head[HD_TITL]
-            const description = head[OG_DESC]
-            const img_url = head[OG_IMGU]
-            const img_height = head[OG_IMGH]
-            const img_width = head[OG_IMGW]
-            const favicon = head[HD_ICON]
-            const type = head[OG_TYPE]
+            //const { HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, HD_ICON, OG_TYPE } = head
+            //const title = head[HD_TITL]
+            //const description = head[OG_DESC]
+            //const img_url = head[OG_IMGU]
+            //const img_height = head[OG_IMGH]
+            //const img_width = head[OG_IMGW]
+            //const favicon = head[HD_ICON]
+            //const type = head[OG_TYPE]
 
-            return replaceMeta(conformToHead({ title, description, img_url, img_height, img_width, favicon, type }))
+            return replaceMeta(conformToHead(head))
         }
         console.warn(Err_missing_props("_INJECT_HEAD", props))
     }
