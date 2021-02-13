@@ -131,8 +131,7 @@ export const boot = (CFG: BootCFG) => {
         [CFG_RUN$]: x => run$.next(x),
         [CFG_STOR]: $store$,
         // remove any staging path components (e.g., gh-pages)
-        [URL_PRSE]: () =>
-        URL2obj(window.location.href, RGX), // <- 🔍
+        [URL_PRSE]: () => URL2obj(window.location.href, RGX), // <- 🔍
         ...others
       }
     })
