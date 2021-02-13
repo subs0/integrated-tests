@@ -1,18 +1,21 @@
 import { CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys";
+import { stringify_fn } from "@-0/utils";
 const missing_props_str = (CMD = "", args, ...props) => {
     const missing = props.map(x => `    ${x}: 🔥`).join(",\n");
     return `
 Error: ${CMD} Command missing critical \`${CMD_ARGS}\`:
+
 { ...,
   ${CMD_SUB$}: ${CMD},
   ${CMD_ARGS}: {
 ${missing}
   }
 }
+
 This Command's registered \`${CMD_WORK}\` handler failed.
 
 Here were the supplied \`${CMD_ARGS}\`:
-${args}
+${stringify_fn(args, 2)}
     `;
 };
 export const missing_prop_list = (obj = {}) => {
