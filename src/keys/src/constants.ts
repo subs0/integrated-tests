@@ -10,8 +10,11 @@ export const URL_SUBD = "URL_SUBD"
 export const URL_QERY = "URL_QERY"
 export const URL_HASH = "URL_HASH"
 export const URL_PAGE = "URL_PAGE"
-export const URL_PRSE = "URL_PRSE"
-export const URL_NPRS = "URL_NPRS"
+
+// Userland dispatching
+// PRIORITY: DON'T CHANGE THESE 💢
+export const URL_PRSE = "parse"
+export const URL_NPRS = "unparse"
 
 /**
  * Object Keys for a Parsed URL using `parse` from @-0/utils
@@ -62,7 +65,7 @@ export const STATE = {
 }
 
 // Primary Userland Command Properties
-// PRIORITY: NEVER CHANGE THESE 💢
+// PRIORITY: DON'T CHANGE THESE 💢
 export const CMD_SUB$ = "sub$"
 export const CMD_ARGS = "args"
 export const CMD_RESO = "reso"
@@ -80,12 +83,15 @@ export const CMD = {
     SRC$: CMD_SRC$
 }
 
+// Userland dispatching
+// PRIORITY: DON'T CHANGE THESE 💢
+export const CFG_RUN$ = "run"
+export const CFG_STOR = "state"
+
 // boot config constants
-export const CFG_RUN$ = "CFG_RUN$"
 export const CFG_ROOT = "CFG_ROOT"
 export const CFG_VIEW = "CFG_VIEW"
 export const CFG_KICK = "CFG_KICK"
-export const CFG_STOR = "CFG_STOR"
 export const CFG_DRFT = "CFG_DRFT"
 export const CFG_LOG$ = "CFG_LOG$"
 export const CFG_RUTR = "CFG_RUTR"

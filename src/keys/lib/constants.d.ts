@@ -6,8 +6,8 @@ export declare const URL_SUBD = "URL_SUBD";
 export declare const URL_QERY = "URL_QERY";
 export declare const URL_HASH = "URL_HASH";
 export declare const URL_PAGE = "URL_PAGE";
-export declare const URL_PRSE = "URL_PRSE";
-export declare const URL_NPRS = "URL_NPRS";
+export declare const URL_PRSE = "parse";
+export declare const URL_NPRS = "unparse";
 export declare const URL: {
     FULL: string;
     PATH: string;
@@ -56,11 +56,11 @@ export declare const CMD: {
     WORK: string;
     SRC$: string;
 };
-export declare const CFG_RUN$ = "CFG_RUN$";
+export declare const CFG_RUN$ = "run";
+export declare const CFG_STOR = "state";
 export declare const CFG_ROOT = "CFG_ROOT";
 export declare const CFG_VIEW = "CFG_VIEW";
 export declare const CFG_KICK = "CFG_KICK";
-export declare const CFG_STOR = "CFG_STOR";
 export declare const CFG_DRFT = "CFG_DRFT";
 export declare const CFG_LOG$ = "CFG_LOG$";
 export declare const CFG_RUTR = "CFG_RUTR";
