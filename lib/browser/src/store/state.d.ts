@@ -1,21 +1,21 @@
 import { Atom } from "@thi.ng/atom";
 export declare const $store$: Atom<{
-    _ROUTE_PATH: any[];
-    _ROUTE_LOADING: boolean;
-    _PAGE_TEMPLATE: any;
-    _DOM_ROOT: any;
-    _COMMANDS: {};
+    _$$_PATH: any[];
+    _$$_LOAD: boolean;
+    _$$_VIEW: any;
+    _$$_ROOT: any;
+    _$$_CMDS: {};
 }>;
 export declare const set$$tate: (path: any, val: any, store?: Atom<{
-    _ROUTE_PATH: any[];
-    _ROUTE_LOADING: boolean;
-    _PAGE_TEMPLATE: any;
-    _DOM_ROOT: any;
-    _COMMANDS: {};
+    _$$_PATH: any[];
+    _$$_LOAD: boolean;
+    _$$_VIEW: any;
+    _$$_ROOT: any;
+    _$$_CMDS: {};
 }>) => {
-    _ROUTE_PATH: any[];
-    _ROUTE_LOADING: boolean;
-    _PAGE_TEMPLATE: any;
-    _DOM_ROOT: any;
-    _COMMANDS: {};
+    _$$_PATH: any[];
+    _$$_LOAD: boolean;
+    _$$_VIEW: any;
+    _$$_ROOT: any;
+    _$$_CMDS: {};
 };
