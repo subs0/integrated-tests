@@ -20,7 +20,7 @@ export const key_index_err = (c, i) => {
  * Just a  little error for people defining commands
  * that makes sure their keys don't contain typos
  */
-export const xKeyError = (err_str = "NOT OK", c = {}, unknown_keys = [], index = 1) => {
+export const xKeyError = (err_str = "NOT OK", c = {}, unknown_keys = [], index = 1, guide = true) => {
 
     const SOURCE = c[CMD_SRC$] || null
     const count = Object.entries(c).length
@@ -28,7 +28,7 @@ export const xKeyError = (err_str = "NOT OK", c = {}, unknown_keys = [], index =
     return `
 ${err_str}
 
-🔥 Unrecognized Command Key(s) 🔥
+🔥 Unrecognized ${count > 1 ? "Props" : "Prop"} 🔥
 
 FAULTY COMMAND:
 
@@ -41,6 +41,8 @@ The problematic entry/entries:
 
 ${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}: <Stream>` : stringify_fn(unknown_keys, 2)}` : ""}
 
+${guide ? 
+    `
 ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}:
 
 '${CMD_SUB$}'
@@ -80,5 +82,7 @@ ${index ? ``
     }
 
 Hope that helps!
+` : ""
+}
 `
 }

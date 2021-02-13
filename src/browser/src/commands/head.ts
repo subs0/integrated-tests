@@ -9,6 +9,7 @@ import {
     DOM_HEAD,
     HD_TITL,
     HD_ICON,
+    HD_META,
     OG_TYPE,
     OG_DESC,
     OG_IMGU,
@@ -17,10 +18,7 @@ import {
     HeadData,
     DOM_BODY
 } from "@-0/keys"
-// FIXME: move to import above
-const HD_META = "HD_META"
-
-import { Err_missing_props } from "@-0/utils"
+import { Err_missing_props, diff_keys, xKeyError } from "@-0/utils"
 import { registerCMD } from "@-0/spool"
 
 const setFavicon = href => {
@@ -106,8 +104,9 @@ interface apiURL {
 
 // FIXME: add title, description, etc. to @-0/keys constants
 // TODO: add title, description, etc. to @-0/keys constants
+let IH = "_INJECT_HEAD"
 export const INJECT_HEAD: any = registerCMD({
-    [CMD_SUB$]: "_INJECT_HEAD",
+    [CMD_SUB$]: IH,
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
     [CMD_WORK]: (args: apiURL) => {
         const data = args[URL_DATA]
@@ -118,8 +117,16 @@ export const INJECT_HEAD: any = registerCMD({
         const deep_props = {
             [DOM_HEAD]: head
         }
-        if (head) return replaceMeta(conformToHead(head))
-        if (data) return console.warn(Err_missing_props("_INJECT_HEAD", deep_props, args))
-        return console.warn(Err_missing_props("_INJECT_HEAD", shallow_props, args))
+
+        if (head) {
+            const [ , keys_array ] = diff_keys([ HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE ], head)
+            if (keys_array.length > 0) {
+                const err_str = `Error in \`${IH}\` Command > \`${CMD_ARGS}\` > \`${URL_DATA}\` > \`${DOM_HEAD}\` props:`
+                return console.warn(xKeyError(err_str, head, keys_array, 0, false))
+            }
+            return replaceMeta(conformToHead(head))
+        }
+        if (data) return console.warn(Err_missing_props(IH, deep_props, args))
+        return console.warn(Err_missing_props(IH, shallow_props, args))
     }
 })

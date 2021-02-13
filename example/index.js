@@ -65,7 +65,8 @@ log$.subscribe(map(x => log("log$:", x)))
  */
 const getSomeJSON = async (path, uid) => {
     const text_base = "https://jsonplaceholder.typicode.com/"
-    const img_base = (id, sz) => `http://lorempixel.com/${sz}/${sz}/sports/${id}/` // `https://i.picsum.photos/id/${id}/${sz}/${sz}.jpg`
+    // `https://i.picsum.photos/id/${id}/${sz}/${sz}.jpg`
+    const img_base = (id, sz) => `http://lorempixel.com/${sz}/${sz}/sports/${id}/`
 
     const data = uid
         ? (async () => {
