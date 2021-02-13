@@ -6,8 +6,8 @@ export const URL_SUBD = "URL_SUBD";
 export const URL_QERY = "URL_QERY";
 export const URL_HASH = "URL_HASH";
 export const URL_PAGE = "URL_PAGE";
-export const URL_PRSE = "parse";
-export const URL_NPRS = "unparse";
+export const URL_PRSE = "unfurl";
+export const URL_NPRS = "urlify";
 export const URL = {
     FULL: URL_FULL,
     PATH: URL_PATH,

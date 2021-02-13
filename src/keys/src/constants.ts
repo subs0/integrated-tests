@@ -13,8 +13,8 @@ export const URL_PAGE = "URL_PAGE"
 
 // Userland dispatching
 // PRIORITY: DON'T CHANGE THESE 💢
-export const URL_PRSE = "parse"
-export const URL_NPRS = "unparse"
+export const URL_PRSE = "unfurl"
+export const URL_NPRS = "urlify"
 
 /**
  * Object Keys for a Parsed URL using `parse` from @-0/utils
