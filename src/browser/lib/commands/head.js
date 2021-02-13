@@ -1,6 +1,5 @@
-import { URL_DATA, CMD_SUB$, CMD_ARGS, CMD_WORK, DOM_HEAD, HD_TITL, HD_ICON, OG_TYPE, OG_DESC, OG_IMGU, OG_IMGW, OG_IMGH } from "@-0/keys";
-const HD_META = "HD_META";
-import { Err_missing_props } from "@-0/utils";
+import { URL_DATA, CMD_SUB$, CMD_ARGS, CMD_WORK, DOM_HEAD, HD_TITL, HD_ICON, HD_META, OG_TYPE, OG_DESC, OG_IMGU, OG_IMGW, OG_IMGH } from "@-0/keys";
+import { Err_missing_props, diff_keys, xKeyError } from "@-0/utils";
 import { registerCMD } from "@-0/spool";
 const setFavicon = href => {
     let link = document.querySelector("link[rel*='icon']") || document.createElement("link");
@@ -56,8 +55,9 @@ const conformToHead = ({ [HD_TITL]: title = defalt_cfg[HD_TITL], [OG_DESC]: desc
     [HD_TITL]: title,
     [HD_ICON]: favicon
 });
+let IH = "_INJECT_HEAD";
 export const INJECT_HEAD = registerCMD({
-    [CMD_SUB$]: "_INJECT_HEAD",
+    [CMD_SUB$]: IH,
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
     [CMD_WORK]: (args) => {
         const data = args[URL_DATA];
@@ -68,10 +68,16 @@ export const INJECT_HEAD = registerCMD({
         const deep_props = {
             [DOM_HEAD]: head
         };
-        if (head)
+        if (head) {
+            const [, keys_array] = diff_keys([HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE], head);
+            if (keys_array.length > 0) {
+                const err_str = `Error in \`${IH}\` Command > \`${CMD_ARGS}\` > \`${URL_DATA}\` > \`${DOM_HEAD}\` props:`;
+                return console.warn(xKeyError(err_str, head, keys_array, 0, false));
+            }
             return replaceMeta(conformToHead(head));
+        }
         if (data)
-            return console.warn(Err_missing_props("_INJECT_HEAD", deep_props, args));
-        return console.warn(Err_missing_props("_INJECT_HEAD", shallow_props, args));
+            return console.warn(Err_missing_props(IH, deep_props, args));
+        return console.warn(Err_missing_props(IH, shallow_props, args));
     }
 });
