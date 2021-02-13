@@ -61,7 +61,8 @@ export const STATE = {
     DATA: STATE_DATA
 }
 
-// state setting Command constants
+// Primary Userland Command Properties
+// PRIORITY: NEVER CHANGE THESE
 export const CMD_SUB$ = "sub$"
 export const CMD_ARGS = "args"
 export const CMD_RESO = "reso"
