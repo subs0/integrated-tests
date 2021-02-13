@@ -62,7 +62,7 @@ export const STATE = {
 }
 
 // Primary Userland Command Properties
-// PRIORITY: NEVER CHANGE THESE ⚠
+// PRIORITY: NEVER CHANGE THESE 💢
 export const CMD_SUB$ = "sub$"
 export const CMD_ARGS = "args"
 export const CMD_RESO = "reso"
