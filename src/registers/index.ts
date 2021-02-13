@@ -71,7 +71,6 @@ const pre = (ctx, body) => (
  *
  */
 
-// prettier-ignore
 /**
  *
  * Options Object keys
@@ -85,63 +84,59 @@ const pre = (ctx, body) => (
  *
  */
 export const boot = (CFG: BootCFG) => {
+    // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
+    const root = CFG[CFG_ROOT] || document.body
+    const view = CFG[CFG_VIEW] || pre
+    const draft = CFG[CFG_DRFT]
+    const router = CFG[CFG_RUTR]
+    const log$ = CFG[CFG_LOG$]
+    const kick = CFG[CFG_KICK]
 
-  // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
-  const root       = CFG[CFG_ROOT] || document.body
-  const view       = CFG[CFG_VIEW] || pre
-  const draft      = CFG[CFG_DRFT]
-  const router     = CFG[CFG_RUTR]
-  const log$       = CFG[CFG_LOG$]
-  const kick       = CFG[CFG_KICK]
-  
-  // TODO const registered: [{C},,,] = registerCommands([...DEFAULT_CMDS(store), ...commands])
-  
-  const knowns     = Object.values(CFG)
-  const prfx       = router[RTR_PRFX] || null
+    // TODO const registered: [{C},,,] = registerCommands([...DEFAULT_CMDS(store), ...commands])
 
-  const [, others] = diff_keys(knowns, CFG)
-  const escRGX     = /[-/\\^$*+?.()|[\]{}]/g
-  const escaped    = str => str.replace(escRGX, "\\$&")
-  const RGX        = prfx ? new RegExp(escaped(prfx || ""), "g") : null
+    const knowns = Object.values(CFG)
+    const prfx = router[RTR_PRFX] || null
 
-  if (router) registerRouterDOM(router)
-  else throw new Error(`no \`${CFG_RUTR}\` found on config. See documentation for \`boot\``)
+    const [ , others ] = diff_keys(knowns, CFG)
+    const escRGX = /[-/\\^$*+?.()|[\]{}]/g
+    const escaped = str => str.replace(escRGX, "\\$&")
+    const RGX = prfx ? new RegExp(escaped(prfx || ""), "g") : null
 
-  const state$ = fromAtom($store$)
+    if (router) registerRouterDOM(router)
+    else throw new Error(`no \`${CFG_RUTR}\` found on config. See documentation for \`boot\``)
 
-  const shell = state$ => (
-    log$ ? console.log(log$, state$) : null,
-    state$[$$_LOAD]
-      ? null
-      : [view, [state$[$$_VIEW], getInUnsafe(state$, state$[$$_PATH])]]
-  )
+    const state$ = fromAtom($store$)
 
-  if (draft) $store$.swap(x => ({ ...draft, ...x }))
-  
-  $store$.resetInUnsafe($$_ROOT, root)
-  
+    const shell = state$ => (
+        log$ ? console.log(log$, state$) : null,
+        state$[$$_LOAD] ? null : [ view, [ state$[$$_VIEW], getInUnsafe(state$, state$[$$_PATH]) ] ]
+    )
 
-  state$.subscribe(sidechainPartition(fromRAF())).transform(
-    map(peek),
-    map(shell),
-    updateDOM({
-      root,
-      span: false,
-      ctx: {
-        [CFG_RUN$]: x => run$.next(x),
-        [CFG_STOR]: $store$,
-        // remove any staging path components (e.g., gh-pages)
-        [URL_PRSE]: () => URL2obj(window.location.href, RGX), // <- 🔍
-        ...others
-      }
-    })
-  )
-  // Just a little kick in the pants for those stubborn sandboxes
-  if (kick) {
-    DOMnavigated$.next({
-      target: document,
-      currentTarget: document
-    })
-  }
-  // TODO return registered
+    if (draft) $store$.swap(x => ({ ...draft, ...x }))
+
+    $store$.resetInUnsafe($$_ROOT, root)
+
+    state$.subscribe(sidechainPartition(fromRAF())).transform(
+        map(peek),
+        map(shell),
+        updateDOM({
+            root,
+            span: false,
+            ctx: {
+                [CFG_RUN$]: x => run$.next(x),
+                [CFG_STOR]: $store$,
+                // remove any staging path components (e.g., gh-pages)
+                [URL_PRSE]: () => URL2obj(window.location.href, RGX), // <- 🔍
+                ...others
+            }
+        })
+    )
+    // Just a little kick in the pants for those stubborn sandboxes
+    if (kick) {
+        DOMnavigated$.next({
+            target: document,
+            currentTarget: document
+        })
+    }
+    // TODO return registered
 }
