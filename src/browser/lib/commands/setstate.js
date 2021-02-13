@@ -12,7 +12,7 @@ export const createSetStateCMD = store => registerCMD({
             [STATE_PATH]: path,
             [STATE_DATA]: data
         };
-        if (path && data)
+        if (path && data !== undefined)
             return set$$tate(path, data, store);
         console.warn(Err_missing_props("_SET_STATE", props, args));
     }
