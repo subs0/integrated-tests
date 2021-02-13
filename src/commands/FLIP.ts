@@ -10,29 +10,29 @@ import { CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys"
 import { registerCMD } from "@-0/spool"
 
 function getStyles(element: HTMLElement) {
-  const computedStyle = getComputedStyle(element)
+    const computedStyle = getComputedStyle(element)
 
-  return {
-    radius: computedStyle.borderRadius || 0,
-  }
+    return {
+        radius: computedStyle.borderRadius || 0
+    }
 }
 
 function getRect(element: HTMLElement, frame?) {
-  const { top, bottom, left, right, width, height } = element.getBoundingClientRect()
+    const { top, bottom, left, right, width, height } = element.getBoundingClientRect()
 
-  const parent = frame ? frame.getBoundingClientRect() : null
+    const parent = frame ? frame.getBoundingClientRect() : null
 
-  return {
-    top: top - (parent ? parent.top : 0),
-    bottom,
-    left: left - (parent ? parent.left : 0),
-    right,
-    width,
-    height,
-    get transform() {
-      return getComputedStyle(element).transform || undefined
-    },
-  }
+    return {
+        top: top - (parent ? parent.top : 0),
+        bottom,
+        left: left - (parent ? parent.left : 0),
+        right,
+        width,
+        height,
+        get transform() {
+            return getComputedStyle(element).transform || undefined
+        }
+    }
 }
 
 // const w = window
@@ -40,52 +40,48 @@ function getRect(element: HTMLElement, frame?) {
 // const e = d.documentElement
 // const b = d.getElementsByTagName('body')[0]
 
-// const proxy = {
-//   top: window.
-// }
-
 const S_path = "FLIP_shuffle"
 
-const shuffle_paths = (uid) => ({
-  rects: [S_path, "rects", uid],
-  elems: [S_path, "elems", uid],
+const shuffle_paths = uid => ({
+    rects: [ S_path, "rects", uid ],
+    elems: [ S_path, "elems", uid ]
 })
 
 const FLIP_all = (el, state, uid, frameDOMel = null) => {
-  const { rects } = shuffle_paths(uid)
+    const { rects } = shuffle_paths(uid)
 
-  if (!getInUnsafe(state.deref(), rects)) return state.resetIn(rects, getRect(el, frameDOMel))
+    if (!getInUnsafe(state.deref(), rects)) return state.resetIn(rects, getRect(el, frameDOMel))
 
-  const F_flip_map = getInUnsafe(state.deref(), rects)
-  const L_flip_map = getRect(el, frameDOMel)
-  // console.log({ F_flip_map, L_flip_map })
+    const F_flip_map = getInUnsafe(state.deref(), rects)
+    const L_flip_map = getRect(el, frameDOMel)
+    // console.log({ F_flip_map, L_flip_map })
 
-  const Tx = F_flip_map.left - L_flip_map.left
-  const Ty = F_flip_map.top - L_flip_map.top
-  const Sx = F_flip_map.width / L_flip_map.width
-  const Sy = F_flip_map.height / L_flip_map.height
+    const Tx = F_flip_map.left - L_flip_map.left
+    const Ty = F_flip_map.top - L_flip_map.top
+    const Sx = F_flip_map.width / L_flip_map.width
+    const Sy = F_flip_map.height / L_flip_map.height
 
-  el.style.transformOrigin = "0 0"
-  el.style.transition = ""
+    el.style.transformOrigin = "0 0"
+    el.style.transition = ""
 
-  const trans = `translate(${Tx}px, ${Ty}px) scale(${Sx}, ${Sy})`
+    const trans = `translate(${Tx}px, ${Ty}px) scale(${Sx}, ${Sy})`
 
-  el.style.transform = trans
+    el.style.transform = trans
 
-  state.resetIn(rects, L_flip_map)
+    state.resetIn(rects, L_flip_map)
 
-  requestAnimationFrame(() => {
-    el.style.transition = "all .4s cubic-bezier(.54,-0.29,.17,1.11)"
-    el.style.transform = "none"
-  })
+    requestAnimationFrame(() => {
+        el.style.transition = "all .4s cubic-bezier(.54,-0.29,.17,1.11)"
+        el.style.transform = "none"
+    })
 }
 
 const Z_path = "FLIP_zoom"
-const zoom_paths = (uid) => ({
-  rects: [Z_path, "rects", uid],
-  elems: [Z_path, "elems", uid],
-  clicks: [Z_path, "clicks", uid],
-  scrolls: [Z_path, "scroll", uid],
+const zoom_paths = uid => ({
+    rects: [ Z_path, "rects", uid ],
+    elems: [ Z_path, "elems", uid ],
+    clicks: [ Z_path, "clicks", uid ],
+    scrolls: [ Z_path, "scroll", uid ]
 })
 
 /**
@@ -110,17 +106,17 @@ const zoom_paths = (uid) => ({
  *
  */
 const FLIPFirst = ({ state, id, target }) => {
-  // 📌 TODO: GOOD PLACE FOR AN `onStart` hook animation/callback
+    // 📌 TODO: GOOD PLACE FOR AN `onStart` hook animation/callback
 
-  const { rects, clicks, scrolls } = zoom_paths(id)
+    const { rects, clicks, scrolls } = zoom_paths(id)
 
-  // sets the rect in state for next el init to sniff
-  const flip_map = getRect(target)
-  state.resetIn(rects, flip_map)
+    // sets the rect in state for next el init to sniff
+    const flip_map = getRect(target)
+    state.resetIn(rects, flip_map)
 
-  // registers component as having been clicked (focused)
-  state.resetIn(clicks, true)
-  state.resetIn(scrolls, { y: window.scrollY, x: window.scrollX })
+    // registers component as having been clicked (focused)
+    state.resetIn(clicks, true)
+    state.resetIn(scrolls, { y: window.scrollY, x: window.scrollX })
 }
 
 /**
@@ -148,88 +144,88 @@ const zIndex = (el, idx) => (el.style.zIndex = idx)
  *
  */
 const FLIPLastInvertPlay = ({
-  element,
-  state,
-  id,
-  // just baffle them with https://cubic-bezier.com/
-  transition = "all .5s cubic-bezier(.54,-0.29,.17,1.11)",
-  // transition = "all .3s ease-in-out"
+    element,
+    state,
+    id,
+    // just baffle them with https://cubic-bezier.com/
+    transition = "all .5s cubic-bezier(.54,-0.29,.17,1.11)"
+    // transition = "all .3s ease-in-out"
 }) => {
-  element.setAttribute("flip", id)
-  const { rects, clicks, scrolls } = zoom_paths(id)
+    element.setAttribute("flip", id)
+    const { rects, clicks, scrolls } = zoom_paths(id)
 
-  const F_flip_map = getInUnsafe(state.deref(), rects) || null
-  // NO RECT => NOT CLICKED
-  if (!F_flip_map) return
+    const F_flip_map = getInUnsafe(state.deref(), rects) || null
+    // NO RECT => NOT CLICKED
+    if (!F_flip_map) return
 
-  /**
+    /**
    * 🔥 this may cause issues for parrallel anims append this
    * to a specific target using:
    * Array.from(el.querySelectorAll("[flip]")).forEach(x=>
    * if i last... el.scrollIntoView())
    *
    */
-  // 🕞 calculate location and size
-  const { x, y } = getInUnsafe(state.deref(), scrolls) // top - window.innerHeight / 2
-  window.scrollTo(x, y)
-  element.scrollIntoView()
+    // 🕞 calculate location and size
+    const { x, y } = getInUnsafe(state.deref(), scrolls) // top - window.innerHeight / 2
+    window.scrollTo(x, y)
+    element.scrollIntoView()
 
-  let L_flip_map = getRect(element)
-  // recalc rect if out of initial view after scrolling into view
-  // if (Math.abs(F_flip_map.top - L_flip_map.top) > window.innerHeight) {
-  //   element.scrollIntoView()
-  //   L_flip_map = getRect(element)
-  // }
+    let L_flip_map = getRect(element)
+    // recalc rect if out of initial view after scrolling into view
+    // if (Math.abs(F_flip_map.top - L_flip_map.top) > window.innerHeight) {
+    //   element.scrollIntoView()
+    //   L_flip_map = getRect(element)
+    // }
 
-  const Tx = F_flip_map.left - L_flip_map.left
-  const Ty = F_flip_map.top - L_flip_map.top
-  const Sx = F_flip_map.width / L_flip_map.width
-  const Sy = F_flip_map.height / L_flip_map.height
+    const Tx = F_flip_map.left - L_flip_map.left
+    const Ty = F_flip_map.top - L_flip_map.top
+    const Sx = F_flip_map.width / L_flip_map.width
+    const Sy = F_flip_map.height / L_flip_map.height
 
-  // console.log({ Tx, Ty, Sx, Sy })
+    // console.log({ Tx, Ty, Sx, Sy })
 
-  element.style.transformOrigin = "top left"
-  element.style.transition = ""
-  const trans = `translate(${Tx}px, ${Ty}px) scale(${Sx}, ${Sy})`
-  element.style.transform = trans
-
-  // PLAY
-  requestAnimationFrame(() => {
-    // 🕤 just before animating, scroll to new location
     element.style.transformOrigin = "top left"
-    element.style.transition = transition
-    element.style.transform = "none"
-    // 💩 hack for removing zIndex after animation is complete
-    // 📌 TODO:    🔻 GOOD PLACE FOR AN `onComplete` hook animation/callback
-    setTimeout(() => zIndex(element, 0), 200)
-  })
-  // move element to front
-  zIndex(element, 1)
-  // 🔍 consider exposing in the API
-  const clicked = getInUnsafe(state.deref(), clicks) || null
-  if (!clicked) {
-    // console.log(uid, "FLIP'ed on navigated")
-    state.resetIn(rects, null)
-  } else {
-    // console.log(uid, "FLIP'ed on click! 👆")
-    state.resetIn(rects, L_flip_map)
-  }
-  // remove click frame
-  state.resetIn(clicks, null)
+    element.style.transition = ""
+    const trans = `translate(${Tx}px, ${Ty}px) scale(${Sx}, ${Sy})`
+    element.style.transform = trans
+
+    // PLAY
+    requestAnimationFrame(() => {
+        // 🕤 just before animating, scroll to new location
+        element.style.transformOrigin = "top left"
+        element.style.transition = transition
+        element.style.transform = "none"
+        // 💩 hack for removing zIndex after animation is complete
+        // 📌 TODO:    🔻 GOOD PLACE FOR AN `onComplete` hook animation/callback
+        setTimeout(() => zIndex(element, 0), 200)
+    })
+    // move element to front
+    zIndex(element, 1)
+    // 🔍 consider exposing in the API
+    const clicked = getInUnsafe(state.deref(), clicks) || null
+    if (!clicked) {
+        // console.log(uid, "FLIP'ed on navigated")
+        state.resetIn(rects, null)
+    } else {
+        // console.log(uid, "FLIP'ed on click! 👆")
+        state.resetIn(rects, L_flip_map)
+    }
+    // remove click frame
+    state.resetIn(clicks, null)
 }
 
 const state = new Atom({})
 
 // render: onclick
 export const FLIP_FIRST: any = registerCMD({
-  [CMD_SUB$]: "_FLIP_FIRST",
-  [CMD_ARGS]: ({ id, target }) => ({ id, target }),
-  [CMD_WORK]: ({ id, target }) => FLIPFirst({ id, target, state }),
+    [CMD_SUB$]: "_FLIP_FIRST",
+    [CMD_ARGS]: ({ id, target }) => ({ id, target }),
+    [CMD_WORK]: ({ id, target }) => FLIPFirst({ id, target, state })
 })
 
 // init
 export const FLIP_LAST_INVERSE_PLAY: any = registerCMD({
-  [CMD_SUB$]: "_FLIP_LAST_INVERSE_PLAY",
-  [CMD_ARGS]: ({ id, element }) => ({ id, element }),
-  [CMD_WORK]: ({ id, element }) => FLIPLastInvertPlay({ id, element, state }),
+    [CMD_SUB$]: "_FLIP_LAST_INVERSE_PLAY",
+    [CMD_ARGS]: ({ id, element }) => ({ id, element }),
+    [CMD_WORK]: ({ id, element }) => FLIPLastInvertPlay({ id, element, state })
 })

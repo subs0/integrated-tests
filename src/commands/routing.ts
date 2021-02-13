@@ -71,7 +71,7 @@ const setLinkAttrs = target => {
  */
 export const SET_LINK_ATTRS_DOM: any = registerCMD({
     [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
-    [CMD_ARGS]: acc => ({ [DOM_NODE]: acc[DOM_NODE] }),
+    [CMD_ARGS]: acc => acc,
     [CMD_WORK]: acc => {
         const node = acc[DOM_NODE]
         const props = {
@@ -106,7 +106,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
  */
 export const HREF_PUSHSTATE_DOM: any = registerCMD({
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
-    [CMD_ARGS]: acc => ({ [URL_FULL]: acc[URL_FULL], [DOM_NODE]: acc[DOM_NODE] }),
+    [CMD_ARGS]: acc => acc,
     [CMD_WORK]: acc => {
         const url = acc[URL_FULL]
         const node = acc[DOM_NODE]
@@ -115,10 +115,7 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
             [DOM_NODE]: node
         }
         if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
-        if (!url || !node) {
-            console.log({ acc })
-            return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
-        }
+        if (!url || !node) return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
     }
 })
 
@@ -148,6 +145,5 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
 export const NOTIFY_PRERENDER_DOM: any = registerCMD({
     [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
     [CMD_ARGS]: true,
-    //👀 for prerenderer,
     [CMD_WORK]: () => document && document.dispatchEvent(new Event("rendered"))
 })

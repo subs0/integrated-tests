@@ -113,16 +113,22 @@ export const INJECT_HEAD: any = registerCMD({
     [CMD_SUB$]: "_INJECT_HEAD",
     [CMD_ARGS]: (acc: apiURL) => ({ [URL_DATA]: acc[URL_DATA] }),
     [CMD_WORK]: (acc: apiURL) => {
-        const head = acc[URL_DATA] && acc[URL_DATA][DOM_HEAD]
+        const data = acc[URL_DATA]
+        const head = data[DOM_HEAD]
+        const props = {
+            [DOM_HEAD]: head
+        }
+        if (head) {
+            const title = head[HD_TITL]
+            const description = head[OG_DESC]
+            const img_url = head[OG_IMGU]
+            const img_height = head[OG_IMGH]
+            const img_width = head[OG_IMGW]
+            const favicon = head[HD_ICON]
+            const type = head[OG_TYPE]
 
-        const title = head[HD_TITL]
-        const description = head[OG_DESC]
-        const img_url = head[OG_IMGU]
-        const img_height = head[OG_IMGH]
-        const img_width = head[OG_IMGW]
-        const favicon = head[HD_ICON]
-        const type = head[OG_TYPE]
-
-        return replaceMeta(conformToHead({ title, description, img_url, img_height, img_width, favicon, type }))
+            return replaceMeta(conformToHead({ title, description, img_url, img_height, img_width, favicon, type }))
+        }
+        console.warn(Err_missing_props("_INJECT_HEAD", props))
     }
 })
