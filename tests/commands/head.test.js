@@ -1,6 +1,19 @@
 import { fireEvent } from "@testing-library/dom"
 
-import { URL_DATA, CMD_SUB$, CMD_ARGS, CMD_WORK, DOM_HEAD } from "@-0/keys"
+import {
+    URL_DATA,
+    CMD_SUB$,
+    CMD_ARGS,
+    CMD_WORK,
+    DOM_HEAD,
+    HD_ICON,
+    HD_TITL,
+    OG_DESC,
+    OG_IMGH,
+    OG_IMGU,
+    OG_IMGW,
+    OG_TYPE
+} from "@-0/keys"
 import { run$ } from "@-0/spool"
 import { INJECT_HEAD } from "../../src/commands"
 import { JSDOM } from "jsdom"
@@ -32,6 +45,21 @@ const html = `
   </head>
 </html>
 `
+// prettier-ignore
+const head_post = ` <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <meta property="og:type" content="image">
+ <meta property="og:title" content="changed">
+ <meta property="og:description" content="times are a changin'">
+ <meta property="og:image" content="https://images.com/2">
+ <meta property="og:image:width" content="400">
+ <meta property="og:image:height" content="500">
+ 
+ <title>changed</title>
+ <link rel="shortcut icon" sizes="57x57" href="NA" type="image/x-icon">`
+
+const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
 
 describe("head", () => {
     beforeEach(() => {
@@ -45,29 +73,25 @@ describe("head", () => {
         global.window = dom.window
         global.document = dom.window.document
         global.document.head.innerHTML = dom.window.document.head.innerHTML
-        //global.document = new JSDOM(html, { runScripts: "dangerously" })
-        //container = document.head
-        //document = dom.window.document
-        //container = document.head.innerHTML
     })
     test("head Command", () => {
-        console.log({ container: document.head.innerHTML })
+        //console.log({ container: document.head.innerHTML })
         run$.next({
             ...INJECT_HEAD,
             [CMD_ARGS] : {
                 [URL_DATA] : {
                     [DOM_HEAD] : {
-                        title       : "changed",
-                        description : "times are a changin'",
-                        img_url     : "https://images.com/2",
-                        img_height  : "500",
-                        img_width   : "400",
-                        favicon     : "NA",
-                        type        : "image"
+                        [HD_TITL] : "changed",
+                        [OG_DESC] : "times are a changin'",
+                        [OG_IMGU] : "https://images.com/2",
+                        [OG_IMGH] : "500",
+                        [OG_IMGW] : "400",
+                        [HD_ICON] : "NA",
+                        [OG_TYPE] : "image"
                     }
                 }
             }
         })
-        console.log({ container: document.head.innerHTML })
+        expect(document.head.innerHTML.replace(/ +(?= )|^\s*\n/g, "")).toBe(head_post)
     })
 })

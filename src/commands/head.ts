@@ -119,11 +119,13 @@ export const INJECT_HEAD: any = registerCMD({
         }
 
         if (head) {
-            const [ unknowns ] = diff_keys([ HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE ], head)
-            if (unknowns.length > 0) {
-                const err_str = `Error in \`${IH}\` Command > \`${CMD_ARGS}\` > \`${URL_DATA}\` > \`${DOM_HEAD}\` props:`
-                return console.warn(xKeyError(err_str, head, unknowns, 0, false))
-            }
+            const [ unknowns, unknown_map ] = diff_keys(
+                [ HD_ICON, HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE ],
+                head
+            )
+            //console.log({ unknowns })
+            const err_str = `Error in \`${IH}\` Command > \`${CMD_ARGS}\` > \`${URL_DATA}\` > \`${DOM_HEAD}\` props:`
+            if (unknowns.length > 0) return console.warn(xKeyError(err_str, unknown_map, unknowns, 0, false))
             return replaceMeta(conformToHead(head))
         }
         if (data) return console.warn(Err_missing_props(IH, deep_props, args))
