@@ -22,6 +22,7 @@ import {
     URL_DATA,
     URL_PAGE,
     URL_PRSE,
+    CFG_RUN$,
     CFG_RUTR,
     CFG_ROOT,
     CFG_LOG$,
@@ -176,7 +177,7 @@ const routerCfg = async url => {
     let page = RES[URL_PAGE]
 
     let result = { [URL_DATA]: await data(), [URL_PAGE]: page }
-    console.log({ result })
+    //console.log({ result })
     return result
 }
 
@@ -270,7 +271,7 @@ const pathLink = (ctx, uid, ...args) =>
                   href    : `/${ctx[URL_PRSE]()[URL_PATH]}/${uid}`,
                   onclick : e => {
                       e.preventDefault()
-                      ctx.run({ ...HURL, args: e })
+                      ctx[CFG_RUN$]({ ...HURL, args: e })
                   }
               },
         ...args
@@ -300,7 +301,7 @@ const link = (ctx, path, ...args) =>
             href    : "/" + path.join("/"),
             // regular href just works if there's no extra paths in
             // URL (e.g., gh-pages URLs will break these)...
-            onclick : e => (e.preventDefault(), ctx.run({ ...HURL, args: e }))
+            onclick : e => (e.preventDefault(), ctx[CFG_RUN$]({ ...HURL, args: e }))
         },
         ...args
     ]
@@ -315,8 +316,8 @@ const link = (ctx, path, ...args) =>
 //            888       888
 //
 // TODO: example of using cursors for local state
-const app = (ctx, page) => (
-    log("app"),
+const app = (ctx, page) =>
+    //log("app"),
     [
         "div",
         { style: { "max-width": "30rem", margin: "auto", padding: "2rem" } },
@@ -330,7 +331,6 @@ const app = (ctx, page) => (
         // hydration/start (before any async is done)
         page
     ]
-)
 
 // TODO: add default / 404 page here (could help the ugly $page.deref() ||...)
 const router = {
@@ -345,8 +345,8 @@ const w_config = {
     [CFG_VIEW] : app,
     [CFG_RUTR] : router,
     [CFG_ROOT] : document.getElementById("app"), // <- 🔍
-    [CFG_DRFT] : { users: [] },
-    [CFG_LOG$] : "state ->"
+    [CFG_DRFT] : { users: [] }
+    //[CFG_LOG$] : "state ->"
     //[CFG_KICK]: true,
 
     // arbitrary context k/v pairs...
