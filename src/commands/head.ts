@@ -107,9 +107,9 @@ interface apiURL {
 // TODO: add title, description, etc. to @-0/keys constants
 export const INJECT_HEAD: any = registerCMD({
     [CMD_SUB$]: "_INJECT_HEAD",
-    [CMD_ARGS]: (acc: apiURL) => ({ [URL_DATA]: acc[URL_DATA] }),
-    [CMD_WORK]: (acc: apiURL) => {
-        const data = acc[URL_DATA]
+    [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
+    [CMD_WORK]: (args: apiURL) => {
+        const data = args[URL_DATA]
         const head = data[DOM_HEAD]
         const props = {
             [DOM_HEAD]: head
@@ -126,6 +126,6 @@ export const INJECT_HEAD: any = registerCMD({
 
             return replaceMeta(conformToHead(head))
         }
-        console.warn(Err_missing_props("_INJECT_HEAD", props))
+        return console.warn(Err_missing_props("_INJECT_HEAD", props, args))
     }
 })
