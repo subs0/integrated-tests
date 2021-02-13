@@ -14,13 +14,10 @@ ${err_str}
 
 🔥 Unrecognized ${count > 1 ? "Props" : "Prop"} 🔥
 
-FAULTY COMMAND:
-
 ${stringify_fn(c, 4)}
 ${Object.keys(unknown_keys)[0][0]
         ? `
 ${index ? key_index_err(c, index) : ""}
-
 The problematic entry/entries:
 
 ${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}: <Stream>` : stringify_fn(unknown_keys, 2)}` : ""}
