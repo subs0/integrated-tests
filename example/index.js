@@ -29,7 +29,10 @@ import {
     CFG_DRFT,
     CFG_VIEW,
     RTR_PRFX,
-    RTR_POST
+    RTR_POST,
+    HD_TITL,
+    OG_DESC,
+    OG_IMGU
 } from "@-0/keys"
 
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
@@ -84,9 +87,9 @@ const getSomeJSON = async (path, uid) => {
                       //img_height?: any
                       //favicon?: any
                       //type?: any
-                      title       : `${name}'s Details`,
-                      description : `${name} handles ${catchPhrase}`,
-                      img_url     : img_base(uid, 600)
+                      [HD_TITL] : `${name}'s Details`,
+                      [OG_DESC] : `${name} handles ${catchPhrase}`,
+                      [OG_IMGU] : img_base(uid, 600)
                   },
                   [DOM_BODY] : {
                       // lesson -> don't use the actual url as the uid (not flexible)
@@ -101,9 +104,9 @@ const getSomeJSON = async (path, uid) => {
               let list = await fetch(`${text_base}${path}/`).then(r => r.json())
               return {
                   [DOM_HEAD] : {
-                      title       : `${path.replace(/^\w/, c => c.toUpperCase())} list`,
-                      description : `List page for ${path}`,
-                      img_url     : img_base(222, 200)
+                      [HD_TITL] : `${path.replace(/^\w/, c => c.toUpperCase())} list`,
+                      [OG_DESC] : `List page for ${path}`,
+                      [OG_IMGU] : img_base(222, 200)
                   },
                   [DOM_BODY] : list.map((c, i) => ({
                       img  : img_base(i + 1, 200),

@@ -19,9 +19,7 @@ describe("xKeyError", () => {
         expect(xKeyError("funky", CMD, { a: 1, b: 2 }, 2)).toBe(`
 funky
 
-🔥 Unrecognized Command Key(s) 🔥
-
-FAULTY COMMAND:
+🔥 Unrecognized Props 🔥
 
 {
     "sub$": "_ERROR",
@@ -41,6 +39,7 @@ The problematic entry/entries:
   "a": 1,
   "b": 2
 }
+
 
 ACCEPTABLE ENTRY KEYS WITHIN A COMMAND:
 
@@ -70,5 +69,6 @@ ACCEPTABLE ENTRY KEYS WITHIN A COMMAND:
 
 
 Hope that helps!
+
 `))
 })

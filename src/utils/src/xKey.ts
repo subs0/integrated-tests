@@ -20,7 +20,7 @@ export const key_index_err = (c, i) => {
  * Just a  little error for people defining commands
  * that makes sure their keys don't contain typos
  */
-export const xKeyError = (err_str = "NOT OK", c = {}, unknown_keys = [], index = 1, guide = true) => {
+export const xKeyError = (err_str = "Command Error", c = {}, unknown_keys = [], index = 1, guide = true) => {
 
     const SOURCE = c[CMD_SRC$] || null
     const count = Object.entries(c).length
@@ -34,9 +34,10 @@ ${ stringify_fn(c, 4) }
 ${Object.keys(unknown_keys)[0][0]
         ? `
 ${index ? key_index_err(c, index) : ""}
+
 The problematic entry/entries:
 
-${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}: <Stream>` : stringify_fn(unknown_keys, 2)}` : ""}
+${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}` : stringify_fn(unknown_keys, 2)}` : ""}
 
 ${guide ? 
     `
