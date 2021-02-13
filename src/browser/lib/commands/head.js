@@ -62,12 +62,16 @@ export const INJECT_HEAD = registerCMD({
     [CMD_WORK]: (args) => {
         const data = args[URL_DATA];
         const head = data[DOM_HEAD];
-        const props = {
+        const shallow_props = {
+            [URL_DATA]: data
+        };
+        const deep_props = {
             [DOM_HEAD]: head
         };
-        if (head) {
+        if (head)
             return replaceMeta(conformToHead(head));
-        }
-        return console.warn(Err_missing_props("_INJECT_HEAD", props, args));
+        if (data)
+            return console.warn(Err_missing_props("_INJECT_HEAD", deep_props, args));
+        return console.warn(Err_missing_props("_INJECT_HEAD", shallow_props, args));
     }
 });
