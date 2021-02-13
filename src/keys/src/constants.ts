@@ -43,11 +43,12 @@ export const DOM = {
 
 // document head selector shortcuts
 export const HD_TITL = "HD_TITL"
+export const HD_ICON = "HD_ICON"
+export const HD_META = "HD_META"
 export const OG_DESC = "OG_DESC"
 export const OG_IMGU = "OG_IMGU"
 export const OG_IMGW = "OG_IMGW"
 export const OG_IMGH = "OG_IMGH"
-export const HD_ICON = "HD_ICON"
 export const OG_TYPE = "OG_TYPE"
 
 // set$$tate constants
@@ -116,11 +117,11 @@ export const RTR = {
 // Global state keys/constants
 
 // underscores used to prevent conflict with userland Commands
-export const $$_PATH = "_$$_PATH"
-export const $$_LOAD = "_$$_LOAD"
-export const $$_VIEW = "_$$_VIEW"
-export const $$_ROOT = "_$$_ROOT"
-export const $$_CMDS = "_$$_CMDS"
+export const $$_PATH = "$$_PATH"
+export const $$_LOAD = "$$_LOAD"
+export const $$_VIEW = "$$_VIEW"
+export const $$_ROOT = "$$_ROOT"
+export const $$_CMDS = "$$_CMDS"
 
 // public
 export const $$: Object = {
