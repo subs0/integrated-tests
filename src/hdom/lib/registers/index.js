@@ -31,9 +31,7 @@ export const boot = (CFG) => {
         throw new Error(`no \`${CFG_RUTR}\` found on config. See documentation for \`boot\``);
     const state$ = fromAtom($store$);
     const shell = state$ => (log$ ? console.log(log$, state$) : null,
-        state$[$$_LOAD]
-            ? null
-            : [view, [state$[$$_VIEW], getInUnsafe(state$, state$[$$_PATH])]]);
+        state$[$$_LOAD] ? null : [view, [state$[$$_VIEW], getInUnsafe(state$, state$[$$_PATH])]]);
     if (draft)
         $store$.swap(x => (Object.assign(Object.assign({}, draft), x)));
     $store$.resetInUnsafe($$_ROOT, root);
