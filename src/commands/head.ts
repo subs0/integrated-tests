@@ -14,7 +14,8 @@ import {
     OG_IMGU,
     OG_IMGW,
     OG_IMGH,
-    HeadData
+    HeadData,
+    DOM_BODY
 } from "@-0/keys"
 // FIXME: move to import above
 const HD_META = "HD_META"
@@ -111,21 +112,14 @@ export const INJECT_HEAD: any = registerCMD({
     [CMD_WORK]: (args: apiURL) => {
         const data = args[URL_DATA]
         const head = data[DOM_HEAD]
-        const props = {
+        const shallow_props = {
+            [URL_DATA]: data
+        }
+        const deep_props = {
             [DOM_HEAD]: head
         }
-        if (head) {
-            //const { HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, HD_ICON, OG_TYPE } = head
-            //const title = head[HD_TITL]
-            //const description = head[OG_DESC]
-            //const img_url = head[OG_IMGU]
-            //const img_height = head[OG_IMGH]
-            //const img_width = head[OG_IMGW]
-            //const favicon = head[HD_ICON]
-            //const type = head[OG_TYPE]
-
-            return replaceMeta(conformToHead(head))
-        }
-        return console.warn(Err_missing_props("_INJECT_HEAD", props, args))
+        if (head) return replaceMeta(conformToHead(head))
+        if (data) return console.warn(Err_missing_props("_INJECT_HEAD", deep_props, args))
+        return console.warn(Err_missing_props("_INJECT_HEAD", shallow_props, args))
     }
 })
