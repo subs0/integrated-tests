@@ -22,8 +22,8 @@ export const createSetStateCMD: Command = store =>
                 [STATE_PATH]: path,
                 [STATE_DATA]: data
             }
-            if (path && data) return set$$tate(args[STATE_PATH], args[STATE_DATA], store)
-            console.warn(Err_missing_props("_SET_STATE", props))
+            if (path && data) return set$$tate(path, data, store)
+            console.warn(Err_missing_props("_SET_STATE", props, args))
         }
     })
 
