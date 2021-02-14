@@ -36,8 +36,8 @@ export declare const OG_IMGU = "OG_IMGU";
 export declare const OG_IMGW = "OG_IMGW";
 export declare const OG_IMGH = "OG_IMGH";
 export declare const OG_TYPE = "OG_TYPE";
-export declare const STATE_PATH = "STATE_PATH";
-export declare const STATE_DATA = "STATE_DATA";
+export declare const STATE_PATH = "SET_PATH";
+export declare const STATE_DATA = "SET_DATA";
 export declare const STATE: {
     PATH: string;
     DATA: string;

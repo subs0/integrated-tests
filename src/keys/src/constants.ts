@@ -55,8 +55,8 @@ export const OG_IMGH = "OG_IMGH"
 export const OG_TYPE = "OG_TYPE"
 
 // set$$tate constants
-export const STATE_PATH = "STATE_PATH"
-export const STATE_DATA = "STATE_DATA"
+export const STATE_PATH = "SET_PATH"
+export const STATE_DATA = "SET_DATA"
 
 // public
 export const STATE = {
@@ -123,7 +123,6 @@ export const RTR = {
 
 // Global state keys/constants
 
-// underscores used to prevent conflict with userland Commands
 export const $$_PATH = "$$_PATH"
 export const $$_LOAD = "$$_LOAD"
 export const $$_VIEW = "$$_VIEW"
