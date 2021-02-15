@@ -12,7 +12,7 @@ export const URL_HASH = "URL_HASH"
 export const URL_PAGE = "URL_PAGE"
 
 // Userland context dispatchers
-// PRIORITY: DON'T CHANGE THESE 💢
+// DON'T CHANGE THESE 💢
 export const URL_PRSE = "unfurl"
 export const URL_NPRS = "urlify"
 
@@ -84,7 +84,7 @@ export const CMD = {
 }
 
 // Userland dispatching
-// PRIORITY: DON'T CHANGE THESE 💢
+// DON'T CHANGE THESE 💢
 export const CFG_RUN$ = "run"
 export const CFG_STOR = "state"
 
