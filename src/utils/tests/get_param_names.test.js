@@ -65,7 +65,7 @@ describe("`get_param_names`:", () => {
         ) => {}
         expect(get_param_names(_10)).toMatchObject([ "d", "e", "s" ])
     })
-    test("11: destructured with Computed properties and default values + linebreaks", () => {
+    test("11: Computed properties &+ default values: total warnings = 1", () => {
         const warn_spy = warned()
 
         // prettier-ignore
@@ -78,5 +78,26 @@ describe("`get_param_names`:", () => {
         }) => {}
         expect(get_param_names(_11)).toMatchObject([ "d", "e" ])
         expect(warn_spy.mock.calls.length).toBe(1)
+    })
+    test("12: Nested properties gets a warning", () => {
+        const warn_spy = warned()
+
+        // prettier-ignore
+        const _11 = ({ 
+            // with comment above
+            c: {
+                d // inline
+            },
+            e
+        }) => {}
+        expect(get_param_names(_11)).toMatchObject([ "d", "e" ])
+        expect(warn_spy.mock.calls.length).toBe(1)
+    })
+    test("13: Single (default) parameter returns empty list", () => {
+        const warn_spy = warned()
+        // prettier-ignore
+        expect(get_param_names((x) => x)).toMatchObject([])
+        expect(get_param_names(x => x)).toMatchObject([])
+        expect(warn_spy.mock.calls.length).toBe(0)
     })
 })

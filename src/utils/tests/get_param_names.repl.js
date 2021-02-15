@@ -7,18 +7,21 @@ const _4 = function(x, y) {}
 const _5 = function({ d, e, s }, x) {}
 const _6 = ({ ["a" + "b"]: c, d }, x) => {}
 const _7 = ({ [`comp `]: c, d }) => {}
+
 // prettier-ignore
 const _8 = ({ 
     d, 
     e, 
     s 
 }) => {}
+
 // prettier-ignore
 const _9 = ({ 
     d, // with  
     e, // inline
     s // comments
 }) => {}
+
 // prettier-ignore
 const _10 = ({ 
     // with comment above
@@ -26,16 +29,19 @@ const _10 = ({
     e, 
     s 
 }) => {}
+
+const key = "computed"
 // prettier-ignore
 const _11 = ({ 
     // with comment above
-    [`comp `]: c, // inline
-    d,
-    [`another` + "comp"]: w = "destructured",
-    e
+    [key]: d_c, // inline
+    e: {
+        e2
+    },
+    [`another` + 1]: s_c = `destructured`,
+    t
 }) => {}
 
-//
 get_param_names(_1) //?
 get_param_names(_2) //?
 get_param_names(_3) //?

@@ -7,8 +7,8 @@ let err_str = (name = "", comp = "", CMD = null) => CMD
     ? `
 🔥 Warning: \`registerCMD\` 🔥 
 
-Computed property names prevent static analysis of args passed to 
-your ${CMD_WORK} handler in this Command:
+Computed property names prevent static analysis of args 
+passed to your ${CMD_WORK} handler in this Command:
 
 ${stringify_fn(CMD, 2)}
 
@@ -16,17 +16,21 @@ This prevented us from prop checking inputs to the handler.
 Consider using static destructured properties instead.
 `
     : `
-@-0/utls > \`get_param_names\`: ${name}({ ${comp} ...
-Computed property names prevent static analysis of function
-parameters. Consider using static destructuring instead
+🔥 Warning: Complex Properties 🔥 
+
+${name}({ ${comp} ...
+
+Nested/computed properties prevent reliable static runtime 
+analysis of function parameters against their arguments. 
+Consider using shallow & static destructuring.
 `;
 export function get_param_names(func, CMD = null) {
     let warned = false;
-    let fnStr = func.toString().replace(STRIP_COMMENTS, "");
-    let result = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(ARGUMENT_NAMES);
-    if (result === null)
-        result = [];
-    let computed = result.map(x => x.replace(DESTRUCT, "")).filter(x => x !== "");
+    const fnStr = func.toString().replace(STRIP_COMMENTS, "");
+    let results = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(ARGUMENT_NAMES);
+    if (results === null)
+        results = [];
+    const computed = results.map(x => x.replace(DESTRUCT, "")).filter(x => x !== "");
     let done = [];
     computed.forEach((c, i, d) => {
         if (c.match(/\]/g)) {
