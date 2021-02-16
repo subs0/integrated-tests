@@ -126,15 +126,15 @@ export const $$_PATH = "$$_PATH"
 export const $$_LOAD = "$$_LOAD"
 export const $$_VIEW = "$$_VIEW"
 export const $$_ROOT = "$$_ROOT"
-export const $$_CMDS = "$$_CMDS"
+//export const $$_CMDS = "$$_CMDS"
 
 // public
 export const $$: Object = {
     PATH: $$_PATH,
     LOAD: $$_LOAD,
     VIEW: $$_VIEW,
-    ROOT: $$_ROOT,
-    CMDS: $$_CMDS
+    ROOT: $$_ROOT
+    //CMDS: $$_CMDS
 }
 
 // home page / defaults to empty path
@@ -142,6 +142,6 @@ export const $$_DEFAULT = {
     [$$_PATH]: [],
     [$$_LOAD]: true,
     [$$_VIEW]: null,
-    [$$_ROOT]: null,
-    [$$_CMDS]: {}
+    [$$_ROOT]: null
+    //[$$_CMDS]: {}
 }
