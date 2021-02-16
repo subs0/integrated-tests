@@ -87,12 +87,10 @@ export declare const $$_PATH = "$$_PATH";
 export declare const $$_LOAD = "$$_LOAD";
 export declare const $$_VIEW = "$$_VIEW";
 export declare const $$_ROOT = "$$_ROOT";
-export declare const $$_CMDS = "$$_CMDS";
 export declare const $$: Object;
 export declare const $$_DEFAULT: {
     $$_PATH: any[];
     $$_LOAD: boolean;
     $$_VIEW: any;
     $$_ROOT: any;
-    $$_CMDS: {};
 };
