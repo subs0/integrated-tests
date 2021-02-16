@@ -4,13 +4,7 @@
 
 import { isObject } from "@thi.ng/checks"
 
-import {
-    HREF_PUSHSTATE_DOM,
-    NOTIFY_PRERENDER_DOM,
-    SET_LINK_ATTRS_DOM,
-    SET_STATE
-    // msTaskPromiseDelay,
-} from "../commands"
+import { HREF_PUSHSTATE_DOM, NOTIFY_PRERENDER_DOM, SET_LINK_ATTRS_DOM, SET_STATE } from "../commands"
 
 import {
     $$_VIEW,
@@ -42,6 +36,7 @@ const SET_ROUTE_PATH = {
         [STATE_PATH]: [ $$_PATH ]
     })
 }
+const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err)
 /**
  *
  * Universal router (cross-platform) Subtask.
@@ -74,28 +69,20 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
     let router, preroute, postroute, prefix
 
     if (isObject(CFG)) {
-        const ruts = CFG[CFG_RUTR]
-        const prep = CFG[RTR_PREP]
-        const post = CFG[RTR_POST]
-        const prfx = CFG[RTR_PRFX] || null
+        const rtr = CFG[CFG_RUTR]
+        const pre = CFG[RTR_PREP]
+        const pst = CFG[RTR_POST]
+        const pfx = CFG[RTR_PRFX] || null
 
         const escRGX = /[-/\\^$*+?.()|[\]{}]/g
         const escaped = string => string.replace(escRGX, "\\$&")
 
-        // console.log({ router, pre, post })
+        // console.log({ router, pre, pst })
 
-        router = ruts
-        preroute = isObject(prep) ? [ prep ] : prep || []
-        postroute = isObject(post) ? [ post ] : post || []
-
-        /**
-         *
-         * FIXME: if prefix provided, remove it from result
-         * of URL2Obj instead of stripping it from URL
-         * strings passed to router
-         */
-
-        prefix = prfx ? new RegExp(escaped(prfx), "g") : null
+        router = rtr
+        preroute = isObject(pre) ? [ pre ] : pre || []
+        postroute = isObject(pst) ? [ pst ] : pst || []
+        prefix = pfx ? new RegExp(escaped(pfx), "g") : null
     } else {
         router = CFG
         preroute = []
@@ -104,58 +91,22 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
     }
     const task = acc => [
         ...preroute, // 📌 TODO enable progress observation
-        /**
-     * ## `_SET_ROUTER_LOADING_STATE`cod
-     *
-     * Routing Command: Universal
-     *
-     * ### Payload: static
-     * default payload `args` signature:
-     * ```
-     * args: true,
-     * ```
-     * Simple true or false payload to alert handler
-     *
-     * ### Handler: side-effecting
-     * Sets `route_loading` path in global Atom to true || false
-     *
-     */
         {
-            /**
-             *
-             * FIXME: if prefix provided, remove it from result
-             * of URL2Obj instead of stripping it from URL
-             * strings passed to router   
-             */
+            //FIXME: if prefix provided, remove it from result
             [CMD_ARGS]: prefix ? router(acc[URL_FULL].replace(prefix, "")) : router(acc[URL_FULL]),
             [CMD_RESO]: (_acc, _res) => ({
                 // 🤔: no page in core... can it be migrated/refactored into DOM Router?
                 [URL_PAGE]: (_res && _res[URL_PAGE]) || null,
                 [URL_DATA]: (_res && _res[URL_DATA]) || null
             }),
-            [CMD_ERRO]: (_acc, _err) => console.warn("Error in URL__ROUTE:", _err, "constructed:", _acc)
+            [CMD_ERRO]: route_error
         },
         {
-            [CMD_ARGS]: prefix ? URL2obj(acc[URL_FULL], prefix) : URL2obj(acc[URL_FULL])
+            [CMD_ARGS]: acc[URL_FULL]
+                ? prefix ? URL2obj(acc[URL_FULL], prefix) : URL2obj(acc[URL_FULL])
+                : new Error(`Prerequisit property:  { \`${CMD_ARGS}\` { \`${URL_FULL} } } NOT FOUND 🔥`),
+            [CMD_ERRO]: route_error
         },
-        /**
-     * ## `_SET_ROUTER_PATH`
-     *
-     * Routing Command: Universal
-     *
-     * ### Payload: function
-     * default payload `args` signature:
-     * ```
-     * args: ({ URL_path }) => ({ URL_path }),
-     * ```
-     * Consumes the `URL_path` property from a `URL2obj`
-     * object, handed off from a prior Command
-     *
-     * ### Handler: side-effecting
-     * Sets the current/loading router's `route_path` in the
-     * global Atom
-     *
-     */
         SET_ROUTE_PATH,
         ...postroute
     ]
@@ -180,13 +131,6 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
  *  - notify rendertron (TBD) of new page
  * ]
  * ```
- *
- * reserved Command keys:
- *  - `URL`
- *  - `DOM`
- *  - `URL_page`
- *  - `URL_path`
- *  - `URL_data`
  */
 
 const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true } }
