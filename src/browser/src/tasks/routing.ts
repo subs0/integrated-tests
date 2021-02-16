@@ -23,8 +23,8 @@ import {
     CMD_RESO,
     CMD_ERRO,
     DOM_BODY,
-    STATE_DATA,
-    STATE_PATH
+    SET_DATA,
+    SET_PATH
 } from "@-0/keys"
 
 import { URL2obj } from "@-0/utils"
@@ -32,8 +32,8 @@ import { URL2obj } from "@-0/utils"
 const SET_ROUTE_PATH = {
     ...SET_STATE,
     [CMD_ARGS]: _acc => ({
-        [STATE_DATA]: _acc[URL_PATH],
-        [STATE_PATH]: [ $$_PATH ]
+        [SET_DATA]: _acc[URL_PATH],
+        [SET_PATH]: [ $$_PATH ]
     })
 }
 const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err)
@@ -133,8 +133,8 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
  * ```
  */
 
-const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true } }
-const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: false } }
+const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [SET_PATH]: [ $$_LOAD ], [SET_DATA]: true } }
+const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [SET_PATH]: [ $$_LOAD ], [SET_DATA]: false } }
 
 export const URL_DOM__ROUTE = CFG => {
     // instantiate router
@@ -151,15 +151,15 @@ export const URL_DOM__ROUTE = CFG => {
             // hydrate page state and page component/function
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
-                [STATE_PATH]: [ $$_VIEW ],
-                [STATE_DATA]: acc[URL_PAGE] || null
+                [SET_PATH]: [ $$_VIEW ],
+                [SET_DATA]: acc[URL_PAGE] || null
             })
         },
         {
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
-                [STATE_PATH]: acc[URL_PATH],
-                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null
+                [SET_PATH]: acc[URL_PATH],
+                [SET_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null
             })
         },
         SET_LINK_ATTRS_DOM,
