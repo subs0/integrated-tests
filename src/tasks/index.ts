@@ -1,1 +1,1 @@
-export { URL_DOM__ROUTE } from "./routing"
+export { URL__ROUTE, URL_DOM__ROUTE } from "./routing"
