@@ -36,11 +36,11 @@ export const OG_IMGU = "OG_IMGU";
 export const OG_IMGW = "OG_IMGW";
 export const OG_IMGH = "OG_IMGH";
 export const OG_TYPE = "OG_TYPE";
-export const STATE_PATH = "SET_PATH";
-export const STATE_DATA = "SET_DATA";
+export const SET_PATH = "SET_PATH";
+export const SET_DATA = "SET_DATA";
 export const STATE = {
-    PATH: STATE_PATH,
-    DATA: STATE_DATA
+    PATH: SET_PATH,
+    DATA: SET_DATA
 };
 export const CMD_SUB$ = "sub$";
 export const CMD_ARGS = "args";
