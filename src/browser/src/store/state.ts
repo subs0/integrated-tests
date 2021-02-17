@@ -20,10 +20,8 @@ export const $store$ = new Atom($$_DEFAULT)
  */
 
 export const set$$tate = (path, val, store = $store$) =>
-  store.swapIn(path, (x: Object) => {
-    return isPlainObject(x) && isPlainObject(val)
-      ? // if both swap and target are objects, merge
-        { ...x, ...val }
-      : // else just reset to val at path (i.e., careful!)
-        val
-  })
+    store.swapIn(path, (x: Object) => {
+        // if both swap and target are objects, merge
+        // else just reset to val at path (i.e., careful!)
+        return isPlainObject(x) && isPlainObject(val) ? { ...x, ...val } : val
+    })

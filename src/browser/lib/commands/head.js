@@ -66,7 +66,9 @@ export const INJECT_HEAD = registerCMD({
             [URL_DATA]: data
         };
         const deep_props = {
-            [DOM_HEAD]: head
+            [URL_DATA]: {
+                [DOM_HEAD]: head
+            }
         };
         if (head) {
             const [unknowns, unknown_map] = diff_keys([HD_ICON, HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE], head);

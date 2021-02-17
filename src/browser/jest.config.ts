@@ -1,6 +1,6 @@
 module.exports = {
     preset: "ts-jest",
-    testEnvironment: "node", // "jsdom",
+    testEnvironment: "jsdom", // "node", // "jsdom",
     testMatch: [ "**/**/*.test.(js|ts|tsx)" ],
     //  moduleFileExtensions: ["js", "ts", "jsx", "tsx", "json", "node"],
     verbose: true,
