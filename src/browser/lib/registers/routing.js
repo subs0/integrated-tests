@@ -15,7 +15,7 @@ export const registerRouterDOM = (router) => {
             const props = { [URL_FULL]: url, [DOM_NODE]: node };
             if (url && node)
                 return run$.next(task(props));
-            console.warn(Err_missing_props("_URL_NAVIGATED$_DOM (registerRouterDOM)", props, acc));
+            console.warn(Err_missing_props("_URL_NAVIGATED$_DOM (registerRouterDOM)", props));
         }
     });
 };

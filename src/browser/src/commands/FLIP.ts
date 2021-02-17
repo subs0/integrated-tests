@@ -224,7 +224,7 @@ export const FLIP_FIRST: any = registerCMD({
         const { id, target } = args
         const props = { id, target }
         if (id && target) return FLIPFirst({ id, target, state })
-        return console.warn(Err_missing_props("_FLIP_FIRST", props, args))
+        return console.warn(Err_missing_props("_FLIP_FIRST", props))
     }
 })
 
@@ -236,6 +236,6 @@ export const FLIP_LAST_INVERSE_PLAY: any = registerCMD({
         const { id, element } = args
         const props = { id, element }
         if (id && element) return FLIPLastInvertPlay({ id, element, state })
-        return console.warn(Err_missing_props("_FLIP_LAST_INVERSE_PLAY", props, args))
+        return console.warn(Err_missing_props("_FLIP_LAST_INVERSE_PLAY", props))
     }
 })
