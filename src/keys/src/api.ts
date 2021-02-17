@@ -67,14 +67,6 @@ export interface DefaultDraft {
     //[C.$$_CMDS]: []
 }
 
-export type Router = (path: string) => object
-export interface RouterCFG {
-    [C.RTR_PREP]: Command | Task
-    [C.RTR_PRFX]: string
-    [C.RTR_POST]: Command | Task
-    [C.CFG_RUTR]: Router
-}
-
 export interface HeadData {
     [C.HD_TITL]?: string
     [C.OG_DESC]?: string
@@ -83,4 +75,28 @@ export interface HeadData {
     [C.OG_IMGH]?: string | Number
     [C.HD_ICON]?: string
     [C.OG_TYPE]?: string
+}
+
+export interface RouterHeadBodyData {
+    [C.DOM_HEAD]: HeadData
+    [C.DOM_BODY]: any
+}
+
+export interface RouterOutput {
+    [C.URL_DATA]: RouterHeadBodyData | any
+    [C.URL_PAGE]: any
+}
+
+export type Router = (path: string) => RouterOutput
+
+export interface RouterInput {
+    [C.URL_FULL]: string
+    [C.DOM_NODE]?: HTMLElement | Window
+}
+
+export interface RouterCFG {
+    [C.RTR_PREP]: Command | Task
+    [C.RTR_PRFX]: string
+    [C.RTR_POST]: Command | Task
+    [C.CFG_RUTR]: Router
 }
