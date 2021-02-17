@@ -79,7 +79,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
             [DOM_NODE]: node
         }
         if (node) return setLinkAttrs(node)
-        return console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props, acc))
+        return console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props))
     }
 })
 
@@ -116,7 +116,7 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
             [DOM_NODE]: node
         }
         if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
-        if (!url || !node) return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props, acc))
+        if (!url || !node) return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
     }
 })
 
