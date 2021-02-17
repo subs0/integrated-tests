@@ -17,9 +17,9 @@ import { DOMnavigated$ } from "../core/stream$"
 export const HURLer = ev => {
     // ev.preventDefault()
     // console.log({ e })
-    const href = ev ? (ev.target ? ev.target.href : null) : null
+    const href = ev ? (ev.target ? ev.target.href : undefined) : undefined
 
-    if (!href) console.warn(Err_missing_props("HURLer", { target: { href: true } }, ev))
+    if (!href) console.warn(Err_missing_props("HURLer", { target: { href } }))
     const w_href = window.location.href
     const parsed = URL2obj(w_href)
     const w_path = `/${parsed[URL_PATH].join("/")}`
