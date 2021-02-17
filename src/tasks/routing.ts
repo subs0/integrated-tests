@@ -2,7 +2,7 @@
  * @module tasks/routing
  */
 
-import { isObject } from "@thi.ng/checks"
+import { isPlainObject } from "@thi.ng/checks"
 
 import { HREF_PUSHSTATE_DOM, NOTIFY_PRERENDER_DOM, SET_LINK_ATTRS_DOM, SET_STATE } from "../commands"
 
@@ -24,10 +24,13 @@ import {
     CMD_ERRO,
     DOM_BODY,
     SET_DATA,
-    SET_PATH
+    SET_PATH,
+    ParsedURL,
+    RouterCFG,
+    Router
 } from "@-0/keys"
 
-import { URL2obj } from "@-0/utils"
+import { stringify_fn, URL2obj } from "@-0/utils"
 
 const SET_ROUTE_PATH = {
     ...SET_STATE,
@@ -37,6 +40,7 @@ const SET_ROUTE_PATH = {
     })
 }
 const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err)
+const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥 } }`
 /**
  *
  * Universal router (cross-platform) Subtask.
@@ -65,10 +69,10 @@ const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _
  *
  * TODO: Type ROuter CFG
  */
-export const URL__ROUTE = (CFG: Function | Object): any => {
+export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
     let router, preroute, postroute, prefix
 
-    if (isObject(CFG)) {
+    if (isPlainObject(CFG)) {
         const rtr = CFG[CFG_RUTR]
         const pre = CFG[RTR_PREP]
         const pst = CFG[RTR_POST]
@@ -80,20 +84,30 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
         // console.log({ router, pre, pst })
 
         router = rtr
-        preroute = isObject(pre) ? [ pre ] : pre || []
-        postroute = isObject(pst) ? [ pst ] : pst || []
+        preroute = isPlainObject(pre) ? [ pre ] : pre || []
+        postroute = isPlainObject(pst) ? [ pst ] : pst || []
         prefix = pfx ? new RegExp(escaped(pfx), "g") : null
     } else {
         router = CFG
         preroute = []
         postroute = []
-        prefix = null
+        prefix = ""
     }
-    const task = acc => [
-        ...preroute, // 📌 TODO enable progress observation
+    //console.log(stringify_fn({ router, preroute, postroute, prefix }, 2))
+    /**
+     * 📌 TODO enable progress observation by using both the
+     * run$ and log$ stream emissions:
+     * 1. for each run$ emissions, measure length of:
+     *      a. single command = 1
+     *      b. task = task.length
+     * 2. create  for every emission from
+     *      the run$ emission
+     */
+    const subtask = acc => [
+        ...preroute,
         {
             //FIXME: if prefix provided, remove it from result
-            [CMD_ARGS]: prefix ? router(acc[URL_FULL].replace(prefix, "")) : router(acc[URL_FULL]),
+            [CMD_ARGS]: acc[URL_FULL] ? router(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
             [CMD_RESO]: (_acc, _res) => ({
                 // 🤔: no page in core... can it be migrated/refactored into DOM Router?
                 [URL_PAGE]: (_res && _res[URL_PAGE]) || null,
@@ -102,15 +116,13 @@ export const URL__ROUTE = (CFG: Function | Object): any => {
             [CMD_ERRO]: route_error
         },
         {
-            [CMD_ARGS]: acc[URL_FULL]
-                ? prefix ? URL2obj(acc[URL_FULL], prefix) : URL2obj(acc[URL_FULL])
-                : new Error(`Prerequisit property:  { \`${CMD_ARGS}\` { \`${URL_FULL} } } NOT FOUND 🔥`),
+            [CMD_ARGS]: acc[URL_FULL] ? URL2obj(acc[URL_FULL], prefix) : new Error(e_s),
             [CMD_ERRO]: route_error
         },
         SET_ROUTE_PATH,
         ...postroute
     ]
-    return task
+    return subtask
 }
 
 /**
@@ -140,7 +152,7 @@ export const URL_DOM__ROUTE = CFG => {
     // instantiate router
     const match = URL__ROUTE(CFG)
 
-    return ACC => [
+    const subtask = ACC => [
         SET_ROUTE_LOADING_TRUE,
         {
             ...HREF_PUSHSTATE_DOM,
@@ -166,4 +178,6 @@ export const URL_DOM__ROUTE = CFG => {
         SET_ROUTE_LOADING_FALSE,
         NOTIFY_PRERENDER_DOM
     ]
+
+    return subtask
 }

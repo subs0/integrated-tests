@@ -17,8 +17,9 @@ import { DOMnavigated$ } from "../core/stream$"
 export const HURLer = ev => {
     // ev.preventDefault()
     // console.log({ e })
-    const href = ev.target.href
+    const href = ev ? (ev.target ? ev.target.href : null) : null
 
+    if (!href) console.warn(Err_missing_props("HURLer", { target: { href: true } }, ev))
     const w_href = window.location.href
     const parsed = URL2obj(w_href)
     const w_path = `/${parsed[URL_PATH].join("/")}`
@@ -78,7 +79,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
             [DOM_NODE]: node
         }
         if (node) return setLinkAttrs(node)
-        return console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props))
+        return console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props, acc))
     }
 })
 
@@ -115,7 +116,7 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
             [DOM_NODE]: node
         }
         if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
-        if (!url || !node) return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
+        if (!url || !node) return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props, acc))
     }
 })
 

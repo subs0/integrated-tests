@@ -111,11 +111,10 @@ export const INJECT_HEAD: any = registerCMD({
     [CMD_WORK]: (args: apiURL) => {
         const data = args[URL_DATA]
         const head = data[DOM_HEAD]
-        const shallow_props = {
-            [URL_DATA]: data
-        }
-        const deep_props = {
-            [DOM_HEAD]: head
+        const reqs = {
+            [URL_DATA]: {
+                [DOM_HEAD]: head
+            }
         }
 
         if (head) {
@@ -128,7 +127,6 @@ export const INJECT_HEAD: any = registerCMD({
             if (unknowns.length > 0) return console.warn(xKeyError(err_str, unknown_map, unknowns, 0, false))
             return replaceMeta(conformToHead(head))
         }
-        if (data) return console.warn(Err_missing_props(IH, deep_props, args))
-        return console.warn(Err_missing_props(IH, shallow_props, args))
+        return console.warn(Err_missing_props(IH, reqs))
     }
 })
