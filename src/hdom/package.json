@@ -2,11 +2,7 @@
     "name": "@-0/hdom",
     "author": "Logan Powell",
     "license": "MIT",
-<<<<<<< HEAD
-    "version": "0.2.114",
-=======
     "version": "0.3.0",
->>>>>>> b6525566f70a3cf27505615802fc1943942bc498
     "description": "DOM target provided by http://thi.ng/hdom",
     "main": "./lib/index.js",
     "type": "module",
@@ -26,11 +22,7 @@
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
-    "keywords": [
-        "thi.ng",
-        "multiplex",
-        "FRP"
-    ],
+    "keywords": [ "thi.ng", "multiplex", "FRP" ],
     "publishConfig": {
         "access": "public"
     },
@@ -45,17 +37,10 @@
         "@thi.ng/transducers-hdom": "^2.0.80"
     },
     "dependencies": {
-<<<<<<< HEAD
-        "@-0/keys": "^0.2.116",
-        "@-0/utils": "^0.2.113",
-        "@-0/spool": "^0.2.118",
-        "@-0/browser": "^0.2.120"
-=======
         "@-0/keys": "^0.3.2",
         "@-0/utils": "^0.3.2",
         "@-0/spool": "^0.3.0",
         "@-0/browser": "^0.3.0"
->>>>>>> b6525566f70a3cf27505615802fc1943942bc498
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.12.13",
