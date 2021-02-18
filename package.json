@@ -1,16 +1,16 @@
 {
-    "name": "ts-starter",
+    "name": "@-0/amplify",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.2.67",
+    "version": "0.0.1",
     "description": "typescript configuration and starter project",
     "type": "module",
     "main": "./lib/index.js",
     "types": "./lib/index.d.ts",
-    "repository": "https://github.com/loganpowell/ts-starter",
-    "homepage": "https://github.com/loganpowell/ts-starter",
+    "repository": "https://github.com/subs0/amplify",
+    "homepage": "https://github.com/subs0/amplify",
     "scripts": {
-        "pages": "npm run types && npm run jsdoc",
+        "pages": "npm run build && gh-pages -d @-0/amplify",
         "clean": "rm -rf ./lib & rm -rf ./dist &  rm -rf .cache",
         "madge": "madge --circular lib/",
         "typewatch": "tsc --project tsconfig.json",
@@ -29,7 +29,20 @@
     "publishConfig": {
         "access": "public"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@-0/browser": "^0.3.0",
+        "@-0/hdom": "^0.3.0",
+        "@-0/keys": "^0.3.2",
+        "@-0/spool": "^0.3.0",
+        "@-0/utils": "^0.3.2",
+        "@thi.ng/arrays": "^0.10.1",
+        "@thi.ng/associative": "5.0.17",
+        "@thi.ng/atom": "^4.1.27",
+        "@thi.ng/checks": "^2.8.0",
+        "@thi.ng/paths": "^4.1.13",
+        "@thi.ng/transducers": "^7.5.8",
+        "@thi.ng/rstream": "^5.1.0"
+    },
     "peerDependencies": {},
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.12.13",
@@ -50,9 +63,7 @@
         "ts-jest": "^26.5.1",
         "ts-node": "^9.1.1"
     },
-    "browserslist": [
-        "last 3 Chrome versions"
-    ],
+    "browserslist": [ "last 3 Chrome versions" ],
     "prettier": {
         "singleQuote": false,
         "printWidth": 120,
