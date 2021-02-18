@@ -2,7 +2,7 @@
     "name": "@-0/stack",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.2.54",
+    "version": "0.3.0",
     "description": "Monorepo for -0/ repo subtrees",
     "main": "./lib/index.js",
     "type": "module",
