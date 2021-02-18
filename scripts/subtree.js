@@ -3,12 +3,12 @@ import { exec, args } from "./utils.js"
 const msg = "syncing supertree with subtree"
 
 const subtree = ({ st, via, br, msg }) => {
-  exec(
-    `git add . && ` +
-      `git commit -m "${msg}" && ` +
-      `git subtree ${via} --prefix=src/${st} ${st} ${br}`,
-    { stdio: [0, 1, 2] }
-  )
+    exec(
+        //`git add . && ` +
+        //  `git commit -m "${msg}" && ` +
+        `git subtree ${via} --prefix=src/${st} ${st} ${br}`,
+        { stdio: [ 0, 1, 2 ] }
+    )
 }
 
 subtree(args(msg))
