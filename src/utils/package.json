@@ -2,7 +2,11 @@
     "name": "@-0/utils",
     "author": "Logan Powell",
     "license": "MIT",
+<<<<<<< HEAD
     "version": "0.2.113",
+=======
+    "version": "0.3.2",
+>>>>>>> 1d4d43c485ee3dfa7e7a71faa983ae04d5899ca0
     "description": "utilities for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
@@ -30,12 +34,20 @@
         "querystring": "^0.2.1"
     },
     "peerDependencies": {
+<<<<<<< HEAD
         "@-0/keys": "^0.2.116",
+=======
+        "@-0/keys": "^0.3.2",
+>>>>>>> 1d4d43c485ee3dfa7e7a71faa983ae04d5899ca0
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0"
     },
     "devDependencies": {
+<<<<<<< HEAD
         "@-0/keys": "^0.2.116",
+=======
+        "@-0/keys": "^0.3.2",
+>>>>>>> 1d4d43c485ee3dfa7e7a71faa983ae04d5899ca0
         "@babel/plugin-transform-modules-commonjs": "^7.12.13",
         "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0",
