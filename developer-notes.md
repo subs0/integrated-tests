@@ -10,6 +10,7 @@ These are required to be installed globally for `scripts`:
 - `jest`
 - `parcel`
 - `gh-pages`
+- `@aws-amplify/cli`
 
 ## Last Compilation Environment
 
