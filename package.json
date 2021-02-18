@@ -22,39 +22,41 @@
         "start": "npm run madge && concurrently \"npm run typewatch\" \"parcel example/index.html --global md -p 8080 --open -d dist watch\"",
         "postgit": "git push origin master",
         "git": "git add . && git commit -m",
-        "cl:keys": "node scripts/clean st=keys via=push",
-        "cl:utils": "node scripts/clean st=utils via=push",
-        "cl:spool": "node scripts/clean st=spool via=push",
-        "cl:browser": "node scripts/clean st=browser via=push",
-        "cl:hdom": "node scripts/clean st=hdom via=push",
+
+        "cl:keys": "node scripts/clean st=keys",
+        "cl:utils": "node scripts/clean st=utils",
+        "cl:spool": "node scripts/clean st=spool",
+        "cl:browser": "node scripts/clean st=browser",
+        "cl:hdom": "node scripts/clean st=hdom",
+
         "tp:keys": "node scripts/types st=keys",
         "tp:spool": "node scripts/types st=spool",
         "tp:utils": "node scripts/types st=utils",
         "tp:browser": "node scripts/types st=browser",
         "tp:hdom": "node scripts/types st=hdom",
+
         "up:keys": "node scripts/update st=keys",
         "up:utils": "node scripts/update st=utils",
         "up:spool": "node scripts/update st=spool",
         "up:browser": "node scripts/update st=browser",
         "up:hdom": "node scripts/update st=hdom",
-        "st:keys": "node scripts/subtree st=keys via=push",
-        "st:utils": "node scripts/subtree st=utils via=push",
-        "st:spool": "node scripts/subtree st=spool via=push",
-        "st:browser": "node scripts/subtree st=browser via=push",
-        "st:hdom": "node scripts/subtree st=hdom via=push",
+
+        "st:keys": "node scripts/subtree st=keys via=pull",
+        "st:utils": "node scripts/subtree st=utils via=pull",
+        "st:spool": "node scripts/subtree st=spool via=pull",
+        "st:browser": "node scripts/subtree st=browser via=pull",
+        "st:hdom": "node scripts/subtree st=hdom via=pull",
+
         "go:keys": "npm run cl:keys && npm run tp:keys && npm run up:keys && npm run st:keys",
         "go:utils": "npm run cl:utils && npm run tp:utils && npm run up:utils && npm run st:utils",
         "go:spool": "npm run cl:spool && npm run tp:spool && npm run up:spool && npm run st:spool",
         "go:browser": "npm run cl:browser && npm run tp:browser && npm run up:browser && npm run st:browser",
         "go:hdom": "npm run cl:hdom && npm run tp:hdom && npm run up:hdom && npm run st:hdom",
+
         "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:browser && npm run go:hdom && npm run ncu",
         "ncu": "ncu -u && npm i && npm audit fix"
     },
-    "keywords": [
-        "thi.ng",
-        "multiplex",
-        "FRP"
-    ],
+    "keywords": [ "thi.ng", "multiplex", "FRP" ],
     "peerDependencies": {
         "@thi.ng/arrays": "^0.10.1",
         "@thi.ng/associative": "5.0.17",
