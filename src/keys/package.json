@@ -2,11 +2,7 @@
     "name": "@-0/keys",
     "author": "Logan Powell",
     "license": "MIT",
-<<<<<<< HEAD
-    "version": "0.2.116",
-=======
     "version": "0.3.2",
->>>>>>> c65e4b4adb788d5463fcd6ce5c5912c3747fb0bd
     "description": "keys/constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
@@ -21,13 +17,7 @@
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
-    "keywords": [
-        "thi.ng",
-        "-0",
-        "FRP",
-        "keys",
-        "constants"
-    ],
+    "keywords": [ "thi.ng", "-0", "FRP", "keys", "constants" ],
     "publishConfig": {
         "access": "public"
     },
