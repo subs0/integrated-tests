@@ -21,11 +21,10 @@
     },
     "keywords": [ "thi.ng", "-0", "FRP", "keys", "constants" ],
     "dependencies": {
+        "@-0/keys": "^0.3.2",
         "querystring": "^0.2.1"
     },
     "peerDependencies": {
-        "@-0/keys": "^0.3.2",
-        "@thi.ng/checks": "^2.8.0",
         "@thi.ng/rstream": "^5.1.0"
     },
     "devDependencies": {
