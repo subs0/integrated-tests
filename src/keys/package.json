@@ -17,17 +17,22 @@
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
-    "keywords": [ "thi.ng", "-0", "FRP", "keys", "constants" ],
+    "keywords": [
+        "thi.ng",
+        "-0",
+        "FRP",
+        "keys",
+        "constants"
+    ],
     "publishConfig": {
         "access": "public"
     },
     "peerDependencies": {
-        "@thi.ng/atom": "^4.1.27",
-        "@thi.ng/rstream": "^5.1.0"
+        "@thi.ng/rstream": "^6.0.8"
     },
     "devDependencies": {
-        "@thi.ng/atom": "^4.1.27",
-        "@thi.ng/rstream": "^5.1.0"
+        "@thi.ng/atom": "^4.1.35",
+        "@thi.ng/rstream": "^6.0.8"
     },
     "prettier": {
         "singleQuote": false,
