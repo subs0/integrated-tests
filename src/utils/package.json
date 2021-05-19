@@ -19,13 +19,7 @@
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
-    "keywords": [
-        "thi.ng",
-        "-0",
-        "FRP",
-        "keys",
-        "constants"
-    ],
+    "keywords": [ "thi.ng", "-0", "FRP", "keys", "constants" ],
     "dependencies": {
         "@-0/keys": "^0.3.3",
         "querystring": "^0.2.1"
@@ -34,7 +28,6 @@
         "@thi.ng/rstream": "^6.0.8"
     },
     "devDependencies": {
-        "@-0/keys": "^0.3.3",
         "@babel/plugin-transform-modules-commonjs": "^7.14.0",
         "@thi.ng/checks": "^2.9.6",
         "@thi.ng/rstream": "^6.0.8",
