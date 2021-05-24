@@ -5,7 +5,19 @@ export const popstate$ = fromDOMEvent(window, "popstate");
 export const DOMContentLoaded$ = fromDOMEvent(window, "DOMContentLoaded");
 export const DOMnavigated$ = merge({
     src: [popstate$, DOMContentLoaded$]
-}).transform(map((x) => ({
-    [URL_FULL]: x.target.location.href,
-    [DOM_NODE]: x.currentTarget
-})));
+}).transform({
+    xform: map((x) => {
+        if (x.target.location.href && x.currentTarget) {
+            return {
+                [URL_FULL]: x.target.location.href,
+                [DOM_NODE]: x.currentTarget
+            };
+        }
+        console.log("DOMnavigated$ triggered, but missing `x.target.location.href &/ x.currentTarget`", JSON.stringify(x, null, 2));
+        return x;
+    }),
+    error: e => {
+        console.warn("error in DOMnavigated$:", e);
+        return true;
+    }
+});

@@ -19,7 +19,7 @@
         "docs": "npm run types && npm run jsdoc",
         "clean": "rm -rf .cache build dist",
         "build": "npm run clean && cross-env NODE_ENV=production parcel build example/index.html -d @-0/stack --no-source-maps --no-cache --public-url ./",
-        "start": "npm run madge && concurrently \"npm run typewatch\" \"parcel example/index.html --global md -p 8080 --open -d dist watch\"",
+        "start": "npm run madge && concurrently \"npm run typewatch\" \"parcel example/index.html md -p 8080 --open -d dist watch\"",
         "postgit": "git push origin master",
         "git": "git add . && git commit -m",
         "cl:keys": "node scripts/clean st=keys",
@@ -61,11 +61,11 @@
         "FRP"
     ],
     "dependencies": {
-        "@-0/browser": "^0.3.0",
-        "@-0/hdom": "^0.3.0",
-        "@-0/keys": "^0.3.2",
-        "@-0/spool": "^0.3.0",
-        "@-0/utils": "^0.3.2"
+        "@-0/browser": "^0.3.1",
+        "@-0/hdom": "^0.3.1",
+        "@-0/keys": "^0.3.3",
+        "@-0/spool": "^0.3.1",
+        "@-0/utils": "^0.3.3"
     },
     "peerDependencies": {
         "@thi.ng/paths": "^4.2.7",

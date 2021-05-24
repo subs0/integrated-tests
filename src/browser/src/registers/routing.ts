@@ -10,14 +10,16 @@ import { DOMnavigated$ } from "../core"
 
 /**
  *
- * expects payload of
+ * Task alias: Command forwards any validated target
+ * emissions to a larger set of Commands via a Task. Expects
+ * payload of
  * ```
  * { target: { location: { href } }, currentTarget }
  * ```
  */
 export const registerRouterDOM = (router): Command => {
-    //console.log("DOM Router Registered")
-    const task = URL_DOM__ROUTE(router)
+    console.log("DOM Router Registered")
+    const routing_task = URL_DOM__ROUTE(router)
     return registerCMD({
         [CMD_SRC$]: DOMnavigated$,
         [CMD_SUB$]: "_URL_NAVIGATED$_DOM",
@@ -26,7 +28,7 @@ export const registerRouterDOM = (router): Command => {
             const url = acc[URL_FULL]
             const node = acc[DOM_NODE]
             const props = { [URL_FULL]: url, [DOM_NODE]: node }
-            if (url && node) return run$.next(task(props))
+            if (url && node) return run$.next(routing_task(props))
             console.warn(Err_missing_props("_URL_NAVIGATED$_DOM (registerRouterDOM)", props))
         }
     })

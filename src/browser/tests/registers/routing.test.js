@@ -19,30 +19,57 @@ import { log$, out$, run$, cmd$ } from "@-0/spool"
 import { URL2obj } from "@-0/utils"
 import { registerRouterDOM } from "../../src/registers"
 
-const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
+//const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
 
 describe("registerRouterDOM", () => {
-    const router_fn = url => ({ [URL_DATA]: true, [URL_PAGE]: 1 })
-    //const router_obj = {
-    //    [CFG_RUTR]    : router_fn,
-    //    [ROUTER_PREP] : [],
-    //    [ROUTER_POST] : [],
-    //    [ROUTER_PRFX] : "aws"
-    //}
-    //cmd$.subscribe(map(console.log))
-    const ROUTER = registerRouterDOM(router_fn)
+    log$.subscribe({
+        next : x => {
+            console.log("log$:", x)
+        }
+    })
+    // all router functions take in a URL and should output
+    // an object with props:
+    // { DATA: <json>, PAGE: <component> }
+    const router_fn = url => {
+        console.log({ url })
+        return { [URL_DATA]: true, [URL_PAGE]: 1 }
+    }
+    registerRouterDOM(router_fn)
     const spy = jest.fn(x => x)
-    out$.subscribeTopic("_URL_NAVIGATED$_DOM", { next: spy, error: console.warn })
+    out$.subscribeTopic(
+        "_URL_NAVIGATED$_DOM",
+        {
+            next  : x => {
+                console.log({ x })
+                spy(x)
+                return
+            },
+            error : e => {
+                console.warn("error in registers/registerRouterDOM:", e)
+                return false
+            }
+        },
+        { id: "testing registerRouterDOM" }
+    )
 
-    const missing_props = warned()
+    //const missing_props = warned()
 
-    test("1: popstate events trigger _URL_NAVIGATED$_DOM Command (routing)", () => {
-        fireEvent(window, createEvent("popstate", window))
+    test("1: 'popstate' events trigger `_URL_NAVIGATED$_DOM` Command (routing)", () => {
+        fireEvent(
+            window,
+            createEvent(
+                "popstate",
+                window,
+                {
+                    bubbles    : true,
+                    cancelable : true
+                },
+                { EventType: "CustomEvent" }
+            )
+        )
         const result = spy.mock.results[0].value
         const sub$ = result[CMD_SUB$]
         const url = result[CMD_ARGS][URL_FULL]
-
-        //expect(missing_props.mock.calls.length).toBe(1)
         expect(spy.mock.calls.length).toBe(1)
         expect({ [CMD_SUB$]: sub$, [URL_FULL]: url }).toMatchObject({
             [CMD_SUB$] : "_URL_NAVIGATED$_DOM",
@@ -50,13 +77,11 @@ describe("registerRouterDOM", () => {
         })
     })
 
-    test("2: DOMContentLoaded events trigger _URL_NAVIGATED$_DOM Command (routing)", () => {
+    test("2: 'DOMContentLoaded' events trigger `_URL_NAVIGATED$_DOM` Command (routing)", () => {
         fireEvent(window, createEvent("DOMContentLoaded", window))
         const result = spy.mock.results[1].value
         const sub$ = result[CMD_SUB$]
         const url = result[CMD_ARGS][URL_FULL]
-
-        //expect(missing_props.mock.calls.length).toBe(1)
         expect(spy.mock.calls.length).toBe(2)
         expect({ [CMD_SUB$]: sub$, [URL_FULL]: url }).toMatchObject({
             [CMD_SUB$] : "_URL_NAVIGATED$_DOM",

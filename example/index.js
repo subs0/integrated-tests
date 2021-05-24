@@ -2,7 +2,7 @@ import { getInUnsafe } from "@thi.ng/paths"
 import { isObject } from "@thi.ng/checks"
 import { EquivMap } from "@thi.ng/associative"
 import { map } from "@thi.ng/transducers"
-
+import { trace } from "@thi.ng/rstream"
 import "regenerator-runtime"
 // import scrolly from "@mapbox/scroll-restorer"
 // scrolly.start()
@@ -28,6 +28,7 @@ import {
     CFG_LOG$,
     CFG_DRFT,
     CFG_VIEW,
+    CFG_KICK,
     RTR_PRFX,
     RTR_POST,
     HD_TITL,
@@ -43,7 +44,7 @@ import {
 const log = console.log
 
 log$.subscribe(map(x => log("log$:", x)))
-//trace$("run$     ->", run$)
+trace("run$     ->", run$)
 ////trace$("command$ ->", command$)
 //trace$("out$     ->", out$)
 //trace$("task$    ->", task$)
@@ -102,6 +103,7 @@ const getSomeJSON = async (path, uid) => {
           })()
         : (async () => {
               let list = await fetch(`${text_base}${path}/`).then(r => r.json())
+              console.log({ list })
               return {
                   [DOM_HEAD] : {
                       [HD_TITL] : `${path.replace(/^\w/, c => c.toUpperCase())} list`,
@@ -199,8 +201,8 @@ const routerCfg = async url => {
 
 // CHILD DEF: sig = (ctx, attrs, ...any)
 
-const child = (ctx, id, img, sz, ...args) =>
-    // log("child"),
+const child = (ctx, id, img, sz, ...args) => (
+    log("child"),
     [
         "img",
         {
@@ -221,6 +223,7 @@ const child = (ctx, id, img, sz, ...args) =>
         },
         ...args
     ]
+)
 
 const zoomOnNav = (ctx, id, img, sz) => [ FLIPkid, [ child, id, img, sz ] ]
 
@@ -344,14 +347,13 @@ const router = {
 }
 
 // const router = routerCfg
-
 const w_config = {
     [CFG_VIEW] : app,
     [CFG_RUTR] : router,
     [CFG_ROOT] : document.getElementById("app"), // <- 🔍
-    [CFG_DRFT] : { users: [] }
+    [CFG_DRFT] : { users: [] },
     //[CFG_LOG$] : "state ->"
-    //[CFG_KICK]: true,
+    [CFG_KICK] : true
 
     // arbitrary context k/v pairs...
     // theme: THEME
