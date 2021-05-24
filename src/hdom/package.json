@@ -31,10 +31,10 @@
         "access": "public"
     },
     "dependencies": {
-        "@-0/keys": "^0.3.4",
-        "@-0/utils": "^0.3.4",
-        "@-0/spool": "^0.3.2",
-        "@-0/browser": "^0.3.2"
+        "@-0/keys": "^0.3.5",
+        "@-0/utils": "^0.3.5",
+        "@-0/spool": "^0.3.3",
+        "@-0/browser": "^0.3.3"
     },
     "peerDependencies": {
         "@thi.ng/paths": "^4.2.7",
@@ -53,8 +53,8 @@
         "@thi.ng/transducers-hdom": "^2.0.94",
         "@types/jest": "^26.0.23",
         "@types/node": "^15.6.0",
-        "@typescript-eslint/eslint-plugin": "^4.24.0",
-        "@typescript-eslint/parser": "^4.24.0",
+        "@typescript-eslint/eslint-plugin": "^4.25.0",
+        "@typescript-eslint/parser": "^4.25.0",
         "babel-jest": "^26.6.3",
         "better-docs": "^2.3.2",
         "cross-env": "^7.0.3",
