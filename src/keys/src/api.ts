@@ -44,7 +44,6 @@ export type Task = [Command | HOCommand]
 export type HOTask = (acc: Accumulator) => Task
 
 /**
- *
  * Configuration for boot config
  * FIXME: to complex?
  */
