@@ -21,23 +21,23 @@ import {
 describe("Commands: routing", () => {
     test("1: HURLer: relative link click triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)
-        DOMnavigated$.subscribe(map(spy))
+        DOMnavigated$.subscribe({ next: spy })
 
         let a = document.createElement("a")
-        a.href = "/hello"
+        a.href = "/test/HURLer/1"
         a.addEventListener("click", HURLer)
 
         fireEvent(a, createEvent("click", a))
         expect(spy).toHaveBeenCalledTimes(1)
         const result = spy.mock.results[0].value
-        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "http://localhost/hello" })
+        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "http://localhost/test/HURLer/1" })
     })
     test("2: HURLer: absolute link click  triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)
-        DOMnavigated$.subscribe(map(spy))
+        DOMnavigated$.subscribe({ next: spy })
 
         let a = document.createElement("a")
-        a.href = "https://hello.world/earth"
+        a.href = "https://hello.world/test/HURLer/2"
         a.addEventListener("click", HURLer)
 
         fireEvent(a, createEvent("click", a))
@@ -45,23 +45,23 @@ describe("Commands: routing", () => {
         // DOMnavigated$ has been triggered twice at this point
         expect(spy).toHaveBeenCalledTimes(2)
         const result = spy.mock.results[1].value
-        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "https://hello.world/earth" })
+        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "https://hello.world/test/HURLer/2" })
     })
     test("3: HURL Command: dispatch triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)
-        DOMnavigated$.subscribe(map(spy))
+        DOMnavigated$.subscribe({ next: spy })
         const sim_event = href => ({
             currentTarget : { document: null },
             target        : {
                 href
             }
         })
-        run$.next({ ...HURL, [CMD_ARGS]: sim_event("/this-was-run") })
+        run$.next({ ...HURL, [CMD_ARGS]: sim_event("/test-HURL-3") })
 
         // DOMnavigated$ has been triggered twice at this point
         expect(spy).toHaveBeenCalledTimes(2)
         const result = spy.mock.results[1].value
-        expect(result).toMatchObject({ [URL_FULL]: "/this-was-run" })
+        expect(result).toMatchObject({ [URL_FULL]: "/test-HURL-3" })
     })
     test("4: SET_LINK_ATTRS_DOM Command: dispatch marks clicked links visited/active", () => {
         let div = document.createElement("div")

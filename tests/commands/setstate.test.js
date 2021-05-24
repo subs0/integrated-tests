@@ -6,16 +6,16 @@ import { $store$ } from "../../src/store"
 import { CMD_ARGS, SET_DATA, SET_PATH } from "@-0/keys"
 
 describe("setstate", () => {
-    test("1: createSetStateCMD state/store input is used as state container", () => {
+    test("1: `createSetStateCMD` state/store input is used as state container", () => {
         const store = new Atom({ hello: null })
-        const SET = createSetStateCMD(store)
+        const CUSTOM_STATE_SETTING_COMMAND = createSetStateCMD(store)
         // before
         expect(store.deref()).toMatchObject({ hello: null })
-        out$.next({ ...SET, [CMD_ARGS]: { [SET_PATH]: [ "hello" ], [SET_DATA]: "yay! 👏" } })
+        out$.next({ ...CUSTOM_STATE_SETTING_COMMAND, [CMD_ARGS]: { [SET_PATH]: [ "hello" ], [SET_DATA]: "yay! 👏" } })
         // after
         expect(store.deref()).toMatchObject({ hello: "yay! 👏" })
     })
-    test("2: SET_STATE Command: applies submitted state changes to global `$store$`", () => {
+    test("2: `SET_STATE` Command: applies submitted state changes to global `$store$`", () => {
         // before
         expect($store$.deref()).toMatchObject({})
         out$.next({ ...SET_STATE, [CMD_ARGS]: { [SET_PATH]: [], [SET_DATA]: "hello" } })

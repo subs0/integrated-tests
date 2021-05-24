@@ -6,11 +6,10 @@ import { fromDOMEvent, merge, ISubscribable } from "@thi.ng/rstream"
 import { map } from "@thi.ng/transducers"
 
 import { URL_FULL, DOM_NODE } from "@-0/keys"
-
 // @ts-ignore
-export const popstate$: any = fromDOMEvent(window, "popstate")
+export const popstate$: ISubscribable<any> = fromDOMEvent(window, "popstate")
 // @ts-ignore
-export const DOMContentLoaded$: any = fromDOMEvent(window, "DOMContentLoaded")
+export const DOMContentLoaded$: ISubscribable<any> = fromDOMEvent(window, "DOMContentLoaded")
 
 /**
  *
@@ -36,9 +35,22 @@ export const DOMContentLoaded$: any = fromDOMEvent(window, "DOMContentLoaded")
  */
 export const DOMnavigated$ = merge({
     src: [ popstate$, DOMContentLoaded$ ]
-}).transform(
-    map((x: Event | any) => ({
-        [URL_FULL]: x.target.location.href,
-        [DOM_NODE]: x.currentTarget
-    }))
-)
+}).transform({
+    xform: map((x: Event | any) => {
+        if (x.target.location.href && x.currentTarget) {
+            return {
+                [URL_FULL]: x.target.location.href,
+                [DOM_NODE]: x.currentTarget
+            }
+        }
+        console.log(
+            "DOMnavigated$ triggered, but missing `x.target.location.href &/ x.currentTarget`",
+            JSON.stringify(x, null, 2)
+        )
+        return x
+    }),
+    error: e => {
+        console.warn("error in DOMnavigated$:", e)
+        return true
+    }
+})

@@ -7,8 +7,8 @@ describe("stream$", () => {
     test("popstate$ and DOMnavigated$ emissions when popState event fired on window Object", () => {
         const spy_pop = jest.fn(x => x)
         const spy_nav = jest.fn(x => x)
-        popstate$.subscribe(map(spy_pop))
-        DOMnavigated$.subscribe(map(spy_nav))
+        popstate$.subscribe({ next: spy_pop, error: e => false })
+        DOMnavigated$.subscribe({ next: spy_nav, error: e => false })
         fireEvent(
             window,
             createEvent(
@@ -28,7 +28,7 @@ describe("stream$", () => {
     })
     test("DOMContentLoaded emission when fired on window Object", () => {
         const spy = jest.fn(x => x)
-        DOMContentLoaded$.subscribe(map(spy))
+        DOMContentLoaded$.subscribe({ next: spy, error: e => false })
         window.dispatchEvent(
             new Event("DOMContentLoaded", {
                 bubbles    : true,

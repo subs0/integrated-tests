@@ -100,17 +100,17 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
      * 1. for each run$ emissions, measure length of:
      *      a. single command = 1
      *      b. task = task.length
-     * 2. create  for every emission from
+     * 2. create for every emission from
      *      the run$ emission
      */
     const subtask = acc => [
         ...preroute,
         {
-            //FIXME: if prefix provided, remove it from result
+            // 📌 🤔: consider how to handle stage flag URL prefix (e.g., /staging, from AWS)
             [CMD_ARGS]: acc[URL_FULL] ? router(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
             [CMD_RESO]: (_acc, _res) => ({
-                // 🤔: no page in core... can it be migrated/refactored into DOM Router?
-                [URL_PAGE]: (_res && _res[URL_PAGE]) || null,
+                // no page when used server-side...
+                ..._res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] },
                 [URL_DATA]: (_res && _res[URL_DATA]) || null
             }),
             [CMD_ERRO]: route_error
