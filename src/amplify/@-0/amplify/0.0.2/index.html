@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Home</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#sum">sum</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p></p>
+                    <h1>Home</h1>
+                </header>
+                
+
+
+
+    
+
+
+    <h3>@-0/amplify 0.0.2</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h2>Instructions</h2>
+<ol>
+<li>Change project name in <code>package.json</code></li>
+</ol>
+<pre class="prettyprint source lang-diff"><code>{
+-  &quot;name&quot;: &quot;ts-starter&quot;,
++  &quot;name&quot;: &quot;&lt;whatevs>&quot;,
+-  &quot;description&quot;: &quot;typescript configuration and starter project&quot;,
++  &quot;description&quot;: &quot;&lt;also whatevs...>&quot;,
+...
+-  &quot;repository&quot;: &quot;https://github.com/loganpowell/ts-starter&quot;,
++  &quot;repository&quot;: &quot;https://github.com/&lt;profile>/&lt;repo>&quot;,
+-  &quot;homepage&quot;: &quot;https://github.com/loganpowell/ts-starter&quot;,
++  &quot;homepage&quot;: &quot;https://github.com/&lt;profile>/&lt;repo>&quot;,
+-  &quot;scripts&quot;: {
+-    &quot;pages&quot;: &quot;gh-pages -d @-0/spool&quot;,
+# referenceTitle from ./jsdoc/jsdoc.json:
++    &quot;pages&quot;: &quot;gh-pages -d &lt;referenceTitle>&quot;,
+    ...
+</code></pre>
+<ol start="2">
+<li>Update <code>./jsdoc/jsdoc.json</code></li>
+</ol>
+<pre class="prettyprint source lang-diff"><code>  &quot;source&quot;: {
+    &quot;include&quot;: [&quot;src&quot;, &quot;README.md&quot;],
+    &quot;includePattern&quot;: &quot;\\.(jsx|js|ts|tsx)$&quot;,
+-   &quot;excludePattern&quot;: &quot;(node_modules/|spool/)&quot;
++   &quot;excludePattern&quot;: &quot;(node_modules/|&lt;project>/)&quot;
+  },
+  &quot;templates&quot;: {
+-   &quot;referenceTitle&quot;: &quot;`@-0/spool` docs&quot;,
++   &quot;referenceTitle&quot;: &quot;&lt;project> docs&quot;,
+    &quot;disableSort&quot;: true,
+    &quot;collapse&quot;: false
+  },
+</code></pre>
+<ol start="3">
+<li><code>npm i</code></li>
+</ol>
+<h2>Tests</h2>
+<ul>
+<li>Unit tests should live next to (in the same directory as)
+the functions that they test.</li>
+<li>integration tests (tests that connect unit tests together
+that don't have an associated function definition) should
+live in the <code>/tests</code> directory</li>
+</ul>
+<h2>Dependencies</h2>
+<ol>
+<li><code>concurrently</code>: concurrently runs
+<ul>
+<li>typescript compiler <code>watch</code> mode</li>
+<li>jest tests</li>
+<li>run with <code>npm run tests</code></li>
+</ul>
+</li>
+<li>compiled from/to esm modules throughout (uses typescript
+compiler)</li>
+<li>enables esm modules for tests (uses <code>babel-jest</code>)</li>
+<li>integrated with jsdoc template from <a href="https://github.com/SoftwareBrothers/better-docs">better-docs</a></li>
+<li>checks for circular dependencies in <code>lib</code> output using <code>madge</code></li>
+</ol>
+<h2>Customizing</h2>
+<p>If you don't need one of the features above, just delete its
+directory and any related scripts from <code>package.json</code></p>
+<h1>Development Environment</h1>
+<h2>IDE: VSCode:</h2>
+<ul>
+<li><a href="https://scotch.io/tutorials/linting-and-formatting-with-eslint-in-vs-code">ESLint Setup</a></li>
+<li><a href="theme">Carbonnight</a></li>
+</ul>
+<p>I find colors that don't tell me I'm making a mistake,
+mostly a distraction. Carbonnight has a minimal
+(monochromatic) set of colors. This theme in combination
+with ESLint and/or TypeScript error messages and Prettier
+instant (on save) feedback (if it gets reformated, it's
+valid-ish) allows me to focus on logic and not so much
+syntax and type errors.</p>
+<h5>ECMA/JavaScript</h5>
+<ul>
+<li><a href="REPL">Quokka</a>
+<ul>
+<li><code>&lt;filename&gt;.repl.ts/js</code> = scratchpad space before
+testing. See <code>src/sum</code> set for an example and
+<code>tsconfig.json</code> for the typescript configuration</li>
+</ul>
+</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode">Prettier</a>
+<ul>
+<li>formats your code in a consistent way. Also, if
+set up for <a href="https://scotch.io/tutorials/code-formatting-with-prettier-in-visual-studio-code">format on save</a>, gives you quick
+feedback that your code will - at least - compile
+correctly</li>
+</ul>
+</li>
+</ul>
+<h2>Dev Dependencies (NPM)</h2>
+<h4><a href="https://babeljs.io/docs/en/babel-plugin-transform-modules-commonjs"><code>@babel/plugin-transform-modules-commonjs</code></a></h4>
+<p>transforms ECMAScript modules to CommonJS</p>
+<h4><a href="https://www.npmjs.com/package/@types/jest"><code>@types/jest</code></a></h4>
+<p>contains type definitions for Jest</p>
+<h4><a href="https://www.npmjs.com/package/@types/node"><code>@types/node</code></a></h4>
+<p>contains type definitions for Node standard modules</p>
+<h4><a href="https://www.npmjs.com/package/@typescript-eslint/eslint-plugin"><code>@typescript-eslint/eslint-plugin</code></a></h4>
+<p>so that you can use ESLint and TypeScript together, without
+needing to worry about implementation detail differences
+wherever possible</p>
+<h4><a href="https://www.npmjs.com/package/@typescript-eslint/parser"><code>@typescript-eslint/parser</code></a></h4>
+<p>ESLint custom parser which leverages TypeScript ESTree to
+allow for ESLint to lint TypeScript source</p>
+<h4><a href="https://www.npmjs.com/package/babel-jest"><code>babel-jest</code></a></h4>
+<p>If you are already using jest-cli, add babel-jest and it
+will automatically compile JavaScript code using Babel.</p>
+<h4><a href="https://www.npmjs.com/package/better-docs"><code>better-docs</code></a></h4>
+<p>Documentation toolbox for your javascript / typescript
+projects based on JSDoc3 with @category, @component and
+@optional plugins.</p>
+<h4><a href="https://www.npmjs.com/package/cross-env"><code>cross-env</code></a></h4>
+<p>cross-env makes it so you can have a single command without
+worrying about setting or using the environment variable
+properly for the platform</p>
+<h4><a href="https://www.npmjs.com/package/eslint"><code>eslint</code></a></h4>
+<p>ESLint is a tool for identifying and reporting on patterns
+found in ECMAScript/JavaScript code 🧐</p>
+<h4><a href="https://www.npmjs.com/package/gh-pages"><code>gh-pages</code></a></h4>
+<p>Publish files to a gh-pages branch on GitHub (or any other
+branch anywhere else).</p>
+<h4><a href="https://www.npmjs.com/package/jest"><code>jest</code></a></h4>
+<p>🃏 Delightful JavaScript Testing</p>
+<h4><a href="https://www.npmjs.com/package/prettier"><code>prettier</code></a></h4>
+<p>opinionated code formatter. It enforces a consistent style
+(so you don't have to argue about it).</p>
+<h4><a href="https://www.npmjs.com/package/ts-jest"><code>ts-jest</code></a></h4>
+<p>TypeScript preprocessor with source map support for Jest
+that lets you use Jest to test projects written in
+TypeScript</p>
+<h4><a href="https://www.npmjs.com/package/npm-check-updates"><code>npm-check-updates</code></a></h4>
+<p>upgrades your package.json dependencies to the latest
+versions, ignoring specified versions.</p>
+<h2>Scripts:</h2>
+<pre class="prettyprint source lang-js"><code>{
+  //..,
+  &quot;scripts&quot;: {
+    // automated documentation: see jsdoc/jsdoc.json config
+    &quot;pages&quot;: &quot;gh-pages -d @-0/spool&quot;,
+    &quot;clean&quot;: &quot;rm -rf ./lib&quot;,
+    // test for circular dependencies among modules
+    &quot;madge&quot;: &quot;madge --circular lib/&quot;,
+    // hmr typescript config
+    &quot;typewatch&quot;: &quot;tsc --project tsconfig.json&quot;,
+    // typescript build config extends tsconfig.json
+    &quot;types&quot;: &quot;tsc --project tsconfig.build.json&quot;,
+    // uses jsdoc for automated documentation
+    &quot;jsdoc&quot;: &quot;jsdoc -c jsdoc/jsdoc.json --verbose --debug&quot;,
+    &quot;docs&quot;: &quot;npm run types && npm run jsdoc&quot;,
+    &quot;patch&quot;: &quot;npm version patch && npm run docs && npm run pages && npm publish&quot;,
+    // run tests in watch mode (hmr)
+    &quot;tests&quot;: &quot;npm run madge && concurrently \&quot;npm run typewatch\&quot; \&quot;jest --watchAll\&quot;&quot;,
+    // after `npm run git &lt;your commit message>`, this will run
+    &quot;postgit&quot;: &quot;git push origin master && npm run patch&quot;,
+    &quot;git&quot;: &quot;npm run ncu && git add . && git commit -m&quot;,
+    // node-check-updates
+    &quot;ncu&quot;: &quot;ncu -u && npm i && npm audit fix&quot;
+  },
+  //..
+}
+</code></pre>
+<!--links--></article>
+    </section>
+
+
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

@@ -22,14 +22,6 @@ import { registerRouterDOM } from "../../src/registers"
 //const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
 
 describe("registerRouterDOM", () => {
-    log$.subscribe({
-        next : x => {
-            console.log("log$:", x)
-        }
-    })
-    // all router functions take in a URL and should output
-    // an object with props:
-    // { DATA: <json>, PAGE: <component> }
     const router_fn = url => {
         console.log({ url })
         return { [URL_DATA]: true, [URL_PAGE]: 1 }
@@ -39,11 +31,7 @@ describe("registerRouterDOM", () => {
     out$.subscribeTopic(
         "_URL_NAVIGATED$_DOM",
         {
-            next  : x => {
-                console.log({ x })
-                spy(x)
-                return
-            },
+            next  : spy,
             error : e => {
                 console.warn("error in registers/registerRouterDOM:", e)
                 return false
@@ -55,18 +43,7 @@ describe("registerRouterDOM", () => {
     //const missing_props = warned()
 
     test("1: 'popstate' events trigger `_URL_NAVIGATED$_DOM` Command (routing)", () => {
-        fireEvent(
-            window,
-            createEvent(
-                "popstate",
-                window,
-                {
-                    bubbles    : true,
-                    cancelable : true
-                },
-                { EventType: "CustomEvent" }
-            )
-        )
+        fireEvent(window, createEvent("popstate", window))
         const result = spy.mock.results[0].value
         const sub$ = result[CMD_SUB$]
         const url = result[CMD_ARGS][URL_FULL]
