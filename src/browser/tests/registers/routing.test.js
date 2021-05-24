@@ -22,10 +22,7 @@ import { registerRouterDOM } from "../../src/registers"
 //const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
 
 describe("registerRouterDOM", () => {
-    const router_fn = url => {
-        console.log({ url })
-        return { [URL_DATA]: true, [URL_PAGE]: 1 }
-    }
+    const router_fn = url => ({ [URL_DATA]: true, [URL_PAGE]: 1 })
     registerRouterDOM(router_fn)
     const spy = jest.fn(x => x)
     out$.subscribeTopic(

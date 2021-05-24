@@ -5,7 +5,6 @@
     "version": "0.3.0",
     "description": "Monorepo for -0/ repo subtrees",
     "main": "./lib/index.js",
-    "type": "module",
     "types": "./lib/index.d.ts",
     "repository": "https://github.com/subs0/stack",
     "homepage": "https://github.com/subs0/stack",
@@ -54,11 +53,7 @@
         "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:browser && npm run go:hdom && npm run ncu",
         "ncu": "ncu -u && npm i && npm audit fix"
     },
-    "keywords": [
-        "thi.ng",
-        "multiplex",
-        "FRP"
-    ],
+    "keywords": [ "thi.ng", "multiplex", "FRP" ],
     "dependencies": {
         "@-0/browser": "^0.3.3",
         "@-0/hdom": "^0.3.3",

@@ -1,4 +1,4 @@
-module.exports = {
+export default async () => ({
     preset: "ts-jest", // "jest-playwright-preset",
     testEnvironment: "jest-environment-jsdom", //"jsdom", // "node",
     testMatch: [ "**/**/*.test.(js|ts|tsx)" ],
@@ -10,4 +10,4 @@ module.exports = {
     },
     transformIgnorePatterns: [ "node_modules/?!(@-0)" ],
     watchPathIgnorePatterns: [ "^.+\\.repl.(ts|js)$" ]
-}
+})
