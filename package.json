@@ -5,6 +5,7 @@
     "version": "0.3.0",
     "description": "Monorepo for -0/ repo subtrees",
     "main": "./lib/index.js",
+    "type": "module",
     "types": "./lib/index.d.ts",
     "repository": "https://github.com/subs0/stack",
     "homepage": "https://github.com/subs0/stack",
