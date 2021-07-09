@@ -76,7 +76,4 @@ ${index ? ``
     }
 
 Hope that helps!
-` : ""
-}
-`
-}
+` : ""}`}
