@@ -29,16 +29,12 @@ export const xKeyError = (err_str = "Command Error", c = {}, unknown_keys = [], 
 ${err_str}
 
 🔥 Unrecognized ${count > 1 ? "Props" : "Prop"} 🔥
-
 ${ stringify_fn(c, 4) }
-${Object.keys(unknown_keys)[0][0]
-        ? `
-${index ? key_index_err(c, index) : ""}
+${Object.keys(unknown_keys)[0][0] ? `${index ? key_index_err(c, index) : ""}
 
 The problematic entry/entries:
 
 ${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}` : stringify_fn(unknown_keys, 2)}` : ""}
-
 ${guide ? 
     `
 ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}:

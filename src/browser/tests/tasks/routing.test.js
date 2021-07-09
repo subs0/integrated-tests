@@ -25,6 +25,7 @@ import { INJECT_HEAD } from "../../src/commands"
 import { $store$ } from "../../src/store"
 import { URL__ROUTE, URL_DOM__ROUTE } from "../../src/tasks"
 import { stringify_fn } from "@-0/utils"
+import { setImmediate } from "timers"
 
 const router_fn = url => ({ [URL_DATA]: { here: "worn out places" }, [URL_PAGE]: "({ here }) => would be a function" })
 

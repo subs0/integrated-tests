@@ -20,7 +20,6 @@ describe("xKeyError", () => {
 funky
 
 🔥 Unrecognized Props 🔥
-
 {
     "sub$": "_ERROR",
     "args": {
@@ -30,7 +29,6 @@ funky
     "erro": "(acc, res) => null...",
     "work": "x => console.error(\\"..."
 }
-
 >> it was the 3rd Command in a Task or 2nd in a Subtask.
 
 The problematic entry/entries:
@@ -39,7 +37,6 @@ The problematic entry/entries:
   "a": 1,
   "b": 2
 }
-
 
 ACCEPTABLE ENTRY KEYS WITHIN A COMMAND:
 
