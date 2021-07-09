@@ -27,11 +27,11 @@
         "access": "public"
     },
     "peerDependencies": {
-        "@thi.ng/rstream": "^6.0.8"
+        "@thi.ng/rstream": "^6.0.10"
     },
     "devDependencies": {
-        "@thi.ng/atom": "^4.1.35",
-        "@thi.ng/rstream": "^6.0.8"
+        "@thi.ng/atom": "^4.1.37",
+        "@thi.ng/rstream": "^6.0.10"
     },
     "prettier": {
         "singleQuote": false,
