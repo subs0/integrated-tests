@@ -15,13 +15,9 @@ ${err_str}
 🔥 Unrecognized ${count > 1 ? "Props" : "Prop"} 🔥
 ${stringify_fn(c, 4)}
 ${Object.keys(unknown_keys)[0][0] ? `${index ? key_index_err(c, index) : ""}
-
 The problematic entry/entries:
-
-${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}` : stringify_fn(unknown_keys, 2)}` : ""}
-${guide ?
-        `
-ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}:
+${!index && count > 3 && !SOURCE ? `${Object.entries(unknown_keys)[0][0]}` : stringify_fn(unknown_keys, 2)}` : ""} ${guide ? `
+ACCEPTABLE PROP KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}:
 
 '${CMD_SUB$}'
 - optional
@@ -47,7 +43,7 @@ ACCEPTABLE ENTRY KEYS ${index ? "WITHIN A COMMAND" : "DURING REGISTRATION"}:
 - handles rejected Promise payloads
 - signature: ({ accumulator }, { error object }) =>
 ${index ? ``
-            : `
+        : `
 '${CMD_WORK}'
 - required
 - function that is called on payload's arrival
@@ -57,8 +53,6 @@ ${index ? ``
 '${CMD_SRC$}'
 - advanced/optional
 - source stream (see http://thi.ng/rstream)`}
-
 Hope that helps!
-` : ""}
-`;
+` : ""}`;
 };
