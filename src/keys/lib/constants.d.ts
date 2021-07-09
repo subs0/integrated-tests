@@ -28,14 +28,14 @@ export declare const DOM: {
     BODY: string;
     HEAD: string;
 };
-export declare const HD_TITL = "HD_TITL";
-export declare const HD_ICON = "HD_ICON";
-export declare const HD_META = "HD_META";
-export declare const OG_DESC = "OG_DESC";
-export declare const OG_IMGU = "OG_IMGU";
-export declare const OG_IMGW = "OG_IMGW";
-export declare const OG_IMGH = "OG_IMGH";
-export declare const OG_TYPE = "OG_TYPE";
+export declare const HD_TITL = "title";
+export declare const HD_ICON = "favicon";
+export declare const HD_META = "meta";
+export declare const OG_DESC = "og_description";
+export declare const OG_IMGU = "og_image";
+export declare const OG_IMGW = "og_image_width";
+export declare const OG_IMGH = "og_image_height";
+export declare const OG_TYPE = "og_type";
 export declare const SET_PATH = "SET_PATH";
 export declare const SET_DATA = "SET_DATA";
 export declare const STATE: {
