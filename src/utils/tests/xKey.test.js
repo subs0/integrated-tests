@@ -30,15 +30,12 @@ funky
     "work": "x => console.error(\\"..."
 }
 >> it was the 3rd Command in a Task or 2nd in a Subtask.
-
 The problematic entry/entries:
-
 {
   "a": 1,
   "b": 2
-}
-
-ACCEPTABLE ENTRY KEYS WITHIN A COMMAND:
+} 
+ACCEPTABLE PROP KEYS WITHIN A COMMAND:
 
 'sub$'
 - optional
@@ -64,8 +61,6 @@ ACCEPTABLE ENTRY KEYS WITHIN A COMMAND:
 - handles rejected Promise payloads
 - signature: ({ accumulator }, { error object }) =>
 
-
 Hope that helps!
-
 `))
 })

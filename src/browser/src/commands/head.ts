@@ -103,6 +103,8 @@ interface apiURL {
 }
 
 let IH = "_INJECT_HEAD"
+const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
+${URL_DATA}.${DOM_HEAD} props:`
 
 export const injectHead = (args: apiURL) => {
     const data = args[URL_DATA]
@@ -114,13 +116,30 @@ export const injectHead = (args: apiURL) => {
     }
 
     if (head) {
-        const knowns = [ HD_ICON, HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE ]
+        const knowns_map = {
+            [HD_ICON]: "favicon resource URL for the page",
+            [HD_TITL]: "title of the page",
+            [OG_DESC]: "open graph description",
+            [OG_IMGU]: "open graph image resource URL for the page",
+            [OG_IMGH]: "open graph image height (pixels)",
+            [OG_IMGW]: "open graph image width (pixels)",
+            [OG_TYPE]: "open graph content type (e.g., 'website')",
+            long_as_f_key: "bloop"
+        }
+        const knowns = Object.keys(knowns_map)
         const [ unknowns, unknown_map ] = diff_keys(knowns, head)
         //console.log({ unknowns })
-        const err_str = `Error in \`${IH}\` Command > \`${CMD_ARGS}\` > \`${URL_DATA}\` > \`${DOM_HEAD}\` props:`
+
         if (unknowns.length > 0) {
-            console.warn(xKeyError(err_str, unknown_map, unknowns, 0, false))
-            console.warn("acceptable prop keys:", JSON.stringify(knowns, null, 2))
+            console.error(xKeyError(err_str, unknown_map, unknowns, 0, false), `Acceptable prop keys for ${DOM_HEAD}:`)
+            console.warn("------------------------------------")
+            console.warn("key              | description  ")
+            console.warn("------------------------------------")
+            Object.entries(knowns_map).forEach(([ k, v ]) => {
+                const space = " ".repeat(16 - k.length)
+                console.warn(`${k}`.concat(space), "|", v)
+            })
+            console.warn("------------------------------------")
             return
         }
         return replaceMeta(conformToHead(head))
