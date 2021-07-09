@@ -31,10 +31,10 @@
         "access": "public"
     },
     "dependencies": {
-        "@-0/keys": "^0.3.7",
-        "@-0/utils": "^0.3.7",
-        "@-0/spool": "^0.3.5",
-        "@-0/browser": "^0.3.5"
+        "@-0/keys": "^0.3.8",
+        "@-0/utils": "^0.3.8",
+        "@-0/spool": "^0.3.6",
+        "@-0/browser": "^0.3.6"
     },
     "peerDependencies": {
         "@thi.ng/paths": "^4.2.9",
