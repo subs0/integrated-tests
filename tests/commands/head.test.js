@@ -59,7 +59,7 @@ const head_post = ` <meta charset="UTF-8">
  <title>changed</title>
  <link rel="shortcut icon" sizes="57x57" href="NA" type="image/x-icon">`
 
-const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
+//const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
 
 describe("head", () => {
     beforeEach(() => {

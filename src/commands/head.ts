@@ -102,31 +102,34 @@ interface apiURL {
     }
 }
 
-// FIXME: add title, description, etc. to @-0/keys constants
-// TODO: add title, description, etc. to @-0/keys constants
 let IH = "_INJECT_HEAD"
+
+export const injectHead = (args: apiURL) => {
+    const data = args[URL_DATA]
+    const head = data[DOM_HEAD]
+    const reqs = {
+        [URL_DATA]: {
+            [DOM_HEAD]: head
+        }
+    }
+
+    if (head) {
+        const knowns = [ HD_ICON, HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE ]
+        const [ unknowns, unknown_map ] = diff_keys(knowns, head)
+        //console.log({ unknowns })
+        const err_str = `Error in \`${IH}\` Command > \`${CMD_ARGS}\` > \`${URL_DATA}\` > \`${DOM_HEAD}\` props:`
+        if (unknowns.length > 0) {
+            console.warn(xKeyError(err_str, unknown_map, unknowns, 0, false))
+            console.warn("acceptable prop keys:", JSON.stringify(knowns, null, 2))
+            return
+        }
+        return replaceMeta(conformToHead(head))
+    }
+    return console.warn(Err_missing_props(IH, reqs))
+}
+
 export const INJECT_HEAD: any = registerCMD({
     [CMD_SUB$]: IH,
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
-    [CMD_WORK]: (args: apiURL) => {
-        const data = args[URL_DATA]
-        const head = data[DOM_HEAD]
-        const reqs = {
-            [URL_DATA]: {
-                [DOM_HEAD]: head
-            }
-        }
-
-        if (head) {
-            const [ unknowns, unknown_map ] = diff_keys(
-                [ HD_ICON, HD_META, HD_TITL, OG_DESC, OG_IMGU, OG_IMGH, OG_IMGW, OG_TYPE ],
-                head
-            )
-            //console.log({ unknowns })
-            const err_str = `Error in \`${IH}\` Command > \`${CMD_ARGS}\` > \`${URL_DATA}\` > \`${DOM_HEAD}\` props:`
-            if (unknowns.length > 0) return console.warn(xKeyError(err_str, unknown_map, unknowns, 0, false))
-            return replaceMeta(conformToHead(head))
-        }
-        return console.warn(Err_missing_props(IH, reqs))
-    }
+    [CMD_WORK]: injectHead
 })
