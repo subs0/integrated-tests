@@ -1,4 +1,4 @@
-import { cmd_nav, cmd_flip_first, cmd_flip_last_inverse_play } from "@-0/browser";
+import { cmd_flip_first, cmd_flip_last_inverse_play } from "@-0/browser";
 import { registerCMD } from "@-0/spool";
 import { isPlainObject } from "@thi.ng/checks";
 import { CFG_RUN$, CMD_ARGS } from "@-0/keys";
@@ -14,10 +14,9 @@ const sim_event = href => ({
         href
     }
 });
-const NAV = registerCMD(cmd_nav);
 const FLIP_FIRST = registerCMD(cmd_flip_first);
 const FLIP_LAST_INVERSE_PLAY = registerCMD(cmd_flip_last_inverse_play);
-const _attrs = ctx => ({
+const _attrs = (ctx, NAV) => ({
     onclick: ev => {
         ev.preventDefault();
         const target = ev.target;
@@ -27,15 +26,15 @@ const _attrs = ctx => ({
         ctx[CFG_RUN$]([Object.assign(Object.assign({}, NAV), { [CMD_ARGS]: sim_event(href) }), Object.assign(Object.assign({}, FLIP_FIRST), { [CMD_ARGS]: { id: href, target } })]);
     }
 });
-export const FLIPkid = Object.freeze({
+export const FLIPkid = _NAV => Object.freeze({
     render: (ctx, attrs, ...rest) => isPlainObject(attrs)
         ?
             [
                 "div",
-                Object.assign(Object.assign({}, attrs), _attrs(ctx)),
+                Object.assign(Object.assign({}, attrs), _attrs(ctx, _NAV)),
                 ...rest
             ]
-        : ["div", _attrs(ctx), attrs, ...rest],
+        : ["div", _attrs(ctx, _NAV), attrs, ...rest],
     init: (el, ctx) => {
         ctx[CFG_RUN$](Object.assign(Object.assign({}, FLIP_LAST_INVERSE_PLAY), { [CMD_ARGS]: {
                 element: el.firstChild,

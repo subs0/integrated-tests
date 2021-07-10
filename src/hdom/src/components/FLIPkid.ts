@@ -25,11 +25,10 @@ const sim_event = href => ({
     }
 })
 
-const NAV = registerCMD(cmd_nav)
 const FLIP_FIRST = registerCMD(cmd_flip_first)
 const FLIP_LAST_INVERSE_PLAY = registerCMD(cmd_flip_last_inverse_play)
 
-const _attrs = ctx => ({
+const _attrs = (ctx, NAV) => ({
     onclick: ev => {
         ev.preventDefault()
         // console.log({ ev })
@@ -49,31 +48,32 @@ const _attrs = ctx => ({
  * move"-like UX)
  *
  */
-export const FLIPkid = Object.freeze({
-    render: (ctx, attrs, ...rest) =>
-        isPlainObject(attrs)
-            ? // console.log("FLIPkid"),
-              [
-                  "div",
-                  {
-                      ...attrs,
-                      ..._attrs(ctx)
-                  },
-                  ...rest
-              ]
-            : [ "div", _attrs(ctx), attrs, ...rest ],
-    init: (el, ctx) => {
-        // console.log({
-        //   el,
-        //   firstChild: el.firstChild,
-        //   id: el.firstChild.getAttribute("href")
-        // }),
-        ctx[CFG_RUN$]({
-            ...FLIP_LAST_INVERSE_PLAY,
-            [CMD_ARGS]: {
-                element: el.firstChild,
-                id: el.firstChild.getAttribute("href")
-            }
-        })
-    }
-})
+export const FLIPkid = _NAV =>
+    Object.freeze({
+        render: (ctx, attrs, ...rest) =>
+            isPlainObject(attrs)
+                ? // console.log("FLIPkid"),
+                  [
+                      "div",
+                      {
+                          ...attrs,
+                          ..._attrs(ctx, _NAV)
+                      },
+                      ...rest
+                  ]
+                : [ "div", _attrs(ctx, _NAV), attrs, ...rest ],
+        init: (el, ctx) => {
+            // console.log({
+            //   el,
+            //   firstChild: el.firstChild,
+            //   id: el.firstChild.getAttribute("href")
+            // }),
+            ctx[CFG_RUN$]({
+                ...FLIP_LAST_INVERSE_PLAY,
+                [CMD_ARGS]: {
+                    element: el.firstChild,
+                    id: el.firstChild.getAttribute("href")
+                }
+            })
+        }
+    })
