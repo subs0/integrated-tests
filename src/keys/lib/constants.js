@@ -36,8 +36,8 @@ export const OG_IMGU = "og_image";
 export const OG_IMGW = "og_image_width";
 export const OG_IMGH = "og_image_height";
 export const OG_TYPE = "og_type";
-export const STATE_PATH = "STE_PATH";
-export const STATE_DATA = "STE_DATA";
+export const STATE_PATH = "SET_PATH";
+export const STATE_DATA = "SET_DATA";
 export const STATE = {
     PATH: STATE_PATH,
     DATA: STATE_DATA
