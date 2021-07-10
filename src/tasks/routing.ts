@@ -151,6 +151,7 @@ const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$
 
 export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
 export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
+export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
 
 export const URL_DOM__ROUTE = CFG => {
     // instantiate router
@@ -159,7 +160,7 @@ export const URL_DOM__ROUTE = CFG => {
     const subtask = ACC => [
         SET_ROUTE_LOADING_TRUE,
         {
-            ...cmd_href_pushstate_dom,
+            ...HREF_PUSHSTATE_DOM,
             [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] }
         },
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
