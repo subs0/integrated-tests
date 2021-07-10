@@ -217,7 +217,7 @@ const FLIPLastInvertPlay = ({
 const state = new Atom({})
 
 // render: onclick
-export const FLIP_FIRST: any = registerCMD({
+export const flip_first = {
     [CMD_SUB$]: "_FLIP_FIRST",
     [CMD_ARGS]: ({ id, target }) => ({ id, target }),
     [CMD_WORK]: args => {
@@ -226,10 +226,10 @@ export const FLIP_FIRST: any = registerCMD({
         if (id && target) return FLIPFirst({ id, target, state })
         return console.warn(Err_missing_props("_FLIP_FIRST", props))
     }
-})
+}
 
 // init
-export const FLIP_LAST_INVERSE_PLAY: any = registerCMD({
+export const flip_last_inverse_play = {
     [CMD_SUB$]: "_FLIP_LAST_INVERSE_PLAY",
     [CMD_ARGS]: ({ id, element }) => ({ id, element }),
     [CMD_WORK]: args => {
@@ -238,4 +238,4 @@ export const FLIP_LAST_INVERSE_PLAY: any = registerCMD({
         if (id && element) return FLIPLastInvertPlay({ id, element, state })
         return console.warn(Err_missing_props("_FLIP_LAST_INVERSE_PLAY", props))
     }
-})
+}

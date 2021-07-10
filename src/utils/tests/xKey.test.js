@@ -34,7 +34,8 @@ The problematic entry/entries:
 {
   "a": 1,
   "b": 2
-} 
+}
+ 
 ACCEPTABLE PROP KEYS WITHIN A COMMAND:
 
 'sub$'
@@ -48,7 +49,6 @@ ACCEPTABLE PROP KEYS WITHIN A COMMAND:
   - true/1/"a" : Primitive: static payload is _not_ accumulated
   - {...}      : Object: static payload _is_ accumulated
   - (1) =>     : Unary function (non-nullary): accepts accumulator
-  - (0) =>     : Nullary function: dispatch to custom stream (advanced)
   - { P }      : Promise or (#) => { P } Promise returning function
 
 'reso'

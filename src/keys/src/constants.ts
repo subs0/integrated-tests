@@ -54,13 +54,13 @@ export const OG_IMGH = "og_image_height"
 export const OG_TYPE = "og_type"
 
 // set$$tate constants
-export const SET_PATH = "SET_PATH"
-export const SET_DATA = "SET_DATA"
+export const STATE_PATH = "STATE_PATH"
+export const STATE_DATA = "STATE_DATA"
 
 // public
 export const STATE = {
-    PATH: SET_PATH,
-    DATA: SET_DATA
+    PATH: STATE_PATH,
+    DATA: STATE_DATA
 }
 
 // Primary Userland Command Properties

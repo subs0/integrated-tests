@@ -123,23 +123,21 @@ export const injectHead = (args: apiURL) => {
             [OG_IMGU]: "open graph image resource URL for the page",
             [OG_IMGH]: "open graph image height (pixels)",
             [OG_IMGW]: "open graph image width (pixels)",
-            [OG_TYPE]: "open graph content type (e.g., 'website')",
-            long_as_f_key: "bloop"
+            [OG_TYPE]: "open graph content type (e.g., 'website')"
         }
         const knowns = Object.keys(knowns_map)
         const [ unknowns, unknown_map ] = diff_keys(knowns, head)
         //console.log({ unknowns })
 
         if (unknowns.length > 0) {
-            console.error(xKeyError(err_str, unknown_map, unknowns, 0, false), `Acceptable prop keys for ${DOM_HEAD}:`)
-            console.warn("------------------------------------")
-            console.warn("key              | description  ")
-            console.warn("------------------------------------")
-            Object.entries(knowns_map).forEach(([ k, v ]) => {
+            console.warn(xKeyError(err_str, unknown_map, unknowns, 0, false), `Acceptable prop keys for ${DOM_HEAD}:`)
+            const line = "------------------------------------\n"
+            const key = "key              | description       \n"
+            const entries = Object.entries(knowns_map).reduce((a, [ k, v ]) => {
                 const space = " ".repeat(16 - k.length)
-                console.warn(`${k}`.concat(space), "|", v)
-            })
-            console.warn("------------------------------------")
+                return a.concat(`${k}` + space + " | " + v + "\n")
+            }, "")
+            console.warn(line + key + line + entries + line)
             return
         }
         return replaceMeta(conformToHead(head))
@@ -147,8 +145,8 @@ export const injectHead = (args: apiURL) => {
     return console.warn(Err_missing_props(IH, reqs))
 }
 
-export const INJECT_HEAD: any = registerCMD({
+export const cmd_inject_head = {
     [CMD_SUB$]: IH,
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
     [CMD_WORK]: injectHead
-})
+}

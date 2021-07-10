@@ -3,51 +3,57 @@ import { EquivMap } from "@thi.ng/associative"
 import { map } from "@thi.ng/transducers"
 
 import { URL_FULL, DOM_NODE, CMD_ARGS } from "@-0/keys"
-import { run$ } from "@-0/spool"
+import { run$, registerCMD } from "@-0/spool"
 import { DOMnavigated$ } from "../../src/core"
 import {
     FLIP_FIRST,
     FLIP_LAST_INVERSE_PLAY,
-    HREF_PUSHSTATE_DOM,
-    HURL,
-    HURLer,
-    INJECT_HEAD,
-    NOTIFY_PRERENDER_DOM,
-    SET_LINK_ATTRS_DOM,
+    cmd_href_pushstate_dom,
+    cmd_inject_head,
+    cmd_notify_prerender_dom,
+    cmd_set_link_attrs_dom,
     SET_STATE,
-    createSetStateCMD
+    createSetStateCMD,
+    cmd_nav,
+    navEventHandler
 } from "../../src/commands"
 
+const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
+const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
+const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
+const NAV = registerCMD(cmd_nav)
+const INJECT_HEAD = registerCMD(cmd_inject_head)
+
 describe("Commands: routing", () => {
-    test("1: HURLer: relative link click triggers DOMnavigated$ injection", () => {
+    test("1: navEventHandler: relative link click triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)
         DOMnavigated$.subscribe({ next: spy })
 
         let a = document.createElement("a")
-        a.href = "/test/HURLer/1"
-        a.addEventListener("click", HURLer)
+        a.href = "/test/navEventHandler/1"
+        a.addEventListener("click", navEventHandler)
 
         fireEvent(a, createEvent("click", a))
         expect(spy).toHaveBeenCalledTimes(1)
         const result = spy.mock.results[0].value
-        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "http://localhost/test/HURLer/1" })
+        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "http://localhost/test/navEventHandler/1" })
     })
-    test("2: HURLer: absolute link click  triggers DOMnavigated$ injection", () => {
+    test("2: navEventHandler: absolute link click  triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)
         DOMnavigated$.subscribe({ next: spy })
 
         let a = document.createElement("a")
-        a.href = "https://hello.world/test/HURLer/2"
-        a.addEventListener("click", HURLer)
+        a.href = "https://hello.world/test/navEventHandler/2"
+        a.addEventListener("click", navEventHandler)
 
         fireEvent(a, createEvent("click", a))
 
         // DOMnavigated$ has been triggered twice at this point
         expect(spy).toHaveBeenCalledTimes(2)
         const result = spy.mock.results[1].value
-        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "https://hello.world/test/HURLer/2" })
+        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "https://hello.world/test/navEventHandler/2" })
     })
-    test("3: HURL Command: dispatch triggers DOMnavigated$ injection", () => {
+    test("3: NAV Command: dispatch triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)
         DOMnavigated$.subscribe({ next: spy })
         const sim_event = href => ({
@@ -56,12 +62,12 @@ describe("Commands: routing", () => {
                 href
             }
         })
-        run$.next({ ...HURL, [CMD_ARGS]: sim_event("/test-HURL-3") })
+        run$.next({ ...NAV, [CMD_ARGS]: sim_event("/test-NAV-3") })
 
         // DOMnavigated$ has been triggered twice at this point
         expect(spy).toHaveBeenCalledTimes(2)
         const result = spy.mock.results[1].value
-        expect(result).toMatchObject({ [URL_FULL]: "/test-HURL-3" })
+        expect(result).toMatchObject({ [URL_FULL]: "/test-NAV-3" })
     })
     test("4: SET_LINK_ATTRS_DOM Command: dispatch marks clicked links visited/active", () => {
         let div = document.createElement("div")
@@ -94,7 +100,7 @@ describe("Commands: routing", () => {
         a.addEventListener("click", e => {
             //console.log("e.target:", e.target)
             run$.next({
-                ...HREF_PUSHSTATE_DOM,
+                ...cmd_href_pushstate_dom,
                 [CMD_ARGS] : {
                     [DOM_NODE] : e.target,
                     [URL_FULL] : e.target.href

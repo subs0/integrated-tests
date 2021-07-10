@@ -14,7 +14,7 @@ import { DOMnavigated$ } from "../core/stream$"
  * 'DOMContentLoaded') payloads, so they can be consumed by
  * the `navigated$` stream
  */
-export const HURLer = ev => {
+export const navEventHandler = ev => {
     // ev.preventDefault()
     // console.log({ e })
     const href = ev ? (ev.target ? ev.target.href : undefined) : undefined
@@ -33,11 +33,11 @@ export const HURLer = ev => {
     return ev
 }
 
-export const HURL: any = registerCMD({
-    [CMD_SUB$]: "_HURL",
+export const cmd_nav: any = {
+    [CMD_SUB$]: "_NAV",
     [CMD_ARGS]: ev => ev,
-    [CMD_WORK]: HURLer
-})
+    [CMD_WORK]: navEventHandler
+}
 
 const setLinkAttrs = target => {
     document &&
@@ -70,7 +70,7 @@ const setLinkAttrs = target => {
  * function
  * 
  */
-export const SET_LINK_ATTRS_DOM: any = registerCMD({
+export const cmd_set_link_attrs_dom = {
     [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
     [CMD_ARGS]: acc => acc,
     [CMD_WORK]: acc => {
@@ -81,7 +81,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
         if (node) return setLinkAttrs(node)
         return console.warn(Err_missing_props("_SET_LINK_ATTRS_DOM", props))
     }
-})
+}
 
 /**
  *
@@ -105,7 +105,7 @@ export const SET_LINK_ATTRS_DOM: any = registerCMD({
  *
  *
  */
-export const HREF_PUSHSTATE_DOM: any = registerCMD({
+export const cmd_href_pushstate_dom = {
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
     [CMD_ARGS]: acc => acc,
     [CMD_WORK]: acc => {
@@ -118,7 +118,7 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
         if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
         if (!url || !node) return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
     }
-})
+}
 
 /**
  *
@@ -143,8 +143,8 @@ export const HREF_PUSHSTATE_DOM: any = registerCMD({
  *
  *
  */
-export const NOTIFY_PRERENDER_DOM: any = registerCMD({
+export const cmd_notify_prerender_dom = {
     [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
     [CMD_ARGS]: true,
     [CMD_WORK]: () => document && document.dispatchEvent(new Event("rendered"))
-})
+}

@@ -4,7 +4,7 @@
 
 import { isPlainObject } from "@thi.ng/checks"
 
-import { HREF_PUSHSTATE_DOM, NOTIFY_PRERENDER_DOM, SET_LINK_ATTRS_DOM, SET_STATE } from "../commands"
+import { cmd_href_pushstate_dom, cmd_notify_prerender_dom, cmd_set_link_attrs_dom, SET_STATE } from "../commands"
 
 import {
     $$_VIEW,
@@ -23,20 +23,21 @@ import {
     CMD_RESO,
     CMD_ERRO,
     DOM_BODY,
-    SET_DATA,
-    SET_PATH,
+    STATE_DATA,
+    STATE_PATH,
     ParsedURL,
     RouterCFG,
     Router
 } from "@-0/keys"
 
 import { stringify_fn, URL2obj } from "@-0/utils"
+import { registerCMD } from "@-0/spool"
 
 const SET_ROUTE_PATH = {
     ...SET_STATE,
     [CMD_ARGS]: _acc => ({
-        [SET_DATA]: _acc[URL_PATH],
-        [SET_PATH]: [ $$_PATH ]
+        [STATE_DATA]: _acc[URL_PATH],
+        [STATE_PATH]: [ $$_PATH ]
     })
 }
 const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err)
@@ -145,8 +146,11 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
  * ```
  */
 
-const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [SET_PATH]: [ $$_LOAD ], [SET_DATA]: true } }
-const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [SET_PATH]: [ $$_LOAD ], [SET_DATA]: false } }
+const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true } }
+const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: false } }
+
+const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
+const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
 
 export const URL_DOM__ROUTE = CFG => {
     // instantiate router
@@ -155,7 +159,7 @@ export const URL_DOM__ROUTE = CFG => {
     const subtask = ACC => [
         SET_ROUTE_LOADING_TRUE,
         {
-            ...HREF_PUSHSTATE_DOM,
+            ...cmd_href_pushstate_dom,
             [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] }
         },
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
@@ -163,15 +167,15 @@ export const URL_DOM__ROUTE = CFG => {
             // hydrate page state and page component/function
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
-                [SET_PATH]: [ $$_VIEW ],
-                [SET_DATA]: acc[URL_PAGE] || null
+                [STATE_PATH]: [ $$_VIEW ],
+                [STATE_DATA]: acc[URL_PAGE] || null
             })
         },
         {
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
-                [SET_PATH]: acc[URL_PATH],
-                [SET_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null
+                [STATE_PATH]: acc[URL_PATH],
+                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null
             })
         },
         SET_LINK_ATTRS_DOM,
