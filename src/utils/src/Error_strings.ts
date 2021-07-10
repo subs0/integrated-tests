@@ -19,7 +19,7 @@ Error: ${CMD} Command missing critical \`${CMD_ARGS}\`:
 
 {
   ${CMD_SUB$}: ${CMD},
-  ${CMD_ARGS}: ${stringify_fn(labeler(required_props))}
+  ${CMD_ARGS}: ${JSON.stringify(labeler(required_props), null, 2)}
 }
 
 This Command's registered \`${CMD_WORK}\` handler failed.
