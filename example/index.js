@@ -227,7 +227,7 @@ const child = (ctx, id, img, sz, ...args) => (
     ]
 )
 
-const zoomOnNav = (ctx, id, img, sz) => [ FLIPkid, [ child, id, img, sz ] ]
+const zoomOnNav = (ctx, id, img, sz) => [ FLIPkid(NAV), [ child, id, img, sz ] ]
 
 //////////////////// FLIP API 🔺  //////////////////////////
 

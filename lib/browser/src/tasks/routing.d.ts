@@ -34,6 +34,16 @@ export declare const HREF_PUSHSTATE_DOM: {
     erro?: undefined;
 };
 export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
+    sub$: string;
+    args: any;
+    reso: (acc: {}, res: {}) => any;
+    erro: (acc: {}, err: Error, out$: import("@thi.ng/rstream").ISubscribable<any>) => any;
+} | {
+    sub$: string;
+    args: any;
+    reso?: undefined;
+    erro?: undefined;
+} | {
     args: {
         STE_PATH: string[];
         STE_DATA: boolean;
@@ -58,16 +68,6 @@ export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     erro?: (acc: {}, err: Error, out$: import("@thi.ng/rstream").ISubscribable<any>) => any;
     work?: (args: any) => any;
     src$?: import("@thi.ng/rstream").ISubscribable<any>;
-} | {
-    sub$: string;
-    args: any;
-    reso: (acc: {}, res: {}) => any;
-    erro: (acc: {}, err: Error, out$: import("@thi.ng/rstream").ISubscribable<any>) => any;
-} | {
-    sub$: string;
-    args: any;
-    reso?: undefined;
-    erro?: undefined;
 } | ((ACC: any) => any) | {
     args: (acc: any) => {
         STE_PATH: any;
