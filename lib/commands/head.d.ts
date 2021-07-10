@@ -5,5 +5,11 @@ interface apiURL {
     };
 }
 export declare const injectHead: (args: apiURL) => void;
-export declare const INJECT_HEAD: any;
+export declare const cmd_inject_head: {
+    sub$: string;
+    args: (acc: any) => {
+        URL_DATA: any;
+    };
+    work: (args: apiURL) => void;
+};
 export {};

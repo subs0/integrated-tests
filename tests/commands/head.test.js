@@ -14,8 +14,8 @@ import {
     OG_IMGW,
     OG_TYPE
 } from "@-0/keys"
-import { run$ } from "@-0/spool"
-import { INJECT_HEAD } from "../../src/commands"
+import { run$, registerCMD } from "@-0/spool"
+import { cmd_inject_head } from "../../src/commands"
 import { JSDOM } from "jsdom"
 
 let dom
@@ -60,6 +60,8 @@ const head_post = ` <meta charset="UTF-8">
  <link rel="shortcut icon" sizes="57x57" href="NA" type="image/x-icon">`
 
 //const warned = (x = jest.fn()) => (jest.spyOn(console, "warn").mockImplementation(x), x)
+
+const INJECT_HEAD = registerCMD(cmd_inject_head)
 
 describe("head", () => {
     beforeEach(() => {

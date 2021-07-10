@@ -5,7 +5,7 @@ injectHead({
     [URL.DATA]: {
         [DOM.HEAD]: {
             [HD_TITL]   : "title",
-            unknown_key : "values"
+            unknown_key : "values 4"
         }
     }
 }) //?
