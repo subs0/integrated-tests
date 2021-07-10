@@ -149,8 +149,8 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
 const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true } }
 const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: false } }
 
-const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
-const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
+export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
+export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
 
 export const URL_DOM__ROUTE = CFG => {
     // instantiate router

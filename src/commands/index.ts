@@ -1,4 +1,4 @@
-export { flip_first, flip_last_inverse_play } from "./FLIP"
+export { cmd_flip_first, cmd_flip_last_inverse_play } from "./FLIP"
 export { cmd_inject_head } from "./head"
 export { SET_STATE, createSetStateCMD } from "./setstate"
 export {

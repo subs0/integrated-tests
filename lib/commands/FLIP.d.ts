@@ -1,4 +1,4 @@
-export declare const flip_first: {
+export declare const cmd_flip_first: {
     sub$: string;
     args: ({ id, target }: {
         id: any;
@@ -9,7 +9,7 @@ export declare const flip_first: {
     };
     work: (args: any) => void;
 };
-export declare const flip_last_inverse_play: {
+export declare const cmd_flip_last_inverse_play: {
     sub$: string;
     args: ({ id, element }: {
         id: any;
