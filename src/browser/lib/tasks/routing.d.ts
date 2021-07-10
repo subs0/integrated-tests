@@ -12,7 +12,8 @@ export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     erro?: undefined;
 } | {
     args: {
-        [x: number]: boolean | string[];
+        STATE_PATH: string[];
+        STATE_DATA: boolean;
     };
     apply(this: Function, thisArg: any, argArray?: any): any;
     call(this: Function, thisArg: any, ...argArray: any[]): any;
@@ -26,7 +27,8 @@ export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     [Symbol.hasInstance](value: any): boolean;
 } | {
     args: {
-        [x: number]: boolean | string[];
+        STATE_PATH: string[];
+        STATE_DATA: boolean;
     };
     sub$?: string;
     reso?: (acc: {}, res: {}) => any;
@@ -35,7 +37,8 @@ export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     src$?: import("@thi.ng/rstream").ISubscribable<any>;
 } | ((ACC: any) => any) | {
     args: (acc: any) => {
-        [x: number]: any;
+        STATE_PATH: any;
+        STATE_DATA: any;
     };
     apply(this: Function, thisArg: any, argArray?: any): any;
     call(this: Function, thisArg: any, ...argArray: any[]): any;
@@ -49,7 +52,8 @@ export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     [Symbol.hasInstance](value: any): boolean;
 } | {
     args: (acc: any) => {
-        [x: number]: any;
+        STATE_PATH: any;
+        STATE_DATA: any;
     };
     sub$?: string;
     reso?: (acc: {}, res: {}) => any;
