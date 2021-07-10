@@ -2,7 +2,7 @@
     "name": "@-0/hdom",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.9",
+    "version": "0.3.10",
     "description": "DOM target provided by http://thi.ng/hdom",
     "main": "./lib/index.js",
     "type": "module",
