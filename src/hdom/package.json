@@ -34,7 +34,7 @@
         "@-0/keys": "^0.3.10",
         "@-0/utils": "^0.3.10",
         "@-0/spool": "^0.3.8",
-        "@-0/browser": "^0.3.8"
+        "@-0/browser": "^0.3.9"
     },
     "peerDependencies": {
         "@thi.ng/paths": "^4.2.9",
