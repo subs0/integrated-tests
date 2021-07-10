@@ -27,7 +27,7 @@
         "constants"
     ],
     "dependencies": {
-        "@-0/keys": "^0.3.10",
+        "@-0/keys": "^0.3.11",
         "querystring": "^0.2.1"
     },
     "peerDependencies": {
