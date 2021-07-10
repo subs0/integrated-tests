@@ -22,6 +22,17 @@ export declare const SET_LINK_ATTRS_DOM: {
     reso?: undefined;
     erro?: undefined;
 };
+export declare const HREF_PUSHSTATE_DOM: {
+    sub$: string;
+    args: any;
+    reso: (acc: {}, res: {}) => any;
+    erro: (acc: {}, err: Error, out$: import("@thi.ng/rstream").ISubscribable<any>) => any;
+} | {
+    sub$: string;
+    args: any;
+    reso?: undefined;
+    erro?: undefined;
+};
 export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     sub$: string;
     args: any;
