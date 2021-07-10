@@ -40,6 +40,7 @@ const _attrs = ctx => ({
         ctx[CFG_RUN$]([ { ...NAV, [CMD_ARGS]: sim_event(href) }, { ...FLIP_FIRST, [CMD_ARGS]: { id: href, target } } ])
     }
 })
+
 /**
  * FLIP (First Last Invert Play) Animating component. Wraps
  * a component that has an `href` attribute and uses it to
