@@ -98,7 +98,7 @@ const FLIPLastInvertPlay = ({ element, state, id, transition = "all .5s cubic-be
     state.resetIn(clicks, null);
 };
 const state = new Atom({});
-export const flip_first = {
+export const cmd_flip_first = {
     [CMD_SUB$]: "_FLIP_FIRST",
     [CMD_ARGS]: ({ id, target }) => ({ id, target }),
     [CMD_WORK]: args => {
@@ -109,7 +109,7 @@ export const flip_first = {
         return console.warn(Err_missing_props("_FLIP_FIRST", props));
     }
 };
-export const flip_last_inverse_play = {
+export const cmd_flip_last_inverse_play = {
     [CMD_SUB$]: "_FLIP_LAST_INVERSE_PLAY",
     [CMD_ARGS]: ({ id, element }) => ({ id, element }),
     [CMD_WORK]: args => {

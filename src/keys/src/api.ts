@@ -63,7 +63,6 @@ export interface DefaultDraft {
     [C.$$_LOAD]: boolean
     [C.$$_VIEW]: Function
     [C.$$_ROOT]: HTMLElement
-    //[C.$$_CMDS]: []
 }
 
 export interface HeadData {

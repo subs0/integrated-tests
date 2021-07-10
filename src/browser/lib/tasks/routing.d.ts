@@ -1,6 +1,6 @@
 import { RouterCFG, Router } from "@-0/keys";
 export declare const URL__ROUTE: (CFG: Router | RouterCFG) => any;
-export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
+export declare const NOTIFY_PRERENDER_DOM: {
     sub$: any;
     args: any;
     reso: any;
@@ -10,7 +10,19 @@ export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     args: any;
     reso?: undefined;
     erro?: undefined;
+};
+export declare const SET_LINK_ATTRS_DOM: {
+    sub$: any;
+    args: any;
+    reso: any;
+    erro: any;
 } | {
+    sub$: any;
+    args: any;
+    reso?: undefined;
+    erro?: undefined;
+};
+export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     args: {
         STATE_PATH: string[];
         STATE_DATA: boolean;
@@ -35,6 +47,16 @@ export declare const URL_DOM__ROUTE: (CFG: any) => (ACC: any) => ({
     erro?: (acc: {}, err: Error, out$: import("@thi.ng/rstream").ISubscribable<any>) => any;
     work?: (args: any) => any;
     src$?: import("@thi.ng/rstream").ISubscribable<any>;
+} | {
+    sub$: any;
+    args: any;
+    reso: any;
+    erro: any;
+} | {
+    sub$: any;
+    args: any;
+    reso?: undefined;
+    erro?: undefined;
 } | ((ACC: any) => any) | {
     args: (acc: any) => {
         STATE_PATH: any;
