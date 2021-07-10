@@ -3,8 +3,6 @@
  */
 import { URL2obj, Err_missing_props } from "@-0/utils"
 import { DOM_NODE, URL_FULL, URL_PATH, CMD_SUB$, CMD_ARGS, CMD_WORK, CMD_ERRO } from "@-0/keys"
-import { registerCMD } from "@-0/spool"
-
 import { DOMnavigated$ } from "../core/stream$"
 
 /**
@@ -19,7 +17,7 @@ export const navEventHandler = ev => {
     // console.log({ e })
     const href = ev ? (ev.target ? ev.target.href : undefined) : undefined
 
-    if (!href) console.warn(Err_missing_props("HURLer", { target: { href } }))
+    if (!href) console.warn(Err_missing_props("navEventHandler", { target: { href } }))
     const w_href = window.location.href
     const parsed = URL2obj(w_href)
     const w_path = `/${parsed[URL_PATH].join("/")}`
