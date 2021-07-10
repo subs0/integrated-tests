@@ -54,8 +54,8 @@ export const OG_IMGH = "og_image_height"
 export const OG_TYPE = "og_type"
 
 // set$$tate constants
-export const STATE_PATH = "STATE_PATH"
-export const STATE_DATA = "STATE_DATA"
+export const STATE_PATH = "STE_PATH"
+export const STATE_DATA = "STE_DATA"
 
 // public
 export const STATE = {
