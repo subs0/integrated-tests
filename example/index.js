@@ -10,7 +10,7 @@ import "regenerator-runtime"
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 
 import { registerCMD, command$, out$, run$, task$, log$ } from "@-0/spool"
-import { INJECT_HEAD, HURL } from "@-0/browser"
+import { cmd_inject_head, cmd_nav } from "@-0/browser"
 import { FLIPkid, boot } from "@-0/hdom"
 import { URL2obj } from "@-0/utils"
 import {
@@ -36,6 +36,8 @@ import {
     OG_IMGU
 } from "@-0/keys"
 
+const INJECT_HEAD = registerCMD(cmd_inject_head)
+const NAV = registerCMD(cmd_nav)
 // ⚠ <=> API SURFACE AREA TOO LARGE <=> ⚠ .
 
 // import { button_x } from "./components"
@@ -278,7 +280,7 @@ const pathLink = (ctx, uid, ...args) =>
                   href    : `/${ctx[URL_PRSE]()[URL_PATH]}/${uid}`,
                   onclick : e => {
                       e.preventDefault()
-                      ctx[CFG_RUN$]({ ...HURL, args: e })
+                      ctx[CFG_RUN$]({ ...NAV, args: e })
                   }
               },
         ...args
@@ -308,7 +310,7 @@ const link = (ctx, path, ...args) =>
             href    : "/" + path.join("/"),
             // regular href just works if there's no extra paths in
             // URL (e.g., gh-pages URLs will break these)...
-            onclick : e => (e.preventDefault(), ctx[CFG_RUN$]({ ...HURL, args: e }))
+            onclick : e => (e.preventDefault(), ctx[CFG_RUN$]({ ...NAV, args: e }))
         },
         ...args
     ]
