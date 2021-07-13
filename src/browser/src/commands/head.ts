@@ -130,7 +130,10 @@ export const injectHead = (args: apiURL) => {
         //console.log({ unknowns })
 
         if (unknowns.length > 0) {
-            console.warn(xKeyError(err_str, unknown_map, unknowns, 0, false), `Acceptable prop keys for ${DOM_HEAD}:`)
+            console.warn(
+                xKeyError(err_str, unknown_map, unknowns, 0, false),
+                `\nAcceptable prop keys for ${DOM_HEAD} are:`
+            )
             const line = "------------------------------------\n"
             const key = "key              | description       \n"
             const entries = Object.entries(knowns_map).reduce((a, [ k, v ]) => {

@@ -31,7 +31,8 @@
     },
     "devDependencies": {
         "@thi.ng/atom": "^4.1.37",
-        "@thi.ng/rstream": "^6.0.10"
+        "@thi.ng/rstream": "^6.0.10",
+        "eslint-plugin-jest": "^24.3.6"
     },
     "prettier": {
         "singleQuote": false,
