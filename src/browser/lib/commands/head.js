@@ -58,10 +58,10 @@ let IH = "_INJECT_HEAD";
 const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`;
 export const injectHead = (args) => {
+    if (!args || !Object.keys(args).length)
+        return;
     const data = args[URL_DATA] || null;
     const head = data[DOM_HEAD] || null;
-    if (!data && !head)
-        return;
     const reqs = {
         [URL_DATA]: {
             [DOM_HEAD]: head,
