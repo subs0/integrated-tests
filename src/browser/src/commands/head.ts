@@ -16,13 +16,14 @@ import {
     OG_IMGW,
     OG_IMGH,
     HeadData,
-    DOM_BODY
+    DOM_BODY,
 } from "@-0/keys"
 import { Err_missing_props, diff_keys, xKeyError } from "@-0/utils"
 import { registerCMD } from "@-0/spool"
 
 const setFavicon = href => {
-    let link: HTMLLinkElement = document.querySelector("link[rel*='icon']") || document.createElement("link")
+    let link: HTMLLinkElement =
+        document.querySelector("link[rel*='icon']") || document.createElement("link")
     link.type = "image/x-icon"
     link.rel = "shortcut icon"
     link.href = href
@@ -40,11 +41,11 @@ const defalt_cfg = {
         "og:image:width": meta("og:image:width"),
         "og:image:height": meta("og:image:height"),
         "og:description": meta("og:description"),
-        "og:type": meta("og:type")
+        "og:type": meta("og:type"),
     },
     [HD_TITL]: document.title,
     //"https://github.com/loganpowell/ac/raw/master/assets/favicon.ico",
-    [HD_ICON]: document.querySelector("link[rel*='icon']")
+    [HD_ICON]: document.querySelector("link[rel*='icon']"),
 }
 
 declare var document: any
@@ -61,7 +62,7 @@ const replaceMeta = (obj: any = defalt_cfg) => {
                         if (getHeadProp(prop)()) getHeadProp(prop)().content = content
                     })
                 },
-                [HD_ICON]: () => setFavicon(val)
+                [HD_ICON]: () => setFavicon(val),
             }[key]()
         } catch (e) {
             console.warn(e)
@@ -76,7 +77,7 @@ const conformToHead = ({
     [OG_IMGH]: img_height = defalt_cfg[HD_META]["og:image:height"],
     [OG_IMGW]: img_width = defalt_cfg[HD_META]["og:image:width"],
     [OG_TYPE]: type = defalt_cfg[HD_META]["og:type"],
-    [HD_ICON]: favicon = defalt_cfg[HD_ICON]
+    [HD_ICON]: favicon = defalt_cfg[HD_ICON],
 }) => ({
     [HD_META]: {
         /**
@@ -90,10 +91,10 @@ const conformToHead = ({
         "og:description": description,
         "og:image:width": img_width,
         "og:image:height": img_height,
-        "og:image": img_url
+        "og:image": img_url,
     },
     [HD_TITL]: title,
-    [HD_ICON]: favicon
+    [HD_ICON]: favicon,
 })
 
 interface apiURL {
@@ -107,12 +108,13 @@ const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`
 
 export const injectHead = (args: apiURL) => {
-    const data = args[URL_DATA]
-    const head = data[DOM_HEAD]
+    const data = args[URL_DATA] || null
+    const head = data[DOM_HEAD] || null
+    if (!data && !head) return
     const reqs = {
         [URL_DATA]: {
-            [DOM_HEAD]: head
-        }
+            [DOM_HEAD]: head,
+        },
     }
 
     if (head) {
@@ -123,7 +125,7 @@ export const injectHead = (args: apiURL) => {
             [OG_IMGU]: "open graph image resource URL for the page",
             [OG_IMGH]: "open graph image height (pixels)",
             [OG_IMGW]: "open graph image width (pixels)",
-            [OG_TYPE]: "open graph content type (e.g., 'website')"
+            [OG_TYPE]: "open graph content type (e.g., 'website')",
         }
         const knowns = Object.keys(knowns_map)
         const [ unknowns, unknown_map ] = diff_keys(knowns, head)
@@ -132,9 +134,9 @@ export const injectHead = (args: apiURL) => {
         if (unknowns.length > 0) {
             console.warn(
                 xKeyError(err_str, unknown_map, unknowns, 0, false),
-                `\nAcceptable prop keys for ${DOM_HEAD} are:`
+                `\nAcceptable prop keys for ${DOM_HEAD} are:`,
             )
-            const line = "------------------------------------\n"
+            const line = "---------------- | -----------------\n"
             const key = "key              | description       \n"
             const entries = Object.entries(knowns_map).reduce((a, [ k, v ]) => {
                 const space = " ".repeat(16 - k.length)
@@ -145,11 +147,12 @@ export const injectHead = (args: apiURL) => {
         }
         return replaceMeta(conformToHead(head))
     }
-    return console.warn(Err_missing_props(IH, reqs))
+    console.warn(Err_missing_props(IH, reqs))
+    return
 }
 
 export const cmd_inject_head = {
     [CMD_SUB$]: IH,
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
-    [CMD_WORK]: injectHead
+    [CMD_WORK]: injectHead,
 }
