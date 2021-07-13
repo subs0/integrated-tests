@@ -19,8 +19,7 @@ import {
     DOM_BODY,
 } from "@-0/keys"
 import { Err_missing_props, diff_keys, xKeyError } from "@-0/utils"
-import { registerCMD } from "@-0/spool"
-
+import {} from "@-0/utils"
 const setFavicon = href => {
     let link: HTMLLinkElement =
         document.querySelector("link[rel*='icon']") || document.createElement("link")
@@ -108,9 +107,9 @@ const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`
 
 export const injectHead = (args: apiURL) => {
+    if (!args || !Object.keys(args).length) return
     const data = args[URL_DATA] || null
     const head = data[DOM_HEAD] || null
-    if (!data && !head) return
     const reqs = {
         [URL_DATA]: {
             [DOM_HEAD]: head,
