@@ -129,7 +129,7 @@ export const $$_ROOT = "$$_ROOT"
 //export const $$_CMDS = "$$_CMDS"
 
 // public
-export const $$: Object = {
+export const $$ = {
     PATH: $$_PATH,
     LOAD: $$_LOAD,
     VIEW: $$_VIEW,
