@@ -108,8 +108,10 @@ ${URL_DATA}.${DOM_HEAD} props:`
 
 export const injectHead = (args: apiURL) => {
     if (!args || !Object.keys(args).length) return
-    const data = args[URL_DATA] || null
-    const head = data[DOM_HEAD] || null
+    const data = args[URL_DATA]
+    // if no match URL__ROUTE Task sends -> URL_DATA: null
+    const send = data || { [DOM_HEAD]: {} }
+    const head = send[DOM_HEAD]
     const reqs = {
         [URL_DATA]: {
             [DOM_HEAD]: head,
