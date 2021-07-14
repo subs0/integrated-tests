@@ -4,7 +4,12 @@
 
 import { isPlainObject } from "@thi.ng/checks"
 
-import { cmd_href_pushstate_dom, cmd_notify_prerender_dom, cmd_set_link_attrs_dom, SET_STATE } from "../commands"
+import {
+    cmd_href_pushstate_dom,
+    cmd_notify_prerender_dom,
+    cmd_set_link_attrs_dom,
+    SET_STATE,
+} from "../commands"
 
 import {
     $$_VIEW,
@@ -27,7 +32,7 @@ import {
     STATE_PATH,
     ParsedURL,
     RouterCFG,
-    Router
+    Router,
 } from "@-0/keys"
 
 import { stringify_fn, URL2obj } from "@-0/utils"
@@ -37,8 +42,8 @@ const SET_ROUTE_PATH = {
     ...SET_STATE,
     [CMD_ARGS]: _acc => ({
         [STATE_DATA]: _acc[URL_PATH],
-        [STATE_PATH]: [ $$_PATH ]
-    })
+        [STATE_PATH]: [ $$_PATH ],
+    }),
 }
 const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err)
 const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥 } }`
@@ -112,16 +117,16 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
             [CMD_RESO]: (_acc, _res) => ({
                 // no page when used server-side...
                 ..._res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] },
-                [URL_DATA]: (_res && _res[URL_DATA]) || null
+                [URL_DATA]: (_res && _res[URL_DATA]) || null,
             }),
-            [CMD_ERRO]: route_error
+            [CMD_ERRO]: route_error,
         },
         {
             [CMD_ARGS]: acc[URL_FULL] ? URL2obj(acc[URL_FULL], prefix) : new Error(e_s),
-            [CMD_ERRO]: route_error
+            [CMD_ERRO]: route_error,
         },
         SET_ROUTE_PATH,
-        ...postroute
+        ...postroute,
     ]
     return subtask
 }
@@ -146,8 +151,14 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
  * ```
  */
 
-const SET_ROUTE_LOADING_TRUE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true } }
-const SET_ROUTE_LOADING_FALSE = { ...SET_STATE, [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: false } }
+const SET_ROUTE_LOADING_TRUE = {
+    ...SET_STATE,
+    [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true },
+}
+const SET_ROUTE_LOADING_FALSE = {
+    ...SET_STATE,
+    [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: false },
+}
 
 export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
 export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
@@ -161,7 +172,7 @@ export const URL_DOM__ROUTE = CFG => {
         SET_ROUTE_LOADING_TRUE,
         {
             ...HREF_PUSHSTATE_DOM,
-            [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] }
+            [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] },
         },
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
         {
@@ -169,19 +180,19 @@ export const URL_DOM__ROUTE = CFG => {
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
                 [STATE_PATH]: [ $$_VIEW ],
-                [STATE_DATA]: acc[URL_PAGE] || null
-            })
+                [STATE_DATA]: acc[URL_PAGE] || null,
+            }),
         },
         {
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
                 [STATE_PATH]: acc[URL_PATH],
-                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null
-            })
+                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null,
+            }),
         },
         SET_LINK_ATTRS_DOM,
         SET_ROUTE_LOADING_FALSE,
-        NOTIFY_PRERENDER_DOM
+        NOTIFY_PRERENDER_DOM,
     ]
 
     return subtask
