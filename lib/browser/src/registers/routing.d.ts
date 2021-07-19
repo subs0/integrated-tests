@@ -1,2 +1,2 @@
-import { Command } from "@-0/keys";
-export declare const registerRouterDOM: (router: any) => Command;
+import { Command, Router, RouterCFG } from "@-0/keys";
+export declare const registerRouterDOM: (router: Router | RouterCFG) => Command;

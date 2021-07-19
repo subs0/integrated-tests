@@ -16,15 +16,15 @@ export const DOMContentLoaded$: ISubscribable<any> = fromDOMEvent(window, "DOMCo
  * There are three types of navigation we need to handle:
  * 1. DOMContentLoaded (entering the site) events
  * 2. popstate (browser back/forward button clicks) events
- * 3. `<a hurl="x">` (link clicking)
+ * 3. `<a href="x">` (link clicking)
  *
  * These events have different payloads and need to be
  * harmonized in order to use them consistently
  *
- * ## getting the `hurl` property from the various events:
- * 1. ev.target.location.hurl
- * 2. ev.target.location.hurl
- * 3. ev.target.hurl
+ * ## getting the `href` property from the various events:
+ * 1. ev.target.location.href
+ * 2. ev.target.location.href
+ * 3. ev.target.href
  *
  * for raw events, we can just transform them, but for link
  * clicking we need to convert/wrap it to align with the
@@ -34,23 +34,23 @@ export const DOMContentLoaded$: ISubscribable<any> = fromDOMEvent(window, "DOMCo
  * injection example
  */
 export const DOMnavigated$ = merge({
-    src: [ popstate$, DOMContentLoaded$ ]
+    src: [ popstate$, DOMContentLoaded$ ],
 }).transform({
     xform: map((x: Event | any) => {
         if (x.target.location.href && x.currentTarget) {
             return {
                 [URL_FULL]: x.target.location.href,
-                [DOM_NODE]: x.currentTarget
+                [DOM_NODE]: x.currentTarget,
             }
         }
         console.log(
             "DOMnavigated$ triggered, but missing `x.target.location.href &/ x.currentTarget`",
-            JSON.stringify(x, null, 2)
+            JSON.stringify(x, null, 2),
         )
         return x
     }),
     error: e => {
         console.warn("error in DOMnavigated$:", e)
         return true
-    }
+    },
 })

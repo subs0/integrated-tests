@@ -36,8 +36,8 @@ export declare const OG_IMGU = "og_image";
 export declare const OG_IMGW = "og_image_width";
 export declare const OG_IMGH = "og_image_height";
 export declare const OG_TYPE = "og_type";
-export declare const STATE_PATH = "SET_PATH";
-export declare const STATE_DATA = "SET_DATA";
+export declare const STATE_PATH = "STATE_PATH";
+export declare const STATE_DATA = "STATE_DATA";
 export declare const STATE: {
     PATH: string;
     DATA: string;
@@ -87,7 +87,12 @@ export declare const $$_PATH = "$$_PATH";
 export declare const $$_LOAD = "$$_LOAD";
 export declare const $$_VIEW = "$$_VIEW";
 export declare const $$_ROOT = "$$_ROOT";
-export declare const $$: Object;
+export declare const $$: {
+    PATH: string;
+    LOAD: string;
+    VIEW: string;
+    ROOT: string;
+};
 export declare const $$_DEFAULT: {
     $$_PATH: any[];
     $$_LOAD: boolean;

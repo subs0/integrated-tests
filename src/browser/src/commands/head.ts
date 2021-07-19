@@ -102,7 +102,7 @@ interface apiURL {
     }
 }
 
-let IH = "_INJECT_HEAD"
+const IH = "_INJECT_HEAD"
 const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`
 
