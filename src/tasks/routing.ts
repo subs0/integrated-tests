@@ -33,6 +33,8 @@ import {
     ParsedURL,
     RouterCFG,
     Router,
+    Task,
+    RouterOutput,
 } from "@-0/keys"
 
 import { stringify_fn, URL2obj } from "@-0/utils"
@@ -75,7 +77,7 @@ const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥
  *
  * TODO: Type ROuter CFG
  */
-export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
+export const URL__ROUTE = (CFG: Router | RouterCFG): any /* TODO: Task */ => {
     let router, preroute, postroute, prefix
 
     if (isPlainObject(CFG)) {
@@ -117,7 +119,7 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): any => {
             [CMD_RESO]: (_acc, _res) => ({
                 // no page when used server-side...
                 ..._res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] },
-                [URL_DATA]: (_res && _res[URL_DATA]) || null,
+                ..._res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] },
             }),
             [CMD_ERRO]: route_error,
         },
@@ -164,7 +166,7 @@ export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
 export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
 export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
 
-export const URL_DOM__ROUTE = CFG => {
+export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): any /* TODO: Task */ => {
     // instantiate router
     const match = URL__ROUTE(CFG)
 

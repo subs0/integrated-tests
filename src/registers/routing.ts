@@ -2,7 +2,17 @@
  * @module core/registers
  */
 
-import { DOM_NODE, URL_FULL, CMD_SUB$, CMD_ARGS, CMD_SRC$, CMD_WORK, Command } from "@-0/keys"
+import {
+    DOM_NODE,
+    URL_FULL,
+    CMD_SUB$,
+    CMD_ARGS,
+    CMD_SRC$,
+    CMD_WORK,
+    Command,
+    Router,
+    RouterCFG,
+} from "@-0/keys"
 import { run$, registerCMD } from "@-0/spool"
 import { Err_missing_props } from "@-0/utils"
 import { URL_DOM__ROUTE } from "../tasks"
@@ -17,7 +27,7 @@ import { DOMnavigated$ } from "../core"
  * { target: { location: { href } }, currentTarget }
  * ```
  */
-export const registerRouterDOM = (router): Command => {
+export const registerRouterDOM = (router: Router | RouterCFG): Command => {
     console.log("DOM Router Registered")
     const routing_task = URL_DOM__ROUTE(router)
     return registerCMD({
@@ -30,6 +40,6 @@ export const registerRouterDOM = (router): Command => {
             const props = { [URL_FULL]: url, [DOM_NODE]: node }
             if (url && node) return run$.next(routing_task(props))
             console.warn(Err_missing_props("_URL_NAVIGATED$_DOM (registerRouterDOM)", props))
-        }
+        },
     })
 }

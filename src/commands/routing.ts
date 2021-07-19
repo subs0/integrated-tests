@@ -15,7 +15,7 @@ import { DOMnavigated$ } from "../core/stream$"
 export const navEventHandler = ev => {
     // ev.preventDefault()
     // console.log({ e })
-    const href = ev ? (ev.target ? ev.target.href : undefined) : undefined
+    const href = ev?.target?.href
 
     if (!href) console.warn(Err_missing_props("navEventHandler", { target: { href } }))
     const w_href = window.location.href
@@ -38,12 +38,10 @@ export const cmd_nav: any = {
 }
 
 const setLinkAttrs = target => {
-    document &&
-        document.body &&
-        document.body.querySelectorAll("a[visited]").forEach((el: HTMLLinkElement) => {
-            if (el.href === window.location.href) el.setAttribute("active", "")
-            else el.removeAttribute("active")
-        })
+    document?.body?.querySelectorAll("a[visited]").forEach((el: HTMLLinkElement) => {
+        if (el.href === window.location.href) el.setAttribute("active", "")
+        else el.removeAttribute("active")
+    })
     if (target.setAttribute) {
         target.setAttribute("visited", "")
         target.setAttribute("active", "")
@@ -144,5 +142,5 @@ export const cmd_href_pushstate_dom = {
 export const cmd_notify_prerender_dom = {
     [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
     [CMD_ARGS]: true,
-    [CMD_WORK]: () => document && document.dispatchEvent(new Event("rendered"))
+    [CMD_WORK]: () => document?.dispatchEvent(new Event("rendered"))
 }
