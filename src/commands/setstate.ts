@@ -11,7 +11,7 @@ import { Err_missing_props } from "@-0/utils"
  * container and returns a Command object for setting that
  * Atom's state by the provided path (lens)
  */
-export const createSetStateCMD: Command = store =>
+export const createSetStateCMD = (store): Command =>
     registerCMD({
         [CMD_SUB$]: "_SET_STATE",
         [CMD_ARGS]: x => x,
@@ -20,11 +20,11 @@ export const createSetStateCMD: Command = store =>
             const data = args[STATE_DATA]
             const props = {
                 [STATE_PATH]: path,
-                [STATE_DATA]: data
+                [STATE_DATA]: data,
             }
             if (path && data !== undefined) return set$$tate(path, data, store)
             console.warn(Err_missing_props("_SET_STATE", props))
-        }
+        },
     })
 
 /**
