@@ -25,9 +25,9 @@ export interface ICommand extends ICommandObject {
     [C.CMD_WORK]: (args: any) => any;
     [C.CMD_SRC$]?: ISubscribable<any>;
 }
-export declare type Command = ICommandObject | ((acc: Accumulator) => ICommandObject);
-export declare type Task = Command[] | HOTask;
+export declare type Command = ICommandObject | ((acc: Accumulator) => HOTask);
 export declare type HOTask = (acc: Accumulator) => Task;
+export declare type Task = Command[];
 export interface HeadData {
     [C.HD_TITL]?: string;
     [C.OG_DESC]?: string;
@@ -68,7 +68,7 @@ export interface BootCFG {
     [C.CFG_KICK]?: boolean;
 }
 export interface DefaultDraft {
-    [C.$$_PATH]: [];
+    [C.$$_PATH]: string[];
     [C.$$_LOAD]: boolean;
     [C.$$_VIEW]: Component;
     [C.$$_ROOT]: HTMLElement;
