@@ -33,6 +33,7 @@ import {
     RouterCFG,
     Router,
     Task,
+    HOTask,
     RouterOutput,
 } from "@-0/keys"
 
@@ -76,7 +77,7 @@ const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥
  *
  * TODO: Type ROuter CFG
  */
-export const URL__ROUTE = (CFG: Router | RouterCFG): Task => {
+export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
     let router, preroute, postroute, prefix
 
     if (isPlainObject(CFG)) {
@@ -165,11 +166,11 @@ export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
 export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
 export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
 
-export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): Task => {
+export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): HOTask => {
     // instantiate router
     const match = URL__ROUTE(CFG)
 
-    const subtask = ACC => [
+    const subtask = (ACC): Task => [
         SET_ROUTE_LOADING_TRUE,
         {
             ...HREF_PUSHSTATE_DOM,
