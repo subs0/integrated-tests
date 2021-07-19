@@ -38,7 +38,6 @@ export const registerRouterDOM = (router: Router | RouterCFG): Command => {
             const url = acc[URL_FULL]
             const node = acc[DOM_NODE]
             const props = { [URL_FULL]: url, [DOM_NODE]: node }
-            // @ts-ignore FIXME
             if (url && node) return run$.next(routing_task(props))
             console.warn(Err_missing_props("_URL_NAVIGATED$_DOM (registerRouterDOM)", props))
         },
