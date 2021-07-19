@@ -39,7 +39,7 @@ export interface ICommand extends ICommandObject {
     [C.CMD_SRC$]?: ISubscribable<any>
 }
 
-export type Command = ICommandObject | ((acc: Accumulator) => HOTask)
+export type Command = ICommandObject | HOTask
 
 export type HOTask = (acc: Accumulator) => Task
 
