@@ -30,7 +30,6 @@ import {
     DOM_BODY,
     STATE_DATA,
     STATE_PATH,
-    ParsedURL,
     RouterCFG,
     Router,
     Task,
@@ -77,7 +76,7 @@ const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥
  *
  * TODO: Type ROuter CFG
  */
-export const URL__ROUTE = (CFG: Router | RouterCFG): any /* TODO: Task */ => {
+export const URL__ROUTE = (CFG: Router | RouterCFG): Task => {
     let router, preroute, postroute, prefix
 
     if (isPlainObject(CFG)) {
@@ -111,7 +110,7 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): any /* TODO: Task */ => {
      * 2. create for every emission from
      *      the run$ emission
      */
-    const subtask = acc => [
+    const subtask = (acc): Task => [
         ...preroute,
         {
             // 📌 🤔: consider how to handle stage flag URL prefix (e.g., /staging, from AWS)
@@ -166,7 +165,7 @@ export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
 export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
 export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
 
-export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): any /* TODO: Task */ => {
+export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): Task => {
     // instantiate router
     const match = URL__ROUTE(CFG)
 
@@ -176,6 +175,7 @@ export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): any /* TODO: Task */ =>
             ...HREF_PUSHSTATE_DOM,
             [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] },
         },
+        // @ts-ignore FIXME
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
         {
             // hydrate page state and page component/function

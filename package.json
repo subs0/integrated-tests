@@ -54,13 +54,17 @@
         "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:browser && npm run go:hdom && npm run ncu",
         "ncu": "ncu -u && npm i && npm audit fix"
     },
-    "keywords": [ "thi.ng", "multiplex", "FRP" ],
+    "keywords": [
+        "thi.ng",
+        "multiplex",
+        "FRP"
+    ],
     "dependencies": {
-        "@-0/browser": "^0.3.11",
-        "@-0/hdom": "^0.3.10",
-        "@-0/keys": "^0.3.12",
-        "@-0/spool": "^0.3.10",
-        "@-0/utils": "^0.3.12"
+        "@-0/browser": "^0.3.15",
+        "@-0/hdom": "^0.3.11",
+        "@-0/keys": "^0.3.13",
+        "@-0/spool": "^0.3.11",
+        "@-0/utils": "^0.3.13"
     },
     "peerDependencies": {
         "@thi.ng/paths": "^4.2.9",
@@ -80,14 +84,14 @@
         "@thi.ng/transducers": "^7.7.4",
         "@thi.ng/transducers-hdom": "^2.0.96",
         "@types/jest": "^26.0.24",
-        "@types/node": "^16.3.1",
-        "@typescript-eslint/eslint-plugin": "^4.28.3",
-        "@typescript-eslint/parser": "^4.28.3",
+        "@types/node": "^16.3.3",
+        "@typescript-eslint/eslint-plugin": "^4.28.4",
+        "@typescript-eslint/parser": "^4.28.4",
         "babel-jest": "^27.0.6",
         "better-docs": "^2.3.2",
         "cross-env": "^7.0.3",
         "cssnano": "^5.0.6",
-        "eslint": "^7.30.0",
+        "eslint": "^7.31.0",
         "eslint-plugin-jest": "^24.3.6",
         "gh-pages": "^3.2.3",
         "jest": "^27.0.6",

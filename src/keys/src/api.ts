@@ -22,6 +22,11 @@ export interface TargetDOM {
     [C.DOM_HEAD]?: Record<string, unknown>
 }
 
+/**
+ * Command Object.
+ *
+ * The only required property is `args`
+ */
 export interface ICommandObject {
     [C.CMD_ARGS]: any
     [C.CMD_SUB$]?: string
@@ -29,21 +34,16 @@ export interface ICommandObject {
     [C.CMD_ERRO]?: (acc: Record<string, unknown>, err: Error, out$: ISubscribable<any>) => any
 }
 
-/**
- * Command Object.
- *
- * The only required property is `args`
- */
 export interface ICommand extends ICommandObject {
     [C.CMD_WORK]: (args: any) => any
     [C.CMD_SRC$]?: ISubscribable<any>
 }
 
-export type Command = ICommandObject | ((acc: Accumulator) => ICommandObject)
-
-export type Task = Command[] | HOTask
+export type Command = ICommandObject | ((acc: Accumulator) => HOTask)
 
 export type HOTask = (acc: Accumulator) => Task
+
+export type Task = Command[]
 
 export interface HeadData {
     [C.HD_TITL]?: string
