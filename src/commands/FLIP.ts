@@ -5,7 +5,7 @@
 import { Atom } from "@thi.ng/atom"
 import { getInUnsafe } from "@thi.ng/paths"
 
-import { CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys"
+import { CMD_SUB$, CMD_ARGS, CMD_WORK, ICommand } from "@-0/keys"
 import { Err_missing_props } from "@-0/utils"
 import { registerCMD } from "@-0/spool"
 
@@ -13,7 +13,7 @@ function getStyles(element: HTMLElement) {
     const computedStyle = getComputedStyle(element)
 
     return {
-        radius: computedStyle.borderRadius || 0
+        radius: computedStyle.borderRadius || 0,
     }
 }
 
@@ -31,7 +31,7 @@ function getRect(element: HTMLElement, frame?) {
         height,
         get transform() {
             return getComputedStyle(element).transform || undefined
-        }
+        },
     }
 }
 
@@ -44,7 +44,7 @@ const S_path = "FLIP_shuffle"
 
 const shuffle_paths = uid => ({
     rects: [ S_path, "rects", uid ],
-    elems: [ S_path, "elems", uid ]
+    elems: [ S_path, "elems", uid ],
 })
 
 const FLIP_all = (el, state, uid, frameDOMel = null) => {
@@ -81,7 +81,7 @@ const zoom_paths = uid => ({
     rects: [ Z_path, "rects", uid ],
     elems: [ Z_path, "elems", uid ],
     clicks: [ Z_path, "clicks", uid ],
-    scrolls: [ Z_path, "scroll", uid ]
+    scrolls: [ Z_path, "scroll", uid ],
 })
 
 /**
@@ -148,7 +148,7 @@ const FLIPLastInvertPlay = ({
     state,
     id,
     // just baffle them with https://cubic-bezier.com/
-    transition = "all .5s cubic-bezier(.54,-0.29,.17,1.11)"
+    transition = "all .5s cubic-bezier(.54,-0.29,.17,1.11)",
     // transition = "all .3s ease-in-out"
 }) => {
     element.setAttribute("flip", id)
@@ -217,7 +217,7 @@ const FLIPLastInvertPlay = ({
 const state = new Atom({})
 
 // render: onclick
-export const cmd_flip_first = {
+export const cmd_flip_first: ICommand = {
     [CMD_SUB$]: "_FLIP_FIRST",
     [CMD_ARGS]: ({ id, target }) => ({ id, target }),
     [CMD_WORK]: args => {
@@ -225,11 +225,11 @@ export const cmd_flip_first = {
         const props = { id, target }
         if (id && target) return FLIPFirst({ id, target, state })
         return console.warn(Err_missing_props("_FLIP_FIRST", props))
-    }
+    },
 }
 
 // init
-export const cmd_flip_last_inverse_play = {
+export const cmd_flip_last_inverse_play: ICommand = {
     [CMD_SUB$]: "_FLIP_LAST_INVERSE_PLAY",
     [CMD_ARGS]: ({ id, element }) => ({ id, element }),
     [CMD_WORK]: args => {
@@ -237,5 +237,5 @@ export const cmd_flip_last_inverse_play = {
         const props = { id, element }
         if (id && element) return FLIPLastInvertPlay({ id, element, state })
         return console.warn(Err_missing_props("_FLIP_LAST_INVERSE_PLAY", props))
-    }
+    },
 }

@@ -17,9 +17,11 @@ import {
     OG_IMGH,
     HeadData,
     DOM_BODY,
+    ICommand,
 } from "@-0/keys"
+
 import { Err_missing_props, diff_keys, xKeyError } from "@-0/utils"
-import {} from "@-0/utils"
+
 const setFavicon = href => {
     let link: HTMLLinkElement =
         document.querySelector("link[rel*='icon']") || document.createElement("link")
@@ -152,7 +154,7 @@ export const injectHead = (args: apiURL) => {
     return
 }
 
-export const cmd_inject_head = {
+export const cmd_inject_head: ICommand = {
     [CMD_SUB$]: IH,
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
     [CMD_WORK]: injectHead,

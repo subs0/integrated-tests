@@ -2,7 +2,7 @@
  * @module commands/routing
  */
 import { URL2obj, Err_missing_props } from "@-0/utils"
-import { DOM_NODE, URL_FULL, URL_PATH, CMD_SUB$, CMD_ARGS, CMD_WORK, CMD_ERRO } from "@-0/keys"
+import { DOM_NODE, URL_FULL, URL_PATH, CMD_SUB$, CMD_ARGS, CMD_WORK, ICommand } from "@-0/keys"
 import { DOMnavigated$ } from "../core/stream$"
 
 /**
@@ -31,7 +31,7 @@ export const navEventHandler = ev => {
     return ev
 }
 
-export const cmd_nav: any = {
+export const cmd_nav: ICommand = {
     [CMD_SUB$]: "_NAV",
     [CMD_ARGS]: ev => ev,
     [CMD_WORK]: navEventHandler
@@ -66,7 +66,7 @@ const setLinkAttrs = target => {
  * function
  * 
  */
-export const cmd_set_link_attrs_dom = {
+export const cmd_set_link_attrs_dom: ICommand = {
     [CMD_SUB$]: "_SET_LINK_ATTRS_DOM",
     [CMD_ARGS]: acc => acc,
     [CMD_WORK]: acc => {
@@ -101,7 +101,7 @@ export const cmd_set_link_attrs_dom = {
  *
  *
  */
-export const cmd_href_pushstate_dom = {
+export const cmd_href_pushstate_dom : ICommand = {
     [CMD_SUB$]: "_HREF_PUSHSTATE_DOM",
     [CMD_ARGS]: acc => acc,
     [CMD_WORK]: acc => {
@@ -139,7 +139,7 @@ export const cmd_href_pushstate_dom = {
  *
  *
  */
-export const cmd_notify_prerender_dom = {
+export const cmd_notify_prerender_dom : ICommand= {
     [CMD_SUB$]: "_NOTIFY_PRERENDER_DOM",
     [CMD_ARGS]: true,
     [CMD_WORK]: () => document?.dispatchEvent(new Event("rendered"))
