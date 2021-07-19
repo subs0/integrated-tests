@@ -54,7 +54,7 @@ const conformToHead = ({ [HD_TITL]: title = defalt_cfg[HD_TITL], [OG_DESC]: desc
     [HD_TITL]: title,
     [HD_ICON]: favicon,
 });
-let IH = "_INJECT_HEAD";
+const IH = "_INJECT_HEAD";
 const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`;
 export const injectHead = (args) => {

@@ -33,7 +33,7 @@ export const URL__ROUTE = (CFG) => {
         ...preroute,
         {
             [CMD_ARGS]: acc[URL_FULL] ? router(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
-            [CMD_RESO]: (_acc, _res) => (Object.assign(Object.assign({}, _res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] }), { [URL_DATA]: (_res && _res[URL_DATA]) || null })),
+            [CMD_RESO]: (_acc, _res) => (Object.assign(Object.assign({}, _res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] }), _res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] })),
             [CMD_ERRO]: route_error,
         },
         {
@@ -50,7 +50,7 @@ const SET_ROUTE_LOADING_FALSE = Object.assign(Object.assign({}, SET_STATE), { [C
 export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom);
 export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom);
 export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom);
-export const URL_DOM__ROUTE = CFG => {
+export const URL_DOM__ROUTE = (CFG) => {
     const match = URL__ROUTE(CFG);
     const subtask = ACC => [
         SET_ROUTE_LOADING_TRUE,

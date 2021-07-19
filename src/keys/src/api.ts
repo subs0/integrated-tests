@@ -97,7 +97,7 @@ export interface BootCFG {
 }
 
 export interface DefaultDraft {
-    [C.$$_PATH]: []
+    [C.$$_PATH]: string[]
     [C.$$_LOAD]: boolean
     [C.$$_VIEW]: Component
     [C.$$_ROOT]: HTMLElement
