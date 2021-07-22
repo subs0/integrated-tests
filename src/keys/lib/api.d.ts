@@ -1,5 +1,4 @@
 import { ISubscribable, ISubscriber } from "@thi.ng/rstream/api";
-import { IAtom } from "@thi.ng/atom/api";
 import * as C from "./constants";
 import { PubSub } from "@thi.ng/rstream";
 export declare type Accumulator = Record<string, unknown>;
@@ -57,16 +56,6 @@ export interface RouterCFG {
     [C.RTR_PRFX]: string;
     [C.RTR_POST]: Command | Task;
     [C.CFG_RUTR]: Router;
-}
-export interface BootCFG {
-    [C.CFG_RUTR]: RouterCFG;
-    [C.CFG_RUN$]?: any;
-    [C.CFG_STOR]?: IAtom<any>;
-    [C.CFG_ROOT]?: HTMLElement;
-    [C.CFG_VIEW]?: Component;
-    [C.CFG_DRFT]?: Record<string, unknown>;
-    [C.CFG_LOG$]?: string;
-    [C.CFG_KICK]?: boolean;
 }
 export interface DefaultDraft {
     [C.$$_PATH]: string[];
