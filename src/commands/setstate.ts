@@ -11,9 +11,9 @@ import { Err_missing_props } from "@-0/utils"
  * container and returns a Command object for setting that
  * Atom's state by the provided path (lens)
  */
-export const createSetStateCMD = (store): Command =>
+export const createSetStateCMD = (store, sub$ = "_SET_STATE"): Command =>
     registerCMD({
-        [CMD_SUB$]: "_SET_STATE",
+        [CMD_SUB$]: sub$,
         [CMD_ARGS]: x => x,
         [CMD_WORK]: args => {
             const path = args[STATE_PATH]
