@@ -6,9 +6,9 @@ export declare const handlePattern: (acc?: {}, C?: {
     args: any;
     reso: any;
     erro: any;
-}, O$?: PubSub<any, any, any>, i?: number) => Promise<any>;
+}, O$?: PubSub<unknown, unknown, any>, i?: number) => Promise<any>;
 export declare const multiplex: (_out$: any) => (task_array: any) => any;
-export declare const run$: PubSub<any, any>;
-export declare const out$: PubSub<any, any>;
-export declare const cmd$: ISubscription<any, any>;
-export declare const task$: ISubscription<any, any>;
+export declare const run$: PubSub<unknown, unknown, boolean>;
+export declare const out$: PubSub<unknown, unknown, any>;
+export declare const cmd$: ISubscription<unknown, unknown>;
+export declare const task$: ISubscription<unknown, any>;

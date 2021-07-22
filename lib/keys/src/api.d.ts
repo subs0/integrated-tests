@@ -1,7 +1,22 @@
-import { ISubscribable } from "@thi.ng/rstream/api";
+import { ISubscribable, ISubscriber } from "@thi.ng/rstream/api";
 import { IAtom } from "@thi.ng/atom/api";
 import * as C from "./constants";
+import { PubSub } from "@thi.ng/rstream";
 export declare type Accumulator = Record<string, unknown>;
+export interface ICommandObject {
+    [C.CMD_ARGS]: any;
+    [C.CMD_SUB$]?: string;
+    [C.CMD_RESO]?: (acc: Accumulator, res: any) => any;
+    [C.CMD_ERRO]?: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => any;
+}
+export interface ICommand extends ICommandObject {
+    [C.CMD_WORK]: (args: any) => any;
+    [C.CMD_SRC$]?: ISubscribable<any> | ISubscriber<any>;
+}
+export declare type Command = ICommandObject | HOTask;
+export declare type HOTask = (acc: Accumulator) => Task;
+export declare type Task = Command[];
+export declare type Component = (data: any) => any;
 export interface ParsedURL {
     [C.URL_FULL]: string;
     [C.URL_PATH]: string[];
@@ -15,19 +30,6 @@ export interface TargetDOM {
     [C.DOM_BODY]?: Record<string, unknown>;
     [C.DOM_HEAD]?: Record<string, unknown>;
 }
-export interface ICommandObject {
-    [C.CMD_ARGS]: any;
-    [C.CMD_SUB$]?: string;
-    [C.CMD_RESO]?: (acc: Record<string, unknown>, res: Record<string, unknown>) => any;
-    [C.CMD_ERRO]?: (acc: Record<string, unknown>, err: Error, out$: ISubscribable<any>) => any;
-}
-export interface ICommand extends ICommandObject {
-    [C.CMD_WORK]: (args: any) => any;
-    [C.CMD_SRC$]?: ISubscribable<any>;
-}
-export declare type Command = ICommandObject | ((acc: Accumulator) => HOTask);
-export declare type HOTask = (acc: Accumulator) => Task;
-export declare type Task = Command[];
 export interface HeadData {
     [C.HD_TITL]?: string;
     [C.OG_DESC]?: string;
@@ -37,7 +39,6 @@ export interface HeadData {
     [C.HD_ICON]?: string;
     [C.OG_TYPE]?: string;
 }
-export declare type Component = (data: any) => any;
 export interface RouterHeadBodyData {
     [C.DOM_HEAD]: HeadData;
     [C.DOM_BODY]: any;
