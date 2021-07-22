@@ -1,2 +1,1 @@
-import { BootCFG } from "@-0/keys";
-export declare const boot: (CFG: BootCFG) => void;
+export declare const boot: (CFG: any) => void;

@@ -22,7 +22,6 @@ import {
     CFG_DRFT,
     CFG_LOG$,
     CFG_KICK,
-    BootCFG
 } from "@-0/keys"
 
 import { run$ } from "@-0/spool"
@@ -36,7 +35,7 @@ const pre = (ctx, body) => (
         `
     no ${CFG_VIEW} component provided to boot({ CFG }). 
     Rendering state by route path
-    `
+    `,
     ),
     [ "pre", JSON.stringify(body[1], null, 2) ]
 )
@@ -83,7 +82,7 @@ const pre = (ctx, body) => (
  * - prefix : ignore a part of the URL (e.g., gitub.io/<prefix>)
  *
  */
-export const boot = (CFG: BootCFG) => {
+export const boot = CFG => {
     // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
     const root = CFG[CFG_ROOT] || document.body
     const view = CFG[CFG_VIEW] || pre
@@ -127,15 +126,15 @@ export const boot = (CFG: BootCFG) => {
                 [CFG_STOR]: $store$,
                 // remove any staging path components (e.g., gh-pages)
                 [URL_PRSE]: () => URL2obj(window.location.href, RGX), // <- 🔍
-                ...others
-            }
-        })
+                ...others,
+            },
+        }),
     )
     // Just a little kick in the pants for those stubborn sandboxes
     if (kick) {
         DOMnavigated$.next({
             target: document,
-            currentTarget: document
+            currentTarget: document,
         })
     }
     // TODO return registered
