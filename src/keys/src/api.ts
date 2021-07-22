@@ -86,16 +86,16 @@ export interface RouterCFG {
  * Configuration for boot config
  * FIXME: perhaps unncessary 
  */
-export interface BootCFG {
-    [C.CFG_RUTR]: RouterCFG
-    [C.CFG_RUN$]?: any
-    [C.CFG_STOR]?: IAtom<any>
-    [C.CFG_ROOT]?: HTMLElement
-    [C.CFG_VIEW]?: Component
-    [C.CFG_DRFT]?: Record<string, unknown>
-    [C.CFG_LOG$]?: string
-    [C.CFG_KICK]?: boolean
-}
+//export interface BootCFG {
+//    [C.CFG_RUTR]: RouterCFG
+//    [C.CFG_RUN$]?: any
+//    [C.CFG_STOR]?: IAtom<any>
+//    [C.CFG_ROOT]?: HTMLElement
+//    [C.CFG_VIEW]?: Component
+//    [C.CFG_DRFT]?: Record<string, unknown>
+//    [C.CFG_LOG$]?: string
+//    [C.CFG_KICK]?: boolean
+//}
 
 export interface DefaultDraft {
     [C.$$_PATH]: string[]
