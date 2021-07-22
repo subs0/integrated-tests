@@ -176,7 +176,6 @@ export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): HOTask => {
             ...HREF_PUSHSTATE_DOM,
             [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] },
         },
-        // @ts-ignore FIXME
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
         {
             // hydrate page state and page component/function

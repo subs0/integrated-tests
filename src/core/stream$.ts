@@ -2,15 +2,23 @@
  * @module core/stream$
  */
 
-import { fromDOMEvent, merge, ISubscribable } from "@thi.ng/rstream"
+import { fromDOMEvent, merge, ISubscribable, ISubscriber } from "@thi.ng/rstream"
 import { map } from "@thi.ng/transducers"
 
 import { URL_FULL, DOM_NODE } from "@-0/keys"
 // @ts-ignore
-export const popstate$: ISubscribable<any> = fromDOMEvent(window, "popstate")
+export const popstate$: ISubscribable<PopStateEvent> = fromDOMEvent(window, "popstate")
 // @ts-ignore
-export const DOMContentLoaded$: ISubscribable<any> = fromDOMEvent(window, "DOMContentLoaded")
+export const DOMContentLoaded$: ISubscribable<Event> = fromDOMEvent(window, "DOMContentLoaded")
 
+export type NavigationObject = {
+    target: {
+        location: {
+            href: string
+        }
+    }
+    currentTarget: HTMLElement | Document
+}
 /**
  *
  * There are three types of navigation we need to handle:
@@ -33,10 +41,10 @@ export const DOMContentLoaded$: ISubscribable<any> = fromDOMEvent(window, "DOMCo
  * see _HURL in `/commands/routing.js` for ad-hoc stream
  * injection example
  */
-export const DOMnavigated$ = merge({
+export const DOMnavigated$: ISubscriber<NavigationObject> = merge({
     src: [ popstate$, DOMContentLoaded$ ],
 }).transform({
-    xform: map((x: Event | any) => {
+    xform: map((x: NavigationObject) => {
         if (x.target.location.href && x.currentTarget) {
             return {
                 [URL_FULL]: x.target.location.href,
@@ -50,7 +58,9 @@ export const DOMnavigated$ = merge({
         return x
     }),
     error: e => {
-        console.warn("error in DOMnavigated$:", e)
+        console.warn("DOMnavigated$ ERROR:", e)
         return true
     },
 })
+
+//DOMnavigated$.next()
