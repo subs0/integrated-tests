@@ -18,9 +18,8 @@ export const $store$ = new Atom($$_DEFAULT)
  *
  * If the path is empty (e.g., [] = home page),
  */
-
 export const set$$tate = (path, val, store = $store$) =>
-    store.swapIn(path, (x: any) => {
+    store.swapIn(path, x => {
         // if both swap and target are objects, merge
         // else just reset to val at path (i.e., careful!)
         return isPlainObject(x) && isPlainObject(val) ? { ...x, ...val } : val

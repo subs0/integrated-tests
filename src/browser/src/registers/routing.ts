@@ -36,10 +36,13 @@ export const registerRouterDOM = (router: Router | RouterCFG): Command => {
         [CMD_ARGS]: acc => acc,
         [CMD_WORK]: acc => {
             const url = acc[URL_FULL]
-            const node = acc[DOM_NODE]
+            const node = acc[DOM_NODE] || document
             const props = { [URL_FULL]: url, [DOM_NODE]: node }
-            if (url && node) return run$.next(routing_task(props))
-            console.warn(Err_missing_props("_URL_NAVIGATED$_DOM (registerRouterDOM)", props))
+            //const node = acc[DOM_NODE]
+            //const props = { [URL_FULL]: url, [DOM_NODE]: node }
+            //if (url && node) return run$.next(routing_task(props))
+            if (url) return run$.next(routing_task(props))
+            console.warn(Err_missing_props("_URL_NAVIGATED$_DOM (from registerRouterDOM)", props))
         },
     })
 }
