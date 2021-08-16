@@ -142,5 +142,4 @@ export const $$_DEFAULT = {
     [$$_LOAD]: true,
     [$$_VIEW]: null,
     [$$_ROOT]: null,
-    //[$$_CMDS]: {}
 }
