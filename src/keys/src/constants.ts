@@ -134,7 +134,6 @@ export const $$ = {
     LOAD: $$_LOAD,
     VIEW: $$_VIEW,
     ROOT: $$_ROOT,
-    //CMDS: $$_CMDS
 }
 
 // home page / defaults to empty path
