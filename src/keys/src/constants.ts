@@ -126,7 +126,6 @@ export const $$_PATH = "$$_PATH"
 export const $$_LOAD = "$$_LOAD"
 export const $$_VIEW = "$$_VIEW"
 export const $$_ROOT = "$$_ROOT"
-//export const $$_CMDS = "$$_CMDS"
 
 // public
 export const $$ = {
