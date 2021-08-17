@@ -1,7 +1,8 @@
-import { URL_DATA, CMD_SUB$, CMD_ARGS, CMD_WORK, DOM_HEAD, HD_TITL, HD_ICON, HD_META, OG_TYPE, OG_DESC, OG_IMGU, OG_IMGW, OG_IMGH, } from "@-0/keys";
+import { URL_DATA, CMD_SUB$, CMD_ARGS, CMD_WORK, DOM_HEAD, HD_TITL, HD_ICON, HD_TYPE, HD_DESC, HD_IMGU, HD_IMGW, HD_IMGH, } from "@-0/keys";
 import { Err_missing_props, diff_keys, xKeyError } from "@-0/utils";
+const HD_META = "meta";
 const setFavicon = href => {
-    let link = document.querySelector("link[rel*='icon']") || document.createElement("link");
+    const link = document.querySelector("link[rel*='icon']") || document.createElement("link");
     link.type = "image/x-icon";
     link.rel = "shortcut icon";
     link.href = href;
@@ -42,7 +43,7 @@ const replaceMeta = (obj = defalt_cfg) => {
         }
     });
 };
-const conformToHead = ({ [HD_TITL]: title = defalt_cfg[HD_TITL], [OG_DESC]: description = defalt_cfg[HD_META]["og:description"], [OG_IMGU]: img_url = defalt_cfg[HD_META]["og:image"], [OG_IMGH]: img_height = defalt_cfg[HD_META]["og:image:height"], [OG_IMGW]: img_width = defalt_cfg[HD_META]["og:image:width"], [OG_TYPE]: type = defalt_cfg[HD_META]["og:type"], [HD_ICON]: favicon = defalt_cfg[HD_ICON], }) => ({
+const conformToHead = ({ [HD_TITL]: title = defalt_cfg[HD_TITL], [HD_DESC]: description = defalt_cfg[HD_META]["og:description"], [HD_IMGU]: img_url = defalt_cfg[HD_META]["og:image"], [HD_IMGH]: img_height = defalt_cfg[HD_META]["og:image:height"], [HD_IMGW]: img_width = defalt_cfg[HD_META]["og:image:width"], [HD_TYPE]: type = defalt_cfg[HD_META]["og:type"], [HD_ICON]: favicon = defalt_cfg[HD_ICON], }) => ({
     [HD_META]: {
         "og:title": title,
         "og:type": type,
@@ -72,11 +73,11 @@ export const injectHead = (args) => {
         const knowns_map = {
             [HD_ICON]: "favicon resource URL for the page",
             [HD_TITL]: "title of the page",
-            [OG_DESC]: "open graph description",
-            [OG_IMGU]: "open graph image resource URL for the page",
-            [OG_IMGH]: "open graph image height (pixels)",
-            [OG_IMGW]: "open graph image width (pixels)",
-            [OG_TYPE]: "open graph content type (e.g., 'website')",
+            [HD_DESC]: "open graph description",
+            [HD_IMGU]: "open graph image resource URL for the page",
+            [HD_IMGH]: "open graph image height (pixels)",
+            [HD_IMGW]: "open graph image width (pixels)",
+            [HD_TYPE]: "open graph content type (e.g., 'website')",
         };
         const knowns = Object.keys(knowns_map);
         const [unknowns, unknown_map] = diff_keys(knowns, head);

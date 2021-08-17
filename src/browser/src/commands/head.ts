@@ -10,11 +10,11 @@ import {
     HD_TITL,
     HD_ICON,
     //HD_META,
-    OG_TYPE,
-    OG_DESC,
-    OG_IMGU,
-    OG_IMGW,
-    OG_IMGH,
+    HD_TYPE,
+    HD_DESC,
+    HD_IMGU,
+    HD_IMGW,
+    HD_IMGH,
     HeadData,
     DOM_BODY,
     ICommand,
@@ -74,11 +74,11 @@ const replaceMeta = (obj: any = defalt_cfg) => {
 
 const conformToHead = ({
     [HD_TITL]: title = defalt_cfg[HD_TITL],
-    [OG_DESC]: description = defalt_cfg[HD_META]["og:description"],
-    [OG_IMGU]: img_url = defalt_cfg[HD_META]["og:image"],
-    [OG_IMGH]: img_height = defalt_cfg[HD_META]["og:image:height"],
-    [OG_IMGW]: img_width = defalt_cfg[HD_META]["og:image:width"],
-    [OG_TYPE]: type = defalt_cfg[HD_META]["og:type"],
+    [HD_DESC]: description = defalt_cfg[HD_META]["og:description"],
+    [HD_IMGU]: img_url = defalt_cfg[HD_META]["og:image"],
+    [HD_IMGH]: img_height = defalt_cfg[HD_META]["og:image:height"],
+    [HD_IMGW]: img_width = defalt_cfg[HD_META]["og:image:width"],
+    [HD_TYPE]: type = defalt_cfg[HD_META]["og:type"],
     [HD_ICON]: favicon = defalt_cfg[HD_ICON],
 }) => ({
     [HD_META]: {
@@ -125,11 +125,11 @@ export const injectHead = (args: apiURL) => {
         const knowns_map = {
             [HD_ICON]: "favicon resource URL for the page",
             [HD_TITL]: "title of the page",
-            [OG_DESC]: "open graph description",
-            [OG_IMGU]: "open graph image resource URL for the page",
-            [OG_IMGH]: "open graph image height (pixels)",
-            [OG_IMGW]: "open graph image width (pixels)",
-            [OG_TYPE]: "open graph content type (e.g., 'website')",
+            [HD_DESC]: "open graph description",
+            [HD_IMGU]: "open graph image resource URL for the page",
+            [HD_IMGH]: "open graph image height (pixels)",
+            [HD_IMGW]: "open graph image width (pixels)",
+            [HD_TYPE]: "open graph content type (e.g., 'website')",
         }
         const knowns = Object.keys(knowns_map)
         const [unknowns, unknown_map] = diff_keys(knowns, head)

@@ -1,5 +1,5 @@
 import { isPlainObject } from "@thi.ng/checks";
-import { cmd_href_pushstate_dom, cmd_notify_prerender_dom, cmd_set_link_attrs_dom, SET_STATE, } from "../commands";
+import { cmd_href_pushstate_dom, cmd_notify_prerender_dom, cmd_set_link_attrs_dom, SET_STATE } from "../commands";
 import { $$_VIEW, $$_LOAD, $$_PATH, DOM_NODE, URL_FULL, URL_DATA, URL_PATH, URL_PAGE, RTR_PREP, RTR_POST, RTR_PRFX, CFG_RUTR, CMD_ARGS, CMD_RESO, CMD_ERRO, DOM_BODY, STATE_DATA, STATE_PATH, } from "@-0/keys";
 import { URL2obj } from "@-0/utils";
 import { registerCMD } from "@-0/spool";
@@ -33,7 +33,7 @@ export const URL__ROUTE = (CFG) => {
         ...preroute,
         {
             [CMD_ARGS]: acc[URL_FULL] ? router(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
-            [CMD_RESO]: (_acc, _res) => (Object.assign(Object.assign({}, _res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] }), _res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] })),
+            [CMD_RESO]: (_acc, _res) => (Object.assign(Object.assign({}, (_res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] })), (_res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] }))),
             [CMD_ERRO]: route_error,
         },
         {
@@ -58,11 +58,15 @@ export const URL_DOM__ROUTE = (CFG) => {
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
         Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: acc => ({
                 [STATE_PATH]: [$$_VIEW],
-                [STATE_DATA]: acc[URL_PAGE] || null,
+                [STATE_DATA]: acc[URL_PAGE] || (console.log(`no \`${URL_PAGE}\` found for this route`), null),
             }) }),
         Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: acc => ({
                 [STATE_PATH]: acc[URL_PATH],
-                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null,
+                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) ||
+                    acc[URL_DATA] ||
+                    (console.log(`consider returning a \`${URL_DATA}\` property from your router to isolate the data needed for this route`),
+                        acc) ||
+                    null,
             }) }),
         SET_LINK_ATTRS_DOM,
         SET_ROUTE_LOADING_FALSE,
