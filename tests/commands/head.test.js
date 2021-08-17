@@ -8,11 +8,11 @@ import {
     DOM_HEAD,
     HD_ICON,
     HD_TITL,
-    OG_DESC,
-    OG_IMGH,
-    OG_IMGU,
-    OG_IMGW,
-    OG_TYPE
+    HD_DESC,
+    HD_IMGH,
+    HD_IMGU,
+    HD_IMGW,
+    HD_TYPE,
 } from "@-0/keys"
 import { run$, registerCMD } from "@-0/spool"
 import { cmd_inject_head } from "../../src/commands"
@@ -80,19 +80,19 @@ describe("head", () => {
         //console.log({ container: document.head.innerHTML })
         run$.next({
             ...INJECT_HEAD,
-            [CMD_ARGS] : {
-                [URL_DATA] : {
-                    [DOM_HEAD] : {
-                        [HD_TITL] : "changed",
-                        [OG_DESC] : "times are a changin'",
-                        [OG_IMGU] : "https://images.com/2",
-                        [OG_IMGH] : "500",
-                        [OG_IMGW] : "400",
-                        [HD_ICON] : "NA",
-                        [OG_TYPE] : "image"
-                    }
-                }
-            }
+            [CMD_ARGS]: {
+                [URL_DATA]: {
+                    [DOM_HEAD]: {
+                        [HD_TITL]: "changed",
+                        [HD_DESC]: "times are a changin'",
+                        [HD_IMGU]: "https://images.com/2",
+                        [HD_IMGH]: "500",
+                        [HD_IMGW]: "400",
+                        [HD_ICON]: "NA",
+                        [HD_TYPE]: "image",
+                    },
+                },
+            },
         })
         expect(document.head.innerHTML.replace(/ +(?= )|^\s*\n/g, "")).toBe(head_post)
     })
