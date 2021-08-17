@@ -46,12 +46,21 @@ export const DOM = {
 // document head selector shortcuts
 export const HD_TITL = "title"
 export const HD_ICON = "favicon"
-export const HD_META = "meta"
-export const OG_DESC = "og_description"
-export const OG_IMGU = "og_image"
-export const OG_IMGW = "og_image_width"
-export const OG_IMGH = "og_image_height"
-export const OG_TYPE = "og_type"
+export const HD_DESC = "og_description"
+export const HD_IMGU = "og_image"
+export const HD_IMGW = "og_image_width"
+export const HD_IMGH = "og_image_height"
+export const HD_TYPE = "og_type"
+
+export const HEAD = {
+    TITL: HD_TITL,
+    ICON: HD_ICON,
+    DESC: HD_DESC,
+    IMGU: HD_IMGU,
+    IMGW: HD_IMGW,
+    IMGH: HD_IMGH,
+    TYPE: HD_TYPE,
+}
 
 // set$$tate constants
 export const STATE_PATH = "STATE_PATH"

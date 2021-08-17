@@ -50,12 +50,12 @@ export interface TargetDOM {
 
 export interface HeadData {
     [C.HD_TITL]?: string
-    [C.OG_DESC]?: string
-    [C.OG_IMGU]?: string
-    [C.OG_IMGW]?: string | number
-    [C.OG_IMGH]?: string | number
+    [C.HD_DESC]?: string
+    [C.HD_IMGU]?: string
+    [C.HD_IMGW]?: string | number
+    [C.HD_IMGH]?: string | number
     [C.HD_ICON]?: string
-    [C.OG_TYPE]?: string
+    [C.HD_TYPE]?: string
 }
 
 export interface RouterHeadBodyData {

@@ -30,12 +30,20 @@ export declare const DOM: {
 };
 export declare const HD_TITL = "title";
 export declare const HD_ICON = "favicon";
-export declare const HD_META = "meta";
-export declare const OG_DESC = "og_description";
-export declare const OG_IMGU = "og_image";
-export declare const OG_IMGW = "og_image_width";
-export declare const OG_IMGH = "og_image_height";
-export declare const OG_TYPE = "og_type";
+export declare const HD_DESC = "og_description";
+export declare const HD_IMGU = "og_image";
+export declare const HD_IMGW = "og_image_width";
+export declare const HD_IMGH = "og_image_height";
+export declare const HD_TYPE = "og_type";
+export declare const HEAD: {
+    TITL: string;
+    ICON: string;
+    DESC: string;
+    IMGU: string;
+    IMGW: string;
+    IMGH: string;
+    TYPE: string;
+};
 export declare const STATE_PATH = "STATE_PATH";
 export declare const STATE_DATA = "STATE_DATA";
 export declare const STATE: {
