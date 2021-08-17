@@ -4,12 +4,7 @@
 
 import { isPlainObject } from "@thi.ng/checks"
 
-import {
-    cmd_href_pushstate_dom,
-    cmd_notify_prerender_dom,
-    cmd_set_link_attrs_dom,
-    SET_STATE,
-} from "../commands"
+import { cmd_href_pushstate_dom, cmd_notify_prerender_dom, cmd_set_link_attrs_dom, SET_STATE } from "../commands"
 
 import {
     $$_VIEW,
@@ -44,7 +39,7 @@ const SET_ROUTE_PATH = {
     ...SET_STATE,
     [CMD_ARGS]: _acc => ({
         [STATE_DATA]: _acc[URL_PATH],
-        [STATE_PATH]: [ $$_PATH ],
+        [STATE_PATH]: [$$_PATH],
     }),
 }
 const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err)
@@ -92,8 +87,8 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
         // console.log({ router, pre, pst })
 
         router = rtr
-        preroute = isPlainObject(pre) ? [ pre ] : pre || []
-        postroute = isPlainObject(pst) ? [ pst ] : pst || []
+        preroute = isPlainObject(pre) ? [pre] : pre || []
+        postroute = isPlainObject(pst) ? [pst] : pst || []
         prefix = pfx ? new RegExp(escaped(pfx), "g") : null
     } else {
         router = CFG
@@ -101,7 +96,8 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
         postroute = []
         prefix = ""
     }
-    //console.log(stringify_fn({ router, preroute, postroute, prefix }, 2))
+    // console.log(stringify_fn({ router, preroute,
+    // postroute, prefix }, 2))
     /**
      * 📌 TODO enable progress observation by using both the
      * run$ and log$ stream emissions:
@@ -118,8 +114,8 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
             [CMD_ARGS]: acc[URL_FULL] ? router(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
             [CMD_RESO]: (_acc, _res) => ({
                 // no page when used server-side...
-                ..._res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] },
-                ..._res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] },
+                ...(_res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] }),
+                ...(_res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] }),
             }),
             [CMD_ERRO]: route_error,
         },
@@ -135,11 +131,11 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
 
 const SET_ROUTE_LOADING_TRUE = {
     ...SET_STATE,
-    [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: true },
+    [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: true },
 }
 const SET_ROUTE_LOADING_FALSE = {
     ...SET_STATE,
-    [CMD_ARGS]: { [STATE_PATH]: [ $$_LOAD ], [STATE_DATA]: false },
+    [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: false },
 }
 
 export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
@@ -177,18 +173,26 @@ export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): HOTask => {
         },
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
         {
-            // hydrate page state and page component/function
+            // set page component/function
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
-                [STATE_PATH]: [ $$_VIEW ],
-                [STATE_DATA]: acc[URL_PAGE] || null,
+                [STATE_PATH]: [$$_VIEW],
+                [STATE_DATA]: acc[URL_PAGE] || (console.log(`no \`${URL_PAGE}\` found for this route`), null),
             }),
         },
         {
+            // hydrate page state
             ...SET_STATE,
             [CMD_ARGS]: acc => ({
                 [STATE_PATH]: acc[URL_PATH],
-                [STATE_DATA]: (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) || acc[URL_DATA] || null,
+                [STATE_DATA]:
+                    (acc[URL_DATA] && acc[URL_DATA][DOM_BODY]) ||
+                    acc[URL_DATA] ||
+                    (console.log(
+                        `consider returning a \`${URL_DATA}\` property from your router to isolate the data needed for this route`
+                    ),
+                    acc) ||
+                    null,
             }),
         },
         SET_LINK_ATTRS_DOM,
