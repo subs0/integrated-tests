@@ -9,7 +9,7 @@ import {
     DOM_HEAD,
     HD_TITL,
     HD_ICON,
-    HD_META,
+    //HD_META,
     OG_TYPE,
     OG_DESC,
     OG_IMGU,
@@ -22,9 +22,10 @@ import {
 
 import { Err_missing_props, diff_keys, xKeyError } from "@-0/utils"
 
+const HD_META = "meta"
+
 const setFavicon = href => {
-    let link: HTMLLinkElement =
-        document.querySelector("link[rel*='icon']") || document.createElement("link")
+    const link: HTMLLinkElement = document.querySelector("link[rel*='icon']") || document.createElement("link")
     link.type = "image/x-icon"
     link.rel = "shortcut icon"
     link.href = href
@@ -52,14 +53,14 @@ const defalt_cfg = {
 declare var document: any
 
 const replaceMeta = (obj: any = defalt_cfg) => {
-    Object.entries(obj).forEach(([ key, val ]) => {
+    Object.entries(obj).forEach(([key, val]) => {
         try {
             return {
                 [HD_TITL]: () => {
                     document.title = val
                 },
                 [HD_META]: () => {
-                    Object.entries(val).forEach(([ prop, content ]) => {
+                    Object.entries(val).forEach(([prop, content]) => {
                         if (getHeadProp(prop)()) getHeadProp(prop)().content = content
                     })
                 },
@@ -131,17 +132,17 @@ export const injectHead = (args: apiURL) => {
             [OG_TYPE]: "open graph content type (e.g., 'website')",
         }
         const knowns = Object.keys(knowns_map)
-        const [ unknowns, unknown_map ] = diff_keys(knowns, head)
+        const [unknowns, unknown_map] = diff_keys(knowns, head)
         //console.log({ unknowns })
 
         if (unknowns.length > 0) {
             console.warn(
                 xKeyError(err_str, unknown_map, unknowns, 0, false),
-                `\nAcceptable prop keys for ${DOM_HEAD} are:`,
+                `\nAcceptable prop keys for ${DOM_HEAD} are:`
             )
             const line = "---------------- | -----------------\n"
             const key = "key              | description       \n"
-            const entries = Object.entries(knowns_map).reduce((a, [ k, v ]) => {
+            const entries = Object.entries(knowns_map).reduce((a, [k, v]) => {
                 const space = " ".repeat(16 - k.length)
                 return a.concat(`${k}` + space + " | " + v + "\n")
             }, "")
