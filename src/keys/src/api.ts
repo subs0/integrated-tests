@@ -34,7 +34,7 @@ import {
     $$_VIEW,
     $$_ROOT,
 } from "./constants"
-import { PubSub } from "@thi.ng/rstream"
+import { PubSub, Stream } from "@thi.ng/rstream"
 
 export type Accumulator = Record<string, unknown>
 
@@ -43,17 +43,20 @@ export type Accumulator = Record<string, unknown>
  *
  * The only required property is `args`
  */
-export type ICommandObject = {
-    [CMD_ARGS]: any
-    [CMD_SUB$]?: string
-    [CMD_RESO]?: (acc: Accumulator, res: any) => any
-    [CMD_ERRO]?: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => any
+const ICO = {
+    [CMD_ARGS]: null,
+    [CMD_SUB$]: "",
+    [CMD_RESO]: (acc: Accumulator, res: any) => null,
+    [CMD_ERRO]: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => null,
 }
+export type ICommandObject = Partial<typeof ICO>
 
-export type ICommand = ICommandObject & {
-    [CMD_WORK]: (args: any) => any
-    [CMD_SRC$]?: ISubscribable<any> | ISubscriber<any>
+const IC = {
+    ...ICO,
+    [CMD_WORK]: (args: any) => null,
+    [CMD_SRC$]: Stream,
 }
+export type ICommand = Partial<typeof IC>
 
 export type Command = ICommandObject | HOTask
 
@@ -61,63 +64,71 @@ export type HOTask = (acc: Accumulator) => Task
 
 export type Task = Command[]
 
-export type Component = (data: any) => any
+const C = (data: any) => null
+export type Component = typeof C
 
-export type ParsedURL = {
-    [URL_FULL]: string
-    [URL_PATH]: string[]
-    [URL_DOMN]: string[]
-    [URL_SUBD]: string[]
-    [URL_QERY]: Record<string, unknown>
-    [URL_HASH]: string
+const PURL = {
+    [URL_FULL]: "",
+    [URL_PATH]: [""],
+    [URL_DOMN]: [""],
+    [URL_SUBD]: [""],
+    [URL_QERY]: {},
+    [URL_HASH]: "",
 }
+export type ParsedURL = Partial<typeof PURL>
 
+const HD = {
+    [HD_TITL]: "",
+    [HD_DESC]: "",
+    [HD_IMGU]: "",
+    [HD_IMGW]: 1 || "",
+    [HD_IMGH]: 1 || "",
+    [HD_ICON]: "",
+    [HD_TYPE]: "",
+}
+export type HeadData = Partial<typeof HD>
 /**
  * Provides targets for data injection from DOM router
  */
-export type TargetDOM = {
-    [DOM_NODE]?: HTMLElement
-    [DOM_BODY]?: Record<string, unknown>
-    [DOM_HEAD]?: Record<string, unknown>
+const TDOM = {
+    [DOM_NODE]: new HTMLElement(),
+    [DOM_BODY]: null,
+    [DOM_HEAD]: HD as HeadData,
 }
+export type TargetDOM = Partial<typeof TDOM>
 
-export type HeadData = {
-    [HD_TITL]?: string
-    [HD_DESC]?: string
-    [HD_IMGU]?: string
-    [HD_IMGW]?: string | number
-    [HD_IMGH]?: string | number
-    [HD_ICON]?: string
-    [HD_TYPE]?: string
+const RHBD = {
+    [DOM_HEAD]: HD as HeadData,
+    [DOM_BODY]: null,
 }
+export type RouterHeadBodyData = Partial<typeof RHBD>
 
-export type RouterHeadBodyData = {
-    [DOM_HEAD]: HeadData
-    [DOM_BODY]: any
+const RO = {
+    [URL_DATA]: (RHBD as RouterHeadBodyData) || null,
+    [URL_PAGE]: C as Component,
 }
+export type RouterOutput = typeof RO
 
-export type RouterOutput = {
-    [URL_DATA]: RouterHeadBodyData | any
-    [URL_PAGE]: Component
+export type Router = (url: string) => RouterOutput
+
+const RI = {
+    [URL_FULL]: "",
+    [DOM_NODE]: new HTMLElement() || document,
 }
+export type RouterInput = typeof RI
 
-export type Router = (path: string) => RouterOutput
-
-export type RouterInput = {
-    [URL_FULL]: string
-    [DOM_NODE]?: HTMLElement | Window
+const RCFG = {
+    [RTR_PREP]: ({} as Command) || ([] as Task),
+    [RTR_PRFX]: "",
+    [RTR_POST]: ({} as Command) || ([] as Task),
+    [CFG_RUTR]: ((url: string) => null) as Router,
 }
+export type RouterCFG = Partial<typeof RCFG>
 
-export type RouterCFG = {
-    [RTR_PREP]: Command | Task
-    [RTR_PRFX]: string
-    [RTR_POST]: Command | Task
-    [CFG_RUTR]: Router
+const DD = {
+    [$$_PATH]: [""],
+    [$$_LOAD]: false,
+    [$$_VIEW]: C as Component,
+    [$$_ROOT]: new HTMLElement(),
 }
-
-export type DefaultDraft = {
-    [$$_PATH]: string[]
-    [$$_LOAD]: boolean
-    [$$_VIEW]: Component
-    [$$_ROOT]: HTMLElement
-}
+export type DefaultDraft = typeof DD
