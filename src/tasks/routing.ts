@@ -161,7 +161,7 @@ export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
  * ]
  * ```
  */
-export const URL_DOM__ROUTE = (CFG: Router | RouterCFG): HOTask => {
+export const DOM_URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
     // instantiate router
     const match = URL__ROUTE(CFG)
 
