@@ -99,7 +99,7 @@ export const CFG_STOR = "state"
 // boot config constants
 export const CFG_ROOT = "CFG_ROOT"
 export const CFG_VIEW = "CFG_VIEW"
-export const CFG_KICK = "CFG_KICK"
+//export const CFG_KICK = "CFG_KICK"
 export const CFG_DRFT = "CFG_DRFT"
 export const CFG_LOG$ = "CFG_LOG$"
 export const CFG_RUTR = "CFG_RUTR"
@@ -113,7 +113,7 @@ export const CFG = {
     DRFT: CFG_DRFT,
     LOG$: CFG_LOG$,
     RUTR: CFG_RUTR,
-    KICK: CFG_KICK,
+    //KICK: CFG_KICK,
 }
 
 // ROUTER
