@@ -2,7 +2,7 @@
     "name": "@-0/utils",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.25",
+    "version": "0.3.26",
     "description": "utilities for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
