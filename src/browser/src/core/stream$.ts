@@ -41,8 +41,8 @@ export type NavigationObject = {
  * see _HURL in `/commands/routing.js` for ad-hoc stream
  * injection example
  */
-export const DOMnavigated$: ISubscriber<NavigationObject> = merge({
-    src: [ popstate$, DOMContentLoaded$ ],
+export const DOMnavigated$ = merge({
+    src: [popstate$, DOMContentLoaded$],
 }).transform({
     xform: map((x: NavigationObject) => {
         if (x.target.location.href && x.currentTarget) {
@@ -53,7 +53,7 @@ export const DOMnavigated$: ISubscriber<NavigationObject> = merge({
         }
         console.log(
             "DOMnavigated$ triggered, but missing `x.target.location.href &/ x.currentTarget`",
-            JSON.stringify(x, null, 2),
+            JSON.stringify(x, null, 2)
         )
         return x
     }),

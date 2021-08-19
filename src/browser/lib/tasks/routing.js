@@ -50,7 +50,7 @@ const SET_ROUTE_LOADING_FALSE = Object.assign(Object.assign({}, SET_STATE), { [C
 export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom);
 export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom);
 export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom);
-export const URL_DOM__ROUTE = (CFG) => {
+export const DOM_URL__ROUTE = (CFG) => {
     const match = URL__ROUTE(CFG);
     const subtask = (ACC) => [
         SET_ROUTE_LOADING_TRUE,
