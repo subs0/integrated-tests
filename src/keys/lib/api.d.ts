@@ -83,7 +83,7 @@ declare const RO: {
     URL_PAGE: (data: any) => any;
 };
 export declare type RouterOutput = typeof RO;
-export declare type Router = (url: string) => RouterOutput;
+export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
     URL_FULL: string;
     DOM_NODE: HTMLElement | Document;

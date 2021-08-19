@@ -1,3 +1,4 @@
+import { __awaiter } from "tslib";
 import { CMD_ARGS, CMD_SRC$, CMD_ERRO, CMD_RESO, CMD_SUB$, CMD_WORK, URL_FULL, URL_PATH, URL_DOMN, URL_SUBD, URL_QERY, URL_HASH, DOM_NODE, DOM_BODY, DOM_HEAD, HD_TITL, HD_DESC, HD_IMGU, HD_IMGW, HD_IMGH, HD_ICON, HD_TYPE, URL_DATA, URL_PAGE, RTR_PREP, RTR_PRFX, RTR_POST, CFG_RUTR, $$_PATH, $$_LOAD, $$_VIEW, $$_ROOT, } from "./constants";
 const ICO = {
     [CMD_ARGS]: null,
@@ -45,7 +46,7 @@ const RCFG = {
     [RTR_PREP]: {} || [],
     [RTR_PRFX]: "",
     [RTR_POST]: {} || [],
-    [CFG_RUTR]: ((url) => null),
+    [CFG_RUTR]: ((url) => __awaiter(void 0, void 0, void 0, function* () { return null; })),
 };
 const DD = {
     [$$_PATH]: [""],
