@@ -1,4 +1,3 @@
-import { ISubscribable, ISubscriber } from "@thi.ng/rstream/api"
 import { IAtom } from "@thi.ng/atom/api"
 import {
     CMD_ARGS,
@@ -34,7 +33,8 @@ import {
     $$_VIEW,
     $$_ROOT,
 } from "./constants"
-import { PubSub, Stream } from "@thi.ng/rstream"
+
+import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream"
 
 export type Accumulator = Record<string, unknown>
 
@@ -46,15 +46,15 @@ export type Accumulator = Record<string, unknown>
 const ICO = {
     [CMD_ARGS]: null,
     [CMD_SUB$]: "",
-    [CMD_RESO]: (acc: Accumulator, res: any) => null,
+    [CMD_RESO]: (acc: Accumulator, res) => null,
     [CMD_ERRO]: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => null,
 }
 export type ICommandObject = Partial<typeof ICO>
 
 const IC = {
     ...ICO,
-    [CMD_WORK]: (args: any) => null,
-    [CMD_SRC$]: Stream,
+    [CMD_WORK]: args => null,
+    [CMD_SRC$]: null as ISubscribable<any> | ISubscriber<any>,
 }
 export type ICommand = Partial<typeof IC>
 
@@ -64,7 +64,7 @@ export type HOTask = (acc: Accumulator) => Task
 
 export type Task = Command[]
 
-const C = (data: any) => null
+const C = data => null
 export type Component = typeof C
 
 const PURL = {

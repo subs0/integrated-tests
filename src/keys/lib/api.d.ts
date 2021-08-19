@@ -1,4 +1,4 @@
-import { PubSub, Stream } from "@thi.ng/rstream";
+import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream";
 export declare type Accumulator = Record<string, unknown>;
 declare const ICO: {
     args: any;
@@ -9,7 +9,7 @@ declare const ICO: {
 export declare type ICommandObject = Partial<typeof ICO>;
 declare const IC: {
     work: (args: any) => any;
-    src$: typeof Stream;
+    src$: ISubscribable<any> | ISubscriber<any>;
     args: any;
     sub$: string;
     reso: (acc: Accumulator, res: any) => any;
