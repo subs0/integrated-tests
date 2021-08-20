@@ -27,18 +27,18 @@
         "constants"
     ],
     "dependencies": {
-        "@-0/keys": "^0.3.26",
+        "@-0/keys": "^0.3.27",
         "querystring": "^0.2.1"
     },
     "peerDependencies": {
-        "@thi.ng/rstream": "^6.0.17"
+        "@thi.ng/rstream": "^6.0.19"
     },
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.15.0",
         "@thi.ng/checks": "^2.9.10",
-        "@thi.ng/rstream": "^6.0.17",
+        "@thi.ng/rstream": "^6.0.19",
         "@types/jest": "^27.0.1",
-        "@types/node": "^16.6.2",
+        "@types/node": "^16.7.0",
         "@typescript-eslint/eslint-plugin": "^4.29.2",
         "@typescript-eslint/parser": "^4.29.2",
         "babel-jest": "^27.0.6",
