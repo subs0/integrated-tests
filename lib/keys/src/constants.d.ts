@@ -29,7 +29,7 @@ export declare const DOM: {
     HEAD: string;
 };
 export declare const NAV: {
-    URL: string;
+    FULL: string;
     NODE: string;
 };
 export declare const HD_TITL = "title";

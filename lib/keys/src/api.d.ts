@@ -41,7 +41,7 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    DOM_NODE: Document | HTMLAnchorElement;
+    DOM_NODE: Document | HTMLElement;
     DOM_BODY: any;
     DOM_HEAD: Partial<{
         title: string;
@@ -86,7 +86,7 @@ export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
     URL_FULL: string;
-    DOM_NODE: Document | HTMLAnchorElement;
+    DOM_NODE: Document | HTMLElement;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
@@ -100,7 +100,7 @@ declare const DD: {
     $$_PATH: string[];
     $$_LOAD: boolean;
     $$_VIEW: (data: any) => any;
-    $$_ROOT: HTMLElement;
+    $$_ROOT: Document | HTMLElement;
 };
 export declare type DefaultDraft = typeof DD;
 export {};
