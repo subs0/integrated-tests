@@ -110,11 +110,13 @@ const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`
 
 /**
- *
+ * looks for the `DOM_HEAD` property under the `URL_DATA`
+ * Object and - if found - targets the k/v pairs therein
+ * within the <head> element of the current DOM.
  */
-const injectHead = (args: apiURL) => {
-    if (!args || !Object.keys(args).length) return
-    const data = args[URL_DATA]
+const injectHead = (acc: apiURL) => {
+    if (!acc || !Object.keys(acc).length) return
+    const data = acc[URL_DATA]
     // if no match URL__ROUTE Task sends -> URL_DATA: null
     const send = data || { [DOM_HEAD]: {} }
     const head = send[DOM_HEAD]
@@ -158,6 +160,12 @@ const injectHead = (args: apiURL) => {
     return
 }
 
+/**
+ * A Command for changing the <head> content of the current
+ * page. Targets therein are identified and changed by k:v
+ * pairs under the following path within the Accumulator:
+ * `URL_DATA` > `DOM_HEAD` : { ...[K:V pairs] }
+ */
 export const cmd_inject_head: ICommand = {
     [CMD_SUB$]: IH,
     [CMD_ARGS]: acc => ({ [URL_DATA]: acc[URL_DATA] }),
