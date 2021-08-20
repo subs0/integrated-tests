@@ -58,10 +58,10 @@ const conformToHead = ({ [HD_TITL]: title = defalt_cfg[HD_TITL], [HD_DESC]: desc
 const IH = "_INJECT_HEAD";
 const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`;
-export const injectHead = (args) => {
-    if (!args || !Object.keys(args).length)
+const injectHead = (acc) => {
+    if (!acc || !Object.keys(acc).length)
         return;
-    const data = args[URL_DATA];
+    const data = acc[URL_DATA];
     const send = data || { [DOM_HEAD]: {} };
     const head = send[DOM_HEAD];
     const reqs = {
