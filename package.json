@@ -31,9 +31,9 @@
         "access": "public"
     },
     "dependencies": {
-        "@-0/keys": "^0.3.27",
-        "@-0/utils": "^0.3.27",
-        "@-0/spool": "^0.3.23",
+        "@-0/keys": "^0.3.28",
+        "@-0/utils": "^0.3.28",
+        "@-0/spool": "^0.3.24",
         "@thi.ng/paths": "^4.2.13",
         "@thi.ng/rstream": "^6.0.19"
     },
