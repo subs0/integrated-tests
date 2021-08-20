@@ -1,4 +1,4 @@
-import { PubSub, Stream } from "@thi.ng/rstream";
+import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream";
 export declare type Accumulator = Record<string, unknown>;
 declare const ICO: {
     args: any;
@@ -9,7 +9,7 @@ declare const ICO: {
 export declare type ICommandObject = Partial<typeof ICO>;
 declare const IC: {
     work: (args: any) => any;
-    src$: typeof Stream;
+    src$: ISubscribable<any> | ISubscriber<any>;
     args: any;
     sub$: string;
     reso: (acc: Accumulator, res: any) => any;
@@ -26,7 +26,7 @@ declare const PURL: {
     URL_PATH: string[];
     URL_DOMN: string[];
     URL_SUBD: string[];
-    URL_QERY: {};
+    URL_QERY: Record<string, unknown>;
     URL_HASH: string;
 };
 export declare type ParsedURL = Partial<typeof PURL>;
@@ -41,7 +41,7 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    DOM_NODE: HTMLElement;
+    DOM_NODE: Document | HTMLAnchorElement;
     DOM_BODY: any;
     DOM_HEAD: Partial<{
         title: string;
@@ -83,10 +83,10 @@ declare const RO: {
     URL_PAGE: (data: any) => any;
 };
 export declare type RouterOutput = typeof RO;
-export declare type Router = (url: string) => RouterOutput;
+export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
     URL_FULL: string;
-    DOM_NODE: HTMLElement | Document;
+    DOM_NODE: Document | HTMLAnchorElement;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {

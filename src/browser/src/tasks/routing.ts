@@ -4,7 +4,7 @@
 
 import { isPlainObject } from "@thi.ng/checks"
 
-import { cmd_href_pushstate_dom, cmd_notify_prerender_dom, cmd_set_link_attrs_dom, SET_STATE } from "../commands"
+import { _HREF_PUSHSTATE_DOM, SET_STATE, _NOTIFY_PRERENDER_DOM, _SET_LINK_ATTRS_DOM } from "../commands"
 
 import {
     $$_VIEW,
@@ -33,9 +33,8 @@ import {
 } from "@-0/keys"
 
 import { stringify_fn, URL2obj } from "@-0/utils"
-import { registerCMD } from "@-0/spool"
 
-const SET_ROUTE_PATH = {
+const _SET_ROUTE_PATH = {
     ...SET_STATE,
     [CMD_ARGS]: _acc => ({
         [STATE_DATA]: _acc[URL_PATH],
@@ -72,32 +71,19 @@ const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥
  *
  * TODO: Type ROuter CFG
  */
-export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
-    let router, preroute, postroute, prefix
+export const __URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
+    const rtr = CFG[CFG_RUTR] || null
+    const pre = CFG[RTR_PREP] || null
+    const pst = CFG[RTR_POST] || null
+    const pfx = CFG[RTR_PRFX] || null
+    const escRGX = /[-/\\^$*+?.()|[\]{}]/g
+    const escaped = string => string.replace(escRGX, "\\$&")
 
-    if (isPlainObject(CFG)) {
-        const rtr = CFG[CFG_RUTR]
-        const pre = CFG[RTR_PREP]
-        const pst = CFG[RTR_POST]
-        const pfx = CFG[RTR_PRFX] || null
+    const RUTR = rtr || CFG
+    const _PREP = (pre && isPlainObject(pre) ? [pre] : pre) || []
+    const _POST = (pst && isPlainObject(pst) ? [pst] : pst) || []
+    const prefix = pfx ? new RegExp(escaped(pfx), "g") : null
 
-        const escRGX = /[-/\\^$*+?.()|[\]{}]/g
-        const escaped = string => string.replace(escRGX, "\\$&")
-
-        // console.log({ router, pre, pst })
-
-        router = rtr
-        preroute = isPlainObject(pre) ? [pre] : pre || []
-        postroute = isPlainObject(pst) ? [pst] : pst || []
-        prefix = pfx ? new RegExp(escaped(pfx), "g") : null
-    } else {
-        router = CFG
-        preroute = []
-        postroute = []
-        prefix = ""
-    }
-    // console.log(stringify_fn({ router, preroute,
-    // postroute, prefix }, 2))
     /**
      * 📌 TODO enable progress observation by using both the
      * run$ and log$ stream emissions:
@@ -108,11 +94,11 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
      *      the run$ emission
      */
     const subtask = (acc): Task => [
-        ...preroute,
+        ..._PREP,
         {
             // 📌 🤔: consider how to handle stage flag URL prefix (e.g., /staging, from AWS)
-            [CMD_ARGS]: acc[URL_FULL] ? router(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
-            [CMD_RESO]: (_acc, _res) => ({
+            [CMD_ARGS]: acc[URL_FULL] ? RUTR(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
+            [CMD_RESO]: (_acc, _res: RouterOutput) => ({
                 // no page when used server-side...
                 ...(_res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] }),
                 ...(_res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] }),
@@ -123,24 +109,24 @@ export const URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
             [CMD_ARGS]: acc[URL_FULL] ? URL2obj(acc[URL_FULL], prefix) : new Error(e_s),
             [CMD_ERRO]: route_error,
         },
-        SET_ROUTE_PATH,
-        ...postroute,
+        _SET_ROUTE_PATH,
+        ..._POST,
     ]
     return subtask
 }
 
-const SET_ROUTE_LOADING_TRUE = {
+const _SET_ROUTE_LOADING_TRUE = {
     ...SET_STATE,
     [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: true },
 }
-const SET_ROUTE_LOADING_FALSE = {
+const _SET_ROUTE_LOADING_FALSE = {
     ...SET_STATE,
     [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: false },
 }
 
-export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
-export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
-export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
+//export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
+//export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
+//export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
 
 /**
  *
@@ -161,14 +147,14 @@ export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
  * ]
  * ```
  */
-export const DOM_URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
+export const __DOM_URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
     // instantiate router
-    const match = URL__ROUTE(CFG)
+    const match = __URL__ROUTE(CFG)
 
     const subtask = (ACC): Task => [
-        SET_ROUTE_LOADING_TRUE,
+        _SET_ROUTE_LOADING_TRUE,
         {
-            ...HREF_PUSHSTATE_DOM,
+            ..._HREF_PUSHSTATE_DOM,
             [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] },
         },
         ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
@@ -195,9 +181,9 @@ export const DOM_URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
                     null,
             }),
         },
-        SET_LINK_ATTRS_DOM,
-        SET_ROUTE_LOADING_FALSE,
-        NOTIFY_PRERENDER_DOM,
+        _SET_LINK_ATTRS_DOM,
+        _SET_ROUTE_LOADING_FALSE,
+        _NOTIFY_PRERENDER_DOM,
     ]
 
     return subtask
