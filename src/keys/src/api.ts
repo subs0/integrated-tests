@@ -69,6 +69,7 @@ export type HOTask = (acc: Accumulator) => Task
 export type Task = Command[]
 
 const C = data => null
+
 export type Component = typeof C
 
 const PURL = {
@@ -76,7 +77,7 @@ const PURL = {
     [URL_PATH]: [""],
     [URL_DOMN]: [""],
     [URL_SUBD]: [""],
-    [URL_QERY]: {},
+    [URL_QERY]: {} as Record<string, unknown>,
     [URL_HASH]: "",
 }
 export type ParsedURL = Partial<typeof PURL>
@@ -91,11 +92,13 @@ const HD = {
     [HD_TYPE]: "",
 }
 export type HeadData = Partial<typeof HD>
+
+const navNode = document.createElement("a") || document
 /**
  * Provides targets for data injection from DOM router
  */
 const TDOM = {
-    [DOM_NODE]: new HTMLElement(),
+    [DOM_NODE]: navNode,
     [DOM_BODY]: null,
     [DOM_HEAD]: HD as HeadData,
 }
@@ -117,58 +120,15 @@ export type Router = (url: string) => RouterOutput | Promise<RouterOutput>
 
 const RI = {
     [URL_FULL]: "",
-    [DOM_NODE]: new HTMLElement() || document,
+    [DOM_NODE]: navNode,
 }
 export type RouterInput = typeof RI
-
-//
-//    d8                  888
-//  _d88__  e88~-_   e88~\888  e88~-_
-//   888   d888   i d888  888 d888   i
-//   888   8888   | 8888  888 8888   |
-//   888   Y888   ' Y888  888 Y888   '
-//   "88_/  "88_-~   "88_/888  "88_-~
-//
-//
-
-//export const router = URL => {
-//    const match = URL2obj(URL)
-//    const { URL_DOMN, URL_FULL, URL_HASH, URL_PATH, URL_QERY, URL_SUBD } = match
-
-//    const { page, data } = new EquivMap([
-//        [
-//            { ...match, URL_PATH: [] },
-//            {
-//                page: d => console.log("page1:", d),
-//                data: () => ({ [DOM_BODY]: "data" /*fetch("https://dummyapi.io/data/v1/user?limit=10") */}),
-//            },
-//        ],
-//    ]).get(match)
-
-//    return {
-//        [URL_DATA]: data(),
-//        [URL_PAGE]: page,
-//        //[C.URL_PAGE]: page,
-//    }
-//}
-
-//export const _NAVIGATE = registerRouterDOM(router)
-
-//
-//    d8                  888
-//  _d88__  e88~-_   e88~\888  e88~-_
-//   888   d888   i d888  888 d888   i
-//   888   8888   | 8888  888 8888   |
-//   888   Y888   ' Y888  888 Y888   '
-//   "88_/  "88_-~   "88_/888  "88_-~
-//
-//
 
 const RCFG = {
     [RTR_PREP]: ({} as Command) || ([] as Task),
     [RTR_PRFX]: "",
     [RTR_POST]: ({} as Command) || ([] as Task),
-    [CFG_RUTR]: (async (url: string) => null as RouterOutput) as Router,
+    [CFG_RUTR]: ((url: string) => null as RouterOutput) as Router,
 }
 export type RouterCFG = Partial<typeof RCFG>
 

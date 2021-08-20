@@ -26,7 +26,7 @@ declare const PURL: {
     URL_PATH: string[];
     URL_DOMN: string[];
     URL_SUBD: string[];
-    URL_QERY: {};
+    URL_QERY: Record<string, unknown>;
     URL_HASH: string;
 };
 export declare type ParsedURL = Partial<typeof PURL>;
@@ -41,7 +41,7 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    DOM_NODE: HTMLElement;
+    DOM_NODE: Document | HTMLAnchorElement;
     DOM_BODY: any;
     DOM_HEAD: Partial<{
         title: string;
@@ -86,7 +86,7 @@ export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
     URL_FULL: string;
-    DOM_NODE: HTMLElement | Document;
+    DOM_NODE: Document | HTMLAnchorElement;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {

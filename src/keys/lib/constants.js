@@ -28,6 +28,10 @@ export const DOM = {
     BODY: DOM_BODY,
     HEAD: DOM_HEAD,
 };
+export const NAV = {
+    FULL: URL_FULL,
+    NODE: DOM_NODE,
+};
 export const HD_TITL = "title";
 export const HD_ICON = "favicon";
 export const HD_DESC = "og_description";

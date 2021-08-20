@@ -43,6 +43,10 @@ export const DOM = {
     HEAD: DOM_HEAD,
 }
 
+export const NAV = {
+    FULL: URL_FULL,
+    NODE: DOM_NODE,
+}
 // document head selector shortcuts
 export const HD_TITL = "title"
 export const HD_ICON = "favicon"
