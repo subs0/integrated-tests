@@ -4,7 +4,7 @@
 import { DOM_NODE, URL_FULL, CMD_SUB$, CMD_ARGS, CMD_SRC$, CMD_WORK, Command, Router, RouterCFG } from "@-0/keys"
 import { run$, registerCMD } from "@-0/spool"
 import { Err_missing_props } from "@-0/utils"
-import { DOM_URL__ROUTE } from "../tasks"
+import { __DOM_URL__ROUTE } from "../tasks"
 import { DOMnavigated$ } from "../core"
 
 /**
@@ -22,13 +22,13 @@ import { DOMnavigated$ } from "../core"
  * ```js
  * import { registerRouterDOM, $store$ } from "@-0/browser"
  * import { URL2obj } from "@-0/utils"
- * import { $$_VIEW, URL } from "@-0/keys"
+ * import * as K from "@-0/keys"
  * import { getIn } from "@thi.ng/paths"
  *
  * // arbitrary router, always returns the same object
  * const router = (url) => ({
- *      [URL_PAGE]: (data) => console.log("🎨:", data),
- *      [URL_DATA]: "navigated to " + url
+ *      [K.URL_PAGE]: (data) => console.log("🎨:", data),
+ *      [K.URL_DATA]: "navigated to " + url
  * })
  *
  * const _NAVIGATE = registerRouterDOM(router)
@@ -39,29 +39,27 @@ import { DOMnavigated$ } from "../core"
  * const url = "/some/path?and=query"
  * run$.next({
  *      ..._NAVIGATE,
- *      [CMD_ARGS]: {
- *          [URL_FULL]: url,
- *          [DOM_NODE]: document
+ *      [K.CMD_ARGS]: {
+ *          [K.URL_FULL]: url,
+ *          [K.DOM_NODE]: document
  *      }
  *  })
- * const {
- *      [URL.PATH]: path
- * } = URL2Obj(url)
  *
- * const {
- *      [$$_VIEW]: View,
- *      ...store
- * } = $store$.deref()
- *
+ * // get the current path to state from URL/route
+ * const { [K.URL_PATH]: path } = URL2Obj(url)
+ * // get the current view and global state from store
+ * const { [K.$$_VIEW]: View, ...store } = $store$.deref()
+ * // get route-specific data out of the global state
  * const data = getIn(store, path)
+ * // use the view on the data
  * View(data)
  * // => 🎨: navigated to /some/path?and=query
  * ```
  */
-export const registerRouterDOM = (router: Router | RouterCFG): Command => {
+export const registerRouterDOM = (CFG: Router | RouterCFG): Command => {
     console.log("DOM Router Registered")
-    const routing_task = DOM_URL__ROUTE(router)
-    return registerCMD({
+    const routing_task = __DOM_URL__ROUTE(CFG)
+    const { [CMD_SUB$]: sub$, [CMD_ARGS]: args } = registerCMD({
         [CMD_SRC$]: DOMnavigated$,
         [CMD_SUB$]: "_NAVIGATE",
         [CMD_ARGS]: ({ [URL_FULL]: url, [DOM_NODE]: node }) => ({
@@ -74,4 +72,8 @@ export const registerRouterDOM = (router: Router | RouterCFG): Command => {
             console.warn(Err_missing_props("_NAVIGATE (from registerRouterDOM)", props))
         },
     })
+    return {
+        [CMD_SUB$]: sub$,
+        [CMD_ARGS]: args,
+    }
 }

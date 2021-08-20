@@ -22,27 +22,27 @@ import {
 
 import { registerCMD, run$, log$ } from "@-0/spool"
 import { $store$ } from "../../src/store"
-import { URL__ROUTE, DOM_URL__ROUTE } from "../../src/tasks"
+import { __URL__ROUTE, __DOM_URL__ROUTE } from "../../src/tasks"
 import { setImmediate } from "timers"
 
 const router_fn = url => ({ [URL_DATA]: { here: "worn out places" }, [URL_PAGE]: "({ here }) => would be a function" })
 
 describe("Tasks: routing", () => {
     test("1: URL__ROUTE: function router CFG with simple data", async () => {
-        const subtask = URL__ROUTE(router_fn)
+        const SUBTASK = __URL__ROUTE(router_fn)
         const before = $store$.deref()
         expect(before[$$_PATH]).toMatchObject([])
-        run$.next([{ [CMD_ARGS]: { [URL_FULL]: "logan/was/here", [DOM_NODE]: window } }, subtask])
+        await run$.next([{ [CMD_ARGS]: { [URL_FULL]: "logan/was/here", [DOM_NODE]: window } }, SUBTASK])
 
-        // wait for next tick/cycle of event loop
-        await new Promise(r => setImmediate(r))
+        // FIXME? wait for next tick/cycle of event loop
+        //await new Promise(r => setImmediate(r))
 
         const after = $store$.deref()
         expect(after[$$_PATH]).toMatchObject(["logan", "was", "here"])
     })
     test("2: DOM_URL__ROUTE: function router CFG with simple data", async () => {
-        const subtask = DOM_URL__ROUTE(router_fn)
-        run$.next([{ [CMD_ARGS]: { [URL_FULL]: "exit/stage", [DOM_NODE]: window } }, subtask])
+        const SUBTASK = __DOM_URL__ROUTE(router_fn)
+        run$.next([{ [CMD_ARGS]: { [URL_FULL]: "exit/stage", [DOM_NODE]: window } }, SUBTASK])
 
         // wait for next tick/cycle of event loop
         await new Promise(r => setImmediate(r))
@@ -63,9 +63,9 @@ describe("Tasks: routing", () => {
             [RTR_PRFX]: "nowyouseeme/",
         }
 
-        const subtask2 = URL__ROUTE(router_obj)
+        const SUBTASK2 = __URL__ROUTE(router_obj)
 
-        run$.next([{ [CMD_ARGS]: { [URL_FULL]: "nowyouseeme/now/you/dont", [DOM_NODE]: window } }, subtask2])
+        run$.next([{ [CMD_ARGS]: { [URL_FULL]: "nowyouseeme/now/you/dont", [DOM_NODE]: window } }, SUBTASK2])
 
         // wait for next tick/cycle of event loop
         await new Promise(r => setImmediate(r))
@@ -97,11 +97,11 @@ describe("Tasks: routing", () => {
             [RTR_PRFX]: "allaroundme/",
         }
 
-        const subtask2 = DOM_URL__ROUTE(router_obj)
+        const SUBTASK2 = __DOM_URL__ROUTE(router_obj)
 
         run$.next([
             { [CMD_ARGS]: { [URL_FULL]: "allaroundme/are/familiar/faces", [DOM_NODE]: { target: { href: "bloop" } } } },
-            subtask2,
+            SUBTASK2,
         ])
 
         // wait for next tick/cycle of event loop

@@ -109,7 +109,10 @@ const IH = "_INJECT_HEAD"
 const err_str = `Error in \`${IH}\` Command \`${CMD_ARGS}\`
 ${URL_DATA}.${DOM_HEAD} props:`
 
-export const injectHead = (args: apiURL) => {
+/**
+ *
+ */
+const injectHead = (args: apiURL) => {
     if (!args || !Object.keys(args).length) return
     const data = args[URL_DATA]
     // if no match URL__ROUTE Task sends -> URL_DATA: null
