@@ -24,7 +24,7 @@ const HD = {
     [HD_ICON]: "",
     [HD_TYPE]: "",
 };
-const navNode = document.createElement("a") || document;
+const navNode = document.createElement("a") || document.getElementById("some-id") || document;
 const TDOM = {
     [DOM_NODE]: navNode,
     [DOM_BODY]: null,
@@ -52,5 +52,5 @@ const DD = {
     [$$_PATH]: [""],
     [$$_LOAD]: false,
     [$$_VIEW]: C,
-    [$$_ROOT]: new HTMLElement(),
+    [$$_ROOT]: document.getElementById("root") || document,
 };

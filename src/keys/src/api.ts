@@ -93,7 +93,7 @@ const HD = {
 }
 export type HeadData = Partial<typeof HD>
 
-const navNode = document.createElement("a") || document
+const navNode = document.createElement("a") || document.getElementById("some-id") || document
 /**
  * Provides targets for data injection from DOM router
  */
@@ -136,6 +136,6 @@ const DD = {
     [$$_PATH]: [""],
     [$$_LOAD]: false,
     [$$_VIEW]: C as Component,
-    [$$_ROOT]: new HTMLElement(),
+    [$$_ROOT]: document.getElementById("root") || document,
 }
 export type DefaultDraft = typeof DD
