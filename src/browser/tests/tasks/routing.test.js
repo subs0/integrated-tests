@@ -32,10 +32,9 @@ describe("Tasks: routing", () => {
         const SUBTASK = __URL__ROUTE(router_fn)
         const before = $store$.deref()
         expect(before[$$_PATH]).toMatchObject([])
-        await run$.next([{ [CMD_ARGS]: { [URL_FULL]: "logan/was/here", [DOM_NODE]: window } }, SUBTASK])
+        run$.next([{ [CMD_ARGS]: { [URL_FULL]: "logan/was/here", [DOM_NODE]: window } }, SUBTASK])
 
-        // FIXME? wait for next tick/cycle of event loop
-        //await new Promise(r => setImmediate(r))
+        await new Promise(r => setImmediate(r))
 
         const after = $store$.deref()
         expect(after[$$_PATH]).toMatchObject(["logan", "was", "here"])

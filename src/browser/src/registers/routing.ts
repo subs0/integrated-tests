@@ -1,9 +1,20 @@
 /**
  * @module core/registers
  */
-import { DOM_NODE, URL_FULL, CMD_SUB$, CMD_ARGS, CMD_SRC$, CMD_WORK, Command, Router, RouterCFG } from "@-0/keys"
+import {
+    DOM_NODE,
+    URL_FULL,
+    CMD_SUB$,
+    CMD_ARGS,
+    CMD_SRC$,
+    CMD_WORK,
+    Command,
+    Router,
+    RouterCFG,
+    URL_PATH,
+} from "@-0/keys"
 import { run$, registerCMD } from "@-0/spool"
-import { Err_missing_props } from "@-0/utils"
+import { Err_missing_props, URL2obj } from "@-0/utils"
 import { __DOM_URL__ROUTE } from "../tasks"
 import { DOMnavigated$ } from "../core"
 
@@ -67,6 +78,12 @@ export const registerRouterDOM = (CFG: Router | RouterCFG): Command => {
             [DOM_NODE]: node,
         }),
         [CMD_WORK]: ({ [URL_FULL]: url, [DOM_NODE]: node = document }) => {
+            const w_href = window.location.href
+            const parsed = URL2obj(w_href)
+            const w_path = `/${parsed[URL_PATH].join("/")}`
+            // noop shortcut for both absolute and root
+            // relative paths
+            if (url === w_href || url === w_path) return
             const props = { [URL_FULL]: url, [DOM_NODE]: node }
             if (url) return run$.next(routing_task(props))
             console.warn(Err_missing_props("_NAVIGATE (from registerRouterDOM)", props))

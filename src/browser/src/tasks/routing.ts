@@ -93,11 +93,11 @@ export const __URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
      * 2. create for every emission from
      *      the run$ emission
      */
-    const subtask = (acc): Task => [
+    const subtask = (ACC): Task => [
         ..._PREP,
         {
             // 📌 🤔: consider how to handle stage flag URL prefix (e.g., /staging, from AWS)
-            [CMD_ARGS]: acc[URL_FULL] ? RUTR(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
+            [CMD_ARGS]: ACC[URL_FULL] ? RUTR(ACC[URL_FULL].replace(prefix, "")) : new Error(e_s),
             [CMD_RESO]: (_acc, _res: RouterOutput) => ({
                 // no page when used server-side...
                 ...(_res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] }),
@@ -106,7 +106,7 @@ export const __URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
             [CMD_ERRO]: route_error,
         },
         {
-            [CMD_ARGS]: acc[URL_FULL] ? URL2obj(acc[URL_FULL], prefix) : new Error(e_s),
+            [CMD_ARGS]: ACC[URL_FULL] ? URL2obj(ACC[URL_FULL], prefix) : new Error(e_s),
             [CMD_ERRO]: route_error,
         },
         _SET_ROUTE_PATH,
@@ -123,10 +123,6 @@ const _SET_ROUTE_LOADING_FALSE = {
     ...SET_STATE,
     [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: false },
 }
-
-//export const NOTIFY_PRERENDER_DOM = registerCMD(cmd_notify_prerender_dom)
-//export const SET_LINK_ATTRS_DOM = registerCMD(cmd_set_link_attrs_dom)
-//export const HREF_PUSHSTATE_DOM = registerCMD(cmd_href_pushstate_dom)
 
 /**
  *
@@ -181,7 +177,7 @@ export const __DOM_URL__ROUTE = (CFG: Router | RouterCFG): HOTask => {
                     null,
             }),
         },
-        _SET_LINK_ATTRS_DOM,
+        _SET_LINK_ATTRS_DOM, // deps: DOM_NODE
         _SET_ROUTE_LOADING_FALSE,
         _NOTIFY_PRERENDER_DOM,
     ]

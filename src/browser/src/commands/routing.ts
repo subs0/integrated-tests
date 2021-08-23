@@ -7,6 +7,10 @@ import { DOMnavigated$ } from "../core/stream$"
 import { registerCMD } from "@-0/spool"
 
 /**
+ * @deprecated Redundant and non-idiomatic method of
+ * streaming data (using source stream injection rather than
+ * direct run$.next({}) injection)
+ *
  * Click handler that mimics DOM navigation by transforming
  * a click event payload to align with the object structure
  * of the native DOM navigation events ('popstate' and
@@ -32,6 +36,10 @@ export const navEventHandler = ev => {
     return ev
 }
 
+/**
+ * @deprecated USE NAV COMMAND RETURNED FROM `registerRouterDOM` INSTEAD
+ *
+ */
 export const cmd_nav: ICommand = {
     [CMD_SUB$]: "_NAV",
     [CMD_ARGS]: ev => ev,
@@ -92,8 +100,8 @@ export const _SET_LINK_ATTRS_DOM: Command = registerCMD({
  * ```
  * Takes a URL and a DOM reference
  *
- * If the DOM reference is an `<a>` element, uses
- * `history.pushState` to add the clicked URL (plus the
+ * If the DOM reference is not `window`, uses
+ * `history.pushState` to add the URL (plus the
  * parsed URL from `parse_URL(URL)`) to the `history` object
  *
  * export const DOMnavigated$ = merge({
@@ -112,7 +120,7 @@ export const _HREF_PUSHSTATE_DOM: Command = registerCMD({
             [URL_FULL]: url,
             [DOM_NODE]: node,
         }
-        if (url && node && !node.document) return history.pushState(URL2obj(url), null, url)
+        if (url && node && !node.document) return history.pushState(URL2obj(url), document.title, url)
         if (!url || !node) return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props))
     },
 })
