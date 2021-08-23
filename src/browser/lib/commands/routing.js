@@ -60,7 +60,7 @@ export const _HREF_PUSHSTATE_DOM = registerCMD({
             [DOM_NODE]: node,
         };
         if (url && node && !node.document)
-            return history.pushState(URL2obj(url), null, url);
+            return history.pushState(URL2obj(url), document.title, url);
         if (!url || !node)
             return console.warn(Err_missing_props("_HREF_PUSHSTATE_DOM", props));
     },

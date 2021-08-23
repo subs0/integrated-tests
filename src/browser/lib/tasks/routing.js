@@ -19,15 +19,15 @@ export const __URL__ROUTE = (CFG) => {
     const _PREP = (pre && isPlainObject(pre) ? [pre] : pre) || [];
     const _POST = (pst && isPlainObject(pst) ? [pst] : pst) || [];
     const prefix = pfx ? new RegExp(escaped(pfx), "g") : null;
-    const subtask = (acc) => [
+    const subtask = (ACC) => [
         ..._PREP,
         {
-            [CMD_ARGS]: acc[URL_FULL] ? RUTR(acc[URL_FULL].replace(prefix, "")) : new Error(e_s),
+            [CMD_ARGS]: ACC[URL_FULL] ? RUTR(ACC[URL_FULL].replace(prefix, "")) : new Error(e_s),
             [CMD_RESO]: (_acc, _res) => (Object.assign(Object.assign({}, (_res && _res[URL_PAGE] && { [URL_PAGE]: _res[URL_PAGE] })), (_res && _res[URL_DATA] && { [URL_DATA]: _res[URL_DATA] }))),
             [CMD_ERRO]: route_error,
         },
         {
-            [CMD_ARGS]: acc[URL_FULL] ? URL2obj(acc[URL_FULL], prefix) : new Error(e_s),
+            [CMD_ARGS]: ACC[URL_FULL] ? URL2obj(ACC[URL_FULL], prefix) : new Error(e_s),
             [CMD_ERRO]: route_error,
         },
         _SET_ROUTE_PATH,
