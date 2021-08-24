@@ -14,16 +14,17 @@ import { Err_missing_props } from "@-0/utils"
 export const createSetStateCMD = (store = $store$, sub$ = "_SET_STATE"): Command =>
     registerCMD({
         [CMD_SUB$]: sub$,
-        [CMD_ARGS]: x => x,
-        [CMD_WORK]: args => {
-            const path = args[STATE_PATH]
-            const data = args[STATE_DATA]
+        [CMD_ARGS]: ({ [STATE_PATH]: path, [STATE_DATA]: data }) => ({
+            [STATE_PATH]: path,
+            [STATE_DATA]: data,
+        }),
+        [CMD_WORK]: ({ [STATE_PATH]: path, [STATE_DATA]: data }) => {
             const props = {
                 [STATE_PATH]: path,
                 [STATE_DATA]: data,
             }
             if (path && data !== undefined) return set$$tate(path, data, store)
-            console.warn(Err_missing_props("_SET_STATE", props))
+            console.warn(Err_missing_props(sub$, props))
         },
     })
 
