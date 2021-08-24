@@ -9,7 +9,7 @@ declare const ICO: {
 export declare type ICommandObject = Partial<typeof ICO>;
 declare const IC: {
     work: (args: any) => any;
-    src$: ISubscriber<any> | ISubscribable<any>;
+    src$: ISubscribable<any> | ISubscriber<any>;
     args: any;
     sub$: string;
     reso: (acc: Accumulator, res: any) => any;
@@ -41,7 +41,7 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    DOM_NODE: HTMLElement | Document;
+    DOM_NODE: Document | HTMLElement;
     DOM_BODY: any;
     DOM_HEAD: Partial<{
         title: string;
@@ -86,7 +86,7 @@ export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
     URL_FULL: string;
-    DOM_NODE: HTMLElement | Document;
+    DOM_NODE: Document | HTMLElement;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
@@ -100,7 +100,7 @@ declare const DD: {
     $$_PATH: string[];
     $$_LOAD: boolean;
     $$_VIEW: (data: any) => any;
-    $$_ROOT: HTMLElement | Document;
+    $$_ROOT: Document | HTMLElement;
 };
 export declare type DefaultDraft = typeof DD;
 export {};

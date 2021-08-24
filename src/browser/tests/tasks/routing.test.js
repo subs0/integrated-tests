@@ -29,7 +29,7 @@ const router_fn = url => ({ [URL_DATA]: { here: "worn out places" }, [URL_PAGE]:
 
 describe("Tasks: routing", () => {
     test("1: URL__ROUTE: function router CFG with simple data", async () => {
-        const SUBTASK = __URL__ROUTE(router_fn)
+        const [SUBTASK] = __URL__ROUTE(router_fn)
         const before = $store$.deref()
         expect(before[$$_PATH]).toMatchObject([])
         run$.next([{ [CMD_ARGS]: { [URL_FULL]: "logan/was/here", [DOM_NODE]: window } }, SUBTASK])
@@ -40,7 +40,7 @@ describe("Tasks: routing", () => {
         expect(after[$$_PATH]).toMatchObject(["logan", "was", "here"])
     })
     test("2: DOM_URL__ROUTE: function router CFG with simple data", async () => {
-        const SUBTASK = __DOM_URL__ROUTE(router_fn)
+        const [SUBTASK] = __DOM_URL__ROUTE(router_fn)
         run$.next([{ [CMD_ARGS]: { [URL_FULL]: "exit/stage", [DOM_NODE]: window } }, SUBTASK])
 
         // wait for next tick/cycle of event loop
@@ -62,7 +62,7 @@ describe("Tasks: routing", () => {
             [RTR_PRFX]: "nowyouseeme/",
         }
 
-        const SUBTASK2 = __URL__ROUTE(router_obj)
+        const [SUBTASK2] = __URL__ROUTE(router_obj)
 
         run$.next([{ [CMD_ARGS]: { [URL_FULL]: "nowyouseeme/now/you/dont", [DOM_NODE]: window } }, SUBTASK2])
 
@@ -96,7 +96,7 @@ describe("Tasks: routing", () => {
             [RTR_PRFX]: "allaroundme/",
         }
 
-        const SUBTASK2 = __DOM_URL__ROUTE(router_obj)
+        const [SUBTASK2] = __DOM_URL__ROUTE(router_obj)
 
         run$.next([
             { [CMD_ARGS]: { [URL_FULL]: "allaroundme/are/familiar/faces", [DOM_NODE]: { target: { href: "bloop" } } } },

@@ -17,6 +17,7 @@ import { run$, registerCMD } from "@-0/spool"
 import { Err_missing_props, URL2obj } from "@-0/utils"
 import { __DOM_URL__ROUTE } from "../tasks"
 import { DOMnavigated$ } from "../core"
+import { $store$ } from "../store"
 
 /**
  *
@@ -67,9 +68,9 @@ import { DOMnavigated$ } from "../core"
  * // => 🎨: navigated to /some/path?and=query
  * ```
  */
-export const registerRouterDOM = (CFG: Router | RouterCFG): Command => {
+export const registerRouterDOM = (CFG: Router | RouterCFG, store = $store$): [Command, Command] => {
     console.log("DOM Router Registered")
-    const routing_task = __DOM_URL__ROUTE(CFG)
+    const [ROUTE_HOT, SET_STATE] = __DOM_URL__ROUTE(CFG, store)
     const { [CMD_SUB$]: sub$, [CMD_ARGS]: args } = registerCMD({
         [CMD_SRC$]: DOMnavigated$,
         [CMD_SUB$]: "_NAVIGATE",
@@ -85,12 +86,9 @@ export const registerRouterDOM = (CFG: Router | RouterCFG): Command => {
             // relative paths
             if (url === w_href || url === w_path) return
             const props = { [URL_FULL]: url, [DOM_NODE]: node }
-            if (url) return run$.next(routing_task(props))
+            if (url) return run$.next(ROUTE_HOT(props))
             console.warn(Err_missing_props("_NAVIGATE (from registerRouterDOM)", props))
         },
     })
-    return {
-        [CMD_SUB$]: sub$,
-        [CMD_ARGS]: args,
-    }
+    return [{ [CMD_SUB$]: sub$, [CMD_ARGS]: args }, SET_STATE]
 }
