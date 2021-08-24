@@ -70,19 +70,12 @@ export declare const CMD: {
 };
 export declare const CFG_RUN$ = "run";
 export declare const CFG_STOR = "state";
-export declare const CFG_ROOT = "CFG_ROOT";
-export declare const CFG_VIEW = "CFG_VIEW";
-export declare const CFG_DRFT = "CFG_DRFT";
 export declare const CFG_LOG$ = "CFG_LOG$";
 export declare const CFG_RUTR = "CFG_RUTR";
-export declare const CFG: {
-    RUN$: string;
+export declare const CTX: {
     STOR: string;
-    ROOT: string;
-    VIEW: string;
-    DRFT: string;
     LOG$: string;
-    RUTR: string;
+    RUN$: string;
 };
 export declare const RTR_PREP = "RTR_PREP";
 export declare const RTR_POST = "RTR_POST";

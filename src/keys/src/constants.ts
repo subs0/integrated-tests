@@ -100,24 +100,14 @@ export const CMD = {
 export const CFG_RUN$ = "run"
 export const CFG_STOR = "state"
 
-// boot config constants
-export const CFG_ROOT = "CFG_ROOT"
-export const CFG_VIEW = "CFG_VIEW"
-//export const CFG_KICK = "CFG_KICK"
-export const CFG_DRFT = "CFG_DRFT"
 export const CFG_LOG$ = "CFG_LOG$"
 export const CFG_RUTR = "CFG_RUTR"
 
-// public
-export const CFG = {
-    RUN$: CFG_RUN$,
+// Context
+export const CTX = {
     STOR: CFG_STOR,
-    ROOT: CFG_ROOT,
-    VIEW: CFG_VIEW,
-    DRFT: CFG_DRFT,
     LOG$: CFG_LOG$,
-    RUTR: CFG_RUTR,
-    //KICK: CFG_KICK,
+    RUN$: CFG_RUN$,
 }
 
 // ROUTER
