@@ -1,14 +1,12 @@
 import { isPlainObject } from "@thi.ng/checks";
-import { _HREF_PUSHSTATE_DOM, SET_STATE, _NOTIFY_PRERENDER_DOM, _SET_LINK_ATTRS_DOM } from "../commands";
-import { $$_VIEW, $$_LOAD, $$_PATH, DOM_NODE, URL_FULL, URL_DATA, URL_PATH, URL_PAGE, RTR_PREP, RTR_POST, RTR_PRFX, CFG_RUTR, CMD_ARGS, CMD_RESO, CMD_ERRO, DOM_BODY, STATE_DATA, STATE_PATH, } from "@-0/keys";
+import { _HREF_PUSHSTATE_DOM, _NOTIFY_PRERENDER_DOM, _SET_LINK_ATTRS_DOM, createSetStateCMD, } from "../commands";
+import { $$_VIEW, $$_LOAD, $$_PATH, DOM_NODE, URL_FULL, URL_DATA, URL_PATH, URL_PAGE, RTR_PREP, RTR_POST, RTR_PRFX, CFG_RUTR, CMD_ARGS, CMD_RESO, CMD_ERRO, DOM_BODY, STATE_DATA, STATE_PATH, CMD_SUB$, } from "@-0/keys";
 import { URL2obj } from "@-0/utils";
-const _SET_ROUTE_PATH = Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: _acc => ({
-        [STATE_DATA]: _acc[URL_PATH],
-        [STATE_PATH]: [$$_PATH],
-    }) });
+import { $store$ } from "../store";
+import { out$ } from "@-0/spool";
 const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err);
 const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥 } }`;
-export const __URL__ROUTE = (CFG) => {
+export const __URL__ROUTE = (CFG, store = $store$) => {
     const rtr = CFG[CFG_RUTR] || null;
     const pre = CFG[RTR_PREP] || null;
     const pst = CFG[RTR_POST] || null;
@@ -19,7 +17,20 @@ export const __URL__ROUTE = (CFG) => {
     const _PREP = (pre && isPlainObject(pre) ? [pre] : pre) || [];
     const _POST = (pst && isPlainObject(pst) ? [pst] : pst) || [];
     const prefix = pfx ? new RegExp(escaped(pfx), "g") : null;
-    const subtask = (ACC) => [
+    const SET_STATE = out$.topics.has("_SET_STATE")
+        ? {
+            [CMD_SUB$]: "_SET_STATE",
+            [CMD_ARGS]: ({ [STATE_PATH]: path, [STATE_DATA]: data }) => ({
+                [STATE_PATH]: path,
+                [STATE_DATA]: data,
+            }),
+        }
+        : createSetStateCMD(store);
+    const _SET_ROUTE_PATH = Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: _acc => ({
+            [STATE_DATA]: _acc[URL_PATH],
+            [STATE_PATH]: [$$_PATH],
+        }) });
+    const ROUTE_SUBTASK = (ACC) => [
         ..._PREP,
         {
             [CMD_ARGS]: ACC[URL_FULL] ? RUTR(ACC[URL_FULL].replace(prefix, "")) : new Error(e_s),
@@ -33,16 +44,16 @@ export const __URL__ROUTE = (CFG) => {
         _SET_ROUTE_PATH,
         ..._POST,
     ];
-    return subtask;
+    return [ROUTE_SUBTASK, SET_STATE];
 };
-const _SET_ROUTE_LOADING_TRUE = Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: true } });
-const _SET_ROUTE_LOADING_FALSE = Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: false } });
-export const __DOM_URL__ROUTE = (CFG) => {
-    const match = __URL__ROUTE(CFG);
-    const subtask = (ACC) => [
+export const __DOM_URL__ROUTE = (CFG, store = $store$) => {
+    const [route_subtask, SET_STATE] = __URL__ROUTE(CFG, store);
+    const _SET_ROUTE_LOADING_TRUE = Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: true } });
+    const _SET_ROUTE_LOADING_FALSE = Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: { [STATE_PATH]: [$$_LOAD], [STATE_DATA]: false } });
+    const ROUTE_HOT = (ACC) => [
         _SET_ROUTE_LOADING_TRUE,
         Object.assign(Object.assign({}, _HREF_PUSHSTATE_DOM), { [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] } }),
-        ACC => match({ [URL_FULL]: ACC[URL_FULL] }),
+        ACC => route_subtask({ [URL_FULL]: ACC[URL_FULL] }),
         Object.assign(Object.assign({}, SET_STATE), { [CMD_ARGS]: acc => ({
                 [STATE_PATH]: [$$_VIEW],
                 [STATE_DATA]: acc[URL_PAGE] || (console.log(`no \`${URL_PAGE}\` found for this route`), null),
@@ -59,5 +70,5 @@ export const __DOM_URL__ROUTE = (CFG) => {
         _SET_ROUTE_LOADING_FALSE,
         _NOTIFY_PRERENDER_DOM,
     ];
-    return subtask;
+    return [ROUTE_HOT, SET_STATE];
 };
