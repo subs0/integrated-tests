@@ -1,1 +1,1 @@
-export declare function diff_keys(nKeys?: any[], nObj?: {}): {}[];
+export declare const diff_keys: (nKeys?: any[], nObj?: {}) => {}[];
