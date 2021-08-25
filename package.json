@@ -51,7 +51,7 @@
         "ncu": "ncu -u && npm i && npm audit fix",
         "check-env": "node -e 'console.log(process.env)' | grep npm",
         "example-npm-variable": "echo 'Notice how the variable is in CAPS %npm_config_msg% <- but not here!'",
-        "example-CLI-argument": "npm run go:all --MSG=some-commit-message"
+        "go": "npm run go:all --MSG=some-commit-message"
     },
     "keywords": [
         "thi.ng",
