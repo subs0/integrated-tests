@@ -3,7 +3,7 @@ const exec = cp.execSync
 
 const args = (msg = "scripted") => {
     console.log(msg)
-    console.log({ argv: process.argv })
+    //console.log({ argv: process.argv })
 
     return process.argv.slice(2).reduce(
         (a, c) => {
