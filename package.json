@@ -59,11 +59,11 @@
         "FRP"
     ],
     "dependencies": {
-        "@-0/browser": "^0.3.29",
+        "@-0/browser": "^0.3.30",
         "@-0/hdom": "^0.3.13",
-        "@-0/keys": "^0.3.30",
-        "@-0/spool": "^0.3.26",
-        "@-0/utils": "^0.3.30"
+        "@-0/keys": "^0.3.36",
+        "@-0/spool": "^0.3.27",
+        "@-0/utils": "^0.3.37"
     },
     "peerDependencies": {
         "@thi.ng/paths": "^4.2.13",
@@ -73,7 +73,7 @@
     "devDependencies": {
         "@babel/plugin-transform-modules-commonjs": "^7.15.0",
         "@babel/preset-env": "^7.15.0",
-        "@testing-library/dom": "^8.1.0",
+        "@testing-library/dom": "^8.2.0",
         "@thi.ng/arrays": "^1.0.2",
         "@thi.ng/associative": "5.2.15",
         "@thi.ng/atom": "^4.1.41",
