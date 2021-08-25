@@ -9,7 +9,7 @@ declare const ICO: {
 export declare type ICommandObject = Partial<typeof ICO>;
 declare const IC: {
     work: (args: any) => any;
-    src$: ISubscribable<any> | ISubscriber<any>;
+    src$: ISubscriber<any> | ISubscribable<any>;
     args: any;
     sub$: string;
     reso: (acc: Accumulator, res: any) => any;
@@ -22,12 +22,12 @@ export declare type Task = Command[];
 declare const C: (data: any) => any;
 export declare type Component = typeof C;
 declare const PURL: {
-    fURL: string;
-    path: string[];
-    domn: string[];
-    subd: string[];
-    qery: Record<string, unknown>;
-    hash: string;
+    FURL: string;
+    PATH: string[];
+    DOMN: string[];
+    SUBD: string[];
+    QERY: Record<string, unknown>;
+    HASH: string;
 };
 export declare type ParsedURL = Partial<typeof PURL>;
 declare const HD: {
@@ -41,9 +41,9 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    node: Document | HTMLElement;
-    body: any;
-    head: Partial<{
+    NODE: HTMLElement | Document;
+    BODY: any;
+    HEAD: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -55,7 +55,7 @@ declare const TDOM: {
 };
 export declare type TargetDOM = Partial<typeof TDOM>;
 declare const RHBD: {
-    head: Partial<{
+    HEAD: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -64,12 +64,12 @@ declare const RHBD: {
         favicon: string;
         og_type: string;
     }>;
-    body: any;
+    BODY: any;
 };
 export declare type RouterHeadBodyData = Partial<typeof RHBD>;
 declare const RO: {
-    data: Partial<{
-        head: Partial<{
+    DATA: Partial<{
+        HEAD: Partial<{
             title: string;
             og_description: string;
             og_image: string;
@@ -78,15 +78,15 @@ declare const RO: {
             favicon: string;
             og_type: string;
         }>;
-        body: any;
+        BODY: any;
     }>;
-    page: (data: any) => any;
+    PAGE: (data: any) => any;
 };
 export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
-    fURL: string;
-    node: Document | HTMLElement;
+    FURL: string;
+    NODE: HTMLElement | Document;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
@@ -100,7 +100,7 @@ declare const DD: {
     $$_PATH: string[];
     $$_LOAD: boolean;
     $$_VIEW: (data: any) => any;
-    $$_ROOT: Document | HTMLElement;
+    $$_ROOT: HTMLElement | Document;
 };
 export declare type DefaultDraft = typeof DD;
 export {};

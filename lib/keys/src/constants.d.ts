@@ -1,11 +1,11 @@
-export declare const URL_PAGE = "page";
-export declare const URL_DATA = "data";
-export declare const URL_FULL = "fURL";
-export declare const URL_PATH = "path";
-export declare const URL_DOMN = "domn";
-export declare const URL_SUBD = "subd";
-export declare const URL_QERY = "qery";
-export declare const URL_HASH = "hash";
+export declare const URL_PAGE = "PAGE";
+export declare const URL_DATA = "DATA";
+export declare const URL_FULL = "FURL";
+export declare const URL_PATH = "PATH";
+export declare const URL_DOMN = "DOMN";
+export declare const URL_SUBD = "SUBD";
+export declare const URL_QERY = "QERY";
+export declare const URL_HASH = "HASH";
 export declare const URL_PRSE = "unfurl";
 export declare const URL_NPRS = "urlify";
 export declare const URL: {
@@ -20,9 +20,9 @@ export declare const URL: {
     PRSE: string;
     NPRS: string;
 };
-export declare const DOM_NODE = "node";
-export declare const DOM_BODY = "body";
-export declare const DOM_HEAD = "head";
+export declare const DOM_NODE = "NODE";
+export declare const DOM_BODY = "BODY";
+export declare const DOM_HEAD = "HEAD";
 export declare const DOM: {
     NODE: string;
     BODY: string;
