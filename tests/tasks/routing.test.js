@@ -22,14 +22,15 @@ import {
 
 import { registerCMD, run$, log$ } from "@-0/spool"
 import { $store$ } from "../../src/store"
+import { SET_STATE } from "../../src/commands"
 import { __URL__ROUTE, __DOM_URL__ROUTE } from "../../src/tasks"
 import { setImmediate } from "timers"
 
-const router_fn = url => ({ [URL_DATA]: { here: "worn out places" }, [URL_PAGE]: "({ here }) => would be a function" })
+const router_fn = url => ({ [URL_DATA]: { here: "worn out places" }, [URL_PAGE]: "({ I }) => am a function" })
 
 describe("Tasks: routing", () => {
     test("1: URL__ROUTE: function router CFG with simple data", async () => {
-        const [SUBTASK] = __URL__ROUTE(router_fn)
+        const SUBTASK = __URL__ROUTE(router_fn, SET_STATE)
         const before = $store$.deref()
         expect(before[$$_PATH]).toMatchObject([])
         run$.next([{ [CMD_ARGS]: { [URL_FULL]: "logan/was/here", [DOM_NODE]: window } }, SUBTASK])
@@ -40,7 +41,7 @@ describe("Tasks: routing", () => {
         expect(after[$$_PATH]).toMatchObject(["logan", "was", "here"])
     })
     test("2: DOM_URL__ROUTE: function router CFG with simple data", async () => {
-        const [SUBTASK] = __DOM_URL__ROUTE(router_fn)
+        const SUBTASK = __DOM_URL__ROUTE(router_fn, SET_STATE)
         run$.next([{ [CMD_ARGS]: { [URL_FULL]: "exit/stage", [DOM_NODE]: window } }, SUBTASK])
 
         // wait for next tick/cycle of event loop
@@ -50,7 +51,7 @@ describe("Tasks: routing", () => {
         expect(after).toMatchObject({
             $$_PATH: ["exit", "stage"],
             $$_LOAD: false,
-            $$_VIEW: "({ here }) => would be a function",
+            $$_VIEW: "({ I }) => am a function",
             $$_ROOT: null,
             exit: { stage: { here: "worn out places" } },
         })
@@ -62,7 +63,7 @@ describe("Tasks: routing", () => {
             [RTR_PRFX]: "nowyouseeme/",
         }
 
-        const [SUBTASK2] = __URL__ROUTE(router_obj)
+        const SUBTASK2 = __URL__ROUTE(router_obj, SET_STATE)
 
         run$.next([{ [CMD_ARGS]: { [URL_FULL]: "nowyouseeme/now/you/dont", [DOM_NODE]: window } }, SUBTASK2])
 
@@ -96,7 +97,7 @@ describe("Tasks: routing", () => {
             [RTR_PRFX]: "allaroundme/",
         }
 
-        const [SUBTASK2] = __DOM_URL__ROUTE(router_obj)
+        const SUBTASK2 = __DOM_URL__ROUTE(router_obj, SET_STATE)
 
         run$.next([
             { [CMD_ARGS]: { [URL_FULL]: "allaroundme/are/familiar/faces", [DOM_NODE]: { target: { href: "bloop" } } } },

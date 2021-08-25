@@ -18,6 +18,8 @@ import { Err_missing_props, URL2obj } from "@-0/utils"
 import { __DOM_URL__ROUTE } from "../tasks"
 import { DOMnavigated$ } from "../core"
 import { $store$ } from "../store"
+import { ICommandObject } from "@-0/keys"
+import { SET_STATE } from "../commands"
 
 /**
  *
@@ -68,9 +70,9 @@ import { $store$ } from "../store"
  * // => 🎨: navigated to /some/path?and=query
  * ```
  */
-export const registerRouterDOM = (CFG: Router | RouterCFG, store = $store$): [Command, Command] => {
+export const registerRouterDOM = (CFG: Router | RouterCFG, setStateCMD: Command = SET_STATE): ICommandObject => {
     console.log("DOM Router Registered")
-    const [ROUTE_HOT, SET_STATE] = __DOM_URL__ROUTE(CFG, store)
+    const ROUTE_HOT = __DOM_URL__ROUTE(CFG, setStateCMD)
     const { [CMD_SUB$]: sub$, [CMD_ARGS]: args } = registerCMD({
         [CMD_SRC$]: DOMnavigated$,
         [CMD_SUB$]: "_NAVIGATE",
@@ -90,5 +92,5 @@ export const registerRouterDOM = (CFG: Router | RouterCFG, store = $store$): [Co
             console.warn(Err_missing_props("_NAVIGATE (from registerRouterDOM)", props))
         },
     })
-    return [{ [CMD_SUB$]: sub$, [CMD_ARGS]: args }, SET_STATE]
+    return { [CMD_SUB$]: sub$, [CMD_ARGS]: args }
 }

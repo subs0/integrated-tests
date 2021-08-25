@@ -19,7 +19,7 @@ import { registerCMD } from "@-0/spool"
  */
 export const navEventHandler = ev => {
     // ev.preventDefault()
-    // console.log({ e })
+    // console.log({ ev })
     const href = ev?.target?.href
 
     if (!href) console.warn(Err_missing_props("navEventHandler", { target: { href } }))
