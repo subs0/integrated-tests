@@ -1,8 +1,8 @@
 /**
  * @module keys
  */
-export const URL_PAGE = "page"
-export const URL_DATA = "data"
+export const URL_PAGE = "PAGE"
+export const URL_DATA = "DATA"
 
 export const URL_FULL = "fURL"
 export const URL_PATH = "path"
@@ -32,9 +32,9 @@ export const URL = {
 }
 
 // userland router metadata constants
-export const DOM_NODE = "node"
-export const DOM_BODY = "body"
-export const DOM_HEAD = "head"
+export const DOM_NODE = "NODE"
+export const DOM_BODY = "BODY"
+export const DOM_HEAD = "HEAD"
 
 // public
 export const DOM = {

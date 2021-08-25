@@ -41,9 +41,9 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    node: Document | HTMLElement;
-    body: any;
-    head: Partial<{
+    NODE: Document | HTMLElement;
+    BODY: any;
+    HEAD: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -55,7 +55,7 @@ declare const TDOM: {
 };
 export declare type TargetDOM = Partial<typeof TDOM>;
 declare const RHBD: {
-    head: Partial<{
+    HEAD: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -64,12 +64,12 @@ declare const RHBD: {
         favicon: string;
         og_type: string;
     }>;
-    body: any;
+    BODY: any;
 };
 export declare type RouterHeadBodyData = Partial<typeof RHBD>;
 declare const RO: {
-    data: Partial<{
-        head: Partial<{
+    DATA: Partial<{
+        HEAD: Partial<{
             title: string;
             og_description: string;
             og_image: string;
@@ -78,15 +78,15 @@ declare const RO: {
             favicon: string;
             og_type: string;
         }>;
-        body: any;
+        BODY: any;
     }>;
-    page: (data: any) => any;
+    PAGE: (data: any) => any;
 };
 export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
     fURL: string;
-    node: Document | HTMLElement;
+    NODE: Document | HTMLElement;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
