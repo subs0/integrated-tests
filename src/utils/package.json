@@ -2,7 +2,7 @@
     "name": "@-0/utils",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.38",
+    "version": "0.3.40",
     "description": "utilities for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
@@ -15,7 +15,7 @@
         "typewatch": "tsc --project tsconfig.json",
         "test": "npm run madge && concurrently \"npm run typewatch\" \"jest --watchAll\"",
         "patch": "npm version patch && npm publish",
-        "postgit": "git push origin master && npm run patch",
+        "postgit": "git push origin master",
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
@@ -27,7 +27,7 @@
         "constants"
     ],
     "dependencies": {
-        "@-0/keys": "^0.3.38",
+        "@-0/keys": "^0.3.39",
         "querystring": "^0.2.1"
     },
     "peerDependencies": {

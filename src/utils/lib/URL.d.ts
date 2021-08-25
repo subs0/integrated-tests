@@ -1,16 +1,16 @@
 export declare const URL2obj: (URL_full: string, prefixRGX?: any) => {
-    fURL: string;
-    subd: any[];
-    domn: any[];
-    path: any[];
-    qery: any;
-    hash: string;
+    FURL: string;
+    SUBD: any[];
+    DOMN: any[];
+    PATH: any[];
+    QERY: any;
+    HASH: string;
 };
 export declare const obj2URL: (parsed?: {
-    fURL: string;
-    subd: any[];
-    domn: any[];
-    path: any[];
-    qery: any;
-    hash: string;
+    FURL: string;
+    SUBD: any[];
+    DOMN: any[];
+    PATH: any[];
+    QERY: any;
+    HASH: string;
 }, isAbsolute?: boolean) => string;
