@@ -1,10 +1,10 @@
 import { isPlainObject, isFunction } from "@thi.ng/checks"
-import { CMD_SUB$, CMD_ARGS, CMD_WORK, CMD_ERRO, CMD_RESO } from "@-0/keys"
+import { CMD_SUB$, CMD_ARGS, CMD_WORK } from "@-0/keys"
 import { stringify_fn } from "@-0/utils"
 
 const missing_props_str = (CMD = "", required_props) => {
     const labeler = (obj = {}, depth = 0) =>
-        Object.entries(obj).reduce((a, [ k, v ], i) => {
+        Object.entries(obj).reduce((a, [k, v]) => {
             // prettier-ignore
             const len = Math.abs(25 - ((depth * 2) + k.length))
             const err = `undefined <${"-".repeat(len)}🔥`

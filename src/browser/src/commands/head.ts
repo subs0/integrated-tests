@@ -33,6 +33,7 @@ const setFavicon = href => {
 }
 
 const getHeadProp = prop => () => document.head.querySelector(`meta[property="${prop}"]`)
+
 // TODO currently throws CORS warning
 const meta = prop => (getHeadProp(prop)() && getHeadProp(prop)().content) || null
 

@@ -1,7 +1,7 @@
 import { CMD_WORK } from "@-0/keys"
 import { stringify_fn } from "./stringify_fn"
 
-let err_str = (name = "", comp = "", CMD = null) =>
+const err_str = (name = "", comp = "", CMD = null) =>
     CMD
         ? `
 Warning: \`registerCMD\` \`${CMD_WORK}\` handler analysis
@@ -24,13 +24,16 @@ analysis of function parameters against their incoming
 arguments. Consider using shallow & static destructuring.
 `
 
-const STRIP_COMMENTS = /(\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s*=[^,\)]*(('(?:\\'|[^'\r\n])*')|("(?:\\"|[^"\r\n])*"))|(\s*=[^,\)]*))/gm
+const STRIP_COMMENTS =
+    /(\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s*=[^,\)]*(('(?:\\'|[^'\r\n])*')|("(?:\\"|[^"\r\n])*"))|(\s*=[^,\)]*))/gm
 const ARGUMENT_NAMES = /([^\s,]+)/g
 const DST_BEG = /{/g
 const DST_END = /}/g
 const VALID_VAR = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g
 
 /**
+ * TODO: Use for registerCMD warn_on_incongruent_args
+ *
  * takes a function and optional Command Object and returns
  * a list of the parameter names of a function. Works only
  * for statically defined names (i.e., no Computed
@@ -38,20 +41,20 @@ const VALID_VAR = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g
  * returned list is flat, any nested destructuring cannot be
  * relied upon for testing against incoming arguments as
  * their position may be different from the spec.
- * 
+ *
  * @example
- * get_param_names(({ a, b }, c) => {}) 
+ * get_shallow_static_destructured_params(({ a, b }, c) => {})
  * //=> ["a", "b", "c"]
- * 
+ *
  * @example
- * get_param_names(function(a, b){}) 
+ * get_shallow_static_destructured_params(function(a, b){})
  * //=> ["a", "b"]
- * 
+ *
  * @example
- * get_param_names(function({ x: { a }, b, ["y"]: c }){}) 
+ * get_shallow_static_destructured_params(function({ x: { a }, b, ["y"]: c }){})
  * // 🔥 Warning: ...
  * //=> ["a", "b"]
- * 
+ *
  */
 export function get_shallow_static_destructured_params(func, CMD = null) {
     const fnStr = func.toString().replace(STRIP_COMMENTS, "")

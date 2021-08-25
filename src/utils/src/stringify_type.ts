@@ -2,7 +2,7 @@
  * @module utils/stringify_type
  */
 
-import { isObject, isFunction, isPromise, isArray, isPlainObject } from "@thi.ng/checks"
+import { isFunction, isPromise, isArray, isPlainObject } from "@thi.ng/checks"
 
 // prettier-ignore
 /**

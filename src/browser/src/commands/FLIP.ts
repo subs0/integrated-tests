@@ -43,8 +43,8 @@ function getRect(element: HTMLElement, frame?) {
 const S_path = "FLIP_shuffle"
 
 const shuffle_paths = uid => ({
-    rects: [ S_path, "rects", uid ],
-    elems: [ S_path, "elems", uid ],
+    rects: [S_path, "rects", uid],
+    elems: [S_path, "elems", uid],
 })
 
 const FLIP_all = (el, state, uid, frameDOMel = null) => {
@@ -78,10 +78,10 @@ const FLIP_all = (el, state, uid, frameDOMel = null) => {
 
 const Z_path = "FLIP_zoom"
 const zoom_paths = uid => ({
-    rects: [ Z_path, "rects", uid ],
-    elems: [ Z_path, "elems", uid ],
-    clicks: [ Z_path, "clicks", uid ],
-    scrolls: [ Z_path, "scroll", uid ],
+    rects: [Z_path, "rects", uid],
+    elems: [Z_path, "elems", uid],
+    clicks: [Z_path, "clicks", uid],
+    scrolls: [Z_path, "scroll", uid],
 })
 
 /**
@@ -159,12 +159,12 @@ const FLIPLastInvertPlay = ({
     if (!F_flip_map) return
 
     /**
-   * 🔥 this may cause issues for parrallel anims append this
-   * to a specific target using:
-   * Array.from(el.querySelectorAll("[flip]")).forEach(x=>
-   * if i last... el.scrollIntoView())
-   *
-   */
+     * 🔥 this may cause issues for parrallel anims append this
+     * to a specific target using:
+     * Array.from(el.querySelectorAll("[flip]")).forEach(x=>
+     * if i last... el.scrollIntoView())
+     *
+     */
     // 🕞 calculate location and size
     const { x, y } = getInUnsafe(state.deref(), scrolls) // top - window.innerHeight / 2
     window.scrollTo(x, y)

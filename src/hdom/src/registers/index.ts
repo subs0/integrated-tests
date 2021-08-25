@@ -35,40 +35,10 @@ const pre = (ctx, body) => (
         `
     no ${CFG_VIEW} component provided to boot({ CFG }). 
     Rendering state by route path
-    `,
+    `
     ),
-    [ "pre", JSON.stringify(body[1], null, 2) ]
+    ["pre", JSON.stringify(body[1], null, 2)]
 )
-
-/**
- * FIXME pseudo:
- *
- * tasks and commands need to be able to be used separately
- * from boot features/spec:
- * - Each command can be registered as a HOF that can
- *   recieve the CFG object and destructure parts off of it
- * - need a way to define/use tasks before they are
- *   registered
- * - ? Prep registration of Commands and Tasks, which return
- *   an Object of Tasks, Commands that you can then "plugin"
- *   to registration
- * Signatures/API:
- * ```js
- * const prepack = (Commands: Command[]) => {
- *  const package = Commands.reduce((a, c) => {
- *    create a function that takes the config object
- *
- *  }, {})
- * // the return payload is split:
- * // commandobject: { a: { sub$: a, args, erro, reso } }
- * // commandfunction: { a: (CFG) => { sub$: a, work, src$ } }
- *  return [ commandobject, commandfunction(CFG) ]
- * }
- *
- *
- * ```
- *
- */
 
 /**
  *
@@ -83,7 +53,6 @@ const pre = (ctx, body) => (
  *
  */
 export const boot = CFG => {
-    // TODO const [boot, CMDS] = cmds => { ... return [ CFG => {}, [{C},,,] ] }
     const root = CFG[CFG_ROOT] || document.body
     const view = CFG[CFG_VIEW] || pre
     const draft = CFG[CFG_DRFT]
@@ -91,12 +60,10 @@ export const boot = CFG => {
     const log$ = CFG[CFG_LOG$]
     const kick = CFG[CFG_KICK]
 
-    // TODO const registered: [{C},,,] = registerCommands([...DEFAULT_CMDS(store), ...commands])
-
     const knowns = Object.values(CFG)
     const prfx = router[RTR_PRFX] || null
 
-    const [ , others ] = diff_keys(knowns, CFG)
+    const [, others] = diff_keys(knowns, CFG)
     const escRGX = /[-/\\^$*+?.()|[\]{}]/g
     const escaped = str => str.replace(escRGX, "\\$&")
     const RGX = prfx ? new RegExp(escaped(prfx || ""), "g") : null
@@ -108,7 +75,7 @@ export const boot = CFG => {
 
     const shell = state$ => (
         log$ ? console.log(log$, state$) : null,
-        state$[$$_LOAD] ? null : [ view, [ state$[$$_VIEW], getInUnsafe(state$, state$[$$_PATH]) ] ]
+        state$[$$_LOAD] ? null : [view, [state$[$$_VIEW], getInUnsafe(state$, state$[$$_PATH])]]
     )
 
     if (draft) $store$.swap(x => ({ ...draft, ...x }))
@@ -128,7 +95,7 @@ export const boot = CFG => {
                 [URL_PRSE]: () => URL2obj(window.location.href, RGX), // <- 🔍
                 ...others,
             },
-        }),
+        })
     )
     // Just a little kick in the pants for those stubborn sandboxes
     if (kick) {
@@ -137,5 +104,4 @@ export const boot = CFG => {
             currentTarget: document,
         })
     }
-    // TODO return registered
 }

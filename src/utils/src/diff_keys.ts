@@ -14,10 +14,10 @@
  */
 export function diff_keys(nKeys = [], nObj = {}) {
     const all = Object.keys(nObj)
-    const xKeys: any = all.filter(key => !nKeys.includes(key))
-    const xObj = Object.entries(nObj).reduce((a, [ k, v ]) => {
+    const xKeys = all.filter(key => !nKeys.includes(key))
+    const xObj = Object.entries(nObj).reduce((a, [k, v]) => {
         if (!nKeys.includes(k)) return { ...a, [k]: v }
         else return a
     }, {})
-    return [ xKeys, xObj ]
+    return [xKeys, xObj]
 }

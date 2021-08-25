@@ -29,6 +29,8 @@ import {
     CMD_RESO,
     CMD_ERRO,
     DOM_BODY,
+    DOM_HEAD,
+    HEAD,
     STATE_DATA,
     STATE_PATH,
     RouterCFG,
@@ -38,6 +40,7 @@ import {
     RouterOutput,
     Command,
     CMD_SUB$,
+    ICommandObject,
 } from "@-0/keys"
 
 import { URL2obj } from "@-0/utils"
@@ -46,6 +49,7 @@ import { out$ } from "@-0/spool"
 
 const route_error = (_acc, _err, _out) => console.warn("Error in URL__ROUTE:", _err)
 const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥 } }`
+
 /**
  *
  * Universal router (cross-platform) Subtask.
@@ -72,9 +76,8 @@ const e_s = `Prerequisite property: { ${CMD_ARGS}: { ${URL_FULL}: NOT FOUND 🔥
  *  - `URL`
  *  - `DOM`
  *
- * TODO: Type ROuter CFG
  */
-export const __URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOTask, Command] => {
+export const __URL__ROUTE = (CFG: Router | RouterCFG, SET_STATE: Command): HOTask => {
     const rtr = CFG[CFG_RUTR] || null
     const pre = CFG[RTR_PREP] || null
     const pst = CFG[RTR_POST] || null
@@ -87,15 +90,6 @@ export const __URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOTask,
     const _POST = (pst && isPlainObject(pst) ? [pst] : pst) || []
     const prefix = pfx ? new RegExp(escaped(pfx), "g") : null
 
-    const SET_STATE = out$.topics.has("_SET_STATE")
-        ? {
-              [CMD_SUB$]: "_SET_STATE",
-              [CMD_ARGS]: ({ [STATE_PATH]: path, [STATE_DATA]: data }) => ({
-                  [STATE_PATH]: path,
-                  [STATE_DATA]: data,
-              }),
-          }
-        : createSetStateCMD(store)
     //console.log({ SET_STATE, topics: out$.topics.entries() })
     const _SET_ROUTE_PATH = {
         ...SET_STATE,
@@ -104,7 +98,6 @@ export const __URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOTask,
             [STATE_PATH]: [$$_PATH],
         }),
     }
-
     /**
      * 📌 TODO enable progress observation by using both the
      * run$ and log$ stream emissions:
@@ -133,7 +126,7 @@ export const __URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOTask,
         _SET_ROUTE_PATH,
         ..._POST,
     ]
-    return [ROUTE_SUBTASK, SET_STATE]
+    return ROUTE_SUBTASK
 }
 
 /**
@@ -155,9 +148,9 @@ export const __URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOTask,
  * ]
  * ```
  */
-export const __DOM_URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOTask, Command] => {
+export const __DOM_URL__ROUTE = (CFG: Router | RouterCFG, SET_STATE: Command): HOTask => {
     // instantiate router
-    const [route_subtask, SET_STATE] = __URL__ROUTE(CFG, store)
+    const UNIVERSAL_ROUTING_SUBTASK = __URL__ROUTE(CFG, SET_STATE)
 
     const _SET_ROUTE_LOADING_TRUE = {
         ...SET_STATE,
@@ -174,7 +167,7 @@ export const __DOM_URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOT
             ..._HREF_PUSHSTATE_DOM,
             [CMD_ARGS]: { [URL_FULL]: ACC[URL_FULL], [DOM_NODE]: ACC[DOM_NODE] },
         },
-        ACC => route_subtask({ [URL_FULL]: ACC[URL_FULL] }),
+        ACC => UNIVERSAL_ROUTING_SUBTASK({ [URL_FULL]: ACC[URL_FULL] }),
         {
             // set page component/function
             ...SET_STATE,
@@ -203,5 +196,5 @@ export const __DOM_URL__ROUTE = (CFG: Router | RouterCFG, store = $store$): [HOT
         _NOTIFY_PRERENDER_DOM,
     ]
 
-    return [ROUTE_HOT, SET_STATE]
+    return ROUTE_HOT
 }

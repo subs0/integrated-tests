@@ -33,7 +33,7 @@ import {
     RTR_POST,
     HD_TITL,
     OG_DESC,
-    OG_IMGU
+    OG_IMGU,
 } from "@-0/keys"
 
 const INJECT_HEAD = registerCMD(cmd_inject_head)
@@ -79,10 +79,10 @@ const getSomeJSON = async (path, uid) => {
               let detail = await fetch(`${text_base}${path}/${uid}`).then(r => r.json())
               let {
                   name = `User ${getInUnsafe(detail, "id")}`,
-                  company : { catchPhrase } = { catchPhrase: detail.title }
+                  company: { catchPhrase } = { catchPhrase: detail.title },
               } = detail
               return {
-                  [DOM_HEAD] : {
+                  [DOM_HEAD]: {
                       //title?: any
                       //description?: any
                       //img_url?: any
@@ -90,33 +90,33 @@ const getSomeJSON = async (path, uid) => {
                       //img_height?: any
                       //favicon?: any
                       //type?: any
-                      [HD_TITL] : `${name}'s Details`,
-                      [OG_DESC] : `${name} handles ${catchPhrase}`,
-                      [OG_IMGU] : img_base(uid, 600)
+                      [HD_TITL]: `${name}'s Details`,
+                      [OG_DESC]: `${name} handles ${catchPhrase}`,
+                      [OG_IMGU]: img_base(uid, 600),
                   },
-                  [DOM_BODY] : {
+                  [DOM_BODY]: {
                       // lesson -> don't use the actual url as the uid (not flexible)
-                      img  : img_base(uid, 600),
+                      img: img_base(uid, 600),
                       // this needs fixin' 📌
-                      text : detail,
-                      uid
-                  }
+                      text: detail,
+                      uid,
+                  },
               }
           })()
         : (async () => {
               let list = await fetch(`${text_base}${path}/`).then(r => r.json())
               console.log({ list })
               return {
-                  [DOM_HEAD] : {
-                      [HD_TITL] : `${path.replace(/^\w/, c => c.toUpperCase())} list`,
-                      [OG_DESC] : `List page for ${path}`,
-                      [OG_IMGU] : img_base(222, 200)
+                  [DOM_HEAD]: {
+                      [HD_TITL]: `${path.replace(/^\w/, c => c.toUpperCase())} list`,
+                      [OG_DESC]: `List page for ${path}`,
+                      [OG_IMGU]: img_base(222, 200),
                   },
-                  [DOM_BODY] : list.map((c, i) => ({
-                      img  : img_base(i + 1, 200),
-                      text : c,
-                      uid  : i + 1
-                  }))
+                  [DOM_BODY]: list.map((c, i) => ({
+                      img: img_base(i + 1, 200),
+                      text: c,
+                      uid: i + 1,
+                  })),
               }
           })()
     return data
@@ -141,7 +141,6 @@ const getSomeJSON = async (path, uid) => {
  * Value semantics have so many benefits. As a router,
  * here's one.
  *
- * TODO: Graphql Example
  */
 const routerCfg = async url => {
     let match = URL2obj(url)
@@ -155,30 +154,36 @@ const routerCfg = async url => {
     // } = match
 
     let path = match[URL_PATH]
-    let [ , p_b ] = path
+    let [, p_b] = path
 
     let RES = new EquivMap([
-        [ { ...match, [URL_PATH]: [ "todos" ] }, { [URL_DATA]: () => getSomeJSON("todos"), [URL_PAGE]: set } ],
         [
-            { ...match, [URL_PATH]: [ "todos", p_b ] },
-            { [URL_DATA]: () => getSomeJSON("todos", p_b), [URL_PAGE]: single }
+            { ...match, [URL_PATH]: ["todos"] },
+            { [URL_DATA]: () => getSomeJSON("todos"), [URL_PAGE]: set },
         ],
-        [ { ...match, [URL_PATH]: [ "users" ] }, { [URL_DATA]: () => getSomeJSON("users"), [URL_PAGE]: set } ],
         [
-            { ...match, [URL_PATH]: [ "users", p_b ] },
-            { [URL_DATA]: () => getSomeJSON("users", p_b), [URL_PAGE]: single }
+            { ...match, [URL_PATH]: ["todos", p_b] },
+            { [URL_DATA]: () => getSomeJSON("todos", p_b), [URL_PAGE]: single },
+        ],
+        [
+            { ...match, [URL_PATH]: ["users"] },
+            { [URL_DATA]: () => getSomeJSON("users"), [URL_PAGE]: set },
+        ],
+        [
+            { ...match, [URL_PATH]: ["users", p_b] },
+            { [URL_DATA]: () => getSomeJSON("users", p_b), [URL_PAGE]: single },
         ],
         // home page (empty path)
         [
             { ...match, [URL_PATH]: [] },
             {
-                [URL_DATA] : () => (console.log("HOME"), getSomeJSON("users", 10)),
-                [URL_PAGE] : single
-            }
-        ] // get match || 404 data
+                [URL_DATA]: () => (console.log("HOME"), getSomeJSON("users", 10)),
+                [URL_PAGE]: single,
+            },
+        ], // get match || 404 data
     ]).get(match) || {
-        [URL_DATA] : () => getSomeJSON("users", 10),
-        [URL_PAGE] : single
+        [URL_DATA]: () => getSomeJSON("users", 10),
+        [URL_PAGE]: single,
     }
 
     let data = RES[URL_DATA]
@@ -208,26 +213,29 @@ const child = (ctx, id, img, sz, ...args) => (
     [
         "img",
         {
-            src   : img,
-            style :
+            src: img,
+            style:
                 sz === "sm"
                     ? {
-                          height         : "100px",
-                          width          : "100px",
-                          cursor         : "pointer",
-                          "margin-right" : "15px"
+                          height: "100px",
+                          width: "100px",
+                          cursor: "pointer",
+                          "margin-right": "15px",
                       }
                     : {
-                          height : "600px",
-                          width  : "600px"
+                          height: "600px",
+                          width: "600px",
                       },
-            href  : sz === "sm" ? `/${ctx[URL_PRSE]()[URL_PATH]}/${id}` : `/${ctx[URL_PRSE]()[URL_PATH].join("/")}`
+            href:
+                sz === "sm"
+                    ? `/${ctx[URL_PRSE]()[URL_PATH]}/${id}`
+                    : `/${ctx[URL_PRSE]()[URL_PATH].join("/")}`,
         },
-        ...args
+        ...args,
     ]
 )
 
-const zoomOnNav = (ctx, id, img, sz) => [ FLIPkid(NAV), [ child, id, img, sz ] ]
+const zoomOnNav = (ctx, id, img, sz) => [FLIPkid(NAV), [child, id, img, sz]]
 
 //////////////////// FLIP API 🔺  //////////////////////////
 
@@ -238,14 +246,16 @@ const zoomOnNav = (ctx, id, img, sz) => [ FLIPkid(NAV), [ child, id, img, sz ] ]
  * in an attempt to pass state between components. Use an atom,
  * which is deref'able for that
  */
-const component = sz =>
+const component =
+    sz =>
     // log("component"),
-    (ctx, uid, img, fields) => [
-        "div",
-        { style: { "margin-bottom": "30px", display: sz === "sm" ? "flex" : "block" } },
-        [ zoomOnNav, uid, img, sz ],
-        [ "p", { class: "title" }, fields ]
-    ]
+    (ctx, uid, img, fields) =>
+        [
+            "div",
+            { style: { "margin-bottom": "30px", display: sz === "sm" ? "flex" : "block" } },
+            [zoomOnNav, uid, img, sz],
+            ["p", { class: "title" }, fields],
+        ]
 
 // babel/core-js will complain if pages aren't defined
 // before they're used even though eslint will allow it
@@ -255,13 +265,13 @@ const single = (ctx, body) => {
         component("lg"),
         getInUnsafe(body, "uid") || 1,
         getInUnsafe(body, "img") || `http://lorempixel.com/600/600/sports/4/`,
-        getInUnsafe(body, "text") ? fields(body.text.company || body.text) : null
+        getInUnsafe(body, "text") ? fields(body.text.company || body.text) : null,
     ]
 }
 
 const set = (ctx, bodies) =>
     // log("set"),
-    [ "div", ...bodies.map(({ img, text, uid }) => [ component("sm"), uid, img, fields(text) ]) ]
+    ["div", ...bodies.map(({ img, text, uid }) => [component("sm"), uid, img, fields(text)])]
 
 // const S = JSON.stringify // <- handy for adornment phase
 
@@ -277,13 +287,13 @@ const pathLink = (ctx, uid, ...args) =>
         uid === 3
             ? { disabled: true }
             : {
-                  href    : `/${ctx[URL_PRSE]()[URL_PATH]}/${uid}`,
-                  onclick : e => {
+                  href: `/${ctx[URL_PRSE]()[URL_PATH]}/${uid}`,
+                  onclick: e => {
                       e.preventDefault()
                       ctx[CFG_RUN$]({ ...NAV, args: e })
-                  }
+                  },
               },
-        ...args
+        ...args,
     ]
 
 const field = (ctx, key, val) =>
@@ -292,27 +302,32 @@ const field = (ctx, key, val) =>
         "li",
         { style: { display: "flex" } },
         key === "id"
-            ? [ pathLink, val, val ]
+            ? [pathLink, val, val]
             : isObject(val)
-              ? [ "ul", ...Object.entries(val).map(([ k, v ]) => [ field, k, v ]) ]
-              : [ "p", { style: { padding: "0 0.5rem" } }, val ]
+            ? ["ul", ...Object.entries(val).map(([k, v]) => [field, k, v])]
+            : ["p", { style: { padding: "0 0.5rem" } }, val],
     ]
 
 const fields = payload =>
     // log("fields", { payload }),
-    [ "ul", ...Object.entries(payload).slice(0, 4).map(([ k, v ]) => [ field, k, v ]) ]
+    [
+        "ul",
+        ...Object.entries(payload)
+            .slice(0, 4)
+            .map(([k, v]) => [field, k, v]),
+    ]
 
 const link = (ctx, path, ...args) =>
     // log("link"),
     [
         "a",
         {
-            href    : "/" + path.join("/"),
+            href: "/" + path.join("/"),
             // regular href just works if there's no extra paths in
             // URL (e.g., gh-pages URLs will break these)...
-            onclick : e => (e.preventDefault(), ctx[CFG_RUN$]({ ...NAV, args: e }))
+            onclick: e => (e.preventDefault(), ctx[CFG_RUN$]({ ...NAV, args: e })),
         },
-        ...args
+        ...args,
     ]
 
 //
@@ -324,38 +339,36 @@ const link = (ctx, path, ...args) =>
 //   "88_-888 888-_88"  888-_88"
 //            888       888
 //
-// TODO: example of using cursors for local state
 const app = (ctx, page) =>
     //log("app"),
     [
         "div",
         { style: { "max-width": "30rem", margin: "auto", padding: "2rem" } },
-        ...[ [ "users" ], [ "todos" ], [ "todos", 2 ], [ "users", 9 ] ].map(path => [
+        ...[["users"], ["todos"], ["todos", 2], ["users", 9]].map(path => [
             link,
             path,
             `/${path[0]}${path[1] ? "/" + path[1] : ""}`,
-            [ "br" ]
+            ["br"],
         ]),
         // default to homepage `single` shell during
         // hydration/start (before any async is done)
-        page
+        page,
     ]
 
-// TODO: add default / 404 page here (could help the ugly $page.deref() ||...)
 const router = {
-    [CFG_RUTR] : routerCfg,
-    [RTR_PRFX] : "ac/",
-    [RTR_POST] : INJECT_HEAD
+    [CFG_RUTR]: routerCfg,
+    [RTR_PRFX]: "ac/",
+    [RTR_POST]: INJECT_HEAD,
 }
 
 // const router = routerCfg
 const w_config = {
-    [CFG_VIEW] : app,
-    [CFG_RUTR] : router,
-    [CFG_ROOT] : document.getElementById("app"), // <- 🔍
-    [CFG_DRFT] : { users: [] },
+    [CFG_VIEW]: app,
+    [CFG_RUTR]: router,
+    [CFG_ROOT]: document.getElementById("app"), // <- 🔍
+    [CFG_DRFT]: { users: [] },
     //[CFG_LOG$] : "state ->"
-    [CFG_KICK] : true
+    [CFG_KICK]: true,
 
     // arbitrary context k/v pairs...
     // theme: THEME

@@ -1,7 +1,7 @@
 /**
  * @module commands/state
  */
-import { CMD_SUB$, CMD_ARGS, CMD_WORK, STATE_DATA, STATE_PATH, Command } from "@-0/keys"
+import { CMD_SUB$, CMD_ARGS, CMD_WORK, STATE_DATA, STATE_PATH, Command, ICommandObject } from "@-0/keys"
 import { set$$tate, $store$ } from "../store"
 import { registerCMD } from "@-0/spool"
 import { Err_missing_props } from "@-0/utils"
@@ -10,8 +10,20 @@ import { Err_missing_props } from "@-0/utils"
  * Higher-order function that takes a `@thi.ng/Atom` state
  * container and returns a Command object for setting that
  * Atom's state by the provided path (lens)
+ *
+ * Some of -0's other exported functions (e.g.,
+ * registerRouterDOM) will use the output of this function
+ * to set data to the global store. It is important to
+ * retain the work handler's signature when sending these
+ * Commands:
+ * ```js
+ * args: {
+ *      STATE_PATH: [], // <- must be an Array
+ *      STATE_DATA: {}  // <- can be anything, but preferrably an Object
+ * }
+ * ```
  */
-export const createSetStateCMD = (store = $store$, sub$ = "_SET_STATE"): Command =>
+export const createSetStateCMD = (store = $store$, sub$ = "_SET_STATE"): ICommandObject =>
     registerCMD({
         [CMD_SUB$]: sub$,
         [CMD_ARGS]: ({ [STATE_PATH]: path, [STATE_DATA]: data }) => ({
