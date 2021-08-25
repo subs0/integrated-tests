@@ -1,12 +1,19 @@
 import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream";
 export declare type Accumulator = Record<string, unknown>;
 declare const ICO: {
-    [x: string]: string | ((acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => any);
+    args: any;
+    sub$: string;
+    reso: (acc: Accumulator, res: any) => any;
+    erro: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => any;
 };
 export declare type ICommandObject = Partial<typeof ICO>;
 declare const IC: {
     work: (args: any) => any;
     src$: ISubscribable<any> | ISubscriber<any>;
+    args: any;
+    sub$: string;
+    reso: (acc: Accumulator, res: any) => any;
+    erro: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => any;
 };
 export declare type ICommand = Partial<typeof IC>;
 export declare type Command = ICommandObject | HOTask;
