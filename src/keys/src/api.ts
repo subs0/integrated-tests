@@ -1,5 +1,6 @@
 import { IAtom } from "@thi.ng/atom/api"
 import {
+    CMD,
     CMD_ARGS,
     CMD_SRC$,
     CMD_ERRO,
@@ -48,10 +49,10 @@ export type Accumulator = Record<string, unknown>
  * The only required property is `args`
  */
 const ICO = {
-    [CMD_ARGS]: null,
-    [CMD_SUB$]: "",
-    [CMD_RESO]: (acc: Accumulator, res) => null,
-    [CMD_ERRO]: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => null,
+    [CMD.ARGS]: null,
+    [CMD.SUB$]: "",
+    [CMD.RESO]: (acc: Accumulator, res) => null,
+    [CMD.ERRO]: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => null,
 }
 export type ICommandObject = Partial<typeof ICO>
 
