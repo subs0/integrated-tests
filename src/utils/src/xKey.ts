@@ -20,7 +20,7 @@ export const key_index_err = (c, i) => {
  * Just a  little error for people defining commands
  * that makes sure their keys don't contain typos
  */
-export const xKeyError = (err_str = "Command Error", c = {}, unknown_keys = [], index = 1, guide = true) => {
+export const xKeyError = (err_str = "Command Error", c = {}, unknown_keys = {}, index = 1, guide = true) => {
 
     const SOURCE = c[CMD_SRC$] || null
     const count = Object.entries(c).length
