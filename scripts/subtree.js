@@ -1,6 +1,6 @@
 import { exec, args } from "./utils.js"
 
-const msg = "syncing supertree with subtree"
+const msg = "updates package version and syncs subtree"
 
 const subtree = ({ st, via, br, msg }) => {
     // prettier-ignore

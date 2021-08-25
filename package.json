@@ -33,7 +33,7 @@
         "tp:browser": "node scripts/types st=browser",
         "tp:hdom": "node scripts/types st=hdom",
         "up:keys": "node scripts/update st=keys",
-        "up:utils": "node scripts/update st=utils",
+        "up:utils": "node scripts/update st=utils msg=$npm_config_msg",
         "up:spool": "node scripts/update st=spool",
         "up:browser": "node scripts/update st=browser",
         "up:hdom": "node scripts/update st=hdom",
@@ -43,12 +43,14 @@
         "st:browser": "node scripts/subtree st=browser via=push",
         "st:hdom": "node scripts/subtree st=hdom via=push",
         "go:keys": "npm run cl:keys && npm run tp:keys && npm run up:keys && npm run st:keys",
-        "go:utils": "npm run cl:utils && npm run tp:utils && npm run up:utils && npm run st:utils",
+        "go:utils": "npm run cl:utils && npm run tp:utils && npm run up:utils msg=$npm_config_msg && npm run st:utils ",
         "go:spool": "npm run cl:spool && npm run tp:spool && npm run up:spool && npm run st:spool",
         "go:browser": "npm run cl:browser && npm run tp:browser && npm run up:browser && npm run st:browser",
         "go:hdom": "npm run cl:hdom && npm run tp:hdom && npm run up:hdom && npm run st:hdom",
         "go:all": "npm run go:keys && npm run go:utils && npm run go:spool && npm run go:browser && npm run ncu",
-        "ncu": "ncu -u && npm i && npm audit fix"
+        "ncu": "ncu -u && npm i && npm audit fix",
+        "check-env": "cross-env node -e 'console.log(process.env)' | grep npm",
+        "echo": "echo $npm_config_test"
     },
     "keywords": [
         "thi.ng",
