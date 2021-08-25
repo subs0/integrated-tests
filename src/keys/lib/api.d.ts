@@ -22,12 +22,12 @@ export declare type Task = Command[];
 declare const C: (data: any) => any;
 export declare type Component = typeof C;
 declare const PURL: {
-    fURL: string;
-    path: string[];
-    domn: string[];
-    subd: string[];
-    qery: Record<string, unknown>;
-    hash: string;
+    FURL: string;
+    PATH: string[];
+    DOMN: string[];
+    SUBD: string[];
+    QERY: Record<string, unknown>;
+    HASH: string;
 };
 export declare type ParsedURL = Partial<typeof PURL>;
 declare const HD: {
@@ -85,7 +85,7 @@ declare const RO: {
 export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
-    fURL: string;
+    FURL: string;
     NODE: Document | HTMLElement;
 };
 export declare type RouterInput = typeof RI;

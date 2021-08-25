@@ -1,11 +1,11 @@
 export const URL_PAGE = "PAGE";
 export const URL_DATA = "DATA";
-export const URL_FULL = "fURL";
-export const URL_PATH = "path";
-export const URL_DOMN = "domn";
-export const URL_SUBD = "subd";
-export const URL_QERY = "qery";
-export const URL_HASH = "hash";
+export const URL_FULL = "FURL";
+export const URL_PATH = "PATH";
+export const URL_DOMN = "DOMN";
+export const URL_SUBD = "SUBD";
+export const URL_QERY = "QERY";
+export const URL_HASH = "HASH";
 export const URL_PRSE = "unfurl";
 export const URL_NPRS = "urlify";
 export const URL = {
