@@ -108,10 +108,11 @@ const RHBD = {
     [DOM_HEAD]: HD as HeadData,
     [DOM_BODY]: null,
 }
+
 export type RouterHeadBodyData = Partial<typeof RHBD>
 
 const RO = {
-    [URL_DATA]: (RHBD as RouterHeadBodyData) || null,
+    [URL_DATA]: RHBD as RouterHeadBodyData,
     [URL_PAGE]: C as Component,
 }
 export type RouterOutput = typeof RO

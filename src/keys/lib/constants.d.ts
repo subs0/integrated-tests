@@ -1,11 +1,11 @@
-export declare const URL_FULL = "URL_FULL";
-export declare const URL_PATH = "URL_PATH";
-export declare const URL_DATA = "URL_DATA";
-export declare const URL_DOMN = "URL_DOMN";
-export declare const URL_SUBD = "URL_SUBD";
-export declare const URL_QERY = "URL_QERY";
-export declare const URL_HASH = "URL_HASH";
-export declare const URL_PAGE = "URL_PAGE";
+export declare const URL_PAGE = "page";
+export declare const URL_DATA = "data";
+export declare const URL_FULL = "fURL";
+export declare const URL_PATH = "path";
+export declare const URL_DOMN = "domn";
+export declare const URL_SUBD = "subd";
+export declare const URL_QERY = "qery";
+export declare const URL_HASH = "hash";
 export declare const URL_PRSE = "unfurl";
 export declare const URL_NPRS = "urlify";
 export declare const URL: {
@@ -20,9 +20,9 @@ export declare const URL: {
     PRSE: string;
     NPRS: string;
 };
-export declare const DOM_NODE = "DOM_NODE";
-export declare const DOM_BODY = "DOM_BODY";
-export declare const DOM_HEAD = "DOM_HEAD";
+export declare const DOM_NODE = "node";
+export declare const DOM_BODY = "body";
+export declare const DOM_HEAD = "head";
 export declare const DOM: {
     NODE: string;
     BODY: string;
@@ -48,8 +48,8 @@ export declare const HEAD: {
     IMGH: string;
     TYPE: string;
 };
-export declare const STATE_PATH = "STATE_PATH";
-export declare const STATE_DATA = "STATE_DATA";
+export declare const STATE_PATH = "path";
+export declare const STATE_DATA = "data";
 export declare const STATE: {
     PATH: string;
     DATA: string;
@@ -70,16 +70,16 @@ export declare const CMD: {
 };
 export declare const CFG_RUN$ = "run";
 export declare const CFG_STOR = "state";
-export declare const CFG_LOG$ = "CFG_LOG$";
-export declare const CFG_RUTR = "CFG_RUTR";
+export declare const CFG_LOG$ = "log$";
+export declare const CFG_RUTR = "router";
 export declare const CTX: {
     STOR: string;
     LOG$: string;
     RUN$: string;
 };
-export declare const RTR_PREP = "RTR_PREP";
-export declare const RTR_POST = "RTR_POST";
-export declare const RTR_PRFX = "RTR_PRFX";
+export declare const RTR_PREP = "preroute";
+export declare const RTR_POST = "postroute";
+export declare const RTR_PRFX = "ignore_prefix";
 export declare const RTR: {
     PREP: string;
     POST: string;

@@ -1,15 +1,15 @@
 /**
  * @module keys
  */
+export const URL_PAGE = "page"
+export const URL_DATA = "data"
 
-export const URL_FULL = "URL_FULL"
-export const URL_PATH = "URL_PATH"
-export const URL_DATA = "URL_DATA"
-export const URL_DOMN = "URL_DOMN"
-export const URL_SUBD = "URL_SUBD"
-export const URL_QERY = "URL_QERY"
-export const URL_HASH = "URL_HASH"
-export const URL_PAGE = "URL_PAGE"
+export const URL_FULL = "fURL"
+export const URL_PATH = "path"
+export const URL_DOMN = "domn"
+export const URL_SUBD = "subd"
+export const URL_QERY = "qery"
+export const URL_HASH = "hash"
 
 // DON'T CHANGE THESE 💢
 export const URL_PRSE = "unfurl"
@@ -32,9 +32,9 @@ export const URL = {
 }
 
 // userland router metadata constants
-export const DOM_NODE = "DOM_NODE"
-export const DOM_BODY = "DOM_BODY"
-export const DOM_HEAD = "DOM_HEAD"
+export const DOM_NODE = "node"
+export const DOM_BODY = "body"
+export const DOM_HEAD = "head"
 
 // public
 export const DOM = {
@@ -67,8 +67,8 @@ export const HEAD = {
 }
 
 // set$$tate constants
-export const STATE_PATH = "STATE_PATH"
-export const STATE_DATA = "STATE_DATA"
+export const STATE_PATH = "path"
+export const STATE_DATA = "data"
 
 // public
 export const STATE = {
@@ -100,8 +100,8 @@ export const CMD = {
 export const CFG_RUN$ = "run"
 export const CFG_STOR = "state"
 
-export const CFG_LOG$ = "CFG_LOG$"
-export const CFG_RUTR = "CFG_RUTR"
+export const CFG_LOG$ = "log$"
+export const CFG_RUTR = "router"
 
 // Context
 export const CTX = {
@@ -111,9 +111,9 @@ export const CTX = {
 }
 
 // ROUTER
-export const RTR_PREP = "RTR_PREP"
-export const RTR_POST = "RTR_POST"
-export const RTR_PRFX = "RTR_PRFX"
+export const RTR_PREP = "preroute"
+export const RTR_POST = "postroute"
+export const RTR_PRFX = "ignore_prefix"
 
 // public
 export const RTR = {

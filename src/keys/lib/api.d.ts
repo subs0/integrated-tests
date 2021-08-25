@@ -22,12 +22,12 @@ export declare type Task = Command[];
 declare const C: (data: any) => any;
 export declare type Component = typeof C;
 declare const PURL: {
-    URL_FULL: string;
-    URL_PATH: string[];
-    URL_DOMN: string[];
-    URL_SUBD: string[];
-    URL_QERY: Record<string, unknown>;
-    URL_HASH: string;
+    fURL: string;
+    path: string[];
+    domn: string[];
+    subd: string[];
+    qery: Record<string, unknown>;
+    hash: string;
 };
 export declare type ParsedURL = Partial<typeof PURL>;
 declare const HD: {
@@ -41,9 +41,9 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    DOM_NODE: Document | HTMLElement;
-    DOM_BODY: any;
-    DOM_HEAD: Partial<{
+    node: Document | HTMLElement;
+    body: any;
+    head: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -55,7 +55,7 @@ declare const TDOM: {
 };
 export declare type TargetDOM = Partial<typeof TDOM>;
 declare const RHBD: {
-    DOM_HEAD: Partial<{
+    head: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -64,12 +64,12 @@ declare const RHBD: {
         favicon: string;
         og_type: string;
     }>;
-    DOM_BODY: any;
+    body: any;
 };
 export declare type RouterHeadBodyData = Partial<typeof RHBD>;
 declare const RO: {
-    URL_DATA: Partial<{
-        DOM_HEAD: Partial<{
+    data: Partial<{
+        head: Partial<{
             title: string;
             og_description: string;
             og_image: string;
@@ -78,22 +78,22 @@ declare const RO: {
             favicon: string;
             og_type: string;
         }>;
-        DOM_BODY: any;
+        body: any;
     }>;
-    URL_PAGE: (data: any) => any;
+    page: (data: any) => any;
 };
 export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
-    URL_FULL: string;
-    DOM_NODE: Document | HTMLElement;
+    fURL: string;
+    node: Document | HTMLElement;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
-    RTR_PREP: Command | Task;
-    RTR_PRFX: string;
-    RTR_POST: Command | Task;
-    CFG_RUTR: Router;
+    preroute: Command | Task;
+    ignore_prefix: string;
+    postroute: Command | Task;
+    router: Router;
 };
 export declare type RouterCFG = Partial<typeof RCFG>;
 declare const DD: {

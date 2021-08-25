@@ -35,7 +35,7 @@ const RHBD = {
     [DOM_BODY]: null,
 };
 const RO = {
-    [URL_DATA]: RHBD || null,
+    [URL_DATA]: RHBD,
     [URL_PAGE]: C,
 };
 const RI = {
