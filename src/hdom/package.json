@@ -18,7 +18,7 @@
         "pages": "gh-pages -d @-0/hdom",
         "docs": "npm run types && npm run jsdoc",
         "patch": "npm version patch && npm publish",
-        "postgit": "git push origin master",
+        "push": "git push origin master",
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },

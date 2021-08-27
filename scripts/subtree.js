@@ -6,7 +6,7 @@ const subtree = ({ st, via, br, msg }) => {
     // prettier-ignore
     exec(
         `git add . && ` + 
-        `git commit -m "${msg}" && ` + 
+        `git commit -m "${st}: ${msg}" && ` + 
         `git subtree ${via} --prefix=src/${st} ${st} ${br}`, 
         { stdio: [ 0, 1, 2 ] } 
     )
