@@ -86,6 +86,7 @@ export const RTR = {
     PRFX: RTR_PRFX,
     RUTR: CFG_RUTR,
 };
+export const _ = "_";
 export const $$_PATH = "$$_PATH";
 export const $$_LOAD = "$$_LOAD";
 export const $$_VIEW = "$$_VIEW";

@@ -86,6 +86,7 @@ export declare const RTR: {
     PRFX: string;
     RUTR: string;
 };
+export declare const _ = "_";
 export declare const $$_PATH = "$$_PATH";
 export declare const $$_LOAD = "$$_LOAD";
 export declare const $$_VIEW = "$$_VIEW";

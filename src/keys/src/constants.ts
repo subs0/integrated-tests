@@ -123,6 +123,9 @@ export const RTR = {
     RUTR: CFG_RUTR,
 }
 
+// global state private path
+export const _ = "_"
+
 // Global state keys/constants
 
 export const $$_PATH = "$$_PATH"
