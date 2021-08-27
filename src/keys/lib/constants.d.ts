@@ -98,8 +98,10 @@ export declare const $$: {
     ROOT: string;
 };
 export declare const $$_DEFAULT: {
-    $$_PATH: any[];
-    $$_LOAD: boolean;
-    $$_VIEW: any;
-    $$_ROOT: any;
+    _: {
+        $$_PATH: any[];
+        $$_LOAD: boolean;
+        $$_VIEW: any;
+        $$_ROOT: any;
+    };
 };

@@ -98,8 +98,10 @@ export const $$ = {
     ROOT: $$_ROOT,
 };
 export const $$_DEFAULT = {
-    [$$_PATH]: [],
-    [$$_LOAD]: true,
-    [$$_VIEW]: null,
-    [$$_ROOT]: null,
+    [_]: {
+        [$$_PATH]: [],
+        [$$_LOAD]: true,
+        [$$_VIEW]: null,
+        [$$_ROOT]: null,
+    },
 };

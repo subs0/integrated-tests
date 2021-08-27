@@ -143,8 +143,10 @@ export const $$ = {
 
 // home page / defaults to empty path
 export const $$_DEFAULT = {
-    [$$_PATH]: [],
-    [$$_LOAD]: true,
-    [$$_VIEW]: null,
-    [$$_ROOT]: null,
+    [_]: {
+        [$$_PATH]: [],
+        [$$_LOAD]: true,
+        [$$_VIEW]: null,
+        [$$_ROOT]: null,
+    },
 }

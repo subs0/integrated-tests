@@ -2,7 +2,7 @@
     "name": "@-0/keys",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.40",
+    "version": "0.3.41",
     "description": "keys/constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
@@ -13,7 +13,7 @@
         "typewatch": "tsc --project tsconfig.json",
         "types": "tsc --project tsconfig.build.json",
         "patch": "npm version patch && npm publish",
-        "postgit": "git push origin master",
+        "push": "git push origin master",
         "ncu": "ncu -u && npm i && npm audit fix",
         "git": "git add . && git commit -m"
     },
