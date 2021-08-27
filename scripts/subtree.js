@@ -5,8 +5,8 @@ const msg = "updates package version and syncs subtree"
 const subtree = ({ st, via, br, msg }) => {
     // prettier-ignore
     exec(
-        `git add . && ` + 
-        `git commit -m "${st}: ${msg}" && ` + 
+        //`git add . && ` + 
+        //`git commit -m "${st}: ${msg}" && ` + 
         `git subtree ${via} --prefix=src/${st} ${st} ${br}`, 
         { stdio: [ 0, 1, 2 ] } 
     )
