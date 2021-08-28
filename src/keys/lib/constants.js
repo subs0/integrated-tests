@@ -86,7 +86,7 @@ export const RTR = {
     PRFX: RTR_PRFX,
     RUTR: CFG_RUTR,
 };
-export const _ = "_";
+export const _ = "router";
 export const $$_PATH = "$$_PATH";
 export const $$_LOAD = "$$_LOAD";
 export const $$_VIEW = "$$_VIEW";
@@ -103,3 +103,4 @@ export const $$_DEFAULT = {
         [$$_VIEW]: null,
     },
 };
+export const DETOUR = "home";

@@ -124,7 +124,7 @@ export const RTR = {
 }
 
 // global state private path
-export const _ = "_"
+export const _ = "router"
 
 // Global state keys/constants
 
@@ -148,3 +148,5 @@ export const $$_DEFAULT = {
         [$$_VIEW]: null,
     },
 }
+
+export const DETOUR = "home"

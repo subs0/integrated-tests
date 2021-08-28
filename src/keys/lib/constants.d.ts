@@ -86,7 +86,7 @@ export declare const RTR: {
     PRFX: string;
     RUTR: string;
 };
-export declare const _ = "_";
+export declare const _ = "router";
 export declare const $$_PATH = "$$_PATH";
 export declare const $$_LOAD = "$$_LOAD";
 export declare const $$_VIEW = "$$_VIEW";
@@ -97,9 +97,10 @@ export declare const $$: {
     VIEW: string;
 };
 export declare const $$_DEFAULT: {
-    _: {
+    router: {
         $$_PATH: any[];
         $$_LOAD: boolean;
         $$_VIEW: any;
     };
 };
+export declare const DETOUR = "home";
