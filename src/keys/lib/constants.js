@@ -95,13 +95,11 @@ export const $$ = {
     PATH: $$_PATH,
     LOAD: $$_LOAD,
     VIEW: $$_VIEW,
-    ROOT: $$_ROOT,
 };
 export const $$_DEFAULT = {
     [_]: {
         [$$_PATH]: [],
         [$$_LOAD]: true,
         [$$_VIEW]: null,
-        [$$_ROOT]: null,
     },
 };

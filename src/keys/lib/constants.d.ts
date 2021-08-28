@@ -95,13 +95,11 @@ export declare const $$: {
     PATH: string;
     LOAD: string;
     VIEW: string;
-    ROOT: string;
 };
 export declare const $$_DEFAULT: {
     _: {
         $$_PATH: any[];
         $$_LOAD: boolean;
         $$_VIEW: any;
-        $$_ROOT: any;
     };
 };

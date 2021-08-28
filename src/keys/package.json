@@ -2,7 +2,7 @@
     "name": "@-0/keys",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.41",
+    "version": "0.3.42",
     "description": "keys/constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",

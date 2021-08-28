@@ -138,7 +138,6 @@ export const $$ = {
     PATH: $$_PATH,
     LOAD: $$_LOAD,
     VIEW: $$_VIEW,
-    ROOT: $$_ROOT,
 }
 
 // home page / defaults to empty path
@@ -147,6 +146,5 @@ export const $$_DEFAULT = {
         [$$_PATH]: [],
         [$$_LOAD]: true,
         [$$_VIEW]: null,
-        [$$_ROOT]: null,
     },
 }
