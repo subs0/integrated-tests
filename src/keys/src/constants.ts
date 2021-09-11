@@ -67,8 +67,8 @@ export const HEAD = {
 }
 
 // set$$tate constants
-export const STATE_PATH = "path"
-export const STATE_DATA = "data"
+export const STATE_PATH = "$path$"
+export const STATE_DATA = "$data$"
 
 // public
 export const STATE = {

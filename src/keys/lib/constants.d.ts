@@ -48,8 +48,8 @@ export declare const HEAD: {
     IMGH: string;
     TYPE: string;
 };
-export declare const STATE_PATH = "path";
-export declare const STATE_DATA = "data";
+export declare const STATE_PATH = "$path$";
+export declare const STATE_DATA = "$data$";
 export declare const STATE: {
     PATH: string;
     DATA: string;

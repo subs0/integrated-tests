@@ -48,8 +48,8 @@ export const HEAD = {
     IMGH: HD_IMGH,
     TYPE: HD_TYPE,
 };
-export const STATE_PATH = "path";
-export const STATE_DATA = "data";
+export const STATE_PATH = "$path$";
+export const STATE_DATA = "$data$";
 export const STATE = {
     PATH: STATE_PATH,
     DATA: STATE_DATA,
