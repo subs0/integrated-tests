@@ -87,6 +87,7 @@ export const RTR = {
     RUTR: CFG_RUTR,
 };
 export const PUSH_STATE = "PUSH_STATE";
+export const POP_STATE = "POP_STATE";
 export const SCROLL_X = "SCROLL_X";
 export const SCROLL_Y = "SCROLL_Y";
 export const $$_PATH = "$$_PATH";

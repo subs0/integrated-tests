@@ -125,6 +125,7 @@ export const RTR = {
 
 // scroll position on _HREF_PUSHSATE_DOM
 export const PUSH_STATE = "PUSH_STATE"
+export const POP_STATE = "POP_STATE"
 export const SCROLL_X = "SCROLL_X"
 export const SCROLL_Y = "SCROLL_Y"
 

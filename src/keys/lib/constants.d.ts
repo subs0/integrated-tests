@@ -87,6 +87,7 @@ export declare const RTR: {
     RUTR: string;
 };
 export declare const PUSH_STATE = "PUSH_STATE";
+export declare const POP_STATE = "POP_STATE";
 export declare const SCROLL_X = "SCROLL_X";
 export declare const SCROLL_Y = "SCROLL_Y";
 export declare const $$_PATH = "$$_PATH";
