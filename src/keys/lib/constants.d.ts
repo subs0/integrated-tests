@@ -1,11 +1,11 @@
-export declare const URL_PAGE = "PAGE";
-export declare const URL_DATA = "DATA";
-export declare const URL_FULL = "FURL";
-export declare const URL_PATH = "PATH";
-export declare const URL_DOMN = "DOMN";
-export declare const URL_SUBD = "SUBD";
-export declare const URL_QERY = "QERY";
-export declare const URL_HASH = "HASH";
+export declare const URL_PAGE = "_PAGE";
+export declare const URL_DATA = "_DATA";
+export declare const URL_FULL = "_FURL";
+export declare const URL_PATH = "_PATH";
+export declare const URL_DOMN = "_DOMN";
+export declare const URL_SUBD = "_SUBD";
+export declare const URL_QERY = "_QERY";
+export declare const URL_HASH = "_HASH";
 export declare const URL_PRSE = "unfurl";
 export declare const URL_NPRS = "urlify";
 export declare const URL: {
@@ -20,9 +20,9 @@ export declare const URL: {
     PRSE: string;
     NPRS: string;
 };
-export declare const DOM_NODE = "NODE";
-export declare const DOM_BODY = "BODY";
-export declare const DOM_HEAD = "HEAD";
+export declare const DOM_NODE = "_NODE";
+export declare const DOM_BODY = "_BODY";
+export declare const DOM_HEAD = "_HEAD";
 export declare const DOM: {
     NODE: string;
     BODY: string;
@@ -86,7 +86,9 @@ export declare const RTR: {
     PRFX: string;
     RUTR: string;
 };
-export declare const _ = "router";
+export declare const PUSH_STATE = "PUSH_STATE";
+export declare const SCROLL_X = "SCROLL_X";
+export declare const SCROLL_Y = "SCROLL_Y";
 export declare const $$_PATH = "$$_PATH";
 export declare const $$_LOAD = "$$_LOAD";
 export declare const $$_VIEW = "$$_VIEW";
@@ -96,6 +98,7 @@ export declare const $$: {
     LOAD: string;
     VIEW: string;
 };
+export declare const _ = "router";
 export declare const $$_DEFAULT: {
     router: {
         $$_PATH: any[];

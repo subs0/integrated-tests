@@ -1,15 +1,15 @@
 /**
  * @module keys
  */
-export const URL_PAGE = "PAGE"
-export const URL_DATA = "DATA"
+export const URL_PAGE = "_PAGE"
+export const URL_DATA = "_DATA"
 
-export const URL_FULL = "FURL"
-export const URL_PATH = "PATH"
-export const URL_DOMN = "DOMN"
-export const URL_SUBD = "SUBD"
-export const URL_QERY = "QERY"
-export const URL_HASH = "HASH"
+export const URL_FULL = "_FURL"
+export const URL_PATH = "_PATH"
+export const URL_DOMN = "_DOMN"
+export const URL_SUBD = "_SUBD"
+export const URL_QERY = "_QERY"
+export const URL_HASH = "_HASH"
 
 // DON'T CHANGE THESE 💢
 export const URL_PRSE = "unfurl"
@@ -32,9 +32,9 @@ export const URL = {
 }
 
 // userland router metadata constants
-export const DOM_NODE = "NODE"
-export const DOM_BODY = "BODY"
-export const DOM_HEAD = "HEAD"
+export const DOM_NODE = "_NODE"
+export const DOM_BODY = "_BODY"
+export const DOM_HEAD = "_HEAD"
 
 // public
 export const DOM = {
@@ -123,8 +123,10 @@ export const RTR = {
     RUTR: CFG_RUTR,
 }
 
-// global state private path
-export const _ = "router"
+// scroll position on _HREF_PUSHSATE_DOM
+export const PUSH_STATE = "PUSH_STATE"
+export const SCROLL_X = "SCROLL_X"
+export const SCROLL_Y = "SCROLL_Y"
 
 // Global state keys/constants
 
@@ -139,6 +141,9 @@ export const $$ = {
     LOAD: $$_LOAD,
     VIEW: $$_VIEW,
 }
+
+// global state private path
+export const _ = "router"
 
 // home page / defaults to empty path
 export const $$_DEFAULT = {
