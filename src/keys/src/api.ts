@@ -40,7 +40,7 @@ import { URL2obj } from "@-0/utils"
 import { registerRouterDOM } from "@-0/browser"
 import { EquivMap } from "@thi.ng/associative"
 
-export type Accumulator = Record<string, unknown>
+export type Accumulator = { [key: string | symbol]: unknown }
 
 /**
  * Command Object.

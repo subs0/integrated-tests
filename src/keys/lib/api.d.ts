@@ -1,5 +1,7 @@
 import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream";
-export declare type Accumulator = Record<string, unknown>;
+export declare type Accumulator = {
+    [key: string | symbol]: unknown;
+};
 declare const ICO: {
     args: any;
     sub$: string;
