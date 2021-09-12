@@ -1,5 +1,7 @@
 import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream";
-export declare type Accumulator = Record<string, unknown>;
+export declare type Accumulator = {
+    [key: string | symbol]: unknown;
+};
 declare const ICO: {
     args: any;
     sub$: string;
@@ -9,7 +11,7 @@ declare const ICO: {
 export declare type ICommandObject = Partial<typeof ICO>;
 declare const IC: {
     work: (args: any) => any;
-    src$: ISubscribable<any> | ISubscriber<any>;
+    src$: ISubscriber<any> | ISubscribable<any>;
     args: any;
     sub$: string;
     reso: (acc: Accumulator, res: any) => any;
@@ -22,12 +24,12 @@ export declare type Task = Command[];
 declare const C: (data: any) => any;
 export declare type Component = typeof C;
 declare const PURL: {
-    FURL: string;
-    PATH: string[];
-    DOMN: string[];
-    SUBD: string[];
-    QERY: Record<string, unknown>;
-    HASH: string;
+    _FURL: string;
+    _PATH: string[];
+    _DOMN: string[];
+    _SUBD: string[];
+    _QERY: Record<string, unknown>;
+    _HASH: string;
 };
 export declare type ParsedURL = Partial<typeof PURL>;
 declare const HD: {
@@ -41,9 +43,9 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    NODE: Document | HTMLElement;
-    BODY: any;
-    HEAD: Partial<{
+    _NODE: HTMLElement | Document;
+    _BODY: any;
+    _HEAD: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -55,7 +57,7 @@ declare const TDOM: {
 };
 export declare type TargetDOM = Partial<typeof TDOM>;
 declare const RHBD: {
-    HEAD: Partial<{
+    _HEAD: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -64,12 +66,12 @@ declare const RHBD: {
         favicon: string;
         og_type: string;
     }>;
-    BODY: any;
+    _BODY: any;
 };
 export declare type RouterHeadBodyData = Partial<typeof RHBD>;
 declare const RO: {
-    DATA: Partial<{
-        HEAD: Partial<{
+    _DATA: Partial<{
+        _HEAD: Partial<{
             title: string;
             og_description: string;
             og_image: string;
@@ -78,20 +80,20 @@ declare const RO: {
             favicon: string;
             og_type: string;
         }>;
-        BODY: any;
+        _BODY: any;
     }>;
-    PAGE: (data: any) => any;
+    _PAGE: (data: any) => any;
 };
 export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
-    FURL: string;
-    NODE: Document | HTMLElement;
+    _FURL: string;
+    _NODE: HTMLElement | Document;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
     preroute: Command | Task;
-    ignore_prefix: string;
+    ignore_prefix: RegExp;
     postroute: Command | Task;
     router: Router;
 };
@@ -100,7 +102,7 @@ declare const DD: {
     $$_PATH: string[];
     $$_LOAD: boolean;
     $$_VIEW: (data: any) => any;
-    $$_ROOT: Document | HTMLElement;
+    $$_ROOT: HTMLElement | Document;
 };
 export declare type DefaultDraft = typeof DD;
 export {};

@@ -1,6 +1,6 @@
 import { Command, ICommandObject } from "@-0/keys";
 export declare const createSetStateCMD: (store?: import("@thi.ng/atom").Atom<{
-    _: {
+    router: {
         $$_PATH: any[];
         $$_LOAD: boolean;
         $$_VIEW: any;
