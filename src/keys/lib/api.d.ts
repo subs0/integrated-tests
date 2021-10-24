@@ -93,7 +93,7 @@ declare const RI: {
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
     preroute: Command | Task;
-    ignore_prefix: RegExp;
+    ignore_prefix: string | RegExp;
     postroute: Command | Task;
     router: Router;
 };

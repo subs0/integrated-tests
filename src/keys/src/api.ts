@@ -127,7 +127,7 @@ export type RouterInput = typeof RI
 
 const RCFG = {
     [RTR_PREP]: ({} as Command) || ([] as Task),
-    [RTR_PRFX]: "" || new RegExp(""),
+    [RTR_PRFX]: new RegExp("") || "",
     [RTR_POST]: ({} as Command) || ([] as Task),
     [CFG_RUTR]: ((url: string) => null as RouterOutput) as Router,
 }
