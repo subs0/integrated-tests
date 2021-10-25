@@ -43,7 +43,7 @@ declare const HD: {
 };
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    _NODE: HTMLElement | Document;
+    _NODE: Document | HTMLElement;
     _BODY: any;
     _HEAD: Partial<{
         title: string;
@@ -88,12 +88,12 @@ export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RI: {
     _FURL: string;
-    _NODE: HTMLElement | Document;
+    _NODE: Document | HTMLElement;
 };
 export declare type RouterInput = typeof RI;
 declare const RCFG: {
     preroute: Command | Task;
-    ignore_prefix: RegExp;
+    ignore_prefix: string | RegExp;
     postroute: Command | Task;
     router: Router;
 };
@@ -102,7 +102,7 @@ declare const DD: {
     $$_PATH: string[];
     $$_LOAD: boolean;
     $$_VIEW: (data: any) => any;
-    $$_ROOT: HTMLElement | Document;
+    $$_ROOT: Document | HTMLElement;
 };
 export declare type DefaultDraft = typeof DD;
 export {};

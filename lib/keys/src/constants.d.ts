@@ -86,7 +86,7 @@ export declare const RTR: {
     PRFX: string;
     RUTR: string;
 };
-export declare const PUSH_STATE = "PUSH_STATE";
+export declare const PUSH_STATE = "referrer";
 export declare const POP_STATE = "POP_STATE";
 export declare const SCROLL_X = "SCROLL_X";
 export declare const SCROLL_Y = "SCROLL_Y";
