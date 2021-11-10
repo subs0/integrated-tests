@@ -26,16 +26,16 @@ export const URL_NPRS = "urlify"
  * Object Keys for a Parsed URL using `parse` from @-0/utils
  */
 export const URL = {
-    FULL: URL_FULL,
-    PATH: URL_PATH,
-    DATA: URL_DATA,
-    DOMN: URL_DOMN,
-    SUBD: URL_SUBD,
-    QERY: URL_QERY,
-    HASH: URL_HASH,
-    PAGE: URL_PAGE,
-    PRSE: URL_PRSE,
-    NPRS: URL_NPRS,
+    FULL: URL_FULL as typeof URL_FULL,
+    PATH: URL_PATH as typeof URL_PATH,
+    DATA: URL_DATA as typeof URL_DATA,
+    DOMN: URL_DOMN as typeof URL_DOMN,
+    SUBD: URL_SUBD as typeof URL_SUBD,
+    QERY: URL_QERY as typeof URL_QERY,
+    HASH: URL_HASH as typeof URL_HASH,
+    PAGE: URL_PAGE as typeof URL_PAGE,
+    PRSE: URL_PRSE as typeof URL_PRSE,
+    NPRS: URL_NPRS as typeof URL_NPRS,
 }
 
 // userland router metadata constants
@@ -64,13 +64,13 @@ export const HD_IMGH = "og_image_height"
 export const HD_TYPE = "og_type"
 
 export const HEAD = {
-    TITL: HD_TITL,
-    ICON: HD_ICON,
-    DESC: HD_DESC,
-    IMGU: HD_IMGU,
-    IMGW: HD_IMGW,
-    IMGH: HD_IMGH,
-    TYPE: HD_TYPE,
+    TITL: HD_TITL as typeof HD_TITL,
+    ICON: HD_ICON as typeof HD_ICON,
+    DESC: HD_DESC as typeof HD_DESC,
+    IMGU: HD_IMGU as typeof HD_IMGU,
+    IMGW: HD_IMGW as typeof HD_IMGW,
+    IMGH: HD_IMGH as typeof HD_IMGH,
+    TYPE: HD_TYPE as typeof HD_TYPE,
 }
 
 // set$$tate constants
@@ -94,12 +94,12 @@ export const CMD_SRC$ = "src$"
 
 // public
 export const CMD = {
-    SUB$: CMD_SUB$,
-    ARGS: CMD_ARGS,
-    RESO: CMD_RESO,
-    ERRO: CMD_ERRO,
-    WORK: CMD_WORK,
-    SRC$: CMD_SRC$,
+    SUB$: CMD_SUB$ as typeof CMD_SUB$,
+    ARGS: CMD_ARGS as typeof CMD_ARGS,
+    RESO: CMD_RESO as typeof CMD_RESO,
+    ERRO: CMD_ERRO as typeof CMD_ERRO,
+    WORK: CMD_WORK as typeof CMD_WORK,
+    SRC$: CMD_SRC$ as typeof CMD_SRC$,
 }
 
 // Userland dispatching
@@ -112,9 +112,9 @@ export const CFG_RUTR = "router"
 
 // Context
 export const CTX = {
-    STOR: CFG_STOR,
-    LOG$: CFG_LOG$,
-    RUN$: CFG_RUN$,
+    STOR: CFG_STOR as typeof CFG_STOR,
+    LOG$: CFG_LOG$ as typeof CFG_LOG$,
+    RUN$: CFG_RUN$ as typeof CFG_RUN$,
 }
 
 // ROUTER
@@ -124,10 +124,10 @@ export const RTR_PRFX = "ignore_prefix"
 
 // public
 export const RTR = {
-    PREP: RTR_PREP,
-    POST: RTR_POST,
-    PRFX: RTR_PRFX,
-    RUTR: CFG_RUTR,
+    PREP: RTR_PREP as typeof RTR_PREP,
+    POST: RTR_POST as typeof RTR_POST,
+    PRFX: RTR_PRFX as typeof RTR_PRFX,
+    RUTR: CFG_RUTR as typeof CFG_RUTR,
 }
 
 // scroll position on _HREF_PUSHSATE_DOM
@@ -145,9 +145,9 @@ export const $$_ROOT = "$$_ROOT"
 
 // public
 export const $$ = {
-    PATH: $$_PATH,
-    LOAD: $$_LOAD,
-    VIEW: $$_VIEW,
+    PATH: $$_PATH as typeof $$_PATH,
+    LOAD: $$_LOAD as typeof $$_LOAD,
+    VIEW: $$_VIEW as typeof $$_VIEW,
 }
 
 // global state private path
