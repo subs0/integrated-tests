@@ -1,6 +1,13 @@
 /**
  * @module keys
  */
+
+/**
+ * these keys are pulled from the accumulator
+ * the `_CONST` syntax is used to reduce the
+ * chance conflicts with userland keys in
+ * multiplex accumulator root
+ */
 export const URL_PAGE = "_PAGE"
 export const URL_DATA = "_DATA"
 
@@ -33,8 +40,8 @@ export const URL = {
 
 // userland router metadata constants
 export const DOM_NODE = "_NODE"
-export const DOM_BODY = "_BODY"
-export const DOM_HEAD = "_HEAD"
+export const DOM_BODY = "data"
+export const DOM_HEAD = "head"
 
 // public
 export const DOM = {

@@ -21,8 +21,8 @@ export const URL = {
     NPRS: URL_NPRS,
 };
 export const DOM_NODE = "_NODE";
-export const DOM_BODY = "_BODY";
-export const DOM_HEAD = "_HEAD";
+export const DOM_BODY = "data";
+export const DOM_HEAD = "head";
 export const DOM = {
     NODE: DOM_NODE,
     BODY: DOM_BODY,

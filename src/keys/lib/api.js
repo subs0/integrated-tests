@@ -1,4 +1,5 @@
 import { CMD_ARGS, CMD_SRC$, CMD_ERRO, CMD_RESO, CMD_SUB$, CMD_WORK, URL_FULL, URL_PATH, URL_DOMN, URL_SUBD, URL_QERY, URL_HASH, DOM_NODE, DOM_BODY, DOM_HEAD, HD_TITL, HD_DESC, HD_IMGU, HD_IMGW, HD_IMGH, HD_ICON, HD_TYPE, URL_DATA, URL_PAGE, RTR_PREP, RTR_PRFX, RTR_POST, CFG_RUTR, $$_PATH, $$_LOAD, $$_VIEW, $$_ROOT, } from "./constants";
+import { POP_STATE } from ".";
 const ICO = {
     [CMD_ARGS]: null,
     [CMD_SUB$]: "",
@@ -38,9 +39,23 @@ const RO = {
     [URL_DATA]: RHBD,
     [URL_PAGE]: C,
 };
-const RI = {
-    [URL_FULL]: "",
-    [DOM_NODE]: navNode,
+const NavObj = {
+    target: {
+        location: {
+            href: "",
+        },
+    },
+    currentTarget: navNode,
+    state: {},
+};
+const RouterCMDInput = {
+    [URL_FULL]: NavObj.target.location.href,
+    [DOM_NODE]: NavObj.currentTarget,
+    [POP_STATE]: NavObj.state,
+};
+const RC = {
+    [CMD_SUB$]: "",
+    [CMD_ARGS]: (args) => null,
 };
 const RCFG = {
     [RTR_PREP]: {} || [],

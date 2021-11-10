@@ -44,8 +44,8 @@ declare const HD: {
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
     _NODE: Document | HTMLElement;
-    _BODY: any;
-    _HEAD: Partial<{
+    data: any;
+    head: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -57,7 +57,7 @@ declare const TDOM: {
 };
 export declare type TargetDOM = Partial<typeof TDOM>;
 declare const RHBD: {
-    _HEAD: Partial<{
+    head: Partial<{
         title: string;
         og_description: string;
         og_image: string;
@@ -66,12 +66,12 @@ declare const RHBD: {
         favicon: string;
         og_type: string;
     }>;
-    _BODY: any;
+    data: any;
 };
 export declare type RouterHeadBodyData = Partial<typeof RHBD>;
 declare const RO: {
     _DATA: Partial<{
-        _HEAD: Partial<{
+        head: Partial<{
             title: string;
             og_description: string;
             og_image: string;
@@ -80,17 +80,23 @@ declare const RO: {
             favicon: string;
             og_type: string;
         }>;
-        _BODY: any;
+        data: any;
     }>;
     _PAGE: (data: any) => any;
 };
 export declare type RouterOutput = typeof RO;
 export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
-declare const RI: {
+declare const RouterCMDInput: {
     _FURL: string;
     _NODE: Document | HTMLElement;
+    POP_STATE: Record<string, unknown>;
 };
-export declare type RouterInput = typeof RI;
+export declare type RouterCommandArgs = Partial<typeof RouterCMDInput>;
+declare const RC: {
+    sub$: string;
+    args: (args: RouterCommandArgs) => any;
+};
+export declare type RouterCommand = typeof RC;
 declare const RCFG: {
     preroute: Command | Task;
     ignore_prefix: string | RegExp;

@@ -39,6 +39,7 @@ import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream"
 import { URL2obj } from "@-0/utils"
 import { registerRouterDOM } from "@-0/browser"
 import { EquivMap } from "@thi.ng/associative"
+import { POP_STATE } from "."
 
 export type Accumulator = { [key: string | symbol]: unknown }
 
@@ -115,15 +116,36 @@ const RO = {
     [URL_DATA]: RHBD as RouterHeadBodyData,
     [URL_PAGE]: C as Component,
 }
+
 export type RouterOutput = typeof RO
 
 export type Router = (url: string) => RouterOutput | Promise<RouterOutput>
 
-const RI = {
-    [URL_FULL]: "",
-    [DOM_NODE]: navNode,
+const NavObj = {
+    target: {
+        location: {
+            href: "",
+        },
+    },
+    currentTarget: navNode,
+    state: {} as Record<string, unknown>,
 }
-export type RouterInput = typeof RI
+
+const RouterCMDInput = {
+    [URL_FULL]: NavObj.target.location.href,
+    [DOM_NODE]: NavObj.currentTarget,
+    [POP_STATE]: NavObj.state,
+}
+
+export type RouterCommandArgs = Partial<typeof RouterCMDInput>
+
+const RC = {
+    [CMD_SUB$]: "",
+    [CMD_ARGS]: (args: RouterCommandArgs) => null,
+}
+
+// TODO: to registerRouterDOM output
+export type RouterCommand = typeof RC
 
 const RCFG = {
     [RTR_PREP]: ({} as Command) || ([] as Task),
