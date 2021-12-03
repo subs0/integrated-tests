@@ -21,7 +21,7 @@ export declare const URL: {
     NPRS: "urlify";
 };
 export declare const DOM_NODE = "_NODE";
-export declare const DOM_BODY = "data";
+export declare const DOM_BODY = "body";
 export declare const DOM_HEAD = "head";
 export declare const DOM: {
     NODE: string;

@@ -40,7 +40,7 @@ export const URL = {
 
 // userland router metadata constants
 export const DOM_NODE = "_NODE"
-export const DOM_BODY = "data"
+export const DOM_BODY = "body"
 export const DOM_HEAD = "head"
 
 // public

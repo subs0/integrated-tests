@@ -44,7 +44,7 @@ declare const HD: {
 export declare type HeadData = Partial<typeof HD>;
 declare const TDOM: {
     _NODE: Document | HTMLElement;
-    data: any;
+    body: any;
     head: Partial<{
         title: string;
         og_description: string;
@@ -66,7 +66,7 @@ declare const RHBD: {
         favicon: string;
         og_type: string;
     }>;
-    data: any;
+    body: any;
 };
 export declare type RouterHeadBodyData = Partial<typeof RHBD>;
 declare const RO: {
@@ -80,7 +80,7 @@ declare const RO: {
             favicon: string;
             og_type: string;
         }>;
-        data: any;
+        body: any;
     }>;
     _PAGE: (data: any) => any;
 };
