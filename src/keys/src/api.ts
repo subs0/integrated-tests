@@ -104,6 +104,7 @@ const TDOM = {
     [DOM_BODY]: null,
     [DOM_HEAD]: HD as HeadData,
 }
+
 export type TargetDOM = Partial<typeof TDOM>
 
 const RHBD = {
