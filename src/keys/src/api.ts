@@ -95,6 +95,7 @@ const HD = {
 export type HeadData = Partial<typeof HD>
 
 const navNode = document.createElement("a") || document.getElementById("some-id") || document
+
 /**
  * Provides targets for data injection from DOM router
  */
