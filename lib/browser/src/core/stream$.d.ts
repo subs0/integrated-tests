@@ -20,6 +20,6 @@ export declare const DOMnavigated$: import("@thi.ng/rstream").ISubscription<unkn
     state: Record<string, unknown>;
 }> | {
     _FURL: string;
-    _NODE: Document | HTMLElement;
+    _NODE: HTMLElement | Document;
     POP_STATE: Record<string, unknown>;
 }>;
