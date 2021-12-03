@@ -2,7 +2,7 @@
     "name": "@-0/utils",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.62",
+    "version": "0.3.63",
     "description": "utilities for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
@@ -27,7 +27,7 @@
         "constants"
     ],
     "dependencies": {
-        "@-0/keys": "^0.3.64",
+        "@-0/keys": "^0.3.66",
         "querystring": "^0.2.1"
     },
     "peerDependencies": {
