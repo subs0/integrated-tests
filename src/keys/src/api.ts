@@ -32,6 +32,7 @@ import {
     $$_LOAD,
     $$_VIEW,
     $$_ROOT,
+    POP_STATE,
 } from "./constants"
 
 import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream"
@@ -39,7 +40,6 @@ import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream"
 import { URL2obj } from "@-0/utils"
 import { registerRouterDOM } from "@-0/browser"
 import { EquivMap } from "@thi.ng/associative"
-import { POP_STATE } from "."
 
 export type Accumulator = { [key: string | symbol]: unknown }
 
