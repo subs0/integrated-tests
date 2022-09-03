@@ -1,5 +1,4 @@
 {
-    "preset": "@babel/preset-env",
     "testEnvironment": "jest-environment-jsdom",
     "testMatch": ["**/**/*.test.(js|ts|tsx)"],
     "verbose": true,
