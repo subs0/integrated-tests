@@ -34,6 +34,10 @@
         "pa:utils": "node scripts/patch st=utils",
         "pa:spool": "node scripts/patch st=spool",
         "pa:browser": "node scripts/patch st=browser",
+        "pn:keys": "node scripts/prune st=keys",
+        "pn:utils": "node scripts/prune st=utils",
+        "pn:spool": "node scripts/prune st=spool",
+        "pn:browser": "node scripts/prune st=browser",
         "up:keys": "node scripts/update st=keys msg=%npm_config_msg%",
         "up:utils": "node scripts/update st=utils msg=%npm_config_msg%",
         "up:spool": "node scripts/update st=spool msg=%npm_config_msg%",
@@ -52,6 +56,7 @@
         "example-npm-variable": "echo 'Notice how the variable is in CAPS %npm_config_msg% <- but not here!'",
         "go example": "npm run go:all --MSG=some-commit-message",
         "subtree:all": "npm run st:keys && npm run st:utils && npm run st:spool && npm run st:browser"
+        "prune:all": "npm run pn:keys && npm run pn:utils && npm run pn:spool && npm run pn:browswer" 
     },
     "keywords": [
         "thi.ng",
@@ -94,7 +99,6 @@
         "jest-environment-jsdom": "^29.0.1",
         "jsdom": "^20.0.0",
         "prettier": "^2.7.1",
-        "ts-jest": "^28.0.8",
         "ts-node": "^10.9.1",
         "typescript": "^4.8.2"
     },
