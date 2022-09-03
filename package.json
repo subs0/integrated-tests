@@ -55,8 +55,8 @@
         "check-env": "node -e 'console.log(process.env)' | grep npm",
         "example-npm-variable": "echo 'Notice how the variable is in CAPS %npm_config_msg% <- but not here!'",
         "go example": "npm run go:all --MSG=some-commit-message",
-        "subtree:all": "npm run st:keys && npm run st:utils && npm run st:spool && npm run st:browser"
-        "prune:all": "npm run pn:keys && npm run pn:utils && npm run pn:spool && npm run pn:browswer" 
+        "subtree:all": "npm run st:keys && npm run st:utils && npm run st:spool && npm run st:browser",
+        "prune:all": "npm run pn:keys && npm run pn:utils && npm run pn:spool && npm run pn:browser"
     },
     "keywords": [
         "thi.ng",
