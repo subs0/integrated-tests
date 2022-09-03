@@ -2,7 +2,7 @@
     "name": "@-0/keys",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.72",
+    "version": "0.3.73",
     "description": "keys/constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
@@ -32,7 +32,8 @@
     "devDependencies": {
         "@thi.ng/atom": "^5.1.14",
         "@thi.ng/rstream": "^7.2.17",
-        "eslint-plugin-jest": "^27.0.1"
+        "eslint-plugin-jest": "^27.0.1",
+        "@babel/preset-typescript": "^7.18.6"
     },
     "prettier": {
         "singleQuote": false,
