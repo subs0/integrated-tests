@@ -172,7 +172,7 @@ export const _RESTORE_SCROLL_IF_POPSTATE = registerCMD({
         [POP_STATE]: pop,
         [URL_FULL]: url,
     }),
-    [CMD_WORK]: ({ POP_STATE: pop, [URL_FULL]: url }) => {
+    [CMD_WORK]: ({ [POP_STATE]: pop, [URL_FULL]: url }) => {
         if (pop) {
             //console.log("state popped:", pop)
             const { [SCROLL_X]: x, [SCROLL_Y]: y } = scrollodex.get(url) || {
