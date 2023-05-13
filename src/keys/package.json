@@ -2,8 +2,8 @@
     "name": "@-0/keys",
     "author": "Logan Powell",
     "license": "MIT",
-    "version": "0.3.73",
-    "description": "keys/constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
+    "version": "0.3.75",
+    "description": "types and /constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
     "main": "./lib/index.js",
     "type": "module",
     "types": "./lib/index.d.ts",
@@ -18,22 +18,23 @@
         "git": "git add . && git commit -m"
     },
     "keywords": [
-        "thi.ng",
-        "-0",
-        "keys",
+        "types",
         "constants"
     ],
     "publishConfig": {
         "access": "public"
     },
-    "peerDependencies": {
-        "@thi.ng/rstream": "^7.2.17"
-    },
     "devDependencies": {
-        "@thi.ng/atom": "^5.1.14",
-        "@thi.ng/rstream": "^7.2.17",
-        "eslint-plugin-jest": "^27.0.1",
-        "@babel/preset-typescript": "^7.18.6"
+        "@babel/core": "^7.21.8",
+        "@babel/preset-typescript": "^7.21.5",
+        "@thi.ng/atom": "^5.2.2",
+        "@thi.ng/rstream": "^8.0.3",
+        "eslint": "^8.40.0",
+        "eslint-config-eslint": "^7.0.0",
+        "eslint-plugin-jest": "^27.2.1",
+        "eslint-plugin-jsdoc": "^44.2.3",
+        "eslint-plugin-node": "^11.1.0",
+        "typescript": "^5.0.4"
     },
     "prettier": {
         "singleQuote": false,
