@@ -2,7 +2,7 @@
  * @module utils/URL
  */
 
-import qs from "querystring"
+import qs from "querystring" // FIXME remove this dependency and replace with URLSearchParams
 // import gql from "nanographql"
 import { URL_FULL, URL_SUBD, URL_DOMN, URL_QERY, URL_HASH, URL_PATH } from "@-0/keys"
 

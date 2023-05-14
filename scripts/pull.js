@@ -3,7 +3,7 @@ import { exec, args } from "./utils.js"
 const msg = "switching to subtree directory git pulling updates"
 
 const pull = ({ st }) => {
-  exec(`cd src/${st} && git pull origin master"`, { stdio: [0, 1, 2] })
+    exec(`cd src/${st} && git pull origin master"`, { stdio: [0, 1, 2] })
 }
 pull(args(msg))
 

@@ -1,4 +1,3 @@
-import { IAtom } from "@thi.ng/atom/api"
 import {
     CMD_ARGS,
     CMD_SRC$,
@@ -36,10 +35,6 @@ import {
 } from "./constants"
 
 import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream"
-
-import { URL2obj } from "@-0/utils"
-import { registerRouterDOM } from "@-0/browser"
-import { EquivMap } from "@thi.ng/associative"
 
 export type Accumulator = { [key: string | symbol]: unknown }
 

@@ -1,5 +1,5 @@
 import { ISubscribable, ISubscriber, PubSub } from "@thi.ng/rstream";
-export declare type Accumulator = {
+export type Accumulator = {
     [key: string | symbol]: unknown;
 };
 declare const ICO: {
@@ -8,21 +8,21 @@ declare const ICO: {
     reso: (acc: Accumulator, res: any) => any;
     erro: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => any;
 };
-export declare type ICommandObject = Partial<typeof ICO>;
+export type ICommandObject = Partial<typeof ICO>;
 declare const IC: {
     work: (args: any) => any;
-    src$: ISubscriber<any> | ISubscribable<any>;
+    src$: ISubscribable<any> | ISubscriber<any>;
     args: any;
     sub$: string;
     reso: (acc: Accumulator, res: any) => any;
     erro: (acc: Accumulator, err: Error, out$: PubSub<unknown, unknown, any>) => any;
 };
-export declare type ICommand = Partial<typeof IC>;
-export declare type Command = ICommandObject | HOTask;
-export declare type HOTask = (acc: Accumulator) => Task;
-export declare type Task = Command[];
+export type ICommand = Partial<typeof IC>;
+export type Command = ICommandObject | HOTask;
+export type HOTask = (acc: Accumulator) => Task;
+export type Task = Command[];
 declare const C: (data: any) => any;
-export declare type Component = typeof C;
+export type Component = typeof C;
 declare const PURL: {
     _FURL: string;
     _PATH: string[];
@@ -31,7 +31,7 @@ declare const PURL: {
     _QERY: Record<string, unknown>;
     _HASH: string;
 };
-export declare type ParsedURL = Partial<typeof PURL>;
+export type ParsedURL = Partial<typeof PURL>;
 declare const HD: {
     title: string;
     og_description: string;
@@ -41,9 +41,9 @@ declare const HD: {
     favicon: string;
     og_type: string;
 };
-export declare type HeadData = Partial<typeof HD>;
+export type HeadData = Partial<typeof HD>;
 declare const TDOM: {
-    _NODE: HTMLElement | Document;
+    _NODE: Document | HTMLElement;
     body: any;
     head: Partial<{
         title: string;
@@ -55,7 +55,7 @@ declare const TDOM: {
         og_type: string;
     }>;
 };
-export declare type TargetDOM = Partial<typeof TDOM>;
+export type TargetDOM = Partial<typeof TDOM>;
 declare const RHBD: {
     head: Partial<{
         title: string;
@@ -68,7 +68,7 @@ declare const RHBD: {
     }>;
     body: any;
 };
-export declare type RouterHeadBodyData = Partial<typeof RHBD>;
+export type RouterHeadBodyData = Partial<typeof RHBD>;
 declare const RO: {
     _DATA: Partial<{
         head: Partial<{
@@ -84,31 +84,31 @@ declare const RO: {
     }>;
     _PAGE: (data: any) => any;
 };
-export declare type RouterOutput = typeof RO;
-export declare type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
+export type RouterOutput = typeof RO;
+export type Router = (url: string) => RouterOutput | Promise<RouterOutput>;
 declare const RouterCMDInput: {
     _FURL: string;
-    _NODE: HTMLElement | Document;
+    _NODE: Document | HTMLElement;
     POP_STATE: Record<string, unknown>;
 };
-export declare type RouterCommandArgs = Partial<typeof RouterCMDInput>;
+export type RouterCommandArgs = Partial<typeof RouterCMDInput>;
 declare const RC: {
     sub$: string;
     args: (args: RouterCommandArgs) => any;
 };
-export declare type RouterCommand = typeof RC;
+export type RouterCommand = typeof RC;
 declare const RCFG: {
     preroute: Command | Task;
     ignore_prefix: string | RegExp;
     postroute: Command | Task;
     router: Router;
 };
-export declare type RouterCFG = Partial<typeof RCFG>;
+export type RouterCFG = Partial<typeof RCFG>;
 declare const DD: {
     $$_PATH: string[];
     $$_LOAD: boolean;
     $$_VIEW: (data: any) => any;
-    $$_ROOT: HTMLElement | Document;
+    $$_ROOT: Document | HTMLElement;
 };
-export declare type DefaultDraft = typeof DD;
+export type DefaultDraft = typeof DD;
 export {};
