@@ -1,6 +1,7 @@
 import { Atom } from "@thi.ng/atom"
 import { $store$, set$$tate } from "../../src/store"
 import { _, CMD_ARGS, STATE_DATA, STATE_PATH, $$_LOAD, $$_PATH, $$_VIEW, $$_ROOT } from "@-0/keys"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 
 describe("state", () => {
     test(`1: $store$: Default $store$.deref() configuration`, () => {

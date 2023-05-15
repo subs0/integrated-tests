@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": false,
+        "importHelpers": true,
+        "isolatedModules": true,
+        "jsx": "react-jsx",
+        "lib": ["ES2017", "ES2015", "ES7", "ES6", "DOM"],
+        "module": "es6",
+        "moduleResolution": "node",
+        "noEmit": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "strictNullChecks": false,
+        "target": "ES6",
+        "watch": true,
+        "jsxImportSource": "@emotion/react"
+    },
+    "exclude": [
+        "**/*.test.js",
+        "**/*.repl.js",
+        "**/*.test.ts",
+        "**/*.repl.ts",
+        "src/_aws-exports.js",
+        "src/setupProxy.js",
+        "node_modules/*",
+        "src/misc"
+    ],
+    "include": ["src/*"]
+}

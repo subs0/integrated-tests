@@ -2,6 +2,7 @@ import { createEvent, fireEvent } from "@testing-library/dom"
 import { URL_FULL, DOM_NODE, POP_STATE } from "@-0/keys"
 import { DOMContentLoaded$, DOMnavigated$, popstate$ } from "../../src/core"
 import { map } from "@thi.ng/transducers"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 
 describe("stream$", () => {
     test("popstate$ and DOMnavigated$ emissions when popState event fired on window Object", () => {

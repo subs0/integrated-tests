@@ -2,20 +2,8 @@ import { createEvent, fireEvent } from "@testing-library/dom"
 import { EquivMap } from "@thi.ng/associative"
 import { map } from "@thi.ng/transducers"
 import { setImmediate } from "timers"
-
-import {
-    URL_FULL,
-    DOM_NODE,
-    CFG_RUTR,
-    ROUTER_PREP,
-    ROUTER_POST,
-    ROUTER_PRFX,
-    URL_PAGE,
-    URL_DATA,
-    CMD_ARGS,
-    CMD_SUB$,
-    CMD_WORK,
-} from "@-0/keys"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
+import { URL_FULL, URL_PAGE, URL_DATA, CMD_ARGS, CMD_SUB$, CMD_WORK } from "@-0/keys"
 import { log$, out$, run$, cmd$ } from "@-0/spool"
 import { URL2obj } from "@-0/utils"
 import { registerRouterDOM } from "../../src/registers"

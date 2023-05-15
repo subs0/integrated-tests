@@ -4,6 +4,7 @@ import { out$ } from "@-0/spool"
 import { createSetStateCMD, SET_STATE } from "../../src/commands"
 import { $store$ } from "../../src/store"
 import { CMD_ARGS, STATE_DATA, STATE_PATH } from "@-0/keys"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 
 const warned = jest.spyOn(console, "warn").mockImplementation()
 

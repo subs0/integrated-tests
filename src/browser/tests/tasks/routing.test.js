@@ -2,7 +2,7 @@
 import { getIn } from "@thi.ng/paths"
 //import { EquivMap } from "@thi.ng/associative"
 //import { map } from "@thi.ng/transducers"
-
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 import {
     _,
     URL_FULL,
@@ -66,6 +66,7 @@ describe("Tasks: routing", () => {
     test("1: __URL__ROUTE: function router CFG with simple data", async () => {
         const SUBTASK = __URL__ROUTE(router_fn, SET_STATE)
         const before = $store$.deref()
+        //console.log("before:", before)
         expect(before[_][$$_PATH]).toMatchObject([])
         run$.next([{ [CMD_ARGS]: { [URL_FULL]: "logan/was/here", [DOM_NODE]: window } }, SUBTASK])
 

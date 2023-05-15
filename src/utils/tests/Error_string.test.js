@@ -1,4 +1,5 @@
 import { Err_missing_props } from "../src"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 
 const expected_string = `
 Error: TEST1 Command missing critical \`args\`:
@@ -25,10 +26,10 @@ This Command's registered \`work\` handler failed.
 describe("Err_missing_props", () => {
     test("Nested Objects with undefined values", () => {
         const obj = {
-            a : "a",
-            b : { b1: undefined, b2: "defined" },
-            c : ({ here }) => `I was ${here}`,
-            d : { is: { property: undefined } }
+            a: "a",
+            b: { b1: undefined, b2: "defined" },
+            c: ({ here }) => `I was ${here}`,
+            d: { is: { property: undefined } },
         }
 
         const result = Err_missing_props("TEST1", obj)

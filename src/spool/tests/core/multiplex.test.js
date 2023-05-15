@@ -1,5 +1,6 @@
 import { stream, transduce } from "@thi.ng/rstream"
 import { map } from "@thi.ng/transducers"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 
 import { CMD_ARGS, CMD_ERRO, CMD_RESO, CMD_SRC$, CMD_SUB$, CMD_WORK } from "@-0/keys"
 

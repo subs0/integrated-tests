@@ -2,9 +2,7 @@
     "testEnvironment": "jest-environment-jsdom",
     "testMatch": ["**/**/*.test.(js|ts|tsx)"],
     "verbose": true,
-    "transform": {
-        "^.+\\.[jt]sx?$": "babel-jest"
-    },
+    "transform": {},
     "transformIgnorePatterns": ["node_modules/?!(@-0)"],
     "watchPathIgnorePatterns": ["^.+\\.repl.(ts|js)$"]
 }

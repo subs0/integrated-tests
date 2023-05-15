@@ -1,5 +1,5 @@
 import { CMD_ARGS, CMD_ERRO, CMD_RESO, CMD_SRC$, CMD_SUB$, CMD_WORK } from "@-0/keys"
-
+import { jest } from "@jest/globals"
 // fixtures
 
 export const warn = console.warn
@@ -20,20 +20,20 @@ export const work_str = jest.fn(y => "hello " + y)
 // Commands
 
 export const cmd = {
-    a_null       : { [CMD_ARGS]: a_null },
-    a_prim       : { [CMD_ARGS]: a_prim },
-    a_obj        : { [CMD_ARGS]: a_object },
-    a_P2prim     : { [CMD_ARGS]: a_P(a_prim) },
-    a_P2obj      : { [CMD_ARGS]: a_P(a_object) },
-    a_P2error    : { [CMD_ARGS]: a_P(new Error("a_P2error")) },
-    a_async      : { [CMD_ARGS]: a_async },
-    a_0fn2P_2pri : { [CMD_ARGS]: () => a_P(a_prim) },
-    a_1fn2P_2obj : { [CMD_ARGS]: A => a_P({ key: A.key + " -> a_1fn2P_2obj" }) },
-    a_1fn2P_boo  : { [CMD_ARGS]: A => a_P(new Error("a_1fn2P_boo")) },
-    r_2fn_yay    : { [CMD_RESO]: (A, R) => ({ key: R.key + " -> r_2fn_yay" }) },
-    e_3fn_err    : { [CMD_ERRO]: (A, E, O) => (O.next({ [CMD_SUB$]: "error", [CMD_ARGS]: E }), 0) },
-    w_fn_str     : { [CMD_WORK]: jest.fn(args => args + " -> w_fn_str ") },
-    w_fn_obj     : { [CMD_WORK]: jest.fn(args => ({ ...args, "->": "w_fn_obj" })) }
+    a_null: { [CMD_ARGS]: a_null },
+    a_prim: { [CMD_ARGS]: a_prim },
+    a_obj: { [CMD_ARGS]: a_object },
+    a_P2prim: { [CMD_ARGS]: a_P(a_prim) },
+    a_P2obj: { [CMD_ARGS]: a_P(a_object) },
+    a_P2error: { [CMD_ARGS]: a_P(new Error("a_P2error")) },
+    a_async: { [CMD_ARGS]: a_async },
+    a_0fn2P_2pri: { [CMD_ARGS]: () => a_P(a_prim) },
+    a_1fn2P_2obj: { [CMD_ARGS]: A => a_P({ key: A.key + " -> a_1fn2P_2obj" }) },
+    a_1fn2P_boo: { [CMD_ARGS]: A => a_P(new Error("a_1fn2P_boo")) },
+    r_2fn_yay: { [CMD_RESO]: (A, R) => ({ key: R.key + " -> r_2fn_yay" }) },
+    e_3fn_err: { [CMD_ERRO]: (A, E, O) => (O.next({ [CMD_SUB$]: "error", [CMD_ARGS]: E }), 0) },
+    w_fn_str: { [CMD_WORK]: jest.fn(args => args + " -> w_fn_str ") },
+    w_fn_obj: { [CMD_WORK]: jest.fn(args => ({ ...args, "->": "w_fn_obj" })) },
 }
 
 describe("fixtures", () => {

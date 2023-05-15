@@ -1,0 +1,50 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true,
+        "commonjs": true,
+        "node": true
+    },
+    "rules": {
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-unused-expressions": 1,
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/no-explicit-any": 1,
+        "@typescript-eslint/no-unused-vars": 1,
+        "@typescript-eslint/no-var-requires": 1,
+        "no-console": 0,
+        "no-native-reassign": 0,
+        "no-negated-in-lhs": 0,
+        "no-restricted-globals": 1,
+        "no-unreachable": 1,
+        "no-use-before-define": 0,
+        "prefer-const": 0,
+        "react/prop-types": 0,
+        "react/no-unknown-property": ["error", { "ignore": ["css"] }]
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:json/recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:react/jsx-runtime"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "root": true,
+    "plugins": ["react", "@typescript-eslint", "@emotion"],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "detect"
+        }
+    }
+}

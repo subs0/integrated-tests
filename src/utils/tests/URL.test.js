@@ -1,5 +1,6 @@
 import { URL_DATA, URL_FULL, URL_HASH, URL_PATH, URL_DOMN, URL_SUBD, URL_QERY } from "@-0/keys"
-import { URL2obj, obj2URL } from "../src/URL" //?
+import { URL2obj, obj2URL } from "../src/URL"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 
 describe("URL2obj", () => {
     test("1: absolute -> domain + path + query + hash", () =>
@@ -51,7 +52,7 @@ describe("URL2obj", () => {
         expect(URL2obj("https://anotherstory.com")).toMatchObject({
             [URL_FULL]: "https://anotherstory.com",
             [URL_SUBD]: [],
-            [URL_DOMN]: [],
+            [URL_DOMN]: ["anotherstory", "com"],
             [URL_PATH]: [],
             [URL_QERY]: {},
             [URL_HASH]: "",
@@ -84,4 +85,15 @@ describe("obj2URL", () => {
                 [URL_HASH]: "eat-at-joes",
             })
         ).toMatch("/site/my/happy?get=some#eat-at-joes"))
+    test("3: duplicate query keys", () =>
+        expect(
+            obj2URL({
+                [URL_FULL]: "https://very-long-sub.dom.cloud.eu/site/my/happy/",
+                [URL_SUBD]: ["very-long-sub", "dom"],
+                [URL_DOMN]: ["cloud", "eu"],
+                [URL_PATH]: ["site", "my", "happy"],
+                [URL_QERY]: { get: ["some", "another"] },
+                [URL_HASH]: "eat-at-joes",
+            })
+        ).toMatch("/site/my/happy?get=some&get=another#eat-at-joes"))
 })

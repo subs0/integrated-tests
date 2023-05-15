@@ -1,12 +1,13 @@
 import { key_index_err, xKeyError } from "../src/xKey"
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 
 import { CMD_SUB$, CMD_ARGS, CMD_ERRO, CMD_RESO, CMD_SRC$, CMD_WORK } from "@-0/keys"
 
 const CMD = {
-    [CMD_SUB$] : "_ERROR",
-    [CMD_ARGS] : new Error("from _ERROR"),
-    [CMD_ERRO] : (acc, res) => null,
-    [CMD_WORK] : x => console.error("Huge mistake:", x)
+    [CMD_SUB$]: "_ERROR",
+    [CMD_ARGS]: new Error("from _ERROR"),
+    [CMD_ERRO]: (acc, res) => null,
+    [CMD_WORK]: x => console.error("Huge mistake:", x),
 }
 
 describe("key_index_err", () => {

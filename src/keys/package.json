@@ -3,15 +3,12 @@
     "author": "Logan Powell",
     "license": "MIT",
     "version": "0.3.76",
-    "description": "types and /constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
-    "main": "./lib/index.js",
+    "description": "constants for the `-0` org/framework built on @thi.ng/umbrella ecosystem",
+    "main": "./src/index.js",
     "type": "module",
-    "types": "./lib/index.d.ts",
     "repository": "https://github.com/subs0/keys",
     "homepage": "https://github.com/subs0/keys",
     "scripts": {
-        "typewatch": "tsc --project tsconfig.json",
-        "types": "tsc --project tsconfig.build.json",
         "patch": "npm version patch && npm publish",
         "push": "git push origin master",
         "update": "ncu -u",
@@ -26,16 +23,13 @@
         "access": "public"
     },
     "devDependencies": {
-        "@babel/core": "^7.21.8",
-        "@babel/preset-typescript": "^7.21.5",
         "@thi.ng/atom": "^5.2.2",
         "@thi.ng/rstream": "^8.0.3",
         "eslint": "^8.40.0",
         "eslint-config-eslint": "^7.0.0",
         "eslint-plugin-jest": "^27.2.1",
         "eslint-plugin-jsdoc": "^44.2.3",
-        "eslint-plugin-node": "^11.1.0",
-        "typescript": "^5.0.4"
+        "eslint-plugin-node": "^11.1.0"
     },
     "prettier": {
         "singleQuote": false,
@@ -44,5 +38,10 @@
         "tabWidth": 4,
         "semi": false,
         "arrowParens": "avoid"
+    },
+    "dependencies": {
+        "@-0/spool": "link:/Users/logan/Documents/projects/@-0/stack/src/spool",
+        "@-0/stack": "link:/Users/logan/Documents/projects/@-0/stack",
+        "@-0/utils": "link:/Users/logan/Documents/projects/@-0/stack/src/utils"
     }
 }

@@ -1,0 +1,268 @@
+/*! CSS Used from: Embedded ; media=screen */
+@media screen {
+    a {
+        color: #3391ff;
+    }
+    ::placeholder {
+        color: #b2aba1;
+    }
+    ::-webkit-scrollbar {
+        background-color: #202324;
+        color: #aba499;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #454a4d;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #575e62;
+    }
+    ::-webkit-scrollbar-thumb:active {
+        background-color: #484e51;
+    }
+    ::-webkit-scrollbar-corner {
+        background-color: #181a1b;
+    }
+    ::selection {
+        background-color: #004daa !important;
+        color: #e8e6e3 !important;
+    }
+    ::-moz-selection {
+        background-color: #004daa !important;
+        color: #e8e6e3 !important;
+    }
+}
+/*! CSS Used from: Embedded ; media=screen */
+@media screen {
+    a {
+        background-color: transparent;
+    }
+    a:active,
+    a:hover {
+        outline: 0;
+    }
+    img {
+        border: 0;
+    }
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    img {
+        max-width: 100%;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .w-clearfix:before,
+    .w-clearfix:after {
+        content: " ";
+        display: table;
+        grid-column-start: 1;
+        grid-row-start: 1;
+        grid-column-end: 2;
+        grid-row-end: 2;
+    }
+    .w-clearfix:after {
+        clear: both;
+    }
+    a {
+        color: #7540ee;
+        font-size: 16px;
+        text-decoration: underline;
+    }
+    img {
+        display: inline-block;
+        max-width: 100%;
+    }
+    .module_wrap {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 90px 5%;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background-color: #fff;
+    }
+    .m08 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+        max-width: 600px;
+        min-height: 200px;
+        margin-bottom: 35px;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-pack: start;
+        -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+        border-radius: 10px;
+        box-shadow: 14px 14px 40px 0 rgba(118, 126, 173, 0.1);
+    }
+    .m08_image {
+        position: relative;
+        width: 45%;
+        height: 100%;
+        min-height: 200px;
+        background-image: url(https://assets.website-files.com/5cbc1cadfad96c3229989372/5d1aded33843827e1de0b4be_sail.jpeg);
+        background-position: 50% 50%;
+        background-size: cover;
+    }
+    .m08_content {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        width: 55%;
+        min-height: 200px;
+        padding: 25px 15px 25px 25px;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: start;
+        -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+    }
+    .m08_icon {
+        -webkit-filter: invert(100%);
+        filter: invert(100%);
+    }
+    .m08_social_count {
+        margin-left: 13px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 400;
+        text-decoration: none;
+    }
+    .m08_text {
+        margin-bottom: 15px;
+        color: #8b95a7;
+        font-size: 16px;
+    }
+    .m08_link {
+        text-decoration: none;
+    }
+    .m08_title {
+        margin-bottom: 15px;
+        color: #0a1f44;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .m08_social {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        margin-top: 15px;
+        margin-left: 15px;
+        padding: 8px 11px;
+        float: left;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border-radius: 6px;
+        background-color: #7540ee;
+    }
+    @media screen and (max-width: 991px) {
+        .m08_social {
+            margin-bottom: 6px;
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .m08 {
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+        .m08_image {
+            width: 100%;
+        }
+        .m08_content {
+            width: 100%;
+        }
+    }
+}
+/*! CSS Used from: Embedded ; media=screen */
+@media screen {
+    a {
+        background-color: transparent;
+    }
+    a:active,
+    a:hover {
+        outline-color: initial;
+    }
+    img {
+        border-color: initial;
+    }
+    a {
+        color: rgb(125, 74, 239);
+        text-decoration-color: initial;
+    }
+    .module_wrap {
+        background-color: rgb(24, 26, 27);
+    }
+    .m08 {
+        box-shadow: rgba(68, 75, 114, 0.1) 14px 14px 40px 0px;
+    }
+    .m08_image {
+        background-image: url(https://assets.website-files.com/5cbc1cadfad96c3229989372/5d1aded33843827e1de0b4be_sail.jpeg);
+    }
+    .m08_social_count {
+        color: rgb(232, 230, 227);
+        text-decoration-color: initial;
+    }
+    .m08_text {
+        color: rgb(168, 160, 149);
+    }
+    .m08_link {
+        text-decoration-color: initial;
+    }
+    .m08_title {
+        color: rgb(207, 203, 197);
+    }
+    .m08_social {
+        background-color: rgb(59, 14, 161);
+    }
+}
+/*! CSS Used from: Embedded ; media=screen */
+@media screen {
+    ::placeholder {
+        opacity: 0.5 !important;
+    }
+}

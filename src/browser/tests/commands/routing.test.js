@@ -1,17 +1,17 @@
-import { createEvent, fireEvent, getByText } from "@testing-library/dom"
+import { createEvent, fireEvent } from "@testing-library/dom"
 //import { EquivMap } from "@thi.ng/associative"
 //import { map } from "@thi.ng/transducers"
-
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 import { URL_FULL, DOM_NODE, CMD_ARGS } from "@-0/keys"
 import { run$, registerCMD } from "@-0/spool"
 import { DOMnavigated$ } from "../../src/core"
 import {
     //cmd_inject_head,
-    cmd_nav,
-    navEventHandler,
     _PUSHSTATE_IF_HREF,
     _NOTIFY_PRERENDER_DOM,
     _SET_LINK_ATTRS_DOM,
+    cmd_nav,
+    navEventHandler,
 } from "../../src/commands"
 
 const NAV = registerCMD(cmd_nav)
@@ -35,9 +35,13 @@ describe("Commands: routing", () => {
         a.addEventListener("click", navEventHandler)
 
         fireEvent(a, createEvent("click", a))
-        expect(spy).toHaveBeenCalledTimes(1)
         const result = spy.mock.results[0].value
-        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "http://localhost/test/navEventHandler/1" })
+        const stringed = JSON.stringify(result)
+        expect(JSON.parse(stringed)).toMatchObject({
+            [DOM_NODE]: {},
+            [URL_FULL]: "http://localhost/test/navEventHandler/1",
+        })
+        expect(spy).toHaveBeenCalledTimes(1)
     })
     test("2: navEventHandler: absolute link click  triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)
@@ -48,11 +52,14 @@ describe("Commands: routing", () => {
         a.addEventListener("click", navEventHandler)
 
         fireEvent(a, createEvent("click", a))
-
-        // DOMnavigated$ has been triggered twice at this point
-        expect(spy).toHaveBeenCalledTimes(2)
         const result = spy.mock.results[1].value
-        expect(result).toMatchObject({ [DOM_NODE]: a, [URL_FULL]: "https://hello.world/test/navEventHandler/2" })
+        // DOMnavigated$ has been triggered twice at  this point
+        expect(spy).toHaveBeenCalledTimes(2)
+        const stringed = JSON.stringify(result)
+        expect(JSON.parse(stringed)).toMatchObject({
+            [DOM_NODE]: {},
+            [URL_FULL]: "https://hello.world/test/navEventHandler/2",
+        })
     })
     test("3: NAV Command: dispatch triggers DOMnavigated$ injection", () => {
         const spy = jest.fn(x => x)

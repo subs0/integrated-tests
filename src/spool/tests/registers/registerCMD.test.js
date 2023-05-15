@@ -1,6 +1,6 @@
 import { stream } from "@thi.ng/rstream"
 import { CMD_SUB$, CMD_ARGS, CMD_RESO, CMD_ERRO, CMD_SRC$, CMD_WORK } from "@-0/keys"
-
+import { jest, expect, test, describe, beforeEach } from "@jest/globals"
 import { log$, registerCMD } from "../../src/registers"
 import { run$, out$ } from "../../src/core"
 
